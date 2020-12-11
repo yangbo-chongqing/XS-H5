@@ -1,0 +1,25 @@
+// 公共样式
+html,
+body {
+  overflow-x: hidden;
+}
+em{
+  font-style: normal;
+}
+textarea {
+  resize: none;
+}
+::-webkit-scrollbar{
+  width: 0px;
+  background: transparent;
+}
+img{
+  user-select:none;
+  -webkit-user-select:none;
+  pointer-events: none;
+}
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+  
+  color: $font-color-light-gray;
+}

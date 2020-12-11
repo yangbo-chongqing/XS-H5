@@ -1,0 +1,158 @@
+.h-container {
+    .muse-head{
+        width: 100%;
+        height: 110px;
+        overflow: hidden;
+        img{
+            width: 100%;
+        }
+    }  
+    .muse-name{
+        margin-top: 20px;
+        width: 100%;
+        height: 90px;
+        padding: 0px 20px;
+        box-sizing: border-box;
+        .muse-name-body{
+            width: 100%;
+            height: 90px;
+            background: white;
+            box-shadow: 0px 0px 10px #e9e9e9;
+            border-radius: 10px;
+            padding: 10px;
+            box-sizing: border-box;
+            display: flex;
+            .muse-name-body-logo{
+                width: 70px;
+                height: 70px;
+                background: white;
+                border: 1px solid #e5e5e5;
+                border-radius: 10px;
+                padding: 10px;
+                box-sizing: border-box;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-shrink: 0;
+                img{
+                    width: 100%;
+                    height:100%;
+                    object-fit: cover;
+                }
+            }
+            .muse-name-body-info{
+                width: 250px;
+                margin-left: 10px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
+                .app-view-head-title {
+                    font-size: 16px;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    overflow: hidden;
+                }
+                .app-audio-box{
+                    width: 75px;
+                    height: 25px;
+                    color: white;
+                    display: flex;
+                    align-items: center;
+                    background: #5287fd;
+                    border-radius: 999px;
+                    font-size: 13px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-around;
+                    padding: 0 10px;
+                }
+            }
+            
+        }
+    }  
+    .app-video-box{
+        width: 100%;
+        height: auto;
+        position: relative;
+        display: flex;
+        padding: 20px 20px 0 20px;
+        box-sizing: border-box;
+        
+        border-radius: 10px;
+        overflow: hidden;
+        .my-video {
+            width: 100%;
+            height: 190px;
+            box-shadow: 0px 0px 10px #ccc;
+            border-radius: 10px;
+        }
+        .video-play-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            z-index: 999;
+            color: white;
+        }
+    }
+    .app-data-box{
+        margin-top: 15px;
+        .find-page-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            .find-page-title-text {
+                font-size: 16px;
+                font-weight: bold;
+                box-sizing: border-box;
+            }
+            .find-page-title-sel {
+                display: flex;
+                font-size: 14px;
+                align-items: center;
+                .find-page-title-more {
+                    display: flex;
+                    color: #999999;
+                    align-items: center;
+                    padding: 3px 0;
+                }
+            }
+        }
+        .find-page-tj {
+            width: 100%;
+            padding: 0 20px;
+            box-sizing: border-box;
+            margin-top: 15px;
+        }
+        .fint-tj-list {
+            width: 100%;
+            display: flex;
+            margin-bottom: 10px;
+            .find-tj-imgs {
+                width: 95px;
+                height: 95px;
+                border-radius: 10px;
+                object-fit: cover;
+            }
+            .find-tj-text {
+                width: 250px;
+                margin-left: 20px;
+                .find-tj-title {
+                    font-size: 16px;
+                    font-weight: bold;
+                    margin: 10px 0;
+                }
+                .find-tj-midas {
+                    font-size: 14px;
+                    color: #999;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    display: -webkit-box;
+                    -webkit-line-clamp: 2;
+                    -webkit-box-orient: vertical;
+                }
+            }
+        }
+    }
+}

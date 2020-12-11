@@ -1,0 +1,118 @@
+body,
+html {
+  font-family: 'PingFangSC', 'Microsoft Yahei', Helvetica, Arial, 'sans-serif';
+  color: #333;
+}
+body {
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+  -webkit-user-select: none;
+  color: #333;
+}
+textarea {
+  resize: none;
+}
+.van-icon__image{
+  width: 100px;
+  height: 100px;
+}
+.van-toast--middle{
+  background: white;
+  box-shadow: 0px 0px 5px #ccc;
+}
+.van-toast--text{
+  background: rgba(50,50,51,.88);
+  box-shadow:none;
+}
+.van-image-preview{
+  .van-image-preview__close-icon--top-right{
+    top: 50px;
+  }
+  .van-image-preview__index{
+    top: 50px;
+  }
+}
+::-webkit-scrollbar{
+  width: 0px;
+  background: transparent;
+}
+img{
+  user-select:none;
+  -webkit-user-select:none;
+  pointer-events: none;
+}
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+  
+  color: $font-color-light-gray;
+}
+blockquote,
+body,
+button,
+dd,
+dl,
+dt,
+fieldset,
+form,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+header,
+hr,
+input,
+legend,
+li,
+nav,
+ol,
+p,
+pre,
+td,
+textarea,
+th,
+ul {
+  margin: 0;
+  padding: 0;
+}
+button,
+em,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+input,
+p,
+span,
+strong,
+textarea {
+  font-size: 100%;
+  font-weight: 400;
+}
+ol,
+ul,
+li {
+  list-style: none;
+}
+a {
+  -webkit-tap-highlight-color: transparent;
+  color: inherit;
+}
+a,
+a:hover {
+  text-decoration: none;
+}
+button,
+input,
+select,
+textarea {
+  font-size: 100%;
+  outline: none;
+}
+* {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-tap-highlight-color: transparent;
+}

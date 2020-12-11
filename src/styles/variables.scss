@@ -1,0 +1,18 @@
+// 样式公共变量
+$max-body-width: 750px;
+$prime-color: #eb5a55; // 主题色（无渐变）
+$warning-color: #f49a59; // 警告色
+$error-color: #e75151; // 错误色
+$prime-gradient-color: linear-gradient(to left, #bbf2ff, #b0efff); // 主题色（渐变）
+$prime-gradient-ttb-color: linear-gradient(to bottom, #bbf2ff, #b0efff); // 主题色（从上到下渐变）
+$background-color-light: #ffffff; // 背景白色
+$background-color-gray: #f8f8f8; // 背景灰色
+$line-color-gray: #f1f1f1; // 分割线浅灰色
+$font-color-dark: #666666; // 默认字体颜色
+$font-color-gray: #949494; // 字体灰色
+$font-color-light-gray: #a5afbb; // 字体浅灰色
+$font-color-light: #ffffff; // 字体白色
+$center-padding-small: 0.24rem;
+$center-padding-large: 0.48rem;
+
+// $nav-bottom-tab-height: 1.12rem; // 底部tab导航高度
