@@ -44,7 +44,8 @@ export default {
     relicsInfo() { 
       this.relicsDataInfo = '';
       let params = {
-        relics_id:this.id
+        relics_id: this.id,
+        preview:1
       }
       api.postRelicsInfo(this.qs.stringify(params)).then((res) => {
         if (res.status == 200) {
@@ -96,8 +97,10 @@ export default {
     playAudio() {
       let myaudio = this.$refs.myaudio;
       let myVideo = this.$refs.myVideo;
-      this.videoFlag = true;
-      myVideo.pause();
+      if (myVideo) { 
+        this.videoFlag = true;
+        myVideo.pause();
+      }
       if (this.playFlag) {
         myaudio.play()
       } else {

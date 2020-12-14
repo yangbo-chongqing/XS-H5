@@ -48,7 +48,7 @@
     <div class="app-info-box">
       <div class="app-info-title">
         {{ relicsDataInfo.name }}
-        <div
+        <!-- <div
           class="app-info-link"
           v-if="relicsDataInfo.is_like == 0"
           bindtap="linkFn"
@@ -59,7 +59,7 @@
         </div>
         <div class="app-info-link active" v-else bindtap="linkFn">
           <van-icon size="25" name="good-job-o" />{{ relicsDataInfo.likes }}
-        </div>
+        </div> -->
       </div>
       <div
         class="app-info-text"

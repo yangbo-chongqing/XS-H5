@@ -32,11 +32,12 @@
           v-if="museDataInfo.info.video_url"
           ref="myVideo"
           class="my-video"
-          autoplay
           x5-playsinline
+          controls
           playsinline
           webkit-playsinline
           :src="museDataInfo.info.video_url"
+          poster="museDataInfo.info.video_head"
           @click="videoPause"
           loop
         ></video>
