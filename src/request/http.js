@@ -3,7 +3,7 @@ import md5 from 'js-md5';
 import { Toast } from 'vant';
 axios.defaults.timeout = 15000;//超时时间
 //线上地址
-// axios.defaults.baseURL = 'https://xsdt.xunsheng.org.cn/'
+axios.defaults.baseURL = 'https://xsdt.xunsheng.org.cn/'
 axios.interceptors.request.use(
   config => {
     let ts = parseInt(new Date().getTime() / 1000);
