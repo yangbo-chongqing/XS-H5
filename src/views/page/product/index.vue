@@ -10,7 +10,7 @@
        <div class="product-tip"><label>生产厂家：</label><span>{{dataInfo.factory}}</span></div>
      </div>
      <div class="product-in-list">
-       <div class="product-in-item" @click="jumpRoute('/pdf',{pdfurl:pdfUrl})">
+       <div class="product-in-item" v-if="pdfUrl" @click="jumpRoute('/pdf',{pdfurl:pdfUrl})">
          <span><van-icon name="orders-o" color="#739efe" /></span>
          <p>原厂说明书</p>
          <span class="right"><van-icon name="arrow" /></span>
