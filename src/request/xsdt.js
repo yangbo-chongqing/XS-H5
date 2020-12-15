@@ -19,6 +19,14 @@ const api = {
             data: params,
         });
     },
+    //产品详情
+    postDetails(params) {
+        return http({
+            method: 'post',
+            url: '/api/product/details',
+            data: params,
+        });
+    },
 }
 export default api;
 
