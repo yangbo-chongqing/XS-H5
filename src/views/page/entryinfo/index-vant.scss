@@ -6,10 +6,23 @@
         }
     }
     .app-info-htmlCont{
- a {
+        a{
             color: deepskyblue;
             word-break: break-all;
             overflow: auto;
+        }
+        p{
+            margin-bottom: 40rpx;
+            color: #333;
+            line-height: 180%;
+        }
+        img{
+            max-width: 100%;
+        }
+        div{
+            margin-bottom: 40rpx;
+            color: #333;
+            line-height: 180%;
         }
     }
    
