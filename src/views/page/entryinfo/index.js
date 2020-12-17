@@ -1,5 +1,5 @@
 import api from '@/request/xsdt';
-import { Icon, Col, Row, Swipe, SwipeItem } from 'vant';
+import { Icon, Col, Row, Swipe, SwipeItem,NavBar  } from 'vant';
 export default {
   name:'Home',
   components: {
@@ -7,7 +7,8 @@ export default {
     VanCol: Col,
     VanRow: Row,
     VanSwipe: Swipe,
-    VanSwipeItem: SwipeItem
+    VanSwipeItem: SwipeItem,
+    VanNavBar:NavBar
   },
   data() {
     return {
@@ -41,6 +42,9 @@ export default {
         }
       })  
     },
+    back(){
+      this.$router.go(-1);
+    },
     relicsInfo() { 
       this.relicsDataInfo = '';
       let params = {
@@ -56,6 +60,8 @@ export default {
               item.playFlag = true;
             })
           }
+          let url = window.location.href;
+          this.$global.shareToWechat(res.data.info.share_title, url, res.data.info.share_image, res.data.info.share_content)
           document.title = res.data.info.name
         }
       });

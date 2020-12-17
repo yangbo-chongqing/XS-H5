@@ -1,5 +1,12 @@
 <template>
   <div class="h-container" v-if="relicsDataInfo">
+    <van-nav-bar
+    fixed
+  :title="relicsDataInfo.name"
+  left-text="返回"
+  left-arrow
+  @click-left="back"
+/>
     <div class="app-video-box" v-if="relicsDataInfo.video_url">
       <div class="com-video">
         <div
@@ -48,6 +55,7 @@
     <div class="app-info-box">
       <div class="app-info-title">
         {{ relicsDataInfo.name }}
+        <span v-if="relicsDataInfo.author">作者：{{relicsDataInfo.author}}</span>
         <!-- <div
           class="app-info-link"
           v-if="relicsDataInfo.is_like == 0"

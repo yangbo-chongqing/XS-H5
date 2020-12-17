@@ -13,6 +13,8 @@ export default {
       museDataInfo: '',
       playFlag: true,
       videoFlag: false,
+      isShowMore: false,
+      isDescStatus: true,
     }
   },
   computed: {
@@ -25,6 +27,14 @@ export default {
     this.museinfo()
   },
   methods: {
+    showmoreDesc(e) {
+      let el = e.currentTarget;
+      el.previousElementSibling.classList[!this.isDescStatus ? 'add' : 'remove']('overflow-line');
+      el.classList[this.isDescStatus ? 'add' : 'remove']('more-collapse');
+      el.innerHTML = !this.isDescStatus ? '...详情' : '收起';
+      this.isDescStatus = !this.isDescStatus;
+      this.isShowMore = true;
+    },
     //页面跳转
     jumpRoute(path, obj) {
       this.$router.push({
@@ -41,7 +51,10 @@ export default {
       api.postMuseIndex(this.qs.stringify(params)).then((res) => {
         if (res.status == 200) {
           this.museDataInfo = res.data;
-          document.title = res.data.info.muse_name
+          document.title = res.data.info.muse_name;
+          if (this.museDataInfo.info.Introduction.length > 70) {
+            this.isShowMore = true;
+          }
         }
       });
     },

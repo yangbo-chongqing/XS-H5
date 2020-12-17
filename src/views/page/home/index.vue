@@ -23,6 +23,12 @@
         </div>
       </div>
     </div>
+    <div class="m-content-body" v-if="museDataInfo.info.Introduction">
+      <p class="m-content overflow-line" id="J_description">{{museDataInfo.info.Introduction}}</p>
+      <button type="button" class="btn-more" v-if="isShowMore" id="J_btnmore" @click="showmoreDesc($event)">...详情</button>
+    </div>
+
+
     <div class="app-video-box">
       <div class="com-video" v-if="museDataInfo.info.video_url">
         <div class="video-play-btn" v-if="videoFlag" @click="videoPause">

@@ -59,6 +59,11 @@
             font-weight: 600;
             display: flex;
             justify-content: space-between;
+            span{
+                margin-left:auto ;
+                font-size: 13px;
+                color: #999;
+            }
             .app-info-link {
                 height: 30px;
                 font-size: 14px;
