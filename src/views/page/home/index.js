@@ -51,9 +51,13 @@ export default {
       api.postMuseIndex(this.qs.stringify(params)).then((res) => {
         if (res.status == 200) {
           this.museDataInfo = res.data;
+          let url = window.location.href;
+          this.$global.shareToWechat(res.data.info.share_title, url, res.data.info.share_image, res.data.info.share_content)
           document.title = res.data.info.muse_name;
-          if (this.museDataInfo.info.Introduction.length > 70) {
-            this.isShowMore = true;
+          if(this.museDataInfo.info.Introduction){
+            if (this.museDataInfo.info.Introduction.length > 70) {
+              this.isShowMore = true;
+            }
           }
         }
       });
