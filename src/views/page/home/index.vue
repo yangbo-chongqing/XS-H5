@@ -29,8 +29,8 @@
     </div>
 
 
-    <div class="app-video-box">
-      <div class="com-video" v-if="museDataInfo.info.video_url">
+    <div class="app-video-box" v-if="museDataInfo.info.video_url">
+      <div class="com-video">
         <div class="video-play-btn" v-if="videoFlag" @click="videoPause">
           <van-icon name="play-circle-o" size="80" />
         </div>

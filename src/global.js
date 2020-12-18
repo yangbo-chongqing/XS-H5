@@ -179,14 +179,11 @@ const vglobal = function (_this) {
       console.log(shareLink);
       console.log(shareImgUrl);
       console.log(shareDesc);
-      if (window.location.hostname == 'test.xunsheng.org.cn') {
-        shareTitle = '测试·' + shareTitle;
-      }
       let params = {
         url: location.href.split('#')[0]
       };
       axios.post("/api/jssdk", qs.stringify(params)).then((data) => {
-        if (data.data.code == 200) {
+        if (data.data.status == 200) {
           wx.config({
             debug: false,
             appId: data.data.data.appId,
@@ -227,7 +224,6 @@ const vglobal = function (_this) {
               link: shareLink,
               imgUrl: shareImgUrl,
               success: function () {
-                console.log(1111111111111111);
                 // 用户确认分享后执行的回调函数
               },
               cancel: function () {
