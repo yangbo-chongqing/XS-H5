@@ -25,7 +25,7 @@
     </div>
     <div class="m-content-body" v-if="museDataInfo.info.Introduction">
       <p class="m-content overflow-line" id="J_description">{{museDataInfo.info.Introduction}}</p>
-      <button type="button" class="btn-more" v-if="isShowMore" id="J_btnmore" @click="showmoreDesc($event)">...详情</button>
+      <button type="button" class="btn-more" v-if="isShowMore" id="J_btnmore" @click="showmoreDesc($event)">详情</button>
     </div>
 
 
@@ -56,10 +56,10 @@
             {{ item.type_name }}
           </div>
           <div class="find-page-title-sel">
-            <!-- <div class="find-page-title-more">
-              <div>更多</div>
+            <div class="find-page-title-more" @click="jumpRoute('/entrylist',{id:item.id,muse_id:museDataInfo.info.id})">
+              <div>更多{{museDataInfo.info.muse_id}}</div>
               <van-icon name="arrow" />
-            </div> -->
+            </div>
           </div>
         </div>
 

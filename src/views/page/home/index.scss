@@ -23,50 +23,14 @@
           overflow: hidden;
         }
       }
-    
       .btn-more {
-        color: #fff;
         color: #5383E7;
         position: absolute;
         right: 20px;
         bottom: 23px;
         border: none;
         font-size: 14px;
-        background: white;
-        &.more-collapse {
-          &::after,
-          &::before {
-            top: 2px;
-            transform: rotate(180deg);
-          }
-    
-          &::before {
-            top: 4px;
-          }
-        }
-    
-        &::after,
-        &::before {
-          width: 0;
-          height: 0;
-          content: '';
-          position: absolute;
-          right: 0;
-          top: 7px;
-          border: rc(12) solid transparent;
-        }
-    
-        &::after {
-          border-top-color: #5383E7;
-          z-index: 1;
-        }
-    
-        &::before {
-          border-top-color: #1c2239;
-          z-index: 2;
-          top: 5px;
-        }
-    
+        background: linear-gradient(to right,rgba(255,255,255,0.5) 10%,rgba(255,255,255,1),rgba(255,255,255,1));
       }
     .com-video{
         width: 100%;

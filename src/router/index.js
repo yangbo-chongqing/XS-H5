@@ -14,6 +14,16 @@ const routes = [
   },
   {
     // 词条详情
+    path: '/entrylist',
+    name: 'EntryList',
+    component: () => import('@/views/page/entrylist/index.vue'),
+    meta: {
+      title: '寻声地图',
+      keepAlive: false,
+    },
+  },
+  {
+    // 词条详情
     path: '/entryinfo',
     name: 'Entryinfo',
     component: () => import('@/views/page/entryinfo/index.vue'),

@@ -31,7 +31,7 @@ export default {
       let el = e.currentTarget;
       el.previousElementSibling.classList[!this.isDescStatus ? 'add' : 'remove']('overflow-line');
       el.classList[this.isDescStatus ? 'add' : 'remove']('more-collapse');
-      el.innerHTML = !this.isDescStatus ? '...详情' : '收起';
+      el.innerHTML = !this.isDescStatus ? '详情' : '收起';
       this.isDescStatus = !this.isDescStatus;
       this.isShowMore = true;
     },

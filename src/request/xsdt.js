@@ -27,6 +27,14 @@ const api = {
             data: params,
         });
     },
+    //词条列表
+    postRelicsList(params) {
+        return http({
+            method: 'post',
+            url: '/api/Home/RelicsList',
+            data: params,
+        });
+    },
 }
 export default api;
 

@@ -175,13 +175,17 @@ const vglobal = function (_this) {
     },
     //微信分享
     shareToWechat(shareTitle, shareLink, shareImgUrl, shareDesc) {
+      console.log(shareTitle);
+      console.log(shareLink);
+      console.log(shareImgUrl);
+      console.log(shareDesc);
       if (window.location.hostname == 'test.xunsheng.org.cn') {
         shareTitle = '测试·' + shareTitle;
       }
       let params = {
         url: location.href.split('#')[0]
       };
-      axios.post("/api/activity/default/jssdk", qs.stringify(params)).then((data) => {
+      axios.post("/api/jssdk", qs.stringify(params)).then((data) => {
         if (data.data.code == 200) {
           wx.config({
             debug: false,

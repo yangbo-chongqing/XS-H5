@@ -1,12 +1,9 @@
 <template>
-  <div class="h-container" v-if="relicsDataInfo">
-    <van-nav-bar
-    fixed
-  :title="relicsDataInfo.name"
-  left-text="返回"
-  left-arrow
-  @click-left="back"
-/>
+  <div class="h-container" v-if="relicsDataInfo" :style="returnIcon?{'padding-top':'45px'}:''">
+    <div class="return-head" v-if="returnIcon">
+      <div class="return-head-home" @click="repHome"><van-icon name="wap-home-o" /></div>
+      <div class="return-head-text"><div class="retrun-head-logo"><img :src="relicsDataInfo.muse_info.logo" alt=""></div><p>{{relicsDataInfo.muse_info.muse_name}}</p></div>
+    </div>
     <div class="app-video-box" v-if="relicsDataInfo.video_url">
       <div class="com-video">
         <div
@@ -32,7 +29,7 @@
           :poster="relicsDataInfo.video_head"
           :src="relicsDataInfo.video_url"
           @click="playVideo"
-          @play = "playStatic"
+          @play="playStatic"
           loop
         ></video>
       </div>
@@ -45,17 +42,16 @@
         v-if="relicsDataInfo.voice_url"
       >
         <img src="@/assets/images/viuplay1.png" v-if="playFlag" />
-          <img src="@/assets/images/viuplay2.png" v-else />
-        <audio
-          :src="relicsDataInfo.voice_url"
-          ref="myaudio"
-        ></audio>
+        <img src="@/assets/images/viuplay2.png" v-else />
+        <audio :src="relicsDataInfo.voice_url" ref="myaudio"></audio>
       </div>
     </div>
     <div class="app-info-box">
       <div class="app-info-title">
         {{ relicsDataInfo.name }}
-        <span v-if="relicsDataInfo.author">作者：{{relicsDataInfo.author}}</span>
+        <span v-if="relicsDataInfo.author"
+          >作者：{{ relicsDataInfo.author }}</span
+        >
         <!-- <div
           class="app-info-link"
           v-if="relicsDataInfo.is_like == 0"
@@ -107,7 +103,10 @@
               v-for="(sitem, sindex) in relicsDataInfo.related_list"
               :key="sindex + 'sitem'"
             >
-              <div class="swiper-item" @click="jumpRoute('/entryinfo',{id:sitem.id})">
+              <div
+                class="swiper-item"
+                @click="jumpRoute('/entryinfo', { id: sitem.id })"
+              >
                 <div class="images">
                   <img class="images-img" :src="sitem.image" />
                 </div>
@@ -133,9 +132,9 @@
           class="app-info-ta-item"
           v-for="(hitem, hindex) in relicsDataInfo.history_list"
           :key="hindex"
-          @click="jumpRoute('/entryinfo',{id:hitem.id})"
+          @click="jumpRoute('/entryinfo', { id: hitem.id })"
         >
-          <div class="app-info-ta-title"  >
+          <div class="app-info-ta-title">
             <div class="app-info-ta-title-left">
               <div class="app-info-jump-item-text">{{ hitem.name }}</div>
             </div>

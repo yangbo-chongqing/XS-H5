@@ -1,14 +1,14 @@
 import api from '@/request/xsdt';
-import { Icon, Col, Row, Swipe, SwipeItem,NavBar  } from 'vant';
+import { Icon, Col, Row, Swipe, SwipeItem, NavBar } from 'vant';
 export default {
-  name:'Home',
+  name: 'Home',
   components: {
     VanIcon: Icon,
     VanCol: Col,
     VanRow: Row,
     VanSwipe: Swipe,
     VanSwipeItem: SwipeItem,
-    VanNavBar:NavBar
+    VanNavBar: NavBar
   },
   data() {
     return {
@@ -16,12 +16,16 @@ export default {
       relicsDataInfo: '',
       playFlag: true,
       videoFlag: true,
+      returnIcon: false,
     }
   },
   computed: {
-   
+
   },
-  created () {
+  created() {
+    if (window.history.length <= 1) {
+      this.returnIcon = true
+    }
   },
   mounted() {
     this.relicsInfo()
@@ -40,16 +44,22 @@ export default {
         query: {
           ...obj
         }
-      })  
+      })
     },
-    back(){
-      this.$router.go(-1);
+    //重定向到首页
+    repHome(){
+      this.$router.replace({
+        path:'/home',
+        query:{
+          muse_id:this.relicsDataInfo.muse_id
+        }
+      })
     },
-    relicsInfo() { 
+    relicsInfo() {
       this.relicsDataInfo = '';
       let params = {
         relics_id: this.id,
-        preview:1
+        preview: 1
       }
       api.postRelicsInfo(this.qs.stringify(params)).then((res) => {
         if (res.status == 200) {
@@ -88,14 +98,14 @@ export default {
       })
       if (this.relicsDataInfo.history_list[index].playFlag) {
         voicelist[index].play();
-      } else { 
+      } else {
         voicelist[index].pause();
       }
       this.relicsDataInfo.history_list[index].playFlag = !this.relicsDataInfo.history_list[index].playFlag;
       this.relicsDataInfo = Object.assign({}, this.relicsDataInfo)
       console.log(this.relicsDataInfo.history_list[index].playFlag);
     },
-    playStatic() { 
+    playStatic() {
       let myaudio = this.$refs.myaudio;
       this.playFlag = true;
       myaudio.pause()
@@ -103,7 +113,7 @@ export default {
     playAudio() {
       let myaudio = this.$refs.myaudio;
       let myVideo = this.$refs.myVideo;
-      if (myVideo) { 
+      if (myVideo) {
         this.videoFlag = true;
         myVideo.pause();
       }
