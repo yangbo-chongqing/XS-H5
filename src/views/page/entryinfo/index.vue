@@ -49,9 +49,7 @@
     <div class="app-info-box">
       <div class="app-info-title">
         {{ relicsDataInfo.name }}
-        <span v-if="relicsDataInfo.author"
-          >作者：{{ relicsDataInfo.author }}</span
-        >
+        
         <!-- <div
           class="app-info-link"
           v-if="relicsDataInfo.is_like == 0"
@@ -86,6 +84,21 @@
       v-if="relicsDataInfo.content"
       v-html="relicsDataInfo.content"
     ></div>
+    <div class="author-box">
+      <p>本文仅代表作者个人观点，不代表寻声地图立场</p>
+      <p>本文经授权发布，未经许可，请勿转载</p>
+      <div class="author-body">
+        <span v-if="relicsDataInfo.author"
+          >最近跟新：{{ relicsDataInfo.author }} ({{relicsDataInfo.create_time}})</span
+        >
+        <!-- <span><van-icon name="warn-o" />举报</span> -->
+      </div>
+      
+
+    </div>
+
+
+
     <div class="app-info-jump" v-if="relicsDataInfo.related_list.length > 0">
       <div class="app-info-title1">
         <div class="app-info-title-img">
