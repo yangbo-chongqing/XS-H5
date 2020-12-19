@@ -89,7 +89,7 @@
       <p>本文经授权发布，未经许可，请勿转载</p>
       <div class="author-body">
         <span v-if="relicsDataInfo.author"
-          >最近跟新：{{ relicsDataInfo.author }} ({{relicsDataInfo.create_time}})</span
+          >最近更新：{{ relicsDataInfo.author }} ({{relicsDataInfo.create_time}})</span
         >
         <!-- <span><van-icon name="warn-o" />举报</span> -->
       </div>

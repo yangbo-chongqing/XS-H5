@@ -65,8 +65,10 @@ export default {
     playAudio() {
       let myaudio = this.$refs.myaudio;
       let myVideo = this.$refs.myVideo;
-      this.videoFlag = true;
-      myVideo.pause();
+      if(myVideo){
+        this.videoFlag = true;
+        myVideo.pause();
+      }
       if (this.playFlag) {
         myaudio.play()
       } else { 
@@ -77,8 +79,10 @@ export default {
     videoPause() {
       let myaudio = this.$refs.myaudio;
       let myVideo = this.$refs.myVideo;
-      this.playFlag = true;
-      myaudio.pause()
+      if(myaudio){
+        this.playFlag = true;
+        myaudio.pause()
+      }
       if (this.videoFlag) {
         myVideo.play()
       } else {
