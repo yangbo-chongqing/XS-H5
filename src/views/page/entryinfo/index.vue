@@ -135,7 +135,7 @@
         <div class="app-info-title-img">
           <div class="app-info-title-left">
             <img src="@/assets/images/info-ta.png" />
-            <div class="app-info-titles">TA说</div>
+            <div class="app-info-titles">我与</div>
             <div class="app-info-texts">发现背后的故事</div>
           </div>
         </div>
