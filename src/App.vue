@@ -1,10 +1,11 @@
 <template>
-  <div>
+  <div class="xsdt">
     <keep-alive>
       <router-view v-if="$route.meta.keepAlive"></router-view>
     </keep-alive>
     <router-view v-if="!$route.meta.keepAlive"></router-view>
     <!-- <open-app v-if="isApp"></open-app> -->
+    <xsdtfooter />
   </div>
 </template>
 
@@ -17,6 +18,7 @@ import { mapGetters } from "vuex";
 import { getURLlist } from "@/utils/utils";
 import { Toast } from "vant";
 import openApp from "@/components/openApp";
+import xsdtfooter from '@/components/xsdtfooter'
 export default {
   data() {
     return {
@@ -29,6 +31,7 @@ export default {
   },
   components: {
     openApp,
+    xsdtfooter
   },
   watch: {
     $route: {
@@ -63,4 +66,10 @@ export default {
 
 <style lang="scss">
 @import "@/styles/reset.scss";
+.xsdt{
+  position: relative;
+  padding-bottom:50px;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
 </style>
