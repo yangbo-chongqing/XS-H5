@@ -23,6 +23,16 @@ const routes = [
     },
   },
   {
+    // 举报
+    path: '/report',
+    name: 'Report',
+    component: () => import('@/views/page/report/index.vue'),
+    meta: {
+      title: '寻声地图',
+      keepAlive: false,
+    },
+  },
+  {
     // 词条详情
     path: '/entryinfo',
     name: 'Entryinfo',
