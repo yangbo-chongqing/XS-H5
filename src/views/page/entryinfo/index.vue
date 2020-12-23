@@ -91,7 +91,7 @@
         <span v-if="relicsDataInfo.author"
           >最近更新：{{ relicsDataInfo.author }} ({{relicsDataInfo.create_time}})</span
         >
-        <span @click="jumpRoute('/report',{id:id})"><van-icon name="warn-o" />举报</span>
+        <span @click="jumpRoute('/report',{id:id,muse_id:relicsDataInfo.muse_id})"><van-icon name="warn-o" />举报</span>
       </div>
       
 

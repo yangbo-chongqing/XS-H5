@@ -9,6 +9,7 @@ export default {
   data() {
     return {
       id: this.$route.query.id,
+      muse_id:this.$route.query.muse_id,
       message:'',
       contact:'',
       loading:false,
@@ -39,6 +40,21 @@ export default {
     //提交举报
     sumbitReport(){
       this.loading = true;
+      let params = {
+        muse_id:this.muse_id,
+        phone: this.contact,
+        content: this.message,
+        service_id:this.id
+      }
+      api.postReportAdd(this.qs.stringify(params)).then((res) => {
+        if (res.status == 200) {
+          this.loading = false;
+          this.$toast('举报成功');
+        }
+      });
+
+
+
       this.back();
     },
     //页面跳转
@@ -52,28 +68,6 @@ export default {
     },
     back() {
       this.$router.go(-1);
-    },
-    onLoad() {
-      // 异步更新数据
-      // setTimeout 仅做示例，真实场景中一般为 ajax 请求
-      let params = {
-        type_id: this.id,
-        muse_id:this.muse_id,
-        page: this.page,
-        page_size: 10
-      }
-      api.postRelicsList(this.qs.stringify(params)).then((res) => {
-        if (res.status == 200) {
-          this.loading = false;
-          this.list = this.list.concat(res.data.list)
-          if(res.data.list.length<10){
-            this.finished = true;
-          }else{
-            this.page++;
-          }
-          document.title = res.data.type_info.type_name
-        }
-      });
     },
   }
 };

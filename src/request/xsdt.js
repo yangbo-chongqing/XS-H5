@@ -3,6 +3,14 @@
  */
 import http from './http';
 const api = {
+    //词条举报
+    postReportAdd(params) {
+        return http({
+            method: 'post',
+            url: '/api/store/report/add',
+            data: params,
+        });
+    },
     //商户主页信息
     postMuseIndex(params) {
         return http({
