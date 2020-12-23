@@ -42,11 +42,11 @@
           controls
           playsinline
           webkit-playsinline
-          :src="museDataInfo.info.video_url"
-          poster="museDataInfo.info.video_head"
+          :poster="museDataInfo.info.video_head"
           @click="videoPause"
           loop
-        ></video>
+        >
+          <source :src="museDataInfo.info.video_url" type="video/mp4"></video>
       </div>
     </div>
     <div class="app-data-box">
