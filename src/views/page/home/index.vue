@@ -23,8 +23,8 @@
         </div>
       </div>
     </div>
-    <div class="m-content-body" v-if="museDataInfo.info.Introduction">
-      <p class="m-content overflow-line" id="J_description">{{museDataInfo.info.Introduction}}</p>
+    <div class="m-content-body" v-if="museDataInfo.info.introduction">
+      <p class="m-content overflow-line" id="J_description">{{museDataInfo.info.introduction}}</p>
       <button type="button" class="btn-more" v-if="isShowMore" id="J_btnmore" @click="showmoreDesc($event)">详情</button>
     </div>
 
