@@ -17,6 +17,7 @@
     "js-md5": "^0.7.3",
     "js-sha256": "^0.9.0",
     "mescroll.js": "^1.4.1",
+    "mint-ui": "^2.2.13",
     "moment": "^2.24.0",
     "node-sass": "^4.14.1",
     "sass-loader": "^8.0.0",
@@ -44,6 +45,6 @@
     "postcss-pxtorem": "^5.1.1",
     "sass-resources-loader": "^2.0.1",
     "vue-template-compiler": "^2.6.10",
-    "weixin-js-sdk": "^1.4.0-test"
+    "weixin-js-sdk": "^1.6.0"
   }
 }

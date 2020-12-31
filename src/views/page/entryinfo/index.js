@@ -1,6 +1,7 @@
 import api from '@/request/xsdt';
-import { Icon, Col, Row, Swipe, SwipeItem, NavBar , List } from 'vant';
-import fa from "element-ui/src/locale/lang/fa";
+import { Icon, Col, Row, Swipe, SwipeItem, NavBar , List  } from 'vant';
+import { showLoading, hideLoading } from '@/request/loading'
+
 export default {
   name: 'Home',
   components: {
@@ -10,7 +11,7 @@ export default {
     VanSwipe: Swipe,
     VanSwipeItem: SwipeItem,
     VanNavBar: NavBar,
-    VanList:List
+    VanList:List,
   },
   data() {
     return {
@@ -28,6 +29,7 @@ export default {
       error: false, 		// 是否加载失败
       refreshing: false,
       total:'',
+      fullscreenLoading:false,
     }
   },
   computed: {
@@ -36,7 +38,7 @@ export default {
   created() {
     if (window.history.length <= 1) {
       this.returnIcon = true
-    }
+    };
   },
   mounted() {
     this.relicsInfo();
@@ -52,21 +54,25 @@ export default {
   methods: {
     //页面跳转
     jumpRoute(path, obj) {
+      showLoading();
       this.$router.push({
         path: path,
         query: {
           ...obj
         }
       })
+      hideLoading();
     },
     //重定向到首页
     repHome(){
+      showLoading();
       this.$router.replace({
         path:'/home',
         query:{
           muse_id:this.relicsDataInfo.muse_id
         }
       })
+      hideLoading();
     },
     relicsInfo() {
       this.relicsDataInfo = '';
@@ -169,7 +175,7 @@ export default {
       });
     },
     onLoad() {
-      console.log(1)
+      // console.log(1)
       let data = {
         page: this.page,
         page_size: this.page_size,
@@ -179,7 +185,7 @@ export default {
       api.postComment(this.qs.stringify(data)).then((res) => {
         if (res.status == 200) {
           this.total = this.total+=res.data.list.length
-            console.log(res.data.list)
+            // console.log(res.data.list)
             for(let i = 0 ; i<res.data.list.length; i++){
               this.commentList.push(res.data.list[i]);
             }
@@ -197,6 +203,7 @@ export default {
         }
       });
     },
+
     onRefresh() {
       // 清空列表数据
       this.finished = false;
@@ -206,5 +213,17 @@ export default {
       this.loading = true;
       this.onLoad();
     },
+    enlargeImg(e){
+      console.log(e.target.tagName);
+      let a_html = e.target.parentNode;
+      console.log(a_html)
+      if(e.target.tagName == 'A'|| a_html.tagName == 'A' || e.target.tagName == null ){
+        console.log(1)
+        // showLoading();
+        this.fullscreenLoading = true;
+      }
+    }
+
+
   }
 };

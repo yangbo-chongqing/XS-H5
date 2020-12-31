@@ -430,20 +430,78 @@
                             justify-content: space-between;
                             margin-bottom: 6px;
                             .app-pl-hf-item-media{
-                                width: 60px;
-                                height: 60px;
+                                width: 50px;
+                                height: 50px;
                                 img{
-                                    width: 60px;
-                                    height: 60px;
+                                    width: 50px;
+                                    height: 50px;
                                     border-radius: 50%;
                                 }
                             }
                             .app-pl-hf-item-body{
-                                width: 240px;
+                                width: 220px;
                                 .app-pl-list-item-user{
                                     font-size:14px;
                                 }
+                                .pl-images-box{
+                                    width: 100%;
+                                    display: flex;
+                                    flex-wrap: wrap;
+                                }
+                                .pl-images{
+                                    width: 100px;
+                                    height: 100px;
+                                    flex-shrink: 0;
+                                    margin-right: 5px;
+                                }
+                                .app-pl-voice{
+                                    width: 120px;
+                                    height: 30px;
+                                    background: #5287fd;
+                                    border-radius: 999px 999px 999px 0;
+                                    display: flex;
+                                    align-items: center;
+                                    padding: 0 10px;
+                                    box-sizing: border-box;
+                                    span{
+                                        font-size: 14px;
+                                        color: #ffffff;
+                                        margin-left: 10px;
+                                    }
+                                    img{
+                                        width: 14px;
+                                        height: 15px;
+                                    }
+                                }
+                                .app-pl-list-item-cont{
+                                    font-size: 14px;
+                                    color: #333;
+                                    margin-top: 10px;
+                                }
+                                .app-pl-list-item-item1{
+                                    display: flex;
+                                    justify-content: space-between;
+                                    margin-top: 20px;
+                                    align-items: center;
+                                    .pl-time{
+                                        font-size: 14px;
+                                        color: #999;
+                                    }
+                                    .pl-tips{
+                                        display: flex;
+                                        color: #999;
+                                        align-items: center;
+                                        font-size: 16px;
+                                    }
+                                    .pl-hf{
+                                        margin-left: 10px;
+                                        display: flex;
+                                        align-items: center;
+                                        font-size: 16px;
+                                    }
+                                }
                             }
+
                         }
                     }
                 }

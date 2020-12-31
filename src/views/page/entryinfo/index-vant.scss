@@ -10,9 +10,13 @@
             color: deepskyblue;
             word-break: break-all;
             overflow: auto;
+            display: inline-flex;
+        }
+        video{
+            max-width: 100%;
         }
         p{
-            margin-bottom: 40rpx;
+            margin-bottom: 20px;
             color: #333;
             line-height: 180%;
         }
