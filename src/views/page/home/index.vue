@@ -27,8 +27,6 @@
       <p class="m-content overflow-line" id="J_description">{{museDataInfo.info.introduction}}</p>
       <button type="button" class="btn-more" v-if="isShowMore" id="J_btnmore" @click="showmoreDesc($event)">详情</button>
     </div>
-
-
     <div class="app-video-box" v-if="museDataInfo.info.video_url">
       <div class="com-video">
         <div class="video-play-btn" v-if="videoFlag" @click="videoPause">
