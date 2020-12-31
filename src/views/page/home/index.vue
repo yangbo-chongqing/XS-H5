@@ -28,8 +28,6 @@
       <button type="button" class="btn-more" v-if="isShowMore" id="J_btnmore" @click="showmoreDesc($event)">详情</button>
       <p v-if="museDataInfo.info.address" class="m-content" style="color: #999"><van-icon name="location-o" color ="#999"/>{{ museDataInfo.info.address }}</p>
     </div>
-
-
     <div class="app-video-box" v-if="museDataInfo.info.video_url">
       <div class="com-video">
         <div class="video-play-btn" v-if="videoFlag" @click="videoPause">
