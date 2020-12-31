@@ -1,5 +1,6 @@
 import api from '@/request/xsdt';
-import { Icon, Col, Row, Swipe, SwipeItem, NavBar } from 'vant';
+import { Icon, Col, Row, Swipe, SwipeItem, NavBar , List } from 'vant';
+import fa from "element-ui/src/locale/lang/fa";
 export default {
   name: 'Home',
   components: {
@@ -8,7 +9,8 @@ export default {
     VanRow: Row,
     VanSwipe: Swipe,
     VanSwipeItem: SwipeItem,
-    VanNavBar: NavBar
+    VanNavBar: NavBar,
+    VanList:List
   },
   data() {
     return {
@@ -17,6 +19,15 @@ export default {
       playFlag: true,
       videoFlag: true,
       returnIcon: false,
+      page: 1,
+      page_size: 10,
+      reply_id:'',
+      commentList:[],
+      loading: false,
+      finished: false,
+      error: false, 		// 是否加载失败
+      refreshing: false,
+      total:'',
     }
   },
   computed: {
@@ -28,7 +39,9 @@ export default {
     }
   },
   mounted() {
-    this.relicsInfo()
+    this.relicsInfo();
+    this.onLoad();
+    // this.getComment()
   },
   watch: {
     $route(to, from) {
@@ -64,6 +77,8 @@ export default {
       api.postRelicsInfo(this.qs.stringify(params)).then((res) => {
         if (res.status == 200) {
           this.relicsDataInfo = res.data.info;
+
+          console.log(this.relicsDataInfo);
           this.relicsDataInfo.introduction = this.trim(this.relicsDataInfo.introduction);
           if (res.data.info.history_list.length > 0) {
             res.data.info.history_list.map((item, index) => {
@@ -124,6 +139,72 @@ export default {
       }
       this.playFlag = !this.playFlag
     },
-    videoPause() { }
+    videoPause() { },
+    //获取评论详情
+    getComment() {
+      let data = {
+        page: this.page,
+        page_size: this.page_size,
+        relics_id: this.id,
+        reply_id:'',
+      }
+      api.postComment(this.qs.stringify(data)).then((res) => {
+        if (res.status == 200) {
+          if(res.data.list.length>0){
+            this.total = this.total+=res.data.list.length
+            // console.log(res.data.list)
+            for(let i = 0 ; i<res.data.list.length; i++){
+              this.commentList.push(res.data.list[i]);
+            }
+            // 加载状态结束
+            this.loading = false;
+            console.log(this.commentList)
+          }else {
+            // 数据全部加载完成
+            this.finished = true;
+
+          }
+
+        }
+      });
+    },
+    onLoad() {
+      console.log(1)
+      let data = {
+        page: this.page,
+        page_size: this.page_size,
+        relics_id: this.id,
+        reply_id:'',
+      }
+      api.postComment(this.qs.stringify(data)).then((res) => {
+        if (res.status == 200) {
+          this.total = this.total+=res.data.list.length
+            console.log(res.data.list)
+            for(let i = 0 ; i<res.data.list.length; i++){
+              this.commentList.push(res.data.list[i]);
+            }
+          this.page=data.page
+    //         console.log(this.commentList)
+        }
+        // 加载状态结束
+        this.loading = false;
+    //
+        // 数据全部加载完成
+        if (res.data.list.length <this.page_size) {
+          this.finished = true;
+        }else{
+          this.page++;
+        }
+      });
+    },
+    onRefresh() {
+      // 清空列表数据
+      this.finished = false;
+
+      // 重新加载数据
+      // 将 loading 设置为 true，表示处于加载状态
+      this.loading = true;
+      this.onLoad();
+    },
   }
 };

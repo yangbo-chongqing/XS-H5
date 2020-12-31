@@ -43,6 +43,14 @@ const api = {
             data: params,
         });
     },
+    //获取entryinfo 用户评论
+    postComment(params) {
+        return http({
+            method: 'post',
+            url: '/api/Home/RelicsCommentList',
+            data: params,
+        });
+    },
 }
 export default api;
 

@@ -49,7 +49,10 @@
     <div class="app-info-box">
       <div class="app-info-title">
         {{ relicsDataInfo.name }}
-        
+        <div class="app-info-title-content">
+          <van-icon size="25" name="good-job-o" />
+          <span class="">{{relicsDataInfo.likes}}</span>
+        </div>
         <!-- <div
           class="app-info-link"
           v-if="relicsDataInfo.is_like == 0"
@@ -178,6 +181,131 @@
         </div>
       </div>
     </div>
+<!--    用户评论   s-->
+    <div class="app-info-jump" v-if="commentList.length > 0">
+      <div class="app-info-title1">
+        <div class="app-info-title-img">
+          <div class="app-info-title-left">
+            <img src="@/assets/images/info-pl.png" />
+            <div class="app-info-titles">评论</div>
+          </div>
+        </div>
+      </div>
+      <div class="app-info-jump-list">
+        <template>
+          <div class="infinite-list-wrapper" >
+<!--            <van-pull-refresh v-model="refreshing" @refresh="onRefresh">-->
+            <van-list class="pl-cont-body"   v-model="loading"  :finished="finished" :immediate-check="false" finished-text="没有更多了" @load="onLoad">
+              <div class="app-pl-list-item" v-for="(sitem, index) in commentList" :key="index + 'index'">
+    <!--            用户头像-->
+                <div class="app-pl-list-item-media" >
+                  <img mode="aspectFill" :src="sitem.user_info.avatar">
+                </div>
+                <div class="app-pl-list-item-body">
+    <!--              用户名字-->
+                  <div class="app-pl-list-item-info">
+                    <div class="app-pl-list-item-user">
+                      <span class="app-pl-user">{{sitem.user_info.nickname}}</span>
+                      <span v-if="sitem.official==1" class="app-pl-tip">官方</span>
+                    </div>
+                  </div>
+    <!--              用户评论内容-->
+                  <div class="app-pl-list-item-cont">
+                    <div v-if="sitem.comment">{{sitem.comment}}</div>
+                    <div v-if="sitem.image">
+                      <div class="pl-images-box">
+                        <img class="pl-images" v-for="(imgList, j) in sitem.image" :for-item="imgList" :key="j"
+                             :data-index="j" :data-imgs="imgList" :src="imgList" alt="" >
+                      </div>
+                    </div>
+                    <div v-if="sitem.voice">
+                      <div class="app-pl-voice" :data-voice="sitem.voice">
+                        <img src="@/assets/images/playly-icon.png" mode="aspectFill">
+                        <span>{{sitem.duration}}</span>
+                      </div>
+                    </div>
+                  </div>
+    <!--              时间、点赞、回复-->
+                  <div class="app-pl-list-item-item">
+                    <div class="pl-time">{{sitem.create_time}}</div>
+                    <div class="pl-tips">
+                      <div class="app-pl-item-link" :style="{color:sitem.is_like==0?'':'#5287fd'}"
+                            :data-commentid='sitem.id' :data-index="index">
+                        <van-icon name="good-job-o" />
+                        {{sitem.likes>0?sitem.likes:''}}
+                      </div>
+                      <div class="pl-hf"  data-reply_id="sitem.id" :data-index="index"
+                            :data-username="sitem.user_info.nickname">
+                        <van-icon name="chat-o" />
+                      </div>
+                    </div>
+                  </div>
+<!--                  回复内容-->
+                  <div class="pl-hf-body" v-if="sitem.list.length>0">
+                    <div class="app-pl-hf-item" v-for="(replyItem,index_s) in item.list"  :key="index_s" >
+<!--                      用户头像-->
+                      <div class="app-pl-hf-item-media">
+                        <img mode="aspectFill" :src="replyItem.user_info.avatar">
+                      </div>
+<!--                      用户回复内容-->
+                      <div class="app-pl-hf-item-body">
+<!--                        谁给谁回复 用户名-->
+                        <div class="app-pl-hf-item-info">
+                          <div class="app-pl-list-item-user">
+                            <span class="app-pl-user">{{replyItem.user_info.nickname}}</span>回复
+                            <span class="app-pl-user">{{replyItem.reply_user_info.nickname}}</span>
+                          </div>
+                        </div>
+<!--                        回复内容-->
+                        <div class="app-pl-list-item-cont">
+                          <div class="app-pl-list-item-cont">
+                            <div v-if="replyItem.comment">{{replyItem.comment}}</div>
+                            <div v-if="replyItem.image">
+                              <div class="pl-images-box">
+                                <img class="pl-images" v-for="(imglist, jj) in replyItem.image" :for-item="imglist" :key="jj"
+                                     :data-index="jj" :data-imgs="imglist" :src="imglist" alt="" >
+                              </div>
+                            </div>
+                            <div v-if="imglist.voice">
+                                       <div class="app-pl-voice"  :data-voice="imglist.voice">
+                                <img src="@/assets/images/playly-icon.png" >
+                                <span>{{imglist.duration}}</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="app-pl-list-item-item1">
+                          <div class="pl-time">{{imglist.create_time}}</div>
+                          <div class="pl-tips">
+                            <div class="app-pl-item-link" :style="{color:imglist.is_like==0?'':'#ea7152'}"
+                                   :data-commentid='item.id' :data-index="index"
+                                  :data-itemindex="index_s">
+                              <van-icon name="good-job-o" />
+                              {{imglist.likes>0?imglist.likes:''}}
+                            </div>
+                            <div class="pl-hf" :data-reply_id="imglist.id" :data-index="index" :data-username="imglist.user_info.nickname">
+                              <van-icon name="chat-o" />
+                            </div>
+                          </div>
+                        </div>
+
+
+                      </div>
+
+
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </van-list>
+<!--            </van-pull-refresh>-->
+          </div>
+        </template>
+      </div>
+    </div>
+<!--    用户评论   j-->
+
   </div>
 </template>
 

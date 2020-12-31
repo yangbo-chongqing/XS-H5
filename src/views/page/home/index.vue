@@ -23,9 +23,10 @@
         </div>
       </div>
     </div>
-    <div class="m-content-body" v-if="museDataInfo.info.introduction">
+    <div class="m-content-body" v-if="museDataInfo.info">
       <p class="m-content overflow-line" id="J_description">{{museDataInfo.info.introduction}}</p>
       <button type="button" class="btn-more" v-if="isShowMore" id="J_btnmore" @click="showmoreDesc($event)">详情</button>
+      <p v-if="museDataInfo.info.address" class="m-content" style="color: #999"><van-icon name="location-o" color ="#999"/>{{ museDataInfo.info.address }}</p>
     </div>
 
 
@@ -49,6 +50,23 @@
           <source :src="museDataInfo.info.video_url" type="video/mp4"></video>
       </div>
     </div>
+
+    <div class="app-part-list" v-if="museDataInfo.info.part_list.length>0">
+      <div class="app-part-list-content" >
+        <div class="app-list-content" v-for="( item,index) in museDataInfo.info.part_list" :key="index" @click="jumpRoute('/entrylist',{id:item.id,muse_id:item.muse_id})">
+          <div class="app-list-content-img" >
+              <div>
+                <img :src="item.image" alt="">
+              </div>
+            </div>
+          <div class="app-list-content-title">
+              {{ item.part_name }}
+            </div>
+        </div>
+      </div>
+    </div>
+
+
     <div class="app-data-box">
       <div v-for="(item, index) in museDataInfo.list" :key="index + 'item'">
         <div class="find-page-title">
