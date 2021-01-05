@@ -34,7 +34,7 @@ export default {
       error: false, 		// 是否加载失败
       refreshing: false,
       total: '',
-      fullscreenLoading: false,
+      fullscreenLoading: '',
       madalshow: false,
       warnimg: '',
       dataDetail: {},
@@ -66,6 +66,7 @@ export default {
     $route(to, from) {
       this.id = this.$route.query.id;
       this.relicsInfo()
+      this.delEnlargeImg();
     },
     message: function () {
       console.log(1);
@@ -255,12 +256,17 @@ export default {
       let a_html = e.target.parentNode;
       console.log(e.target.tagName)
       if (e.target.tagName == 'A' || a_html.tagName == 'A' || e.target.tagName == null || e.target.parentElement.parentElement.tagName === 'A') {
-        const loading = this.$loading({
+        this.fullscreenLoading = this.$loading({
           lock: true,
           text: 'Loading',
           spinner: 'el-icon-loading',
           background: 'rgba(0, 0, 0, 0.7)'
         });
+      }
+    },
+    delEnlargeImg(){
+      if(this.fullscreenLoading){
+        this.fullscreenLoading.close();
       }
     },
     // 自定义事件
