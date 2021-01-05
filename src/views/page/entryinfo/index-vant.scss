@@ -6,6 +6,19 @@
         }
     }
     .app-info-htmlCont{
+        .aimg{
+            position: relative;
+            ::after{
+                content: "";
+                width: 25px;
+                height: 25px;
+                background: url(~@/assets/images/jump-icon.png) no-repeat;
+                background-size: cover;
+                position: absolute;
+                top: 5px;
+                right: 5px;
+            }
+        }
         a{
             color: deepskyblue;
             word-break: break-all;
