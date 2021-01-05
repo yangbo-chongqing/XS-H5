@@ -72,7 +72,18 @@ export default {
           }
           let url = window.location.href;
           this.$global.shareToWechat(res.data.info.share_title, url, res.data.info.share_image, res.data.info.share_content)
-          document.title = res.data.info.name
+          document.title = res.data.info.name;
+          this.$nextTick(()=>{
+            let htmlcont = this.$refs.htmlCont;
+            let aEl = htmlcont.querySelectorAll("a");
+            for(let i = 0;i<aEl.length;i++){
+              let imgEl = aEl[i].querySelectorAll("img");
+              if(imgEl.length>0){
+                aEl[i].classList.add("aimg")
+              }
+            }
+            
+          })
         }
       });
     },

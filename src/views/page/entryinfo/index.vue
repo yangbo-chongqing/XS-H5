@@ -82,6 +82,7 @@
     <div
       class="app-info-htmlCont"
       v-if="relicsDataInfo.content"
+      ref="htmlCont"
       v-html="relicsDataInfo.content"
     ></div>
     <div class="author-box">
