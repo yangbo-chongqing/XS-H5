@@ -40,6 +40,7 @@ export default {
       dataDetail:{},
       showImg:false,
       imgSrc: '',
+      placeholder: '请输入评论',
     }
   },
   computed: {
@@ -251,11 +252,11 @@ export default {
     },
     // 点击a标签出现loading
     enlargeImg(e){
-      console.log(e.target.tagName);
+      // console.log(e.target.tagName);
       let a_html = e.target.parentNode;
-      console.log(a_html)
+      // console.log(a_html)
       if(e.target.tagName == 'A'|| a_html.tagName == 'A' || e.target.tagName == null ){
-        console.log(1)
+        // console.log(1)
         // showLoading();
         const loading = this.$loading({
           lock: true,
@@ -268,14 +269,22 @@ export default {
     },
     // 自定义事件
     clickImg(e) {
-      console.log( e.currentTarget.childNodes)
-      for(let i = 0 ;  i<e.currentTarget.childNodes.length ; i++){
-        // console.log(e.currentTarget.childNodes[i].tagName)
-        if(e.currentTarget.childNodes[i].tagName == 'IMG'){
-          console.log(e.currentTarget.childNodes[i].src,'2')
-          this.showImg = true;
-          // 获取当前图片地址
-          this.imgSrc = e.currentTarget.childNodes[i].src;
+      console.log(e.target)
+      // console.log(e.target.querySelectorAll("img"),'2')
+      // console.log( e.currentTarget.querySelectorAll("img"))
+      for(let i = 0 ;  i<e.target.querySelectorAll("img").length ; i++){
+        // console.log(e.currentTarget.querySelectorAll("img")[i].tagName)
+        // 判断下面有没有img
+        if(e.target.querySelectorAll("img")[i].tagName == 'IMG'){
+          // console.log(e.currentTarget.childNodes[i].src,'2')
+          // 判断是不是有a标签
+          if(e.target.querySelectorAll("img")[i].parentNode.parentNode.tagName !== 'A' && e.target.querySelectorAll("img")[i].parentNode.tagName !=='A'){
+            // console.log( e.currentTarget.querySelectorAll("img")[i].parentNode.tagName)
+            this.showImg = true;
+            // 获取当前图片地址
+            this.imgSrc = e.target.querySelectorAll("img")[i].src;
+          }
+
         }
       }
       // this.showImg = true;
@@ -284,6 +293,10 @@ export default {
     },
     viewImg(){
       this.showImg = false;
+    },
+    // 点赞
+    linkFn(e){
+      console.log(e)
     }
 
   }

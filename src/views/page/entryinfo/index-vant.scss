@@ -8,7 +8,7 @@
     .app-info-htmlCont{
         .aimg{
             position: relative;
-            ::after{
+            &::after{
                 content: "";
                 width: 25px;
                 height: 25px;
@@ -23,7 +23,7 @@
             color: deepskyblue;
             word-break: break-all;
             overflow: auto;
-            display: inline-flex;
+            display: inline-block;
         }
         video{
             max-width: 100%;

@@ -50,7 +50,7 @@
     <div class="app-info-box">
       <div class="app-info-title">
         {{ relicsDataInfo.name }}
-        <div class="app-info-title-content">
+        <div class="app-info-title-content" @click="linkFn($event)">
           <van-icon size="25" name="good-job-o" />
           <span class="">{{relicsDataInfo.likes}}</span>
         </div>
@@ -83,7 +83,7 @@
         </div>
       </div>
     </div>
-    <div class="app-info-htmlCont" ref="htmlCont" v-if="relicsDataInfo.content" v-html="relicsDataInfo.content" @click="enlargeImg($event);"></div>
+    <div class="app-info-htmlCont" ref="htmlCont" v-if="relicsDataInfo.content" v-html="relicsDataInfo.content" @click="enlargeImg($event);clickImg($event)"></div>
     <div class="author-box">
       <p>本文仅代表作者个人观点，不代表寻声地图立场</p>
       <p>本文经授权发布，未经许可，请勿转载</p>
@@ -293,6 +293,22 @@
 
 
                     </div>
+
+                  </div>
+
+
+
+                </div>
+
+                <div class="pl-input-body">
+                  <div class="pl-send-text">
+                    <input :placeholder="placeholder" type="text" class="weui-input">
+                  </div>
+                  <div class="pl-send-img">
+                    <img src="@/assets/images/img-icon.png" alt="">
+                  </div>
+                  <div class="pl-send-ly">
+                    <button>回复</button>
                   </div>
                 </div>
               </div>
