@@ -24,6 +24,7 @@
             word-break: break-all;
             overflow: auto;
             display: inline-block;
+            vertical-align:middle;
         }
         video{
             max-width: 100%;
@@ -34,7 +35,7 @@
             line-height: 180%;
         }
         img{
-            max-width: 100%;
+            max-width: 100% !important;
             height: auto !important;
         }
         div{

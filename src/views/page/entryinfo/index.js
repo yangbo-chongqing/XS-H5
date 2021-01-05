@@ -1,6 +1,6 @@
 import api from '@/request/xsdt';
 import BigImg from './BigImg/bigImg.vue';
-import { Icon, Col, Row, Swipe, SwipeItem, NavBar , List  } from 'vant';
+import { Icon, Col, Row, Swipe, SwipeItem, NavBar, List } from 'vant';
 import { showLoading, hideLoading } from '@/request/loading'
 // import { Loading } from 'element-ui';
 import Viewer from "viewerjs";
@@ -14,9 +14,9 @@ export default {
     VanSwipe: Swipe,
     VanSwipeItem: SwipeItem,
     VanNavBar: NavBar,
-    VanList:List,
+    VanList: List,
     // Loading:Loading,
-    'big-img':BigImg
+    'big-img': BigImg
   },
   data() {
     return {
@@ -27,18 +27,18 @@ export default {
       returnIcon: false,
       page: 1,
       page_size: 10,
-      reply_id:'',
-      commentList:[],
+      reply_id: '',
+      commentList: [],
       loading: false,
       finished: false,
       error: false, 		// 是否加载失败
       refreshing: false,
-      total:'',
-      fullscreenLoading:false,
-      madalshow:false,
-      warnimg:'',
-      dataDetail:{},
-      showImg:false,
+      total: '',
+      fullscreenLoading: false,
+      madalshow: false,
+      warnimg: '',
+      dataDetail: {},
+      showImg: false,
       imgSrc: '',
       placeholder: '请输入评论',
     }
@@ -50,7 +50,7 @@ export default {
     if (window.history.length <= 1) {
       this.returnIcon = true
     };
-    this.render = true ;
+    this.render = true;
   },
   mounted() {
     this.relicsInfo();
@@ -67,7 +67,7 @@ export default {
       this.id = this.$route.query.id;
       this.relicsInfo()
     },
-    message:function() {
+    message: function () {
       console.log(1);
       this.$nextTick(() => {
         console.log(1);
@@ -91,12 +91,12 @@ export default {
       hideLoading();
     },
     //重定向到首页
-    repHome(){
+    repHome() {
       showLoading();
       this.$router.replace({
-        path:'/home',
-        query:{
-          muse_id:this.relicsDataInfo.muse_id
+        path: '/home',
+        query: {
+          muse_id: this.relicsDataInfo.muse_id
         }
       })
       hideLoading();
@@ -121,7 +121,7 @@ export default {
           let url = window.location.href;
           this.$global.shareToWechat(res.data.info.share_title, url, res.data.info.share_image, res.data.info.share_content)
           document.title = res.data.info.name;
-          this.$nextTick(()=> {
+          this.$nextTick(() => {
             let htmlcont = this.$refs.htmlCont;
             let aEl = htmlcont.querySelectorAll("a");
             for (let i = 0; i < aEl.length; i++) {
@@ -189,20 +189,20 @@ export default {
         page: this.page,
         page_size: this.page_size,
         relics_id: this.id,
-        reply_id:'',
+        reply_id: '',
       }
       api.postComment(this.qs.stringify(data)).then((res) => {
         if (res.status == 200) {
-          if(res.data.list.length>0){
-            this.total = this.total+=res.data.list.length
+          if (res.data.list.length > 0) {
+            this.total = this.total += res.data.list.length
             // console.log(res.data.list)
-            for(let i = 0 ; i<res.data.list.length; i++){
+            for (let i = 0; i < res.data.list.length; i++) {
               this.commentList.push(res.data.list[i]);
             }
             // 加载状态结束
             this.loading = false;
             console.log(this.commentList)
-          }else {
+          } else {
             // 数据全部加载完成
             this.finished = true;
 
@@ -217,25 +217,25 @@ export default {
         page: this.page,
         page_size: this.page_size,
         relics_id: this.id,
-        reply_id:'',
+        reply_id: '',
       }
       api.postComment(this.qs.stringify(data)).then((res) => {
         if (res.status == 200) {
-          this.total = this.total+=res.data.list.length
-            // console.log(res.data.list)
-            for(let i = 0 ; i<res.data.list.length; i++){
-              this.commentList.push(res.data.list[i]);
-            }
-          this.page=data.page
-    //         console.log(this.commentList)
+          this.total = this.total += res.data.list.length
+          // console.log(res.data.list)
+          for (let i = 0; i < res.data.list.length; i++) {
+            this.commentList.push(res.data.list[i]);
+          }
+          this.page = data.page
+          //         console.log(this.commentList)
         }
         // 加载状态结束
         this.loading = false;
-    //
+        //
         // 数据全部加载完成
-        if (res.data.list.length <this.page_size) {
+        if (res.data.list.length < this.page_size) {
           this.finished = true;
-        }else{
+        } else {
           this.page++;
         }
       });
@@ -251,51 +251,33 @@ export default {
       this.onLoad();
     },
     // 点击a标签出现loading
-    enlargeImg(e){
-      // console.log(e.target.tagName);
+    enlargeImg(e) {
       let a_html = e.target.parentNode;
-      // console.log(a_html)
-      if(e.target.tagName == 'A'|| a_html.tagName == 'A' || e.target.tagName == null ){
-        // console.log(1)
-        // showLoading();
+      if (e.target.tagName == 'A' || a_html.tagName == 'A' || e.target.tagName == null) {
         const loading = this.$loading({
           lock: true,
           text: 'Loading',
           spinner: 'el-icon-loading',
           background: 'rgba(0, 0, 0, 0.7)'
         });
-        // this.fullscreenLoading = true;
       }
     },
     // 自定义事件
     clickImg(e) {
-      console.log(e.target)
-      // console.log(e.target.querySelectorAll("img"),'2')
-      // console.log( e.currentTarget.querySelectorAll("img"))
-      for(let i = 0 ;  i<e.target.querySelectorAll("img").length ; i++){
-        // console.log(e.currentTarget.querySelectorAll("img")[i].tagName)
-        // 判断下面有没有img
-        if(e.target.querySelectorAll("img")[i].tagName == 'IMG'){
-          // console.log(e.currentTarget.childNodes[i].src,'2')
-          // 判断是不是有a标签
-          if(e.target.querySelectorAll("img")[i].parentNode.parentNode.tagName !== 'A' && e.target.querySelectorAll("img")[i].parentNode.tagName !=='A'){
-            // console.log( e.currentTarget.querySelectorAll("img")[i].parentNode.tagName)
-            this.showImg = true;
-            // 获取当前图片地址
-            this.imgSrc = e.target.querySelectorAll("img")[i].src;
-          }
-
-        }
+      console.log(e)
+      if (e.target.nodeName == 'IMG') {
+        if(e.target.parentElement.parentElement.tagName !== 'A' && e.target.parentElement.tagName !=='A'){
+          this.showImg = true;
+          // 获取当前图片地址
+          this.imgSrc = e.target.src;
+         }
       }
-      // this.showImg = true;
-      // 获取当前图片地址
-      // this.imgSrc = e.currentTarget.src;
     },
-    viewImg(){
+    viewImg() {
       this.showImg = false;
     },
     // 点赞
-    linkFn(e){
+    linkFn(e) {
       console.log(e)
     }
 
