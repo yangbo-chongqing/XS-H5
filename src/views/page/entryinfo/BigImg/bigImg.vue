@@ -3,7 +3,7 @@
   <transition name="fade">
     <div class="img-view" @click="bigImg">
       <!-- 遮罩层 -->
-      <div class="img-layer"></div>
+<!--      <div class="img-layer"></div>-->
       <div class="img">
         <img :src="imgSrc">
       </div>
@@ -38,31 +38,41 @@ export default {
 /* bigimg */
 
 .img-view {
-  position: relative;
+  position: fixed;
   width: 100%;
   height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-content: center;
 }
 
 /*遮罩层样式*/
-.img-view .img-layer {
-  position: fixed;
-  z-index: 999;
-  top: 0;
-  left: 0;
-  background: rgba(0, 0, 0, 0.7);
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
+/*.img-view .img-layer {*/
+/*  position: absolute;*/
+/*  z-index: 999;*/
+/*  top: 0;*/
+/*  left: 0;*/
+/*  */
+/*  width: 100%;*/
+/*  height: 100%;*/
+/*  overflow: hidden;*/
+/*}*/
+.img-view .img {
+  display: inline-block;
+  display: flex;
+  justify-content: center;
+  align-content: center;
 }
-
-/*不限制图片大小，实现居中*/
+  /*不限制图片大小，实现居中*/
 .img-view .img img {
   max-width: 100%;
   display: block;
-  position: absolute;
-  left: 0;
-  right: 0;
   margin: auto;
   z-index: 1000;
+
 }
 </style>

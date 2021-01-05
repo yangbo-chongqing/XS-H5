@@ -1,5 +1,4 @@
 import api from '@/request/xsdt';
-import a  from '../entryinfo/bigImg.vue';
 import { Icon, Col, Row, Swipe, SwipeItem, NavBar, List } from 'vant';
 export default {
   name: 'Home',

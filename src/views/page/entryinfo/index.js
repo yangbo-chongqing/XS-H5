@@ -1,6 +1,9 @@
 import api from '@/request/xsdt';
+import BigImg from './BigImg/bigImg.vue';
 import { Icon, Col, Row, Swipe, SwipeItem, NavBar , List  } from 'vant';
 import { showLoading, hideLoading } from '@/request/loading'
+// import { Loading } from 'element-ui';
+import Viewer from "viewerjs";
 
 export default {
   name: 'Home',
@@ -12,6 +15,8 @@ export default {
     VanSwipeItem: SwipeItem,
     VanNavBar: NavBar,
     VanList:List,
+    // Loading:Loading,
+    'big-img':BigImg
   },
   data() {
     return {
@@ -30,6 +35,11 @@ export default {
       refreshing: false,
       total:'',
       fullscreenLoading:false,
+      madalshow:false,
+      warnimg:'',
+      dataDetail:{},
+      showImg:false,
+      imgSrc: '',
     }
   },
   computed: {
@@ -39,16 +49,32 @@ export default {
     if (window.history.length <= 1) {
       this.returnIcon = true
     };
+    this.render = true ;
   },
   mounted() {
     this.relicsInfo();
     this.onLoad();
     // this.getComment()
+    // const ViewerDom = document.getElementById('app-images');
+    // const viewer = new Viewer(ViewerDom, {
+    //   // 配置
+    // })
+
   },
   watch: {
     $route(to, from) {
       this.id = this.$route.query.id;
       this.relicsInfo()
+    },
+    message:function() {
+      console.log(1);
+      this.$nextTick(() => {
+        console.log(1);
+        console.log(document.getElementById('images'))
+        let viewer2 = new Viewer(document.getElementById('app-images'), {
+          url: 'data-imgurl',
+        });
+      })
     }
   },
   methods: {
@@ -213,6 +239,7 @@ export default {
       this.loading = true;
       this.onLoad();
     },
+    // 点击a标签出现loading
     enlargeImg(e){
       console.log(e.target.tagName);
       let a_html = e.target.parentNode;
@@ -220,10 +247,34 @@ export default {
       if(e.target.tagName == 'A'|| a_html.tagName == 'A' || e.target.tagName == null ){
         console.log(1)
         // showLoading();
-        this.fullscreenLoading = true;
+        const loading = this.$loading({
+          lock: true,
+          text: 'Loading',
+          spinner: 'el-icon-loading',
+          background: 'rgba(0, 0, 0, 0.7)'
+        });
+        // this.fullscreenLoading = true;
       }
+    },
+    // 自定义事件
+    clickImg(e) {
+      console.log( e.currentTarget.childNodes)
+      for(let i = 0 ;  i<e.currentTarget.childNodes.length ; i++){
+        // console.log(e.currentTarget.childNodes[i].tagName)
+        if(e.currentTarget.childNodes[i].tagName == 'IMG'){
+          console.log(e.currentTarget.childNodes[i].src,'2')
+          this.showImg = true;
+          // 获取当前图片地址
+          this.imgSrc = e.currentTarget.childNodes[i].src;
+        }
+      }
+      // this.showImg = true;
+      // 获取当前图片地址
+      // this.imgSrc = e.currentTarget.src;
+    },
+    viewImg(){
+      this.showImg = false;
     }
-
 
   }
 };

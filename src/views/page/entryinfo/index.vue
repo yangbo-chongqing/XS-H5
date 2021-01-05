@@ -1,10 +1,6 @@
 <template>
+  <div class="h-container" v-if="relicsDataInfo" :style="returnIcon?{'padding-top':'45px'}:''" >
 
-  <div class="h-container" v-if="relicsDataInfo" :style="returnIcon?{'padding-top':'45px'}:''">
-    <template><el-table v-loading="fullscreenLoading"
-                        element-loading-text="拼命加载中"
-                        element-loading-spinner="el-icon-loading"
-                        element-loading-background="rgba(0, 0, 0, 0.8)" style="width: 100%;">
     <div class="return-head" v-if="returnIcon">
       <div class="return-head-home" @click="repHome"><van-icon name="wap-home-o" /></div>
       <div class="return-head-text"><div class="retrun-head-logo"><img :src="relicsDataInfo.muse_info.logo" alt=""></div><p>{{relicsDataInfo.muse_info.muse_name}}</p></div>
@@ -39,8 +35,8 @@
         ></video>
       </div>
     </div>
-    <div class="v-image-box" v-else>
-      <img class="v-image" mode="widthFix" :data-src="relicsDataInfo.image" :src="relicsDataInfo.image" />
+    <div class="v-image-box"  v-else  @click="clickImg($event)">
+        <img class="v-image"  mode="widthFix" :data-src="relicsDataInfo.image" :src="relicsDataInfo.image"  />
       <div
         class="v-image-audio"
         @click="playAudio"
@@ -199,7 +195,7 @@
             <van-list class="pl-cont-body"   v-model="loading"  :finished="finished" :immediate-check="false" finished-text="没有更多了" @load="onLoad">
               <div class="app-pl-list-item" v-for="(sitem, index) in commentList" :key="index + 'index'">
     <!--            用户头像-->
-                <div class="app-pl-list-item-media" >
+                <div class="app-pl-list-item-media" @click="clickImg($event)">
                   <img mode="aspectFill" :src="sitem.user_info.avatar">
                 </div>
                 <div class="app-pl-list-item-body">
@@ -214,7 +210,7 @@
                   <div class="app-pl-list-item-cont">
                     <div v-if="sitem.comment">{{sitem.comment}}</div>
                     <div v-if="sitem.image">
-                      <div class="pl-images-box">
+                      <div class="pl-images-box" @click="clickImg($event)">
                         <img class="pl-images" v-for="(imgList, j) in sitem.image" :for-item="imgList" :key="j"
                              :data-index="j" :data-imgs="imgList" :src="imgList" alt="" >
                       </div>
@@ -245,7 +241,7 @@
                   <div class="pl-hf-body" v-if="sitem.list.length>0">
                     <div class="app-pl-hf-item" v-for="(replyItem,index_s) in sitem.list"  :key="index_s" >
 <!--                      用户头像-->
-                      <div class="app-pl-hf-item-media">
+                      <div class="app-pl-hf-item-media" @click="clickImg($event)">
                         <img mode="aspectFill" :src="replyItem.user_info.avatar">
                       </div>
 <!--                      用户回复内容-->
@@ -262,7 +258,7 @@
                           <div class="app-pl-list-item-cont">
                             <div v-if="replyItem.comment">{{replyItem.comment}}</div>
                             <div v-if="replyItem.image">
-                              <div class="pl-images-box">
+                              <div class="pl-images-box" @click="clickImg($event)">
                                 <img class="pl-images" v-for="(imglist, jj) in replyItem.image" :for-item="imglist" :key="jj"
                                      :data-index="jj" :data-imgs="imglist" :src="imglist" alt="">
                               </div>
@@ -303,24 +299,24 @@
             </van-list>
 <!--            </van-pull-refresh>-->
           </div>
+
         </template>
       </div>
     </div>
+    <big-img v-if="showImg" @clickit="viewImg" :imgSrc="imgSrc"></big-img>
 <!--    用户评论   j-->
-
-
-    </el-table></template>
-
   </div>
 </template>
 
 <script>
 import Logic from "./index";
 
+
 export default Logic;
 </script>
 <style lang="scss">
 @import "./index-vant.scss";
+@import "./../../../../node_modules/viewerjs/dist/viewer.css";
 </style>
 <style scoped lang="scss">
 @import "./index.scss";
