@@ -15,6 +15,16 @@ const routes = [
     },
   },
   {
+    // 首页
+    path: '/entryvideo',
+    name: 'EntryVideo',
+    component: () => import('@/views/page/entryvideo/index.vue'),
+    meta: {
+      title: '视频预览',
+      keepAlive: false,
+    },
+  },
+  {
     // 词条详情
     path: '/entrylist',
     name: 'EntryList',
