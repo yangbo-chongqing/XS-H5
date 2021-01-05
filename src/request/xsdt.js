@@ -11,6 +11,14 @@ const api = {
             data: params,
         });
     },
+    //抖音分享信息
+    postDouyin(params) {
+        return http({
+            method: 'post',
+            url: '/api/web/douyin',
+            data: params,
+        });
+    },
     //商户主页信息
     postMuseIndex(params) {
         return http({
