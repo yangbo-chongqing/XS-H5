@@ -252,19 +252,14 @@ export default {
     },
     // 点击a标签出现loading
     enlargeImg(e) {
-      // console.log(e.target.tagName);
       let a_html = e.target.parentNode;
-      // console.log(a_html)
       if (e.target.tagName == 'A' || a_html.tagName == 'A' || e.target.tagName == null) {
-        // console.log(1)
-        // showLoading();
         const loading = this.$loading({
           lock: true,
           text: 'Loading',
           spinner: 'el-icon-loading',
           background: 'rgba(0, 0, 0, 0.7)'
         });
-        // this.fullscreenLoading = true;
       }
     },
     // 自定义事件
@@ -277,26 +272,6 @@ export default {
           this.imgSrc = e.target.src;
          }
       }
-      // console.log(e.target.querySelectorAll("img"),'2')
-      // console.log( e.currentTarget.querySelectorAll("img"))
-      // for(let i = 0 ;  i<e.target.querySelectorAll("img").length ; i++){
-      //   // console.log(e.currentTarget.querySelectorAll("img")[i].tagName)
-      //   // 判断下面有没有img
-      //   if(e.target.querySelectorAll("img")[i].tagName == 'IMG'){
-      //     // console.log(e.currentTarget.childNodes[i].src,'2')
-      //     // 判断是不是有a标签
-      //     if(e.target.querySelectorAll("img")[i].parentNode.parentNode.tagName !== 'A' && e.target.querySelectorAll("img")[i].parentNode.tagName !=='A'){
-      //       // console.log( e.currentTarget.querySelectorAll("img")[i].parentNode.tagName)
-      //       this.showImg = true;
-      //       // 获取当前图片地址
-      //       this.imgSrc = e.target.querySelectorAll("img")[i].src;
-      //     }
-
-      //   }
-      // }
-      // this.showImg = true;
-      // 获取当前图片地址
-      // this.imgSrc = e.currentTarget.src;
     },
     viewImg() {
       this.showImg = false;
