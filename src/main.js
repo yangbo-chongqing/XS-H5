@@ -12,9 +12,15 @@ import fastclick from "fastclick";
 fastclick.attach(document.body);
 Vue.config.productionTip = false;
 import { Toast, Dialog } from 'vant';
-Vue.use(Toast);
-Vue.use(Dialog);
+import { Loading , Button , Table} from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+
+
+Vue.use(Loading.directive);
+Vue.use(Dialog , Toast , Loading , Button , Table);
+
 Vue.prototype.qs = qs;
+Vue.prototype.$loading = Loading.service;
 let vueapp = new Vue({
   store,
   router,

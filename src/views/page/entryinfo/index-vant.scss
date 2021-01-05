@@ -8,7 +8,7 @@
     .app-info-htmlCont{
         .aimg{
             position: relative;
-            &::before{
+            &::after{
                 content: "";
                 width: 25px;
                 height: 25px;
@@ -29,7 +29,7 @@
             max-width: 100%;
         }
         p{
-            margin-bottom: 40rpx;
+            margin-bottom: 20px;
             color: #333;
             line-height: 180%;
         }

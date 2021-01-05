@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+
 Vue.use(VueRouter);
+
 const routes = [
   {
     // 首页
@@ -36,7 +38,7 @@ const routes = [
     // 词条详情
     path: '/entryinfo',
     name: 'Entryinfo',
-    component: () => import('@/views/page/entryinfo/index.vue'),
+    component: () =>  import('@/views/page/entryinfo/index.vue'),
     meta: {
       title: '寻声地图',
       keepAlive: false,

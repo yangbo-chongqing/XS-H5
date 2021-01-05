@@ -1,5 +1,10 @@
 import api from '@/request/xsdt';
-import { Icon, Col, Row, Swipe, SwipeItem, NavBar } from 'vant';
+import BigImg from './BigImg/bigImg.vue';
+import { Icon, Col, Row, Swipe, SwipeItem, NavBar , List  } from 'vant';
+import { showLoading, hideLoading } from '@/request/loading'
+// import { Loading } from 'element-ui';
+import Viewer from "viewerjs";
+
 export default {
   name: 'Home',
   components: {
@@ -8,7 +13,10 @@ export default {
     VanRow: Row,
     VanSwipe: Swipe,
     VanSwipeItem: SwipeItem,
-    VanNavBar: NavBar
+    VanNavBar: NavBar,
+    VanList:List,
+    // Loading:Loading,
+    'big-img':BigImg
   },
   data() {
     return {
@@ -17,6 +25,21 @@ export default {
       playFlag: true,
       videoFlag: true,
       returnIcon: false,
+      page: 1,
+      page_size: 10,
+      reply_id:'',
+      commentList:[],
+      loading: false,
+      finished: false,
+      error: false, 		// 是否加载失败
+      refreshing: false,
+      total:'',
+      fullscreenLoading:false,
+      madalshow:false,
+      warnimg:'',
+      dataDetail:{},
+      showImg:false,
+      imgSrc: '',
     }
   },
   computed: {
@@ -25,35 +48,57 @@ export default {
   created() {
     if (window.history.length <= 1) {
       this.returnIcon = true
-    }
+    };
+    this.render = true ;
   },
   mounted() {
-    this.relicsInfo()
+    this.relicsInfo();
+    this.onLoad();
+    // this.getComment()
+    // const ViewerDom = document.getElementById('app-images');
+    // const viewer = new Viewer(ViewerDom, {
+    //   // 配置
+    // })
+
   },
   watch: {
     $route(to, from) {
       this.id = this.$route.query.id;
       this.relicsInfo()
+    },
+    message:function() {
+      console.log(1);
+      this.$nextTick(() => {
+        console.log(1);
+        console.log(document.getElementById('images'))
+        let viewer2 = new Viewer(document.getElementById('app-images'), {
+          url: 'data-imgurl',
+        });
+      })
     }
   },
   methods: {
     //页面跳转
     jumpRoute(path, obj) {
+      showLoading();
       this.$router.push({
         path: path,
         query: {
           ...obj
         }
       })
+      hideLoading();
     },
     //重定向到首页
     repHome(){
+      showLoading();
       this.$router.replace({
         path:'/home',
         query:{
           muse_id:this.relicsDataInfo.muse_id
         }
       })
+      hideLoading();
     },
     relicsInfo() {
       this.relicsDataInfo = '';
@@ -64,6 +109,8 @@ export default {
       api.postRelicsInfo(this.qs.stringify(params)).then((res) => {
         if (res.status == 200) {
           this.relicsDataInfo = res.data.info;
+
+          console.log(this.relicsDataInfo);
           this.relicsDataInfo.introduction = this.trim(this.relicsDataInfo.introduction);
           if (res.data.info.history_list.length > 0) {
             res.data.info.history_list.map((item, index) => {
@@ -73,16 +120,15 @@ export default {
           let url = window.location.href;
           this.$global.shareToWechat(res.data.info.share_title, url, res.data.info.share_image, res.data.info.share_content)
           document.title = res.data.info.name;
-          this.$nextTick(()=>{
+          this.$nextTick(()=> {
             let htmlcont = this.$refs.htmlCont;
             let aEl = htmlcont.querySelectorAll("a");
-            for(let i = 0;i<aEl.length;i++){
+            for (let i = 0; i < aEl.length; i++) {
               let imgEl = aEl[i].querySelectorAll("img");
-              if(imgEl.length>0){
+              if (imgEl.length > 0) {
                 aEl[i].classList.add("aimg")
               }
             }
-            
           })
         }
       });
@@ -135,6 +181,110 @@ export default {
       }
       this.playFlag = !this.playFlag
     },
-    videoPause() { }
+    videoPause() { },
+    //获取评论详情
+    getComment() {
+      let data = {
+        page: this.page,
+        page_size: this.page_size,
+        relics_id: this.id,
+        reply_id:'',
+      }
+      api.postComment(this.qs.stringify(data)).then((res) => {
+        if (res.status == 200) {
+          if(res.data.list.length>0){
+            this.total = this.total+=res.data.list.length
+            // console.log(res.data.list)
+            for(let i = 0 ; i<res.data.list.length; i++){
+              this.commentList.push(res.data.list[i]);
+            }
+            // 加载状态结束
+            this.loading = false;
+            console.log(this.commentList)
+          }else {
+            // 数据全部加载完成
+            this.finished = true;
+
+          }
+
+        }
+      });
+    },
+    onLoad() {
+      // console.log(1)
+      let data = {
+        page: this.page,
+        page_size: this.page_size,
+        relics_id: this.id,
+        reply_id:'',
+      }
+      api.postComment(this.qs.stringify(data)).then((res) => {
+        if (res.status == 200) {
+          this.total = this.total+=res.data.list.length
+            // console.log(res.data.list)
+            for(let i = 0 ; i<res.data.list.length; i++){
+              this.commentList.push(res.data.list[i]);
+            }
+          this.page=data.page
+    //         console.log(this.commentList)
+        }
+        // 加载状态结束
+        this.loading = false;
+    //
+        // 数据全部加载完成
+        if (res.data.list.length <this.page_size) {
+          this.finished = true;
+        }else{
+          this.page++;
+        }
+      });
+    },
+
+    onRefresh() {
+      // 清空列表数据
+      this.finished = false;
+
+      // 重新加载数据
+      // 将 loading 设置为 true，表示处于加载状态
+      this.loading = true;
+      this.onLoad();
+    },
+    // 点击a标签出现loading
+    enlargeImg(e){
+      console.log(e.target.tagName);
+      let a_html = e.target.parentNode;
+      console.log(a_html)
+      if(e.target.tagName == 'A'|| a_html.tagName == 'A' || e.target.tagName == null ){
+        console.log(1)
+        // showLoading();
+        const loading = this.$loading({
+          lock: true,
+          text: 'Loading',
+          spinner: 'el-icon-loading',
+          background: 'rgba(0, 0, 0, 0.7)'
+        });
+        // this.fullscreenLoading = true;
+      }
+    },
+    // 自定义事件
+    clickImg(e) {
+      console.log( e.currentTarget.childNodes)
+      for(let i = 0 ;  i<e.currentTarget.childNodes.length ; i++){
+        // console.log(e.currentTarget.childNodes[i].tagName)
+        if(e.currentTarget.childNodes[i].tagName == 'IMG'){
+          console.log(e.currentTarget.childNodes[i].src,'2')
+          this.showImg = true;
+          // 获取当前图片地址
+          this.imgSrc = e.currentTarget.childNodes[i].src;
+        }
+      }
+      // this.showImg = true;
+      // 获取当前图片地址
+      // this.imgSrc = e.currentTarget.src;
+    },
+    viewImg(){
+      this.showImg = false;
+    }
+
   }
 };
