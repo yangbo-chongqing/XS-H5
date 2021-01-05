@@ -253,7 +253,8 @@ export default {
     // 点击a标签出现loading
     enlargeImg(e) {
       let a_html = e.target.parentNode;
-      if (e.target.tagName == 'A' || a_html.tagName == 'A' || e.target.tagName == null) {
+      console.log(e.target.tagName)
+      if (e.target.tagName == 'A' || a_html.tagName == 'A' || e.target.tagName == null || e.target.parentElement.parentElement.tagName === 'A') {
         const loading = this.$loading({
           lock: true,
           text: 'Loading',
@@ -264,7 +265,7 @@ export default {
     },
     // 自定义事件
     clickImg(e) {
-      console.log(e)
+      // console.log(e)
       if (e.target.nodeName == 'IMG') {
         if(e.target.parentElement.parentElement.tagName !== 'A' && e.target.parentElement.tagName !=='A'){
           this.showImg = true;
