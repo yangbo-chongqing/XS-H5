@@ -50,7 +50,7 @@
     <div class="app-info-box">
       <div class="app-info-title">
         {{ relicsDataInfo.name }}
-        <div class="app-info-title-content" @click="linkFn($event)">
+        <div class="app-info-title-content" @click="linkFn()">
           <van-icon size="25" name="good-job-o" />
           <span class="">{{relicsDataInfo.likes}}</span>
         </div>
@@ -227,12 +227,12 @@
                     <div class="pl-time">{{sitem.create_time}}</div>
                     <div class="pl-tips">
                       <div class="app-pl-item-link" :style="{color:sitem.is_like==0?'':'#5287fd'}"
-                            :data-commentid='sitem.id' :data-index="index">
+                            :data-commentid='sitem.id' :data-index="index" @click="CommentLike($event)">
                         <van-icon name="good-job-o" />
                         {{sitem.likes>0?sitem.likes:''}}
                       </div>
-                      <div class="pl-hf"  data-reply_id="sitem.id" :data-index="index"
-                            :data-username="sitem.user_info.nickname">
+                      <div class="pl-hf"  :data-reply_id="sitem.id" :data-index="index"
+                            :data-username="sitem.user_info.nickname" @click="hfSetFocus($event)">
                         <van-icon name="chat-o" />
                       </div>
                     </div>
@@ -275,13 +275,13 @@
                         <div class="app-pl-list-item-item1">
                           <div class="pl-time">{{replyItem.create_time}}</div>
                           <div class="pl-tips">
-                            <div class="app-pl-item-link" :style="{color:replyItem.is_like==0?'':'#ea7152'}"
+                            <div class="app-pl-item-link" :style="{color:replyItem.is_like==0?'':'#ea7152'}" @click="CommentLike($event)"
                                    :data-commentid='replyItem.id' :data-index="index_s"
                                   :data-itemindex="index_s">
                               <van-icon name="good-job-o" />
                               {{replyItem.likes>0?replyItem.likes:''}}
                             </div>
-                            <div class="pl-hf" :data-reply_id="replyItem.id" :data-index="index_s" :data-username="replyItem.user_info.nickname">
+                            <div class="pl-hf" :data-reply_id="replyItem.id" :data-index="index_s" :data-username="replyItem.user_info.nickname" @click="hfSetFocus($event)">
                               <van-icon name="chat-o" />
                             </div>
                           </div>
@@ -302,13 +302,14 @@
 
                 <div class="pl-input-body">
                   <div class="pl-send-text">
-                    <input :placeholder="placeholder" type="text" class="weui-input">
+                    <input :placeholder="placeholder" v-model="commentContent" type="text" class="weui-input">
                   </div>
-                  <div class="pl-send-img">
-                    <img src="@/assets/images/img-icon.png" alt="">
+                  <div class="pl-send-img" >
+                    <img src="@/assets/images/img-icon.png" alt="" >
+                    <van-uploader :after-read="afterRead"/>
                   </div>
-                  <div class="pl-send-ly">
-                    <button>回复</button>
+                  <div class="pl-send-ly" @click="sendOut">
+                    <button>发送</button>
                   </div>
                 </div>
               </div>

@@ -7,7 +7,7 @@ axios.interceptors.request.use(
   config => {
     let ts = parseInt(new Date().getTime() / 1000);
     if (!config.signature) {
-      config.headers['Authorization'] = 'Bearer ' + JSON.stringify(localStorage.getItem('token'))
+      config.headers['Authorization'] = 'Bearer ' + localStorage.getItem('storage')
       if (config.method === 'post') {
         axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8'
         let params = config.data ? decodeURIComponent(config.data) : '';

@@ -59,6 +59,47 @@ const api = {
             data: params,
         });
     },
+    // 获取用户信息
+    postUser(params) {
+        return http({
+            method: 'post',
+            url: '/api/web/warrant ',
+            data: params,
+        });
+    },
+    // 词条点赞
+    likeEntry(params) {
+        return http({
+            method: 'post',
+            url: '/api/web/relics/like',
+            data: params,
+        });
+    },
+    // 评论点赞
+    commentLike(params) {
+        return http({
+            method: 'post',
+            url: '/api/web/comment/like',
+            data: params,
+        });
+    },
+    // 用户评论词条
+    CommentEntry(params) {
+        return http({
+            method: 'post',
+            url: '/api/web/relics/comment',
+            data: params,
+        });
+    },
+    // 图片上传
+    UploadFile(params) {
+        return http({
+            method: 'post',
+            url: '/api/Home/UploadFile',
+            data: params,
+        });
+    },
+
 }
 export default api;
 

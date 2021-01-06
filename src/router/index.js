@@ -75,6 +75,16 @@ const routes = [
     },
   },
   {
+    // 获取toke
+    path: '/toke',
+    name: 'toke',
+    component: () => import('@/views/page/toke/Authorize.vue'),
+    meta: {
+      title: '寻声地图',
+      keepAlive: false,
+    },
+  },
+  {
     // 404页面
     path: '*',
     name: 'notfound',
