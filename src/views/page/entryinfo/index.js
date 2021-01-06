@@ -124,6 +124,9 @@ export default {
             let aEl = htmlcont.querySelectorAll("a");
             for (let i = 0; i < aEl.length; i++) {
               aEl[i].setAttribute("target","_blank")
+              if(/^https:\/\/v\.douyin\.com\/\w+\/?$/.test(aEl[i].href)){
+                aEl[i].href = `http://xsdth5.xunsheng.org.cn/#/entryvideo?url=${aEl[i].href}`
+              }
               let imgEl = aEl[i].querySelectorAll("img");
               if (imgEl.length > 0) {
                 aEl[i].classList.add("aimg")
