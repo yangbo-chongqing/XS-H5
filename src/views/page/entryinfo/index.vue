@@ -34,7 +34,7 @@
         ></video>
       </div>
     </div>
-    <div class="v-image-box"  v-else  @click="clickImg($event)">
+    <div class="v-image-box"  v-else>
         <img class="v-image"  mode="widthFix" :data-src="relicsDataInfo.image" :src="relicsDataInfo.image"  />
       <div
         class="v-image-audio"
@@ -49,10 +49,10 @@
     <div class="app-info-box">
       <div class="app-info-title">
         {{ relicsDataInfo.name }}
-        <div class="app-info-title-content" @click="linkFn($event)">
+        <!-- <div class="app-info-title-content" @click="linkFn($event)">
           <van-icon size="25" name="good-job-o" />
           <span class="">{{relicsDataInfo.likes}}</span>
-        </div>
+        </div> -->
         <!-- <div
           class="app-info-link"
           v-if="relicsDataInfo.is_like == 0"
@@ -189,7 +189,7 @@
             <van-list class="pl-cont-body"   v-model="loading"  :finished="finished" :immediate-check="false" finished-text="没有更多了" @load="onLoad">
               <div class="app-pl-list-item" v-for="(sitem, index) in commentList" :key="index + 'index'">
     <!--            用户头像-->
-                <div class="app-pl-list-item-media" @click="clickImg($event)">
+                <div class="app-pl-list-item-media">
                   <img mode="aspectFill" :src="sitem.user_info.avatar">
                 </div>
                 <div class="app-pl-list-item-body">
@@ -204,7 +204,7 @@
                   <div class="app-pl-list-item-cont">
                     <div v-if="sitem.comment">{{sitem.comment}}</div>
                     <div v-if="sitem.image">
-                      <div class="pl-images-box" @click="clickImg($event)">
+                      <div class="pl-images-box">
                         <img class="pl-images" v-for="(imgList, j) in sitem.image" :for-item="imgList" :key="j"
                              :data-index="j" :data-imgs="imgList" :src="imgList" alt="" >
                       </div>
@@ -235,7 +235,7 @@
                   <div class="pl-hf-body" v-if="sitem.list.length>0">
                     <div class="app-pl-hf-item" v-for="(replyItem,index_s) in sitem.list"  :key="index_s" >
 <!--                      用户头像-->
-                      <div class="app-pl-hf-item-media" @click="clickImg($event)">
+                      <div class="app-pl-hf-item-media">
                         <img mode="aspectFill" :src="replyItem.user_info.avatar">
                       </div>
 <!--                      用户回复内容-->
@@ -252,7 +252,7 @@
                           <div class="app-pl-list-item-cont">
                             <div v-if="replyItem.comment">{{replyItem.comment}}</div>
                             <div v-if="replyItem.image">
-                              <div class="pl-images-box" @click="clickImg($event)">
+                              <div class="pl-images-box">
                                 <img class="pl-images" v-for="(imglist, jj) in replyItem.image" :for-item="imglist" :key="jj"
                                      :data-index="jj" :data-imgs="imglist" :src="imglist" alt="">
                               </div>
