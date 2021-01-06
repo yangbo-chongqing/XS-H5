@@ -55,12 +55,9 @@ export default {
   mounted() {
     this.relicsInfo();
     this.onLoad();
-    // this.getComment()
-    // const ViewerDom = document.getElementById('app-images');
-    // const viewer = new Viewer(ViewerDom, {
-    //   // 配置
-    // })
-
+  },
+  destroyed () {
+    this.delEnlargeImg();
   },
   watch: {
     $route(to, from) {
@@ -241,11 +238,9 @@ export default {
         }
       });
     },
-
     onRefresh() {
       // 清空列表数据
       this.finished = false;
-
       // 重新加载数据
       // 将 loading 设置为 true，表示处于加载状态
       this.loading = true;
@@ -254,7 +249,6 @@ export default {
     // 点击a标签出现loading
     enlargeImg(e) {
       let a_html = e.target.parentNode;
-      console.log(e.target.tagName)
       if (e.target.tagName == 'A' || a_html.tagName == 'A' || e.target.tagName == null || e.target.parentElement.parentElement.tagName === 'A') {
         this.fullscreenLoading = this.$loading({
           lock: true,

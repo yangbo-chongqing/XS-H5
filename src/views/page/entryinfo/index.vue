@@ -1,6 +1,5 @@
 <template>
   <div class="h-container" v-if="relicsDataInfo" :style="returnIcon?{'padding-top':'45px'}:''" >
-
     <div class="return-head" v-if="returnIcon">
       <div class="return-head-home" @click="repHome"><van-icon name="wap-home-o" /></div>
       <div class="return-head-text"><div class="retrun-head-logo"><img :src="relicsDataInfo.muse_info.logo" alt=""></div><p>{{relicsDataInfo.muse_info.muse_name}}</p></div>
@@ -93,12 +92,7 @@
         >
         <span @click="jumpRoute('/report',{id:id,muse_id:relicsDataInfo.muse_id})"><van-icon name="warn-o" />举报</span>
       </div>
-      
-
     </div>
-
-
-
     <div class="app-info-jump" v-if="relicsDataInfo.related_list.length > 0">
       <div class="app-info-title1">
         <div class="app-info-title-img">
