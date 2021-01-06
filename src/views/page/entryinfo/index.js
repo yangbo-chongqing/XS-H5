@@ -57,13 +57,13 @@ export default {
     this.onLoad();
   },
   destroyed () {
-    this.delEnlargeImg();
+    // this.delEnlargeImg();
   },
   watch: {
     $route(to, from) {
       this.id = this.$route.query.id;
       this.relicsInfo()
-      this.delEnlargeImg();
+      // this.delEnlargeImg();
     },
     message: function () {
       console.log(1);
@@ -123,6 +123,7 @@ export default {
             let htmlcont = this.$refs.htmlCont;
             let aEl = htmlcont.querySelectorAll("a");
             for (let i = 0; i < aEl.length; i++) {
+              aEl[i].setAttribute("target","_blank")
               let imgEl = aEl[i].querySelectorAll("img");
               if (imgEl.length > 0) {
                 aEl[i].classList.add("aimg")
@@ -249,14 +250,15 @@ export default {
     // 点击a标签出现loading
     enlargeImg(e) {
       let a_html = e.target.parentNode;
-      if (e.target.tagName == 'A' || a_html.tagName == 'A' || e.target.tagName == null || e.target.parentElement.parentElement.tagName === 'A') {
-        this.fullscreenLoading = this.$loading({
-          lock: true,
-          text: 'Loading',
-          spinner: 'el-icon-loading',
-          background: 'rgba(0, 0, 0, 0.7)'
-        });
-      }
+      // if (e.target.tagName == 'A' || a_html.tagName == 'A' || e.target.tagName == null || e.target.parentElement.parentElement.tagName === 'A') {
+      //   console.log(e.target);
+      //   this.fullscreenLoading = this.$loading({
+      //     lock: true,
+      //     text: 'Loading',
+      //     spinner: 'el-icon-loading',
+      //     background: 'rgba(0, 0, 0, 0.7)'
+      //   });
+      // }
     },
     delEnlargeImg(){
       if(this.fullscreenLoading){
