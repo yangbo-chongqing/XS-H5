@@ -522,12 +522,19 @@ export default {
       let formData = new window.FormData();
       formData.append("file", file);
       Toast(this, "图片上传中···");
-      console.log(JSON.stringify(file))
-      let a = file
-      console.log(a,'aaaa')
-      console.log(formData)
+      // console.log(file)
+      let a ={
+        lastModified:file.lastModified,
+        lastModifiedDate:file.lastModifiedDate,
+        name:file.name,
+        size:file.size,
+        type:file.type,
+        webkitRelativePath:file.webkitRelativePath,
+      }
+      console.log(a)
+      // console.log(formData)
       try {
-        let res = await api.UploadFile( a
+        let res = await api.UploadFile(JSON.stringify(a)
         );
       } catch (e) {
         console.log(e);
