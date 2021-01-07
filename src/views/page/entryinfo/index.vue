@@ -1,5 +1,6 @@
 <template>
   <div class="h-container" v-if="relicsDataInfo" :style="returnIcon?{'padding-top':'45px'}:''" >
+
     <div class="return-head" v-if="returnIcon">
       <div class="return-head-home" @click="repHome"><van-icon name="wap-home-o" /></div>
       <div class="return-head-text"><div class="retrun-head-logo"><img :src="relicsDataInfo.muse_info.logo" alt=""></div><p>{{relicsDataInfo.muse_info.muse_name}}</p></div>
@@ -34,7 +35,7 @@
         ></video>
       </div>
     </div>
-    <div class="v-image-box"  v-else>
+    <div class="v-image-box"  v-else  @click="clickImg($event)">
         <img class="v-image"  mode="widthFix" :data-src="relicsDataInfo.image" :src="relicsDataInfo.image"  />
       <div
         class="v-image-audio"
@@ -49,10 +50,10 @@
     <div class="app-info-box">
       <div class="app-info-title">
         {{ relicsDataInfo.name }}
-        <!-- <div class="app-info-title-content" @click="linkFn($event)">
+        <div class="app-info-title-content" @click="linkFn()">
           <van-icon size="25" name="good-job-o" />
           <span class="">{{relicsDataInfo.likes}}</span>
-        </div> -->
+        </div>
         <!-- <div
           class="app-info-link"
           v-if="relicsDataInfo.is_like == 0"
@@ -92,7 +93,12 @@
         >
         <span @click="jumpRoute('/report',{id:id,muse_id:relicsDataInfo.muse_id})"><van-icon name="warn-o" />举报</span>
       </div>
+      
+
     </div>
+
+
+
     <div class="app-info-jump" v-if="relicsDataInfo.related_list.length > 0">
       <div class="app-info-title1">
         <div class="app-info-title-img">
@@ -189,7 +195,7 @@
             <van-list class="pl-cont-body"   v-model="loading"  :finished="finished" :immediate-check="false" finished-text="没有更多了" @load="onLoad">
               <div class="app-pl-list-item" v-for="(sitem, index) in commentList" :key="index + 'index'">
     <!--            用户头像-->
-                <div class="app-pl-list-item-media">
+                <div class="app-pl-list-item-media" @click="clickImg($event)">
                   <img mode="aspectFill" :src="sitem.user_info.avatar">
                 </div>
                 <div class="app-pl-list-item-body">
@@ -204,7 +210,7 @@
                   <div class="app-pl-list-item-cont">
                     <div v-if="sitem.comment">{{sitem.comment}}</div>
                     <div v-if="sitem.image">
-                      <div class="pl-images-box">
+                      <div class="pl-images-box" @click="clickImg($event)">
                         <img class="pl-images" v-for="(imgList, j) in sitem.image" :for-item="imgList" :key="j"
                              :data-index="j" :data-imgs="imgList" :src="imgList" alt="" >
                       </div>
@@ -221,12 +227,12 @@
                     <div class="pl-time">{{sitem.create_time}}</div>
                     <div class="pl-tips">
                       <div class="app-pl-item-link" :style="{color:sitem.is_like==0?'':'#5287fd'}"
-                            :data-commentid='sitem.id' :data-index="index">
+                            :data-commentid='sitem.id' :data-index="index" @click="CommentLike($event)">
                         <van-icon name="good-job-o" />
                         {{sitem.likes>0?sitem.likes:''}}
                       </div>
-                      <div class="pl-hf"  data-reply_id="sitem.id" :data-index="index"
-                            :data-username="sitem.user_info.nickname">
+                      <div class="pl-hf"  :data-reply_id="sitem.id" :data-index="index"
+                            :data-username="sitem.user_info.nickname" @click="hfSetFocus($event)">
                         <van-icon name="chat-o" />
                       </div>
                     </div>
@@ -235,7 +241,7 @@
                   <div class="pl-hf-body" v-if="sitem.list.length>0">
                     <div class="app-pl-hf-item" v-for="(replyItem,index_s) in sitem.list"  :key="index_s" >
 <!--                      用户头像-->
-                      <div class="app-pl-hf-item-media">
+                      <div class="app-pl-hf-item-media" @click="clickImg($event)">
                         <img mode="aspectFill" :src="replyItem.user_info.avatar">
                       </div>
 <!--                      用户回复内容-->
@@ -252,7 +258,7 @@
                           <div class="app-pl-list-item-cont">
                             <div v-if="replyItem.comment">{{replyItem.comment}}</div>
                             <div v-if="replyItem.image">
-                              <div class="pl-images-box">
+                              <div class="pl-images-box" @click="clickImg($event)">
                                 <img class="pl-images" v-for="(imglist, jj) in replyItem.image" :for-item="imglist" :key="jj"
                                      :data-index="jj" :data-imgs="imglist" :src="imglist" alt="">
                               </div>
@@ -269,13 +275,13 @@
                         <div class="app-pl-list-item-item1">
                           <div class="pl-time">{{replyItem.create_time}}</div>
                           <div class="pl-tips">
-                            <div class="app-pl-item-link" :style="{color:replyItem.is_like==0?'':'#ea7152'}"
+                            <div class="app-pl-item-link" :style="{color:replyItem.is_like==0?'':'#ea7152'}" @click="CommentLike($event)"
                                    :data-commentid='replyItem.id' :data-index="index_s"
                                   :data-itemindex="index_s">
                               <van-icon name="good-job-o" />
                               {{replyItem.likes>0?replyItem.likes:''}}
                             </div>
-                            <div class="pl-hf" :data-reply_id="replyItem.id" :data-index="index_s" :data-username="replyItem.user_info.nickname">
+                            <div class="pl-hf" :data-reply_id="replyItem.id" :data-index="index_s" :data-username="replyItem.user_info.nickname" @click="hfSetFocus($event)">
                               <van-icon name="chat-o" />
                             </div>
                           </div>
@@ -296,13 +302,14 @@
 
                 <div class="pl-input-body">
                   <div class="pl-send-text">
-                    <input :placeholder="placeholder" type="text" class="weui-input">
+                    <input :placeholder="placeholder" v-model="commentContent" type="text" class="weui-input">
                   </div>
-                  <div class="pl-send-img">
-                    <img src="@/assets/images/img-icon.png" alt="">
+                  <div class="pl-send-img" >
+                    <img src="@/assets/images/img-icon.png" alt="" >
+                    <van-uploader :after-read="afterRead" accept="image/*"/>
                   </div>
-                  <div class="pl-send-ly">
-                    <button>回复</button>
+                  <div class="pl-send-ly" @click="sendOut">
+                    <button>发送</button>
                   </div>
                 </div>
               </div>

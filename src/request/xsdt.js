@@ -2,7 +2,6 @@
  * 接口统一管理
  */
 import http from './http';
-import pictureHttp from './pictureHttp'
 const api = {
     //词条举报
     postReportAdd(params) {
@@ -40,7 +39,7 @@ const api = {
     postDetails(params) {
         return http({
             method: 'post',
-            url: '/api/product/details',
+            url: '/api/web/flowing/details',
             data: params,
         });
     },
@@ -94,9 +93,17 @@ const api = {
     },
     // 图片上传
     UploadFile(params) {
-        return pictureHttp({
+        return http({
             method: 'post',
             url: '/api/UploadFile',
+            data: params,
+        });
+    },
+    //扫描统计
+    ScanCode(params) {
+        return http({
+            method: 'post',
+            url: '/api/web/relics/scancode',
             data: params,
         });
     },
