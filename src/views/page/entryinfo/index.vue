@@ -290,13 +290,9 @@
 
                       </div>
 
-
-
                     </div>
 
                   </div>
-
-
 
                 </div>
 
@@ -306,7 +302,7 @@
                   </div>
                   <div class="pl-send-img" >
                     <img src="@/assets/images/img-icon.png" alt="" >
-                    <van-uploader :after-read="afterRead"/>
+                    <van-uploader :after-read="afterRead" accept="image/*"/>
                   </div>
                   <div class="pl-send-ly" @click="sendOut">
                     <button>发送</button>

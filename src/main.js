@@ -11,11 +11,10 @@ import './request/http'
 import fastclick from "fastclick";
 fastclick.attach(document.body);
 Vue.config.productionTip = false;
-import { Toast, Dialog , Uploader} from 'vant';
+import { Toast, Dialog } from 'vant';
 import { Loading , Button , Table} from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 
-Vue.use(Uploader);
 Vue.use(Loading.directive);
 Vue.use(Dialog , Toast , Loading , Button , Table);
 

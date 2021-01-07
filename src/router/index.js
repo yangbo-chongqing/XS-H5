@@ -65,6 +65,15 @@ const routes = [
     },
   },
   {
+    // 产品详情
+    path: '/demo',
+    name: 'demo',
+    meta: {
+      title: '寻声地图',
+      keepAlive: false,
+    },
+  },
+  {
     // pdf预览
     path: '/pdf',
     name: 'Pdf',

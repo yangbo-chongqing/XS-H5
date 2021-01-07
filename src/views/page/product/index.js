@@ -32,17 +32,39 @@ export default {
         }
       })  
     },
-    museinfo() { 
+    museinfo() {
+      let url = this.parseQuery(window.location.href);
+      let muse_id = url.muse_id;
+      let pkid = url.pkid;
       let params = {
-        id: this.id
+        muse_id: muse_id,
+        pkid:pkid,
       }
       api.postDetails(this.qs.stringify(params)).then((res) => {
         if (res.status == 200) {
-          this.dataInfo = res.data.data;
-          this.pdfUrl = res.data.data.manual.file
-          document.title = res.data.data.name;
+          this.dataInfo = res.data.product;
+          this.pdfUrl = res.data.product.manual.file
+          document.title = res.data.product.name;
         }
       });
+    },
+    parseQuery(url) {
+      let o = {};
+      let queryString = url.split("?")[1];
+      if (queryString) {
+        queryString.split("&").forEach(item => {
+          let [key, val] = item.split("=");
+          val = val ? decodeURI(val) : true;
+          //          转码         无值赋值true
+          if (o.hasOwnProperty(key)) {
+            //   已有属性转为数组
+            o[key] = [].concat(o[key], val);
+          } else {
+            o[key] = val;
+          }
+        });
+      }
+      return o;
     }
   }
 };
