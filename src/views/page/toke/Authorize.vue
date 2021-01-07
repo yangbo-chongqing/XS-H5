@@ -27,9 +27,9 @@
         mounted() {
           let url = this.parseQuery(window.location.href);
           this.code = url.code
-          this.redirect_url = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx74558c364d6c4ccf&redirect_uri=http://xsdth5.xunsheng.org.cn/&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect`;
+          // this.redirect_url = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx74558c364d6c4ccf&redirect_uri=http://xsdth5.xunsheng.org.cn/&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect`;
           // console.log(encodeURIComponent(window.location.href.split("#")[0]))
-          // this.redirect_url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx74558c364d6c4ccf&redirect_uri=' + encodeURIComponent(window.location.href) + '&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect';
+          this.redirect_url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx74558c364d6c4ccf&redirect_uri=' + encodeURIComponent(window.location.href) + '&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect';
           if (!this.code) {
             window.location.replace(this.redirect_url);
           } else {
