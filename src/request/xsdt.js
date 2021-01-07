@@ -2,6 +2,7 @@
  * 接口统一管理
  */
 import http from './http';
+import pictureHttp from './pictureHttp'
 const api = {
     //词条举报
     postReportAdd(params) {
@@ -93,9 +94,9 @@ const api = {
     },
     // 图片上传
     UploadFile(params) {
-        return http({
+        return pictureHttp({
             method: 'post',
-            url: '/api/Home/UploadFile',
+            url: '/api/UploadFile',
             data: params,
         });
     },
