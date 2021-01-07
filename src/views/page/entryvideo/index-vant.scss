@@ -1,29 +1,7 @@
 .h-container {
-    .find-swiper{
-        .van-swipe-item{
-           padding-right: 20px;
-           box-sizing: border-box;
-        }
-    }
-    .app-info-htmlCont{
-        a{
-            color: deepskyblue;
-            word-break: break-all;
-            overflow: auto;
-        }
-        p{
-            margin-bottom: 40rpx;
-            color: #333;
-            line-height: 180%;
-        }
-        img{
-            max-width: 100%;
-        }
-        div{
-            margin-bottom: 40rpx;
-            color: #333;
-            line-height: 180%;
-        }
+    body{
+        margin: 0;
+        
     }
    
 }

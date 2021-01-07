@@ -7,11 +7,9 @@ export default {
     return {
       url: this.$route.query.url,
       player:'',
+      ifStr:'',
       videoObj: {
-        title: ' 给老妈买的穿针器，用着很方便，轻松穿针引线',
-        video_cover_url: 'https://p29-dy.byteimg.com/tos-cn-p-0015/346fb382b7bf4763832b727e8dcc9623_1608348685~tplv-dy-360p.jpeg?from=2563711402',
-        video_url: 'https://aweme.snssdk.com/aweme/v1/playwm/?video_id=v0200f3b0000bven8212oh4h9qmk4uug&ratio=720p&line=0'
-        // video_url: "http://resource.xunsheng.org.cn/poetry/propaganda.mp4"
+       
       }
     }
   },
@@ -36,8 +34,9 @@ export default {
       }
       api.postDouyin(this.qs.stringify(params)).then((res) => {
         if (res.status == 200) {
-          
           this.videoObj = res.data;
+          this.ifStr = `javascript:void(function(){document.open();document.write("<!DOCTYPE html><html><head></head><body style='margin:0px'><video style='background: rgba(0,0,0,0.8);z-index: 999;position: absolute;width: 100vw;height: 100vh;' poster='${this.videoObj.video_cover_url}' src='${this.videoObj.video_url}' controls='controls'></video></body></html>");document.close();}())`
+          console.log(this.ifStr);
           document.title = this.videoObj.title;
           
         }

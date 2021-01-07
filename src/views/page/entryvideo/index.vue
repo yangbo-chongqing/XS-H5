@@ -1,13 +1,19 @@
 <template>
   <div class="h-container">
-    <video
-      id="myVideo"
+    <!-- <video
+      
       class="video-js vjs-big-play-centered vjs-fluid"
       ref="webvideo"
       :poster="videoObj.video_cover_url"
       :src="videoObj.video_url"
       controls
-    ></video>
+    ></video> -->
+    <iframe
+      width="100%"
+      height="500px"
+      frameborder="0"
+      :src="ifStr"
+    ></iframe>
   </div>
 </template>
 
