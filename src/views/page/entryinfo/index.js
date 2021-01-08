@@ -291,9 +291,12 @@ export default {
     },
     // 自定义事件
     clickImg(e) {
-      // console.log(e)
+      console.log(e)
       if (e.target.nodeName == 'IMG') {
         if (e.target.parentElement.parentElement.tagName !== 'A' && e.target.parentElement.tagName !== 'A') {
+          if(e.target.className == 'a-href-icon'){
+            return false;
+          }
           this.showImg = true;
           // 获取当前图片地址
           this.imgSrc = e.target.src;
