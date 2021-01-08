@@ -36,17 +36,17 @@ export default {
   mounted() {
     let url = this.parseQuery(window.location.href);
     this.code = url.code;
-    // this.redirect_url = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx74558c364d6c4ccf&redirect_uri=http://xsdth5.xunsheng.org.cn/&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect`;
-    // console.log(encodeURIComponent(window.location.href.split("#")[0]))
-    // this.redirect_url =
-    //   "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx74558c364d6c4ccf&redirect_uri=" +
-    //   encodeURIComponent(window.location.href) +
-    //   "&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect";
-    // if (!this.code) {
-    //   window.location.replace(this.redirect_url);
-    // } else {
-    //   this.getUserInfo();
-    // }
+    //this.redirect_url = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx74558c364d6c4ccf&redirect_uri=http://xsdth5.xunsheng.org.cn/&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect`;
+    //console.log(encodeURIComponent(window.location.href.split("#")[0]))
+    this.redirect_url =
+      "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx74558c364d6c4ccf&redirect_uri=" +
+      encodeURIComponent(window.location.href) +
+      "&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect";
+    if (!this.code) {
+      window.location.replace(this.redirect_url);
+    } else {
+      this.getUserInfo();
+    }
   },
   methods: {
     //根据code获取用户信息
@@ -58,17 +58,17 @@ export default {
         .postUser(this.qs.stringify(params))
         .then((res) => {
           let data = res.data;
-          console.log(data);
-          if (data.code == 200) {
+          console.log("data",data);
+          if (res.status == 200) {
             let value = {
               token: data.token,
               user_id: data.user_id,
             };
             window.localStorage.setItem("storage", JSON.stringify(value));
-            this.$nextTick(() => {
               let router_info = JSON.parse(
                 localStorage.getItem("apph5_recirect_url")
               );
+              console.log("router_info",router_info)
               this.$router.replace({
                 path: router_info.path,
                 query: Object.assign(router_info.query, {
@@ -77,7 +77,6 @@ export default {
                 }),
                 params: router_info.params,
               });
-            });
             //   if (data.data.success == '1') {
             //     console.log(data)
             //     this.member_id = data.data.member_id;
