@@ -66,7 +66,7 @@ export default {
                 localStorage.getItem("apph5_recirect_url")
               );
               //清除code多余参数
-              history.replaceState({},'',window.location.href.split("#")[0])
+              history.replaceState({},'',window.location.href)
               this.$router.replace({
                 path: router_info.path,
                 query: Object.assign(router_info.query, {
