@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { getURLlist } from "@/utils/utils.js";
+import { parseQuery } from "@/utils/utils.js";
 // import {cookie} from 'vux'
 import { Loading } from "vant";
 import api from "@/request/xsdt";
@@ -17,18 +17,20 @@ export default {
   },
   data() {
     return {
-      code: '',
+      code: "",
       redirect_url: "",
       member_id: "",
       token: "",
     };
   },
   beforeRouteEnter(to, from, next) {
-      let { path, query, params } = from;
+    let { path, query, params } = from;
+    if (!parseQuery().code) {
       localStorage.setItem(
         "apph5_recirect_url",
         JSON.stringify({ path: path, query: query, params: params })
       );
+    }
     next();
   },
   mounted() {
