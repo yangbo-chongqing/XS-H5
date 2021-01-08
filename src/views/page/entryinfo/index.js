@@ -2,7 +2,7 @@ import api from '@/request/xsdt';
 import axios from 'axios';
 import BigImg from './BigImg/bigImg.vue';
 import global from '@/global'
-import { Icon, Col, Row, Swipe, SwipeItem, NavBar, List , Toast ,Uploader , Button } from 'vant';
+import { Icon, Col, Row, Swipe, SwipeItem, NavBar, List, Toast, Uploader, Button } from 'vant';
 import { showLoading, hideLoading } from '@/request/loading'
 // import { Loading } from 'element-ui';
 import Viewer from "viewerjs";
@@ -17,7 +17,7 @@ export default {
     VanSwipeItem: SwipeItem,
     VanNavBar: NavBar,
     VanList: List,
-    Toast:Toast,
+    Toast: Toast,
     VanUploader: Uploader,
     VanButton: Button,
     // Loading:Loading,
@@ -46,17 +46,17 @@ export default {
       showImg: false,
       imgSrc: '',
       placeholder: '请输入评论',
-      commentContent:'',   //评论内容
-      setData:'',
+      commentContent: '',   //评论内容
+      setData: '',
       // 图片
       files: {
         name: "",
         type: ""
       },
-      Show:true,
+      Show: true,
       headerImage: '',
       picValue: '',
-      upImgUrl:'',
+      upImgUrl: '',
     }
   },
   computed: {
@@ -141,13 +141,16 @@ export default {
           document.title = res.data.info.name;
           this.$nextTick(() => {
             let htmlcont = this.$refs.htmlCont;
-            let aEl = htmlcont.querySelectorAll("a");
-            for (let i = 0; i < aEl.length; i++) {
-              let imgEl = aEl[i].querySelectorAll("img");
-              if (imgEl.length > 0) {
-                aEl[i].classList.add("aimg")
+            if (htmlcont) {
+              let aEl = htmlcont.querySelectorAll("a");
+              for (let i = 0; i < aEl.length; i++) {
+                let imgEl = aEl[i].querySelectorAll("img");
+                if (imgEl.length > 0) {
+                  aEl[i].classList.add("aimg")
+                }
               }
             }
+
           })
         }
       });
@@ -281,8 +284,8 @@ export default {
         });
       }
     },
-    delEnlargeImg(){
-      if(this.fullscreenLoading){
+    delEnlargeImg() {
+      if (this.fullscreenLoading) {
         this.fullscreenLoading.close();
       }
     },
@@ -290,56 +293,56 @@ export default {
     clickImg(e) {
       // console.log(e)
       if (e.target.nodeName == 'IMG') {
-        if(e.target.parentElement.parentElement.tagName !== 'A' && e.target.parentElement.tagName !=='A'){
+        if (e.target.parentElement.parentElement.tagName !== 'A' && e.target.parentElement.tagName !== 'A') {
           this.showImg = true;
           // 获取当前图片地址
           this.imgSrc = e.target.src;
-         }
+        }
       }
     },
     viewImg() {
       this.showImg = false;
     },
     //判断有无用户信息
-    getUser(){
+    getUser() {
       // let storage = {
       //   'code':'3ce36580b51083ba3e7e636b4f808d14',
       //   'user_id':399,
       // }
       // window.localStorage.setItem('storage',JSON.stringify(storage))
-      if(global().isWeixin()){
+      if (global().isWeixin()) {
         // console.log(window.localStorage.getItem('storage') == null,'2222')
-        if(window.localStorage.getItem('storage') == null){
+        if (window.localStorage.getItem('storage') == null) {
           console.log(1);
           this.$router.push({
             path: '/toke',
           });
-        }else {
+        } else {
           let data = {
-            'relics_id':this.id,
+            'relics_id': this.id,
           }
           api.ScanCode(data).then((res) => {
             if (res.status === 200) {
               Toast.success(res.message);
 
-            }else if(res.status === 401){
+            } else if (res.status === 401) {
               this.$router.push({
                 path: '/toke',
               });
             }
-          }).then((err)=>{
+          }).then((err) => {
             // console.log(err)
           })
         }
-      }else {
-        this.Show = false ;
+      } else {
+        this.Show = false;
       }
 
 
     },
     // 点赞
     linkFn() {
-      let  prams = {
+      let prams = {
         relics_id: this.id
       }
       this.getUser();
@@ -347,37 +350,37 @@ export default {
         // console.log(res)
         if (res.status == 200) {
           Toast.success(res.message);
-        }else if(res.status == 401){
+        } else if (res.status == 401) {
           this.$router.push({
             path: '/toke',
           });
         }
-      }).then((err)=>{
+      }).then((err) => {
         // console.log(err)
       });
 
     },
 
     CommentLike(e) {
-      let data ={
-        comment_id:e.currentTarget.dataset.commentid,
+      let data = {
+        comment_id: e.currentTarget.dataset.commentid,
       }
       this.getUser();
       api.commentLike(this.qs.stringify(data)).then((res) => {
         // console.log(res)
         if (res.status == 200) {
           Toast.success(res.message);
-        }else if(res.status == 401){
+        } else if (res.status == 401) {
           this.$router.push({
             path: '/toke',
           });
         }
-      }).then((err)=>{
+      }).then((err) => {
         // console.log(err)
       });
     },
     // 回复
-    hfSetFocus(e){
+    hfSetFocus(e) {
       this.getUser();
       // console.log(e)
       let reply_id = e.currentTarget.dataset.reply_id;
@@ -385,7 +388,7 @@ export default {
       let index = e.currentTarget.dataset.index;
       // console.log(reply_id,username,index)
       this.placeholder = '回复' + username;
-      this.setData={
+      this.setData = {
         autoFocus: true,
         reply_id: reply_id,
         hfIndex: index
@@ -394,24 +397,24 @@ export default {
     },
 
     // 回复评论
-    sendOut(imgs){
+    sendOut(imgs) {
       this.getUser();
       console.log(this.placeholder)
       let data = {
-        relics_id:this.id,
-        reply_id:this.setData.reply_id,
-        comment:this.commentContent,
-        image:imgs,
-        voice:'',
+        relics_id: this.id,
+        reply_id: this.setData.reply_id,
+        comment: this.commentContent,
+        image: imgs,
+        voice: '',
       }
-      if(this.commentContent ){
+      if (this.commentContent) {
         api.CommentEntry(this.qs.stringify(data)).then((res) => {
           // console.log(res)
           if (res.status == 200) {
             Toast.success(res.message);
             this.setData.reply_id = '';
           }
-        }).then((err)=>{
+        }).then((err) => {
           console.log(err)
         });
       }
@@ -425,28 +428,28 @@ export default {
         headers: {
           "Content-Type": "multipart/form-data"
         }
-      }).then((res)=>{
+      }).then((res) => {
         console.log(res.data.message === '上传成功');
-        if(res.data.message === '上传成功'){
-          let imgs= res.data.data.file_path;
+        if (res.data.message === '上传成功') {
+          let imgs = res.data.data.file_path;
           let data = {
-            relics_id:this.id,
-            reply_id:this.setData.reply_id,
-            comment:this.commentContent,
-            image:imgs,
-            voice:'',
+            relics_id: this.id,
+            reply_id: this.setData.reply_id,
+            comment: this.commentContent,
+            image: imgs,
+            voice: '',
           }
           api.CommentEntry(this.qs.stringify(data)).then((res) => {
             // console.log(res)
             if (res.status == 200) {
               Toast.success(res.message);
               this.setData.reply_id = '';
-            }else if(res.status == 401){
+            } else if (res.status == 401) {
               this.$router.push({
                 path: '/toke',
               });
             }
-          }).then((err)=>{
+          }).then((err) => {
             console.log(err)
           });
         }

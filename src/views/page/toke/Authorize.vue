@@ -25,7 +25,7 @@ export default {
   },
   beforeRouteEnter(to, from, next) {
     let { path, query, params } = from;
-    if (!parseQuery().code) {
+    if (!parseQuery().code && from.path !== '/') {
       localStorage.setItem(
         "apph5_recirect_url",
         JSON.stringify({ path: path, query: query, params: params })
@@ -38,15 +38,15 @@ export default {
     this.code = url.code;
     // this.redirect_url = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx74558c364d6c4ccf&redirect_uri=http://xsdth5.xunsheng.org.cn/&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect`;
     // console.log(encodeURIComponent(window.location.href.split("#")[0]))
-    this.redirect_url =
-      "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx74558c364d6c4ccf&redirect_uri=" +
-      encodeURIComponent(window.location.href) +
-      "&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect";
-    if (!this.code) {
-      window.location.replace(this.redirect_url);
-    } else {
-      this.getUserInfo();
-    }
+    // this.redirect_url =
+    //   "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx74558c364d6c4ccf&redirect_uri=" +
+    //   encodeURIComponent(window.location.href) +
+    //   "&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect";
+    // if (!this.code) {
+    //   window.location.replace(this.redirect_url);
+    // } else {
+    //   this.getUserInfo();
+    // }
   },
   methods: {
     //根据code获取用户信息
