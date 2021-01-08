@@ -94,6 +94,16 @@ const routes = [
     },
   },
   {
+    // 词条管理
+    path: '/dataSearcartEdit',
+    name: 'dataSearcartEdit',
+    component: () => import('@/views/page/dataSearcartEdit/index.vue'),
+    meta: {
+      title: '寻声地图',
+      keepAlive: false,
+    },
+  },
+  {
     // 404页面
     path: '*',
     name: 'notfound',

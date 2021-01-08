@@ -1,7 +1,8 @@
 import api from '@/request/xsdt';
 import axios from 'axios';
 import BigImg from './BigImg/bigImg.vue';
-import { Icon, Col, Row, Swipe, SwipeItem, NavBar, List , Toast ,Uploader , Button} from 'vant';
+import global from '@/global'
+import { Icon, Col, Row, Swipe, SwipeItem, NavBar, List , Toast ,Uploader , Button } from 'vant';
 import { showLoading, hideLoading } from '@/request/loading'
 // import { Loading } from 'element-ui';
 import Viewer from "viewerjs";
@@ -52,6 +53,7 @@ export default {
         name: "",
         type: ""
       },
+      Show:true,
       headerImage: '',
       picValue: '',
       upImgUrl:'',
@@ -68,8 +70,8 @@ export default {
   },
   mounted() {
     this.relicsInfo();
-    this.onLoad();
     this.getUser();
+    this.onLoad();
     // this.getComment()
     // const ViewerDom = document.getElementById('app-images');
     // const viewer = new Viewer(ViewerDom, {
@@ -305,29 +307,34 @@ export default {
       //   'user_id':399,
       // }
       // window.localStorage.setItem('storage',JSON.stringify(storage))
-      console.log(window.localStorage.getItem('storage') == null,'2222')
-      if(window.localStorage.getItem('storage') == null){
-        console.log(1);
-        this.$router.push({
-          path: '/toke',
-        });
-      }else {
-        let data = {
-          'relics_id':this.id,
-        }
-        api.ScanCode(data).then((res) => {
-          if (res.status === 200) {
-            Toast.success(res.message);
-
-          }else if(res.status === 401){
-            this.$router.push({
-              path: '/toke',
-            });
+      if(global().isWeixin()){
+        // console.log(window.localStorage.getItem('storage') == null,'2222')
+        if(window.localStorage.getItem('storage') == null){
+          console.log(1);
+          this.$router.push({
+            path: '/toke',
+          });
+        }else {
+          let data = {
+            'relics_id':this.id,
           }
-        }).then((err)=>{
-          // console.log(err)
-        })
+          api.ScanCode(data).then((res) => {
+            if (res.status === 200) {
+              Toast.success(res.message);
+
+            }else if(res.status === 401){
+              this.$router.push({
+                path: '/toke',
+              });
+            }
+          }).then((err)=>{
+            // console.log(err)
+          })
+        }
+      }else {
+        this.Show = false ;
       }
+
 
     },
     // 点赞
