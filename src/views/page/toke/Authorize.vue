@@ -38,7 +38,7 @@ export default {
     this.code = url.code;
     this.redirect_url =
       "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx74558c364d6c4ccf&redirect_uri=" +
-      encodeURIComponent(window.location.href) +
+      encodeURIComponent(window.location.href.split("#")[0]) +
       "&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect";
     if (!this.code) {
       window.location.replace(this.redirect_url);
