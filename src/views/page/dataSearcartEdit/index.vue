@@ -1,0 +1,37 @@
+<template>
+  <div class="h-container">
+      <div class="head">
+        <van-search v-model="keyword" shape="round" background="#ffffff" placeholder="输入搜索词条"
+                    :change="onChange" @search="onSearch">
+        </van-search>
+        <div class="add-entry" bindtap="openEditUrl" data-id=""><van-icon color="#5387fd" name="plus" />词条</div>
+      </div>
+    <div class="content">
+<!--      <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">-->
+      <ul class="content-list">
+        <li class="list" v-for="(item, index) in commentList">
+          <h5 class="home-you-name">{{ item.name }}</h5>
+          <div class="home-you-body">
+            <div class="home-you-title" :data-id="item.id">
+              <img src="@/assets/images/cartcode.png" alt="">
+            </div>
+            <div class="home-you-text" :data-id="item.id">编辑</div>
+          </div>
+        </li>
+      </ul>
+<!--      </van-list>-->
+    </div>
+  </div>
+</template>
+
+<script>
+import Logic from "./index";
+
+export default Logic;
+</script>
+<style lang="scss">
+@import "./index-vant.scss";
+</style>
+<style scoped lang="scss">
+@import "./index.scss";
+</style>

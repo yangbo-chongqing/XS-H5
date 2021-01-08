@@ -1,14 +1,14 @@
 <template>
-  <div class="authorize">
-    <van-loading size="24px">授权中...</van-loading>
-  </div>
+    <div class="authorize">
+        <van-loading size="24px">授权中...</van-loading>
+    </div>
 </template>
 
 <script>
-import { parseQuery } from "@/utils/utils.js";
-// import {cookie} from 'vux'
-import { Loading } from "vant";
-import api from "@/request/xsdt";
+    import {parseQuery} from '@/utils/utils.js'
+    // import {cookie} from 'vux'
+    import {Loading} from 'vant'
+    import api from '@/request/xsdt';
 
 export default {
   name: "Authorize",
@@ -34,7 +34,7 @@ export default {
     next();
   },
   mounted() {
-    let url = this.parseQuery(window.location.href);
+    let url = parseQuery(window.location.href);
     this.code = url.code;
     this.redirect_url =
       "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx74558c364d6c4ccf&redirect_uri=" +
@@ -65,8 +65,6 @@ export default {
               let router_info = JSON.parse(
                 localStorage.getItem("apph5_recirect_url")
               );
-              //清除code多余参数
-              history.replaceState({},'',window.location.href)
               this.$router.replace({
                 path: router_info.path,
                 query: Object.assign(router_info.query, {
@@ -81,31 +79,14 @@ export default {
           // this..toast.show({type: 'text', text: '网络错误'});
         });
     },
-    parseQuery(url) {
-      let o = {};
-      let queryString = url.split("?")[1];
-      if (queryString) {
-        queryString.split("&").forEach((item) => {
-          let [key, val] = item.split("=");
-          val = val ? decodeURI(val) : true;
-          //          转码         无值赋值true
-          if (o.hasOwnProperty(key)) {
-            //   已有属性转为数组
-            o[key] = [].concat(o[key], val);
-          } else {
-            o[key] = val;
-          }
-        });
-      }
-      return o;
-    },
+
   },
 };
 </script>
 
 <style scoped lang="less">
-.authorize {
-  text-align: center;
-  padding-top: 35px;
-}
+    .authorize {
+        text-align: center;
+        padding-top: 35px;
+    }
 </style>

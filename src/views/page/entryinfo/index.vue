@@ -50,7 +50,7 @@
     <div class="app-info-box">
       <div class="app-info-title">
         {{ relicsDataInfo.name }}
-        <div class="app-info-title-content" @click="linkFn()" v-if="Show">
+        <div class="app-info-title-content" @click="linkFn(relicsDataInfo)" v-if="Show">
           <van-icon size="25" name="good-job-o" />
           <span class="">{{relicsDataInfo.likes}}</span>
         </div>

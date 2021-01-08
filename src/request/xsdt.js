@@ -107,6 +107,22 @@ const api = {
             data: params,
         });
     },
+    //获取词条
+    postEntry(params) {
+        return http({
+            method: 'post',
+            url: '/index.php/api/web/relics/list',
+            data: params,
+        });
+    },
+    //获取词条详情
+    postEntryDetails(params) {
+        return http({
+            method: 'post',
+            url: '/index.php/api/web/relics/details',
+            data: params,
+        });
+    },
 
 }
 export default api;

@@ -2,11 +2,24 @@ import moment from 'moment';
 import axios from 'axios'
 import qs from 'qs'
 import {Toast} from 'vant'
-export function getURLlist(name) {
-    let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
-    let r = window.location.search.substr(1).match(reg);
-    if (r != null) return unescape(r[2]);
-    return null;
+export function getURLlist() {
+  let url = window.location.href;
+  let o = {};
+  let queryString = url.split("?")[1];
+  if (queryString) {
+    queryString.split("&").forEach((item) => {
+      let [key, val] = item.split("=");
+      val = val ? decodeURI(val) : true;
+      //          转码         无值赋值true
+      if (o.hasOwnProperty(key)) {
+        //   已有属性转为数组
+        o[key] = [].concat(o[key], val);
+      } else {
+        o[key] = val;
+      }
+    });
+  }
+  return o;
 }
 export function parseQuery() {
   let url = window.location.href;

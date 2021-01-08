@@ -57,6 +57,7 @@ export default {
       headerImage: '',
       picValue: '',
       upImgUrl: '',
+      list_arr:[],
     }
   },
   computed: {
@@ -70,13 +71,8 @@ export default {
   },
   mounted() {
     this.relicsInfo();
-    this.getUser();
+    // this.getUser();
     this.onLoad();
-    // this.getComment()
-    // const ViewerDom = document.getElementById('app-images');
-    // const viewer = new Viewer(ViewerDom, {
-    //   // 配置
-    // })
 
   },
   watch: {
@@ -205,63 +201,41 @@ export default {
     },
     videoPause() { },
     //获取评论详情
-    getComment() {
-      let data = {
-        page: this.page,
-        page_size: this.page_size,
-        relics_id: this.id,
-        reply_id: '',
-      }
-      api.postComment(this.qs.stringify(data)).then((res) => {
-        if (res.status == 200) {
-          if (res.data.list.length > 0) {
-            this.total = this.total += res.data.list.length
-            // console.log(res.data.list)
-            for (let i = 0; i < res.data.list.length; i++) {
-              this.commentList.push(res.data.list[i]);
-            }
-            // 加载状态结束
-            this.loading = false;
-            // console.log(this.commentList)
-          } else {
-            // 数据全部加载完成
-            this.finished = true;
-
-          }
-
-        }
-      });
-    },
     onLoad() {
-      // console.log(1)
+      // console.log(name)
       let data = {
         page: this.page,
         page_size: this.page_size,
         relics_id: this.id,
         reply_id: '',
       }
-      api.postComment(this.qs.stringify(data)).then((res) => {
-        if (res.status == 200) {
-          this.total = this.total += res.data.list.length
-          // console.log(res.data.list)
-          for (let i = 0; i < res.data.list.length; i++) {
-            this.commentList.push(res.data.list[i]);
+        api.postComment(this.qs.stringify(data)).then((res) => {
+          if (res.status == 200) {
+            this.total = this.total += res.data.list.length
+            for (let i = 0; i < res.data.list.length; i++) {
+              this.list_arr.push(res.data.list[i]);
+            }
+            this.commentList =  this.unique(this.list_arr)
+            // console.log(this.commentList)
+            this.page = data.page
           }
-          this.page = data.page
-          //         console.log(this.commentList)
-        }
-        // 加载状态结束
-        this.loading = false;
-        //
-        // 数据全部加载完成
-        if (res.data.list.length < this.page_size) {
-          this.finished = true;
-        } else {
-          this.page++;
-        }
-      });
-    },
+          // 加载状态结束
+          this.loading = false;
+          //
+          // 数据全部加载完成
+          if (res.data.list.length < this.page_size) {
+            this.finished = true;
+          } else {
+            this.page++;
+          }
+        });
 
+    },
+    //数组去重
+    unique(arr) {
+      const res = new Map();
+      return arr.filter((arr) => !res.has(arr.id) && res.set(arr.id, 1));
+    },
     onRefresh() {
       // 清空列表数据
       this.finished = false;
@@ -316,7 +290,7 @@ export default {
       if (global().isWeixin()) {
         // console.log(window.localStorage.getItem('storage') == null,'2222')
         if (window.localStorage.getItem('storage') == null) {
-          console.log(1);
+          // console.log(1);
           this.$router.push({
             path: '/toke',
           });
@@ -342,15 +316,21 @@ export default {
 
     },
     // 点赞
-    linkFn() {
+    linkFn(e) {
+      let value = {
+        token: '76cc44a55f57b30c96595c50c2217b1d',
+        user_id: 399,
+      };
+      window.localStorage.setItem("storage", JSON.stringify(value));
       let prams = {
         relics_id: this.id
       }
-      this.getUser();
+      // this.getUser();
       api.likeEntry(this.qs.stringify(prams)).then((res) => {
         // console.log(res)
         if (res.status == 200) {
           Toast.success(res.message);
+          this.relicsDataInfo.likes = e.likes+1
         } else if (res.status == 401) {
           this.$router.push({
             path: '/toke',
@@ -366,11 +346,16 @@ export default {
       let data = {
         comment_id: e.currentTarget.dataset.commentid,
       }
-      this.getUser();
+      // this.getUser();
       api.commentLike(this.qs.stringify(data)).then((res) => {
         // console.log(res)
         if (res.status == 200) {
           Toast.success(res.message);
+          let index= this.page;
+          for (let i = 1 ;i<=index; i++ ){
+            this.page = i;
+            this.onLoad();
+          }
         } else if (res.status == 401) {
           this.$router.push({
             path: '/toke',
@@ -382,7 +367,7 @@ export default {
     },
     // 回复
     hfSetFocus(e) {
-      this.getUser();
+      // this.getUser();
       // console.log(e)
       let reply_id = e.currentTarget.dataset.reply_id;
       let username = e.currentTarget.dataset.username;
@@ -398,22 +383,32 @@ export default {
     },
 
     // 回复评论
-    sendOut(imgs) {
-      this.getUser();
-      console.log(this.placeholder)
+    sendOut() {
+      // this.getUser();
+      // console.log(this.placeholder)
       let data = {
         relics_id: this.id,
         reply_id: this.setData.reply_id,
         comment: this.commentContent,
-        image: imgs,
+        image: '',
         voice: '',
       }
-      if (this.commentContent) {
+      if (this.commentContent != null) {
         api.CommentEntry(this.qs.stringify(data)).then((res) => {
           // console.log(res)
           if (res.status == 200) {
             Toast.success(res.message);
-            this.setData.reply_id = '';
+            if(this.setData.reply_id != null) {
+              this.setData.reply_id = '';
+            }
+            let index =this.page;
+            for(let i = 1;i<=index; i++){
+              this.page = i;
+              this.onLoad();
+            }
+
+            this.commentContent = '';
+            this.placeholder = '';
           }
         }).then((err) => {
           console.log(err)
@@ -444,7 +439,19 @@ export default {
             // console.log(res)
             if (res.status == 200) {
               Toast.success(res.message);
+              if(this.setData.reply_id != null){
+                let index= this.page;
+                this.page = 1;
+                for (let i = 0 ;i<=index; i++ ){
+                  this.onLoad();
+                }
+                // location.reload();
+              }else {
+                this.getComment();
+                // location.reload();
+              }
               this.setData.reply_id = '';
+              this.commentContent = '';
             } else if (res.status == 401) {
               this.$router.push({
                 path: '/toke',
