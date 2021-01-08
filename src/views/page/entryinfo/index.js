@@ -323,8 +323,6 @@ export default {
           }
           api.ScanCode(data).then((res) => {
             if (res.status === 200) {
-              Toast.success(res.message);
-
             } else if (res.status === 401) {
               this.$router.push({
                 path: '/toke',

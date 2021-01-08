@@ -36,8 +36,6 @@ export default {
   mounted() {
     let url = this.parseQuery(window.location.href);
     this.code = url.code;
-    //this.redirect_url = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx74558c364d6c4ccf&redirect_uri=http://xsdth5.xunsheng.org.cn/&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect`;
-    //console.log(encodeURIComponent(window.location.href.split("#")[0]))
     this.redirect_url =
       "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx74558c364d6c4ccf&redirect_uri=" +
       encodeURIComponent(window.location.href) +
@@ -58,7 +56,6 @@ export default {
         .postUser(this.qs.stringify(params))
         .then((res) => {
           let data = res.data;
-          console.log("data",data);
           if (res.status == 200) {
             let value = {
               token: data.token,
@@ -68,7 +65,6 @@ export default {
               let router_info = JSON.parse(
                 localStorage.getItem("apph5_recirect_url")
               );
-              console.log("router_info",router_info)
               this.$router.replace({
                 path: router_info.path,
                 query: Object.assign(router_info.query, {
@@ -77,36 +73,6 @@ export default {
                 }),
                 params: router_info.params,
               });
-            //   if (data.data.success == '1') {
-            //     console.log(data)
-            //     this.member_id = data.data.member_id;
-            //     this.token = data.data.token;
-            //     let wxinfo = {
-            //       "openid": data.data.pub_openid,
-            //       "nickname": data.data.name,
-            //       "sex": data.data.sex,
-            //       "headimgurl": data.data.avatar,
-            //       "unionid": data.data.wechat_open_id
-            //     }
-            //     localStorage.setItem('storage', JSON.stringify(wxinfo));
-            //     cookie.set('member_id', data.data.member_id, {path: '/'});
-            //     cookie.set('token', data.data.token, {path: '/'});
-            //     cookie.set("visit_member_id", data.data.member_id, {path: '/'});
-            //     cookie.set("login_account", data.data.login_account, {path: '/'});
-            //     this.$nextTick(() => {
-            //       let router_info = JSON.parse(cookie.get('apph5_recirect_url'));
-            //       this.$router.replace({
-            //         path: router_info.path,
-            //         query: Object.assign(router_info.query, {mid: this.member_id, tk: this.token}),
-            //         params: router_info.params
-            //       });
-            //     })
-            //   } else {
-            //     localStorage.setItem('storage', JSON.stringify(data.data));
-            //     this.$router.push({path:decodeURIComponent(this.$router.query.redirect)});
-            //   }
-            // } else {
-            // this.$vux.toast.show({type: 'text', text: data.msg});
           }
         })
         .catch((err) => {
