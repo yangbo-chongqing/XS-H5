@@ -38,7 +38,7 @@ export default {
     this.code = url.code;
     this.redirect_url =
       "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx74558c364d6c4ccf&redirect_uri=" +
-      encodeURIComponent(window.location.href.split("#")[0]) +
+      encodeURIComponent(window.location.href) +
       "&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect";
     if (!this.code) {
       window.location.replace(this.redirect_url);
@@ -65,6 +65,8 @@ export default {
               let router_info = JSON.parse(
                 localStorage.getItem("apph5_recirect_url")
               );
+              //清除code多余参数
+              history.replaceState({},'',window.location.href.split("#")[0])
               this.$router.replace({
                 path: router_info.path,
                 query: Object.assign(router_info.query, {
