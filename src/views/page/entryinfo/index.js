@@ -312,6 +312,7 @@ export default {
         // console.log(window.localStorage.getItem('storage') == null,'2222')
         if (window.localStorage.getItem('storage') == null) {
           // console.log(1);
+          this.Show = true;
           this.$router.push({
             path: '/toke',
           });
@@ -346,7 +347,6 @@ export default {
       let prams = {
         relics_id: this.id
       }
-      this.getUser();
       api.likeEntry(this.qs.stringify(prams)).then((res) => {
         // console.log(res)
         if (res.status == 200) {
@@ -367,7 +367,7 @@ export default {
       let data = {
         comment_id: e.currentTarget.dataset.commentid,
       }
-      this.getUser();
+      // this.getUser();
       api.commentLike(this.qs.stringify(data)).then((res) => {
         // console.log(res)
         if (res.status == 200) {
@@ -396,12 +396,12 @@ export default {
         reply_id: reply_id,
         hfIndex: index
       }
-      console.log(this.setData)
+      // console.log(this.setData)
     },
 
     // 回复评论
     sendOut() {
-      this.getUser();
+      // this.getUser();
       // console.log(this.placeholder)
       let data = {
         relics_id: this.id,
@@ -430,7 +430,7 @@ export default {
     },
 
     afterRead(file) {
-      console.log(file.file);
+      // console.log(file.file);
       let formData = new window.FormData();
       formData.append("file", file.file);
       axios.post('/api/UploadFile', formData, {
@@ -438,7 +438,7 @@ export default {
           "Content-Type": "multipart/form-data"
         }
       }).then((res) => {
-        console.log(res.data.message === '上传成功');
+        // console.log(res.data.message === '上传成功');
         if (res.data.message === '上传成功') {
           let imgs = res.data.data.file_path;
           let data = {

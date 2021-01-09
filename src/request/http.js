@@ -35,7 +35,9 @@ const http = function (options) {
         Toast.clear();
         if (res.status == 200) {
           resolve(res);
-        } else {
+        } else if(res.status == 401){
+
+        }else {
           Toast(res.message);
           setTimeout(() => {
             resolve(res);

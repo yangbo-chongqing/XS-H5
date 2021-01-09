@@ -307,7 +307,7 @@
         </template>
       </div>
     </div>
-    <div class="pl-input-body">
+    <div class="pl-input-body" v-if="Show">
       <div class="pl-send-text">
         <input :placeholder="placeholder" v-model="commentContent" type="text" class="weui-input">
       </div>
@@ -319,7 +319,7 @@
         <button>发送</button>
       </div>
     </div>
-    <big-img v-if="showImg" @clickit="viewImg" :imgSrc="imgSrc"></big-img>
+    <big-img v-if="showImg" @clickit="viewImg"  :imgSrc="imgSrc"></big-img>
 <!--    用户评论   j-->
   </div>
 </template>
