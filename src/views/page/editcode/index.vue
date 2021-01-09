@@ -6,8 +6,6 @@
       <div class="code-image">
         <img :src="commentList" alt="">
       </div>
-<!--      <div class="canvas-input"><el-input type="textarea" placeholder="请输入内容"  v-model="value" maxlength="30" show-word-limit style="height: 70px">-->
-<!--      </el-input></div>-->
       <div class="canvas-input" >
           <div class="editBox" contenteditable="true"  @input="inputChange" placeholder="请输入文字"></div>
       </div>

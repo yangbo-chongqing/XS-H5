@@ -299,23 +299,24 @@
 
                 </div>
 
-                <div class="pl-input-body" v-if="Show">
-                  <div class="pl-send-text">
-                    <input :placeholder="placeholder" v-model="commentContent" type="text" class="weui-input">
-                  </div>
-                  <div class="pl-send-img" >
-                    <img src="@/assets/images/img-icon.png" alt="" >
-                    <van-uploader :after-read="afterRead" accept="image/*"/>
-                  </div>
-                  <div class="pl-send-ly" @click="sendOut">
-                    <button>发送</button>
-                  </div>
-                </div>
+
               </div>
             </van-list>
           </div>
 
         </template>
+      </div>
+    </div>
+    <div class="pl-input-body">
+      <div class="pl-send-text">
+        <input :placeholder="placeholder" v-model="commentContent" type="text" class="weui-input">
+      </div>
+      <div class="pl-send-img" >
+        <img src="@/assets/images/img-icon.png" alt="" >
+        <van-uploader :after-read="afterRead" accept="image/*"/>
+      </div>
+      <div class="pl-send-ly" @click="sendOut">
+        <button>发送</button>
       </div>
     </div>
     <big-img v-if="showImg" @clickit="viewImg" :imgSrc="imgSrc"></big-img>

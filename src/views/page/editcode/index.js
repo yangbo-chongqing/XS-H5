@@ -1,5 +1,5 @@
 import api from '@/request/xsdt';
-import { Icon , Col, Row , Search , List , Field } from 'vant';
+import { Icon , Col, Row , Search  , Field } from 'vant';
 import { Input } from 'element-ui';
 import html2canvas from 'html2canvas';
 html2canvas(document.body).then(function(canvas) {
@@ -12,7 +12,6 @@ export default {
     VanCol: Col,
     VanRow:Row,
     VanSearch:Search,
-    VanList:List,
     VanField:Field,
     ElInput:Input,
 
@@ -25,7 +24,7 @@ export default {
       finished: false,
       page: 1,
       page_size: 10,
-      commentList:[],
+      commentList:'',
       value:'',
       cursorPos:'',
     }
@@ -38,7 +37,7 @@ export default {
 
   },
   mounted() {
-    this.onLoad();
+    this.museinfo();
   },
   methods: {
 
@@ -55,13 +54,13 @@ export default {
       let aLink = document.createElement("a");
       aLink.style.display = "none";
       aLink.href = downloadUrl;
-      aLink.download = "二维码.png";
+      aLink.download = commentList + ".png";
       // 触发点击-然后移除
       document.body.appendChild(aLink);
       aLink.click();
       document.body.removeChild(aLink);
     },
-      onLoad () {
+    museinfo () {
       // console.log(1)
       let data = {
         id:this.id,
@@ -75,24 +74,6 @@ export default {
       });
     },
 
-    museinfo() {
-      let params = {
-        muse_id:this.muse_id
-      }
-      api.postMuseIndex(this.qs.stringify(params)).then((res) => {
-        if (res.status == 200) {
-          this.museDataInfo = res.data;
-          let url = window.location.href;
-          this.$global.shareToWechat(res.data.info.share_title, url, res.data.info.share_image, res.data.info.share_content)
-          document.title = res.data.info.muse_name;
-          if(this.museDataInfo.info.Introduction){
-            if (this.museDataInfo.info.Introduction.length > 70) {
-              this.isShowMore = true;
-            }
-          }
-        }
-      });
-    },
 
     inputChange(e) {
       this.cursorPos=this.getCursorPosition(e.currentTarget);
