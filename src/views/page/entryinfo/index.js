@@ -343,7 +343,7 @@ export default {
       //   token: '76cc44a55f57b30c96595c50c2217b1d',
       //   user_id: 399,
       // };
-      window.localStorage.setItem("storage", JSON.stringify(value));
+      // window.localStorage.setItem("storage", JSON.stringify(value));
       let prams = {
         relics_id: this.id
       }
@@ -351,7 +351,7 @@ export default {
         // console.log(res)
         if (res.status == 200) {
           Toast.success(res.message);
-          this.relicsDataInfo.likes = e.likes+1
+          this.relicsInfo()
         } else if (res.status == 401) {
           this.$router.push({
             path: '/toke',
