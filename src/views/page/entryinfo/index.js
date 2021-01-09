@@ -71,7 +71,7 @@ export default {
   },
   mounted() {
     this.relicsInfo();
-    // this.getUser();
+    this.getUser();
     this.onLoad();
 
   },
@@ -199,7 +199,28 @@ export default {
       }
       this.playFlag = !this.playFlag
     },
-    videoPause() { },
+    videoPause() {},
+    getCommentDetails () {
+      let arr= [];
+      for( let i=1; i<this.page;i++){
+        let data = {
+          page: i ,
+          page_size: this.page_size,
+          relics_id: this.id,
+          reply_id: '',
+        }
+        api.postComment(this.qs.stringify(data)).then((res) => {
+          if (res.status == 200) {
+            this.total = this.total += res.data.list.length
+            for (let i = 0; i < res.data.list.length; i++) {
+              arr.push(res.data.list[i]);
+            }
+            // this.commentList =  this.unique(this.list_arr)
+          }
+        });
+      }
+      this.commentList = arr;
+    },
     //获取评论详情
     onLoad() {
       // console.log(name)
@@ -325,7 +346,7 @@ export default {
       let prams = {
         relics_id: this.id
       }
-      // this.getUser();
+      this.getUser();
       api.likeEntry(this.qs.stringify(prams)).then((res) => {
         // console.log(res)
         if (res.status == 200) {
@@ -346,16 +367,12 @@ export default {
       let data = {
         comment_id: e.currentTarget.dataset.commentid,
       }
-      // this.getUser();
+      this.getUser();
       api.commentLike(this.qs.stringify(data)).then((res) => {
         // console.log(res)
         if (res.status == 200) {
           Toast.success(res.message);
-          let index= this.page;
-          for (let i = 1 ;i<=index; i++ ){
-            this.page = i;
-            this.onLoad();
-          }
+          this.getCommentDetails()
         } else if (res.status == 401) {
           this.$router.push({
             path: '/toke',
@@ -367,7 +384,7 @@ export default {
     },
     // 回复
     hfSetFocus(e) {
-      // this.getUser();
+      this.getUser();
       // console.log(e)
       let reply_id = e.currentTarget.dataset.reply_id;
       let username = e.currentTarget.dataset.username;
@@ -384,7 +401,7 @@ export default {
 
     // 回复评论
     sendOut() {
-      // this.getUser();
+      this.getUser();
       // console.log(this.placeholder)
       let data = {
         relics_id: this.id,
@@ -401,11 +418,7 @@ export default {
             if(this.setData.reply_id != null) {
               this.setData.reply_id = '';
             }
-            let index =this.page;
-            for(let i = 1;i<=index; i++){
-              this.page = i;
-              this.onLoad();
-            }
+            this.getCommentDetails()
 
             this.commentContent = '';
             this.placeholder = '';
@@ -439,17 +452,7 @@ export default {
             // console.log(res)
             if (res.status == 200) {
               Toast.success(res.message);
-              if(this.setData.reply_id != null){
-                let index= this.page;
-                this.page = 1;
-                for (let i = 0 ;i<=index; i++ ){
-                  this.onLoad();
-                }
-                // location.reload();
-              }else {
-                this.getComment();
-                // location.reload();
-              }
+              this.getCommentDetails()
               this.setData.reply_id = '';
               this.commentContent = '';
             } else if (res.status == 401) {

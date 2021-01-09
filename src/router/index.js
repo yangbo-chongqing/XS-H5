@@ -104,6 +104,26 @@ const routes = [
     },
   },
   {
+    // 下载二维码
+    path: '/editcode',
+    name: 'editcode',
+    component: () => import('@/views/page/editcode/index.vue'),
+    meta: {
+      title: '寻声地图',
+      keepAlive: false,
+    },
+  },
+  {
+    // 下载二维码
+    path: '/editor',
+    name: 'editor',
+    component: () => import('@/views/page/editor/index.vue'),
+    meta: {
+      title: '寻声地图',
+      keepAlive: false,
+    },
+  },
+  {
     // 404页面
     path: '*',
     name: 'notfound',

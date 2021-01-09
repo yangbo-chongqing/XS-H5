@@ -42,7 +42,8 @@ export default {
       })  
     },
     onSearch(){
-      console.log(1)
+      this.page = 1;
+      this.commentList = [];
       this.onLoad()
     },
     onChange(){

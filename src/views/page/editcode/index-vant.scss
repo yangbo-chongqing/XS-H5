@@ -1,0 +1,20 @@
+.h-container {
+  .code-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #f5f5f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px ;
+    color: #999999;
+    margin: 0;
+    .van-icon {
+      font-size: 20px;
+    }
+  }
+  .van-icon-back-top::before {
+    content: '\F0E6';
+  }
+}

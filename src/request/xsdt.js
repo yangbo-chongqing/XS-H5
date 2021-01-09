@@ -123,6 +123,14 @@ const api = {
             data: params,
         });
     },
+    //二维码请求
+    postminicode(params) {
+        return http({
+            method: 'post',
+            url: '/api/web/relics/minicode',
+            data: params,
+        });
+    },
 
 }
 export default api;
