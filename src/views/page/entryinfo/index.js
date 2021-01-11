@@ -6,6 +6,7 @@ import { Icon, Col, Row, Swipe, SwipeItem, NavBar, List, Toast, Uploader, Button
 import { showLoading, hideLoading } from '@/request/loading'
 // import { Loading } from 'element-ui';
 import Viewer from "viewerjs";
+import {parseQuery} from "@/utils/utils";
 
 export default {
   name: 'Home',
@@ -58,6 +59,7 @@ export default {
       picValue: '',
       upImgUrl: '',
       list_arr:[],
+      commentList_index:'',
     }
   },
   computed: {
@@ -73,6 +75,7 @@ export default {
     this.relicsInfo();
     this.getUser();
     this.onLoad();
+    // this.getUserInfo();
 
   },
   watch: {
@@ -82,9 +85,9 @@ export default {
       this.delEnlargeImg();
     },
     message: function () {
-      console.log(1);
+      // console.log(1);
       this.$nextTick(() => {
-        console.log(1);
+        // console.log(1);
         // console.log(document.getElementById('images'))
         let viewer2 = new Viewer(document.getElementById('app-images'), {
           url: 'data-imgurl',
@@ -339,11 +342,6 @@ export default {
     },
     // 点赞
     linkFn(e) {
-      // let value = {
-      //   token: '76cc44a55f57b30c96595c50c2217b1d',
-      //   user_id: 399,
-      // };
-      // window.localStorage.setItem("storage", JSON.stringify(value));
       let prams = {
         relics_id: this.id
       }
@@ -351,7 +349,8 @@ export default {
         // console.log(res)
         if (res.status == 200) {
           Toast.success(res.message);
-          this.relicsInfo()
+          e.likes = e.is_like+1
+          e.is_like = e.is_like+1
         } else if (res.status == 401) {
           this.$router.push({
             path: '/toke',
@@ -363,7 +362,7 @@ export default {
 
     },
 
-    CommentLike(e) {
+    CommentLike(e,datas) {
       let data = {
         comment_id: e.currentTarget.dataset.commentid,
       }
@@ -372,7 +371,8 @@ export default {
         // console.log(res)
         if (res.status == 200) {
           Toast.success(res.message);
-          this.getCommentDetails()
+          datas.is_like = datas.is_like+1;
+          datas.likes = datas.likes + 1;
         } else if (res.status == 401) {
           this.$router.push({
             path: '/toke',
@@ -383,14 +383,17 @@ export default {
       });
     },
     // 回复
-    hfSetFocus(e) {
-      this.getUser();
+    hfSetFocus(e,datas) {
+      // this.getUser();
       // console.log(e)
+      this.commentList_index = datas;
+      document.querySelector('.weui-input').focus();
       let reply_id = e.currentTarget.dataset.reply_id;
       let username = e.currentTarget.dataset.username;
       let index = e.currentTarget.dataset.index;
       // console.log(reply_id,username,index)
       this.placeholder = '回复' + username;
+      console.log(datas,reply_id,username)
       this.setData = {
         autoFocus: true,
         reply_id: reply_id,
@@ -401,8 +404,6 @@ export default {
 
     // 回复评论
     sendOut() {
-      // this.getUser();
-      // console.log(this.placeholder)
       let data = {
         relics_id: this.id,
         reply_id: this.setData.reply_id,
@@ -417,9 +418,10 @@ export default {
             Toast.success(res.message);
             if(this.setData.reply_id != null) {
               this.setData.reply_id = '';
+              this.commentList[this.commentList_index].list.push(res.data.info)
+            }else {
+              this.commentList.unshift(res.data.info)
             }
-            this.getCommentDetails()
-
             this.commentContent = '';
             this.placeholder = '';
           }
@@ -452,7 +454,11 @@ export default {
             // console.log(res)
             if (res.status == 200) {
               Toast.success(res.message);
-              this.getCommentDetails()
+              if(this.setData.reply_id != null) {
+                this.commentList[this.commentList_index].list.push(res.data.info)
+              }else {
+                this.commentList.unshift(res.data.info)
+              }
               this.setData.reply_id = '';
               this.commentContent = '';
             } else if (res.status == 401) {

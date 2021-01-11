@@ -418,6 +418,7 @@
                                 display: flex;
                                 align-items: center;
                                 font-size: 16.68px;
+                                position: relative;
                             }
                         }
                     }
@@ -498,6 +499,7 @@
                                         display: flex;
                                         align-items: center;
                                         font-size: 16px;
+                                        position: relative;
                                     }
                                 }
                             }
@@ -596,6 +598,9 @@
         }
     }
 }
-
+button{
+    background-color: #ffffff;
+    border: 0;
+}
 
 }
