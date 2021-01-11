@@ -4,7 +4,7 @@ import { Input } from 'element-ui';
 import html2canvas from 'html2canvas';
 html2canvas(document.body).then(function(canvas) {
   document.body.appendChild(canvas);
-});
+},);
 export default {
   name:'Home',
   components: {
@@ -43,7 +43,7 @@ export default {
 
     toImage() {
       html2canvas(this.$refs.imageDom, {
-        backgroundColor: '#ffffff'
+        backgroundColor: '#ffffff',
       }).then(canvas => {
         let imgData = canvas.toDataURL("image/jpeg");
         this.fileDownload(imgData);
@@ -54,7 +54,7 @@ export default {
       let aLink = document.createElement("a");
       aLink.style.display = "none";
       aLink.href = downloadUrl;
-      aLink.download = commentList + ".png";
+      aLink.download = this.commentList + ".png";
       // 触发点击-然后移除
       document.body.appendChild(aLink);
       aLink.click();

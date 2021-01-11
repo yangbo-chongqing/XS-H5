@@ -1,8 +1,8 @@
 import api from '@/request/xsdt';
 import axios from 'axios';
 import BigImg from './BigImg/bigImg.vue';
-import global from '@/global'
-import { Icon, Col, Row, Swipe, SwipeItem, NavBar, List, Toast, Uploader, Button } from 'vant';
+import global from '@/global';
+import { Icon, Col, Row, Swipe, SwipeItem, NavBar, List, Toast, Uploader, Button , ImagePreview } from 'vant';
 import { showLoading, hideLoading } from '@/request/loading'
 // import { Loading } from 'element-ui';
 import Viewer from "viewerjs";
@@ -21,6 +21,7 @@ export default {
     Toast: Toast,
     VanUploader: Uploader,
     VanButton: Button,
+    ImagePreview:ImagePreview,
     // Loading:Loading,
     'big-img': BigImg
   },
@@ -73,7 +74,7 @@ export default {
   },
   mounted() {
     this.relicsInfo();
-    this.getUser();
+    // this.getUser();
     this.onLoad();
     // this.getUserInfo();
 
@@ -304,6 +305,7 @@ export default {
     viewImg() {
       this.showImg = false;
     },
+
     //判断有无用户信息
     getUser() {
       // let storage = {
@@ -393,7 +395,6 @@ export default {
       let index = e.currentTarget.dataset.index;
       // console.log(reply_id,username,index)
       this.placeholder = '回复' + username;
-      console.log(datas,reply_id,username)
       this.setData = {
         autoFocus: true,
         reply_id: reply_id,
@@ -401,7 +402,12 @@ export default {
       }
       // console.log(this.setData)
     },
-
+    changeCount(){
+      if(this.commentContent===''){
+        this.placeholder = '请输入评论';
+        this.setData.reply_id = '';
+      }
+    },
     // 回复评论
     sendOut() {
       let data = {
@@ -432,6 +438,18 @@ export default {
     },
 
     afterRead(file) {
+      let value = {
+        token: '2b6445cc82ff18219beec2de8f725ebe',
+        user_id: 399,
+      };
+      window.localStorage.setItem("storage", JSON.stringify(value));
+      Toast.loading({
+        duration: 0,
+        message: '上传中...',
+        forbidClick: true,
+      });
+
+
       // console.log(file.file);
       let formData = new window.FormData();
       formData.append("file", file.file);
@@ -454,6 +472,7 @@ export default {
             // console.log(res)
             if (res.status == 200) {
               Toast.success(res.message);
+              Toast.clear();
               if(this.setData.reply_id != null) {
                 this.commentList[this.commentList_index].list.push(res.data.info)
               }else {
@@ -467,9 +486,23 @@ export default {
               });
             }
           }).then((err) => {
+            Toast.clear();
             console.log(err)
           });
         }
+      }).then((err)=>{
+        Toast.clear();
+        Toast.fail('上传失败');
+      });
+    },
+    //图片预览
+    getImg(images, index) {
+      // console.log(images)
+      ImagePreview({
+        images: [
+          images
+        ],
+        closeable: true,
       });
     },
   }
