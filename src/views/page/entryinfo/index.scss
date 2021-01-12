@@ -383,8 +383,9 @@
                             width: 100%;
                             display: flex;
                             flex-wrap: wrap;
+                            overflow: hidden;
                             .pl-images{
-                                width: 80px;
+                                //width: 80px;
                                 height: 80px;
                                 flex-shrink: 0;
                                 margin-right: 6px;

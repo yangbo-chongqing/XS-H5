@@ -101,50 +101,54 @@ export default {
         }
       });
     },
+    updateData(e = "") {
+      this.content = e;
+      console.info(e);
+    },
 
     getUserInfo() {
-      // let value = {
-      //   token: 'c74470077d498c6763cbf9f744c25498',
-      //   user_id: 399,
-      // };
-      // window.localStorage.setItem("storage", JSON.stringify(value));
+      let value = {
+        token: '8c91f4541d0d4359b50d45d81752ffe0',
+        user_id: 399,
+      };
+      window.localStorage.setItem("storage", JSON.stringify(value));
 
-        let url = parseQuery(window.location.href);
-        let  code = url.code;
-        let params = {
-          code: code,
-        };
-        if(code != null){
-          api.postUser(this.qs.stringify(params))
-              .then((res) => {
-                let data = res.data;
-                if (res.status == 200) {
-                  let value = {
-                    token: data.token,
-                    user_id: data.user_id,
-                  };
-                  window.localStorage.setItem("storage", JSON.stringify(value));
-
-                  // let router_info = JSON.parse(
-                  //   localStorage.getItem("apph5_recirect_url")
-                  // );
-                  // this.$router.replace({
-                  //   path: router_info.path,
-                  //   query: Object.assign(router_info.query, {
-                  //     mid: this.member_id,
-                  //     tk: this.token,
-                  //   }),
-                  //   params: router_info.params,
-                  // });
-                }
-              })
-              .catch((err) => {
-                // this..toast.show({type: 'text', text: '网络错误'});
-              });
-        }else {
-          this.$router.replace({
-            path: '/111',})
-        }
+        // let url = parseQuery(window.location.href);
+        // let  code = url.code;
+        // let params = {
+        //   code: code,
+        // };
+        // if(code != null){
+        //   api.postUser(this.qs.stringify(params))
+        //       .then((res) => {
+        //         let data = res.data;
+        //         if (res.status == 200) {
+        //           let value = {
+        //             token: data.token,
+        //             user_id: data.user_id,
+        //           };
+        //           window.localStorage.setItem("storage", JSON.stringify(value));
+        //
+        //           // let router_info = JSON.parse(
+        //           //   localStorage.getItem("apph5_recirect_url")
+        //           // );
+        //           // this.$router.replace({
+        //           //   path: router_info.path,
+        //           //   query: Object.assign(router_info.query, {
+        //           //     mid: this.member_id,
+        //           //     tk: this.token,
+        //           //   }),
+        //           //   params: router_info.params,
+        //           // });
+        //         }
+        //       })
+        //       .catch((err) => {
+        //         // this..toast.show({type: 'text', text: '网络错误'});
+        //       });
+        // }else {
+        //   this.$router.replace({
+        //     path: '/111',})
+        // }
     },
   }
 };

@@ -7,7 +7,9 @@
           <div class="send-data-btn">修改</div>
         </div>
       </div>
-      <div class="ed-content"></div>
+      <div class="ed-content">
+        <quill-editor ref="myTextEditor" v-model="content" :options="editorOption" style="height:100px;display: inline-block"></quill-editor>
+      </div>
 <!--      相关添加-->
       <div class="ed-footer">
         <div class="editor-entry-tip-add" @click="showPopup">

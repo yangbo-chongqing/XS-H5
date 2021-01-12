@@ -3,7 +3,7 @@ import axios from 'axios';
 import BigImg from './BigImg/bigImg.vue';
 import global from '@/global';
 import { Icon, Col, Row, Swipe, SwipeItem, NavBar, List, Toast, Uploader, Button , ImagePreview } from 'vant';
-import { showLoading, hideLoading } from '@/request/loading'
+import { showLoading, hideLoading } from '@/request/loading';
 // import { Loading } from 'element-ui';
 import Viewer from "viewerjs";
 import {parseQuery} from "@/utils/utils";
