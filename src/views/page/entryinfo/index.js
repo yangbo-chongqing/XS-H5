@@ -61,6 +61,7 @@ export default {
       upImgUrl: '',
       list_arr:[],
       commentList_index:'',
+      dataURLtoFile:'',
     }
   },
   computed: {
@@ -74,7 +75,7 @@ export default {
   },
   mounted() {
     this.relicsInfo();
-    // this.getUser();
+    this.getUser();
     this.onLoad();
     // this.getUserInfo();
 
@@ -437,64 +438,75 @@ export default {
       }
     },
 
-    afterRead(file) {
-      let value = {
-        token: '2b6445cc82ff18219beec2de8f725ebe',
-        user_id: 399,
-      };
-      window.localStorage.setItem("storage", JSON.stringify(value));
+    fileChange(el){
+      // console.log(el)
       Toast.loading({
         duration: 0,
         message: '上传中...',
         forbidClick: true,
       });
-
-
-      // console.log(file.file);
-      let formData = new window.FormData();
-      formData.append("file", file.file);
-      axios.post('/api/UploadFile', formData, {
-        headers: {
-          "Content-Type": "multipart/form-data"
-        }
-      }).then((res) => {
-        // console.log(res.data.message === '上传成功');
-        if (res.data.message === '上传成功') {
-          let imgs = res.data.data.file_path;
-          let data = {
-            relics_id: this.id,
-            reply_id: this.setData.reply_id,
-            comment: this.commentContent,
-            image: imgs,
-            voice: '',
-          }
-          api.CommentEntry(this.qs.stringify(data)).then((res) => {
-            // console.log(res)
-            if (res.status == 200) {
-              Toast.success(res.message);
-              Toast.clear();
-              if(this.setData.reply_id != null) {
-                this.commentList[this.commentList_index].list.push(res.data.info)
-              }else {
-                this.commentList.unshift(res.data.info)
-              }
-              this.setData.reply_id = '';
-              this.commentContent = '';
-            } else if (res.status == 401) {
-              this.$router.push({
-                path: '/toke',
-              });
-            }
-          }).then((err) => {
-            Toast.clear();
-            console.log(err)
-          });
-        }
-      }).then((err)=>{
-        Toast.clear();
+      // console.log(el)
+      let _this = this;
+      if (this.limit !== undefined) this.limit--;
+      if (this.limit !== undefined && this.limit < 0) return;
+      lrz( el.file,{quality: 0.3} )
+          .then(function(rst) {
+            //成功时执行
+            // console.log(rst)
+            const fd = rst.formData;
+                axios.post('/api/UploadFile', fd, {
+                  headers: {
+                    "Content-Type": "multipart/form-data"
+                  }
+                }).then((res) => {
+                  // console.log(res.data.message === '上传成功');
+                  if (res.data.message === '上传成功') {
+                    let imgs = res.data.data.file_path;
+                    let data = {
+                      relics_id: _this.id,
+                      reply_id: _this.setData.reply_id,
+                      comment: _this.commentContent,
+                      image: imgs,
+                      voice: '',
+                    }
+                    // Toast.success(res.data.message);
+                    api.CommentEntry(_this.qs.stringify(data)).then((res) => {
+                      // console.log(res)
+                      if (res.status == 200) {
+                        Toast.success(res.message);
+                        Toast.clear();
+                        if(this.setData.reply_id != null) {
+                          this.commentList[this.commentList_index].list.push(res.data.info)
+                        }else {
+                          this.commentList.unshift(res.data.info)
+                        }
+                        this.setData.reply_id = '';
+                        this.commentContent = '';
+                      } else if (res.status == 401) {
+                        this.$router.push({
+                          path: '/toke',
+                        });
+                      }
+                    }).then((err) => {
+                      Toast.clear();
+                      console.log(err)
+                    });
+                  }
+                }).then((err)=>{
+                  // file.status="failed";
+                  // file.message="上传失败";
+                  Toast.clear();
+                  Toast.fail('上传失败');
+                });
+          }).catch(function(error) {
+        //失败时执行
         Toast.fail('上传失败');
-      });
+      }).always(function() {
+        Toast.clear();
+      })
     },
+
+
     //图片预览
     getImg(images, index) {
       // console.log(images)

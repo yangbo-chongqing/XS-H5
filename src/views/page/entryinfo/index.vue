@@ -317,7 +317,7 @@
       </div>
       <div class="pl-send-img" >
         <img src="@/assets/images/img-icon.png" alt="" >
-        <van-uploader :after-read="afterRead" ref="file" accept="image/*"/>
+        <van-uploader  :after-read="fileChange" ref="file" accept="image/*"/>
       </div>
       <div class="pl-send-ly" @click="sendOut">
         <button>发送</button>
