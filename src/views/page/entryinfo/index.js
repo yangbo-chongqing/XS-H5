@@ -98,6 +98,7 @@ export default {
     }
   },
   methods: {
+
     //页面跳转
     jumpRoute(path, obj) {
       showLoading();
@@ -423,14 +424,16 @@ export default {
           // console.log(res)
           if (res.status == 200) {
             Toast.success(res.message);
-            if(this.setData.reply_id != null) {
-              this.setData.reply_id = '';
-              this.commentList[this.commentList_index].list.push(res.data.info)
+            console.log( this.setData.reply_id === '')
+            if(this.setData.reply_id === '' || this.setData.reply_id == null) {
+                this.commentList.unshift(res.data.info)
             }else {
-              this.commentList.unshift(res.data.info)
+                console.log(222)
+                this.setData.reply_id = '';
+                this.commentList[this.commentList_index].list.push(res.data.info)
             }
             this.commentContent = '';
-            this.placeholder = '';
+            this.placeholder = '请输入评论';
           }
         }).then((err) => {
           console.log(err)
@@ -475,15 +478,18 @@ export default {
                       if (res.status == 200) {
                         Toast.success(res.message);
                         Toast.clear();
-                        if(this.setData.reply_id != null) {
-                          this.commentList[this.commentList_index].list.push(res.data.info)
-                        }else {
-                          this.commentList.unshift(res.data.info)
-                        }
-                        this.setData.reply_id = '';
-                        this.commentContent = '';
+                          if(_this.setData.reply_id === '' || _this.setData.reply_id == null) {
+                              _this.commentList.unshift(res.data.info)
+                          }else {
+                              console.log(222)
+                              _this.setData.reply_id = '';
+                              _this.commentList[_this.commentList_index].list.push(res.data.info)
+                          }
+                          _this.setData.reply_id = '';
+                          _this.commentContent = '';
+                          _this.placeholder = '请输入评论';
                       } else if (res.status == 401) {
-                        this.$router.push({
+                          _this.$router.push({
                           path: '/toke',
                         });
                       }
@@ -496,11 +502,11 @@ export default {
                   // file.status="failed";
                   // file.message="上传失败";
                   Toast.clear();
-                  Toast.fail('上传失败');
+                  // Toast.fail('上传失败');
                 });
           }).catch(function(error) {
         //失败时执行
-        Toast.fail('上传失败');
+        // Toast.fail('上传失败');
       }).always(function() {
         Toast.clear();
       })

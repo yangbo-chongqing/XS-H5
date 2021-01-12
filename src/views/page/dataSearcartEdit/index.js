@@ -1,5 +1,6 @@
 import api from '@/request/xsdt';
 import { Icon, Col, Row , Search , List } from 'vant';
+import {parseQuery} from "@/utils/utils";
 export default {
   name:'Home',
   components: {
@@ -102,12 +103,48 @@ export default {
     },
 
     getUserInfo() {
-      let value = {
-        token: 'a33989d6993d3d2b67f0992d806cf4b5',
-        user_id: 399,
-      };
-      window.localStorage.setItem("storage", JSON.stringify(value));
+      // let value = {
+      //   token: 'c74470077d498c6763cbf9f744c25498',
+      //   user_id: 399,
+      // };
+      // window.localStorage.setItem("storage", JSON.stringify(value));
 
+        let url = parseQuery(window.location.href);
+        let  code = url.code;
+        let params = {
+          code: code,
+        };
+        if(code != null){
+          api.postUser(this.qs.stringify(params))
+              .then((res) => {
+                let data = res.data;
+                if (res.status == 200) {
+                  let value = {
+                    token: data.token,
+                    user_id: data.user_id,
+                  };
+                  window.localStorage.setItem("storage", JSON.stringify(value));
+
+                  // let router_info = JSON.parse(
+                  //   localStorage.getItem("apph5_recirect_url")
+                  // );
+                  // this.$router.replace({
+                  //   path: router_info.path,
+                  //   query: Object.assign(router_info.query, {
+                  //     mid: this.member_id,
+                  //     tk: this.token,
+                  //   }),
+                  //   params: router_info.params,
+                  // });
+                }
+              })
+              .catch((err) => {
+                // this..toast.show({type: 'text', text: '网络错误'});
+              });
+        }else {
+          this.$router.replace({
+            path: '/111',})
+        }
     },
   }
 };
