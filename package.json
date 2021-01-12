@@ -12,6 +12,7 @@
     "babel-polyfill": "^6.26.0",
     "clipboard": "^2.0.4",
     "core-js": "^3.3.2",
+    "css3transform": "^1.2.3",
     "element-ui": "^2.14.1",
     "fastclick": "^1.0.6",
     "html2canvas": "^1.0.0-rc.7",

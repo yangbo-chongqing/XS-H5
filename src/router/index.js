@@ -5,6 +5,16 @@ Vue.use(VueRouter);
 
 const routes = [
   {
+    // 旅游导图预览
+    path: '/imagepre',
+    name: 'ImagePre',
+    component: () => import('@/views/page/imagePre/index.vue'),
+    meta: {
+      title: '寻声地图',
+      keepAlive: false,
+    },
+  },
+  {
     // 首页
     path: '/home',
     name: 'Home',
