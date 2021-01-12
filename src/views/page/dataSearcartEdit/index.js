@@ -29,6 +29,7 @@ export default {
   },
   mounted() {
     this.onLoad();
+    this.getUserInfo();
   },
   methods: {
 
@@ -100,6 +101,13 @@ export default {
       });
     },
 
+    getUserInfo() {
+      let value = {
+        token: 'a33989d6993d3d2b67f0992d806cf4b5',
+        user_id: 399,
+      };
+      window.localStorage.setItem("storage", JSON.stringify(value));
 
+    },
   }
 };

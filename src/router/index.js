@@ -103,6 +103,16 @@ const routes = [
       keepAlive: false,
     },
   },
+  // {
+  //   // 获取toke
+  //   path: '/111',
+  //   name: '111',
+  //   component: () => import('@/views/page/toke/111.vue'),
+  //   meta: {
+  //     title: '寻声地图',
+  //     keepAlive: false,
+  //   },
+  // },
   {
     // 词条管理
     path: '/dataSearcartEdit',

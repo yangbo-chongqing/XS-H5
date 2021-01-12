@@ -7,6 +7,7 @@ import 'amfe-flexible/index.js'
 import store from './store/index.js'
 import qs from 'qs';
 import './request/http'
+import lrz from 'lrz';
 //处理移动端点击延迟
 import fastclick from "fastclick";
 fastclick.attach(document.body);

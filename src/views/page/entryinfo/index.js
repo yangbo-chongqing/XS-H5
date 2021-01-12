@@ -1,11 +1,12 @@
 import api from '@/request/xsdt';
 import axios from 'axios';
 import BigImg from './BigImg/bigImg.vue';
-import global from '@/global'
-import { Icon, Col, Row, Swipe, SwipeItem, NavBar, List, Toast, Uploader, Button } from 'vant';
+import global from '@/global';
+import { Icon, Col, Row, Swipe, SwipeItem, NavBar, List, Toast, Uploader, Button , ImagePreview } from 'vant';
 import { showLoading, hideLoading } from '@/request/loading'
 // import { Loading } from 'element-ui';
 import Viewer from "viewerjs";
+import {parseQuery} from "@/utils/utils";
 
 export default {
   name: 'Home',
@@ -20,6 +21,7 @@ export default {
     Toast: Toast,
     VanUploader: Uploader,
     VanButton: Button,
+    ImagePreview:ImagePreview,
     // Loading:Loading,
     'big-img': BigImg
   },
@@ -58,6 +60,8 @@ export default {
       picValue: '',
       upImgUrl: '',
       list_arr:[],
+      commentList_index:'',
+      dataURLtoFile:'',
     }
   },
   computed: {
@@ -73,6 +77,7 @@ export default {
     this.relicsInfo();
     this.getUser();
     this.onLoad();
+    // this.getUserInfo();
 
   },
   watch: {
@@ -82,9 +87,9 @@ export default {
       this.delEnlargeImg();
     },
     message: function () {
-      console.log(1);
+      // console.log(1);
       this.$nextTick(() => {
-        console.log(1);
+        // console.log(1);
         // console.log(document.getElementById('images'))
         let viewer2 = new Viewer(document.getElementById('app-images'), {
           url: 'data-imgurl',
@@ -301,6 +306,7 @@ export default {
     viewImg() {
       this.showImg = false;
     },
+
     //判断有无用户信息
     getUser() {
       // let storage = {
@@ -339,11 +345,6 @@ export default {
     },
     // 点赞
     linkFn(e) {
-      // let value = {
-      //   token: '76cc44a55f57b30c96595c50c2217b1d',
-      //   user_id: 399,
-      // };
-      window.localStorage.setItem("storage", JSON.stringify(value));
       let prams = {
         relics_id: this.id
       }
@@ -351,7 +352,8 @@ export default {
         // console.log(res)
         if (res.status == 200) {
           Toast.success(res.message);
-          this.relicsDataInfo.likes = e.likes+1
+          e.likes = e.is_like+1
+          e.is_like = e.is_like+1
         } else if (res.status == 401) {
           this.$router.push({
             path: '/toke',
@@ -363,7 +365,7 @@ export default {
 
     },
 
-    CommentLike(e) {
+    CommentLike(e,datas) {
       let data = {
         comment_id: e.currentTarget.dataset.commentid,
       }
@@ -372,7 +374,8 @@ export default {
         // console.log(res)
         if (res.status == 200) {
           Toast.success(res.message);
-          this.getCommentDetails()
+          datas.is_like = datas.is_like+1;
+          datas.likes = datas.likes + 1;
         } else if (res.status == 401) {
           this.$router.push({
             path: '/toke',
@@ -383,9 +386,11 @@ export default {
       });
     },
     // 回复
-    hfSetFocus(e) {
-      this.getUser();
+    hfSetFocus(e,datas) {
+      // this.getUser();
       // console.log(e)
+      this.commentList_index = datas;
+      document.querySelector('.weui-input').focus();
       let reply_id = e.currentTarget.dataset.reply_id;
       let username = e.currentTarget.dataset.username;
       let index = e.currentTarget.dataset.index;
@@ -398,11 +403,14 @@ export default {
       }
       // console.log(this.setData)
     },
-
+    changeCount(){
+      if(this.commentContent===''){
+        this.placeholder = '请输入评论';
+        this.setData.reply_id = '';
+      }
+    },
     // 回复评论
     sendOut() {
-      // this.getUser();
-      // console.log(this.placeholder)
       let data = {
         relics_id: this.id,
         reply_id: this.setData.reply_id,
@@ -417,9 +425,10 @@ export default {
             Toast.success(res.message);
             if(this.setData.reply_id != null) {
               this.setData.reply_id = '';
+              this.commentList[this.commentList_index].list.push(res.data.info)
+            }else {
+              this.commentList.unshift(res.data.info)
             }
-            this.getCommentDetails()
-
             this.commentContent = '';
             this.placeholder = '';
           }
@@ -429,41 +438,83 @@ export default {
       }
     },
 
-    afterRead(file) {
-      // console.log(file.file);
-      let formData = new window.FormData();
-      formData.append("file", file.file);
-      axios.post('/api/UploadFile', formData, {
-        headers: {
-          "Content-Type": "multipart/form-data"
-        }
-      }).then((res) => {
-        // console.log(res.data.message === '上传成功');
-        if (res.data.message === '上传成功') {
-          let imgs = res.data.data.file_path;
-          let data = {
-            relics_id: this.id,
-            reply_id: this.setData.reply_id,
-            comment: this.commentContent,
-            image: imgs,
-            voice: '',
-          }
-          api.CommentEntry(this.qs.stringify(data)).then((res) => {
-            // console.log(res)
-            if (res.status == 200) {
-              Toast.success(res.message);
-              this.getCommentDetails()
-              this.setData.reply_id = '';
-              this.commentContent = '';
-            } else if (res.status == 401) {
-              this.$router.push({
-                path: '/toke',
-              });
-            }
-          }).then((err) => {
-            console.log(err)
-          });
-        }
+    fileChange(el){
+      // console.log(el)
+      Toast.loading({
+        duration: 0,
+        message: '上传中...',
+        forbidClick: true,
+      });
+      // console.log(el)
+      let _this = this;
+      if (this.limit !== undefined) this.limit--;
+      if (this.limit !== undefined && this.limit < 0) return;
+      lrz( el.file,{quality: 0.3} )
+          .then(function(rst) {
+            //成功时执行
+            // console.log(rst)
+            const fd = rst.formData;
+                axios.post('/api/UploadFile', fd, {
+                  headers: {
+                    "Content-Type": "multipart/form-data"
+                  }
+                }).then((res) => {
+                  // console.log(res.data.message === '上传成功');
+                  if (res.data.message === '上传成功') {
+                    let imgs = res.data.data.file_path;
+                    let data = {
+                      relics_id: _this.id,
+                      reply_id: _this.setData.reply_id,
+                      comment: _this.commentContent,
+                      image: imgs,
+                      voice: '',
+                    }
+                    // Toast.success(res.data.message);
+                    api.CommentEntry(_this.qs.stringify(data)).then((res) => {
+                      // console.log(res)
+                      if (res.status == 200) {
+                        Toast.success(res.message);
+                        Toast.clear();
+                        if(this.setData.reply_id != null) {
+                          this.commentList[this.commentList_index].list.push(res.data.info)
+                        }else {
+                          this.commentList.unshift(res.data.info)
+                        }
+                        this.setData.reply_id = '';
+                        this.commentContent = '';
+                      } else if (res.status == 401) {
+                        this.$router.push({
+                          path: '/toke',
+                        });
+                      }
+                    }).then((err) => {
+                      Toast.clear();
+                      console.log(err)
+                    });
+                  }
+                }).then((err)=>{
+                  // file.status="failed";
+                  // file.message="上传失败";
+                  Toast.clear();
+                  Toast.fail('上传失败');
+                });
+          }).catch(function(error) {
+        //失败时执行
+        Toast.fail('上传失败');
+      }).always(function() {
+        Toast.clear();
+      })
+    },
+
+
+    //图片预览
+    getImg(images, index) {
+      // console.log(images)
+      ImagePreview({
+        images: [
+          images
+        ],
+        closeable: true,
       });
     },
   }
