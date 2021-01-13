@@ -131,6 +131,14 @@ const api = {
             data: params,
         });
     },
+    //获取用户轨迹
+    postBehaviorTrack(params) {
+        return http({
+            method: 'post',
+            url: '/api/web/user/track',
+            data: params,
+        });
+    },
     //二维码请求
     postminicode(params) {
         return http({

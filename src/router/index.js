@@ -144,7 +144,7 @@ const routes = [
     },
   },
   // {
-  //   // 用户行为
+  //   // 用户行为轨迹
   //   path: '/behaviorTrack',
   //   name: 'behaviorTrack',
   //   component: () => import('@/views/page/behaviorTrack/index.vue'),
