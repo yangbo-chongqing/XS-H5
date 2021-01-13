@@ -103,16 +103,16 @@ const routes = [
       keepAlive: false,
     },
   },
-  // {
-  //   // 获取toke
-  //   path: '/111',
-  //   name: '111',
-  //   component: () => import('@/views/page/toke/111.vue'),
-  //   meta: {
-  //     title: '寻声地图',
-  //     keepAlive: false,
-  //   },
-  // },
+  {
+    // 获取toke
+    path: '/111',
+    name: '111',
+    component: () => import('@/views/page/toke/111.vue'),
+    meta: {
+      title: '寻声地图',
+      keepAlive: false,
+    },
+  },
   {
     // 词条管理
     path: '/dataSearcartEdit',
@@ -134,7 +134,7 @@ const routes = [
     },
   },
   {
-    // 下载二维码
+    // 词条编辑
     path: '/editor',
     name: 'editor',
     component: () => import('@/views/page/editor/index.vue'),

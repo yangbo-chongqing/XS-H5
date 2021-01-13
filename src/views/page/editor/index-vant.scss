@@ -19,6 +19,9 @@
     color: #5287fd;
     top: 0;
   }
+  .ql-editor{
+    border: 0;
+  }
   .ed-content{
     padding-top:0;
     .quill-editor{
@@ -45,7 +48,7 @@
       .ql-container{
         min-height: 200px;
         width: 100%;
-
+        //border: 0;
       }
 
     }

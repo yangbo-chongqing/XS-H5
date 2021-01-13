@@ -123,6 +123,14 @@ const api = {
             data: params,
         });
     },
+    //获取词条详情
+    modifyEntryDetails(params) {
+        return http({
+            method: 'post',
+            url: '/api/web/relics/edit',
+            data: params,
+        });
+    },
     //二维码请求
     postminicode(params) {
         return http({

@@ -27,12 +27,14 @@ export default {
       relics_id:this.$route.query.muse_id,
       show: false,
       value:'',
-      a:'',
-      content: "测试文章内容",
+      editor_data:'',
+      name:'',
+      entrySelectData:[],
+      content: "写内容",
       editorOption:{
         modules:{
           toolbar:[
-            ['image' ,'video' ,'bold', 'italic', 'underline', 'strike' , 'align' ,'direction' ,  ],[{ 'header': [1, 2, 3, 4, 5, 6, false] }],[{ 'size': ['small', false, 'large', 'huge'] }], // toggled buttons
+            ['bold', 'italic', 'underline','link' , 'image' ,'video' ,'strike'  , { 'align': 'center'} ,{ 'align': 'right'}  ,{ 'list': 'ordered'}, { 'list': 'bullet' },{ 'header': 1 }, { 'header': 2 } ,'clean'],
           ]
         }
       }
@@ -48,6 +50,7 @@ export default {
   },
   mounted() {
     this.getdata();
+    this.getUser;
   },
   methods: {
     showPopup(){
@@ -56,18 +59,49 @@ export default {
     onEditorChange({ editor, html, text }) {
       this.content = html;
     },
+    getUser(){
+
+    },
+    // 获取数据
     getdata(){
         // console.log(1)
         let data = {
-          relics_id:this.relics_id,
+          relics_id:this.id,
         }
-        api.postEntryDetails(this.qs.stringify(data)).then((res) => {
-          console.log(res)
-          if (res.status == 200) {
-            console.log(res)
-          }
-        });
+        console.log(this.relics_id !== undefined)
+        if(this.relics_id !== undefined){
+          api.postEntryDetails(this.qs.stringify(data)).then((res) => {
+            // console.log(res)
+            if (res.status === 200) {
+              console.log(res.data.info)
+              this.editor_data = res.data.info;
+              if(this.editor_data.content !== ''){
+                this.content = this.editor_data.content;
+              }
+              this.name = this.editor_data.name;
+              this.entrySelectData = this.editor_data.related_list;
+            }
+          });
+        }
     },
-
+    // 修改提交数据
+    modifyEntryDetails(){
+      let data = {
+        id:this.id,
+        name:this.name,
+        image:'',
+        voice_url:'',
+        video_url:'',
+        content:this.content,
+        related_ids:'',
+        type_id:0,
+      }
+      api.modifyEntryDetails(this.qs.stringify(data)).then((res) => {
+        // console.log(res)
+        if (res.status === 200) {
+          console.log(res)
+        }
+      });
+    },
   }
 };
