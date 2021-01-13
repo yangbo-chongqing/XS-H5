@@ -103,16 +103,16 @@ const routes = [
       keepAlive: false,
     },
   },
-  {
-    // 获取toke
-    path: '/111',
-    name: '111',
-    component: () => import('@/views/page/toke/111.vue'),
-    meta: {
-      title: '寻声地图',
-      keepAlive: false,
-    },
-  },
+  // {
+  //   // 获取toke
+  //   path: '/111',
+  //   name: '111',
+  //   component: () => import('@/views/page/toke/111.vue'),
+  //   meta: {
+  //     title: '寻声地图',
+  //     keepAlive: false,
+  //   },
+  // },
   {
     // 词条管理
     path: '/dataSearcartEdit',
@@ -138,6 +138,16 @@ const routes = [
     path: '/editor',
     name: 'editor',
     component: () => import('@/views/page/editor/index.vue'),
+    meta: {
+      title: '寻声地图',
+      keepAlive: false,
+    },
+  },
+  {
+    // 用户行为
+    path: '/behaviorTrack',
+    name: 'behaviorTrack',
+    component: () => import('@/views/page/behaviorTrack/index.vue'),
     meta: {
       title: '寻声地图',
       keepAlive: false,
