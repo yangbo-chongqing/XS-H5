@@ -1,6 +1,7 @@
 import api from '@/request/xsdt';
 import { Icon, Col, Row , Search , List } from 'vant';
 import {parseQuery} from "@/utils/utils";
+import global from "@/global";
 export default {
   name:'Home',
   components: {
@@ -30,7 +31,8 @@ export default {
   },
   mounted() {
     this.onLoad();
-    this.getUserInfo();
+    this.getUser();
+    // this.getUserInfo();
   },
   methods: {
 
@@ -44,12 +46,13 @@ export default {
       })  
     },
     onSearch(){
+      console.log(this.keyword)
       this.page = 1;
       this.commentList = [];
       this.onLoad()
     },
-    onChange(){
-      console.log(11)
+    onChange(e){
+      // console.log(e)
     },
     onLoad () {
       // console.log(1)
@@ -104,6 +107,15 @@ export default {
     updateData(e = "") {
       this.content = e;
       console.info(e);
+    },
+    getUser() {
+        if (window.localStorage.getItem('storage') == null) {
+          // console.log(1);
+          this.Show = true;
+          this.$router.push({
+            path: '/toke',
+          });
+        }
     },
 
     getUserInfo() {

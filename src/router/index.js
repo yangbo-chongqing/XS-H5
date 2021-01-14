@@ -143,16 +143,16 @@ const routes = [
       keepAlive: false,
     },
   },
-  // {
-  //   // 用户行为轨迹
-  //   path: '/behaviorTrack',
-  //   name: 'behaviorTrack',
-  //   component: () => import('@/views/page/behaviorTrack/index.vue'),
-  //   meta: {
-  //     title: '寻声地图',
-  //     keepAlive: false,
-  //   },
-  // },
+  {
+    // 用户行为轨迹
+    path: '/behaviorTrack',
+    name: 'behaviorTrack',
+    component: () => import('@/views/page/behaviorTrack/index.vue'),
+    meta: {
+      title: '寻声地图',
+      keepAlive: false,
+    },
+  },
   {
     // 404页面
     path: '*',

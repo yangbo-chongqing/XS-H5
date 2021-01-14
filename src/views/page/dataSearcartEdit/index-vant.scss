@@ -1,12 +1,17 @@
 .h-container {
   .van-search{
+    .van-search__content--round{
+      width: 260px;
+      display: inline-block;
+    }
     .van-cell{
       display: flex;
       align-items: center;
     }
     input{
-      width: 230px;
+      width: 200px;
       height: 30px;
     }
+
   }
 }

@@ -74,7 +74,7 @@ export default {
   },
   mounted() {
     this.relicsInfo();
-    // this.getUser();
+    this.getUser();
     this.onLoad();
     // this.getUserInfo();
 

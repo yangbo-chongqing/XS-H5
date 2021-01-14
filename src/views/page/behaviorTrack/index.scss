@@ -13,7 +13,6 @@
         width: 60px;
         height: 60px;
         margin-left: 14px;
-        background-color: red;
         border-radius: 50%;
         img{
           width: 100%;
@@ -35,7 +34,7 @@
           display: flex;
           justify-content: space-between;
           p:nth-child(2){
-            color: #8a8a8a;
+            color: #cdcdcd;
             margin-left: 10px;
             text-align:right;
           }
@@ -45,6 +44,7 @@
   }
   .bt-content{
     width: 100%;
+    margin-top: 20px;
     .bt-navigation{
       width: 100%;
       border-bottom: 1px solid #9a9a9a;
@@ -54,13 +54,31 @@
       p{
         width: 50%;
         text-align: center;
-        padding-bottom: 6px;
+        color: #cdcdcd;
+        span{
+          margin-top: 6px;
+        }
+      }
+      .bt-syle{
+        color: #0067f2;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        span{
+          display: inline-block;
+          width: 14px;
+          height: 3px;
+          background-color: #0067f2;
+          border-radius: 50px;
+        }
       }
     }
     .bt-time-axis{
       margin-top: 20px;
       padding-left: 20px;
       position: relative;
+      overflow: hidden;
       h5{
         font-size: 16px;
         height: 24px;
@@ -72,10 +90,13 @@
         height: 50px;
         .bt-time{
           width: 60px;
+          font-size: 16px;
         }
         .bt-word{
           padding-left: 20px;
           position: relative;
+          color: #cdcdcd;
+          font-size: 14px;
           span{
             margin-left: 2px;
           }
@@ -100,11 +121,15 @@
         height: 100%;
         border-left: 1px solid #333333;
       }
+
     }
     .bt-recent-visit{
-      padding: 10px 0 0 20px;
-      li{
+      padding: 10px 0 0 0;
+      .title{
         display: flex;
+        color: #cdcdcd;
+        padding-left: 20px;
+        padding-bottom: 10px;
         p{
           width: 33%;
           font-size: 16px;
@@ -117,9 +142,28 @@
           text-align: left;
         }
       }
-      li:nth-child(1){
-         color: #9a9a9a;
-       }
+      .bt-recent-visit-list{
+        li{
+          display: flex;
+          padding: 10px 0 10px 20px;
+          p{
+            width: 33%;
+            font-size: 16px;
+            text-align: center;
+            overflow: hidden;
+            text-overflow:ellipsis;
+            white-space: nowrap;
+          }
+          p:nth-child(1){
+            text-align: left;
+          }
+        }
+      }
     }
+  }
+  .bt-tips{
+    font-size: 20px;
+    text-align: center;
+    color: #cdcdcd;
   }
 }

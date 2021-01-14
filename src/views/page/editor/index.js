@@ -50,7 +50,7 @@ export default {
   },
   mounted() {
     this.getdata();
-    this.getUser;
+    this.getUser();
   },
   methods: {
     showPopup(){
