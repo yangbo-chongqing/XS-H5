@@ -31,8 +31,8 @@ export default {
   },
   mounted() {
     this.onLoad();
-    this.getUser();
-    // this.getUserInfo();
+    // this.getUser();
+    this.getUserInfo();
   },
   methods: {
 

@@ -31,8 +31,8 @@ export default {
 
   },
   mounted() {
+    this.getUser();
     this.museinfo();
-    // this.getUser();
   },
   methods: {
     museinfo(){
@@ -54,7 +54,9 @@ export default {
           this.userdata = res.data.user_info;
           this.recentVisit = res.data.statistics
        }else if(res.status == 401){
-          this.getUser();
+          this.$router.push({
+            path: '/toke',
+          });
         }
       });
     },
@@ -68,20 +70,10 @@ export default {
       }
     },
     getUser() {
-      // let storage = {
-      //   'code':'3ce36580b51083ba3e7e636b4f808d14',
-      //   'user_id':399,
-      // }
-      // window.localStorage.setItem('storage',JSON.stringify(storage))
       if (window.localStorage.getItem('storage') == null) {
-        // console.log(1);
-        // this.Show = true;
         this.$router.push({
           path: '/toke',
         });
-      }else {
-        let storage = window.localStorage.getItem('storage')
-        this.user_id = JSON.parse(storage).user_id;
       }
     },
 
