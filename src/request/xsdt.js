@@ -118,7 +118,7 @@ const api = {
     //获取词条详情
     postEntryDetails(params) {
         return http({
-            method: 'post',
+            method: 'get',
             url: '/index.php/api/web/relics/details',
             data: params,
         });
