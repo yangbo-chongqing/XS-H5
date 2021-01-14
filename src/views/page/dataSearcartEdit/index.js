@@ -58,7 +58,7 @@ export default {
       // console.log(1)
       let data = {
         page_size: 10,
-        page: 1,
+        page: this.page,
         keyword:this.keyword,
         roles:'1',
       }

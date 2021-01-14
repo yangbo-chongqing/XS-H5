@@ -25,6 +25,7 @@ export default {
       commentList:'',
       value:'',
       cursorPos:'',
+      name:'',
     }
   },
   computed: {
@@ -56,7 +57,8 @@ export default {
       // 触发点击-然后移除
       document.body.appendChild(aLink);
       aLink.click();
-      document.body.removeChild(aLink);
+      console.log(aLink)
+      // document.body.removeChild(aLink);
     },
     museinfo () {
       // console.log(1)
@@ -67,6 +69,7 @@ export default {
         // console.log(res)
         if (res.status == 200) {
           this.commentList = res.data.code_url
+          this.name = res.data.name
           // console.log(this.commentList)
         }
       });

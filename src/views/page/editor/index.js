@@ -7,9 +7,9 @@ import 'quill/dist/quill.bubble.css'
 
 import { quillEditor } from 'vue-quill-editor'
 html2canvas(document.body).then(function(canvas) {
-  document.body.appendChild(canvas);
+  // document.body.appendChild(canvas);
 });
-
+const toolbarOptions = ['bold', 'italic', 'underline','link' , 'image' ,'video' ,'strike'  , { 'align': 'center'} ,{ 'align': 'right'}  ,{ 'list': 'ordered'}, { 'list': 'bullet' },{ 'header': 1 }, { 'header': 2 } ,'clean'];
 export default {
   name:'Home',
   components: {
@@ -33,9 +33,9 @@ export default {
       content: "写内容",
       editorOption:{
         modules:{
-          toolbar:[
-            ['bold', 'italic', 'underline','link' , 'image' ,'video' ,'strike'  , { 'align': 'center'} ,{ 'align': 'right'}  ,{ 'list': 'ordered'}, { 'list': 'bullet' },{ 'header': 1 }, { 'header': 2 } ,'clean'],
-          ]
+          toolbar:{
+            container: toolbarOptions,
+          }
         }
       }
     }
