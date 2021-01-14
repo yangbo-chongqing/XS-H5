@@ -32,11 +32,20 @@ export default {
   },
   mounted() {
     this.museinfo();
+    this.getUser();
   },
   methods: {
     museinfo(){
-      let storage = window.localStorage.getItem('storage')
-      this.user_id = JSON.parse(storage).user_id;
+      if (window.localStorage.getItem('storage') == null) {
+        // console.log(1);
+        // this.Show = true;
+        this.$router.push({
+          path: '/toke',
+        });
+      }else {
+        let storage = window.localStorage.getItem('storage')
+        this.user_id = JSON.parse(storage).user_id;
+      }
       let url = parseQuery(window.location.href);
       this.muse_id = url.muse_id;
       let data = {
@@ -81,6 +90,9 @@ export default {
         this.$router.push({
           path: '/toke',
         });
+      }else {
+        let storage = window.localStorage.getItem('storage')
+        this.user_id = JSON.parse(storage).user_id;
       }
     },
 
