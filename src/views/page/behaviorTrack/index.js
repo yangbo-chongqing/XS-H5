@@ -32,21 +32,12 @@ export default {
   },
   mounted() {
     this.museinfo();
-    this.getUser();
+    // this.getUser();
   },
   methods: {
     museinfo(){
-      if (window.localStorage.getItem('storage') == null) {
-        // console.log(1);
-        // this.Show = true;
-        this.$router.push({
-          path: '/toke',
-        });
-      }else {
-        let storage = window.localStorage.getItem('storage')
-        this.user_id = JSON.parse(storage).user_id;
-      }
       let url = parseQuery(window.location.href);
+      this.user_id = url.user_id;
       this.muse_id = url.muse_id;
       let data = {
         muse_id:this.muse_id,
@@ -54,7 +45,7 @@ export default {
       }
      api.postBehaviorTrack(this.qs.stringify(data)).then((res) => {
        // console.log(res)
-        if (res.status === 200) {
+        if (res.status == 200) {
           for( let i=0;i<res.data.data.length;i++){
             if(res.data.data[i].list.length >0){
               this.timeData.push(res.data.data[i]);
@@ -62,10 +53,8 @@ export default {
           }
           this.userdata = res.data.user_info;
           this.recentVisit = res.data.statistics
-       }else if(res.status === 401){
-          this.$router.push({
-            path: '/toke',
-          });
+       }else if(res.status == 401){
+          this.getUser();
         }
       });
     },

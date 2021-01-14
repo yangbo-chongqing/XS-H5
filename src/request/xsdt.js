@@ -111,15 +111,15 @@ const api = {
     postEntry(params) {
         return http({
             method: 'post',
-            url: '/index.php/api/web/relics/list',
+            url: '/api/web/relics/list',
             data: params,
         });
     },
     //获取词条详情
     postEntryDetails(params) {
         return http({
-            method: 'get',
-            url: '/index.php/api/web/relics/details',
+            method: 'post',
+            url: '/api/web/relics/details',
             data: params,
         });
     },
