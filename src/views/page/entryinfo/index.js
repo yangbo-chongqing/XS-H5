@@ -144,6 +144,10 @@ export default {
             if (htmlcont) {
               let aEl = htmlcont.querySelectorAll("a");
               for (let i = 0; i < aEl.length; i++) {
+                aEl[i].setAttribute("target","_blank")
+                if(/^https:\/\/v\.douyin\.com\/\w+\/?$/.test(aEl[i].href)){
+                  aEl[i].href = `http://xsdth5.xunsheng.org.cn/#/entryvideo?url=${aEl[i].href}`
+                }
                 let imgEl = aEl[i].querySelectorAll("img");
                 if (imgEl.length > 0) {
                   aEl[i].classList.add("aimg")
@@ -271,16 +275,16 @@ export default {
     },
     // 点击a标签出现loading
     enlargeImg(e) {
-      let a_html = e.target.parentNode;
-      // console.log(e.target.tagName)
-      if (e.target.tagName == 'A' || a_html.tagName == 'A' || e.target.tagName == null || e.target.parentElement.parentElement.tagName === 'A') {
-        this.fullscreenLoading = this.$loading({
-          lock: true,
-          text: 'Loading',
-          spinner: 'el-icon-loading',
-          background: 'rgba(0, 0, 0, 0.7)'
-        });
-      }
+      // let a_html = e.target.parentNode;
+      // // console.log(e.target.tagName)
+      // if (e.target.tagName == 'A' || a_html.tagName == 'A' || e.target.tagName == null || e.target.parentElement.parentElement.tagName === 'A') {
+      //   this.fullscreenLoading = this.$loading({
+      //     lock: true,
+      //     text: 'Loading',
+      //     spinner: 'el-icon-loading',
+      //     background: 'rgba(0, 0, 0, 0.7)'
+      //   });
+      // }
     },
     delEnlargeImg() {
       if (this.fullscreenLoading) {
