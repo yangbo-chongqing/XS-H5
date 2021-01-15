@@ -111,7 +111,7 @@ const api = {
     postEntry(params) {
         return http({
             method: 'post',
-            url: '/index.php/api/web/relics/list',
+            url: '/api/web/relics/list',
             data: params,
         });
     },
@@ -119,7 +119,23 @@ const api = {
     postEntryDetails(params) {
         return http({
             method: 'post',
-            url: '/index.php/api/web/relics/details',
+            url: '/api/web/relics/details',
+            data: params,
+        });
+    },
+    //获取词条详情
+    modifyEntryDetails(params) {
+        return http({
+            method: 'post',
+            url: '/api/web/relics/edit',
+            data: params,
+        });
+    },
+    //获取用户轨迹
+    postBehaviorTrack(params) {
+        return http({
+            method: 'post',
+            url: '/api/web/user/track',
             data: params,
         });
     },

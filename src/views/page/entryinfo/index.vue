@@ -211,7 +211,7 @@
                     <div v-if="sitem.image">
                       <div class="pl-images-box">
                         <img class="pl-images" v-for="(imgList, j) in sitem.image" :for-item="imgList" :key="j"
-                             :data-index="j" :data-imgs="imgList" :src="imgList" alt="" @click="getImg(imgList, j)">
+                             :data-index="j" :data-imgs="imgList" :src="imgList" alt="" @click="getImg($event)">
                       </div>
                     </div>
                     <div v-if="sitem.voice">
@@ -262,7 +262,7 @@
                             <div v-if="replyItem.image">
                               <div class="pl-images-box">
                                 <img class="pl-images" v-for="(imglist, jj) in replyItem.image" :for-item="imglist" :key="jj"
-                                     :data-index="jj" :data-imgs="imglist" :src="imglist" alt="" @click="getImg(imglist, jj)">
+                                     :data-index="jj" :data-imgs="imglist" :src="imglist" alt="" @click="getImg($event)">
                               </div>
                             </div>
                             <div v-if="replyItem.voice">
@@ -317,7 +317,7 @@
       </div>
       <div class="pl-send-img" >
         <img src="@/assets/images/img-icon.png" alt="" >
-        <van-uploader  :after-read="fileChange" ref="file" accept="image/*"/>
+        <van-uploader  :after-read="afterRead" ref="file" accept="image/*"/>
       </div>
       <div class="pl-send-ly" @click="sendOut">
         <button>发送</button>

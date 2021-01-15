@@ -1,5 +1,6 @@
 <template>
   <div class="h-container">
+    <canvas width="500" height="500" ></canvas>
     <div class="code-box" ref="imageDom">
       <img class="code1" src="@/assets/images/code1.png" />
       <img class="code2" src="@/assets/images/code2.png" />
@@ -9,7 +10,6 @@
       <div class="canvas-input" >
           <div class="editBox" contenteditable="true"  @input="inputChange" placeholder="请输入文字"></div>
       </div>
-
     </div>
     <div class="code-btn" @click="toImage">
       <div class="canvasImgFun">

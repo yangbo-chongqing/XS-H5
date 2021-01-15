@@ -134,10 +134,20 @@ const routes = [
     },
   },
   {
-    // 下载二维码
+    // 词条编辑
     path: '/editor',
     name: 'editor',
     component: () => import('@/views/page/editor/index.vue'),
+    meta: {
+      title: '寻声地图',
+      keepAlive: false,
+    },
+  },
+  {
+    // 用户行为轨迹
+    path: '/behaviorTrack',
+    name: 'behaviorTrack',
+    component: () => import('@/views/page/behaviorTrack/index.vue'),
     meta: {
       title: '寻声地图',
       keepAlive: false,

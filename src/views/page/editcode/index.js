@@ -1,6 +1,5 @@
 import api from '@/request/xsdt';
 import { Icon , Col, Row , Search  , Field } from 'vant';
-import { Input } from 'element-ui';
 import html2canvas from 'html2canvas';
 html2canvas(document.body).then(function(canvas) {
   document.body.appendChild(canvas);
@@ -13,7 +12,6 @@ export default {
     VanRow:Row,
     VanSearch:Search,
     VanField:Field,
-    ElInput:Input,
 
   },
   data() {
@@ -27,6 +25,7 @@ export default {
       commentList:'',
       value:'',
       cursorPos:'',
+      name:'',
     }
   },
   computed: {
@@ -40,17 +39,17 @@ export default {
     this.museinfo();
   },
   methods: {
-
     toImage() {
       html2canvas(this.$refs.imageDom, {
         backgroundColor: '#ffffff',
       }).then(canvas => {
         let imgData = canvas.toDataURL("image/jpeg");
         this.fileDownload(imgData);
-        console.log(imgData)
+        // console.log(imgData)
       })
     },
     fileDownload(downloadUrl) {
+      // console.log(downloadUrl)
       let aLink = document.createElement("a");
       aLink.style.display = "none";
       aLink.href = downloadUrl;
@@ -58,7 +57,8 @@ export default {
       // 触发点击-然后移除
       document.body.appendChild(aLink);
       aLink.click();
-      document.body.removeChild(aLink);
+      console.log(aLink)
+      // document.body.removeChild(aLink);
     },
     museinfo () {
       // console.log(1)
@@ -66,10 +66,11 @@ export default {
         id:this.id,
       }
       api.postminicode(this.qs.stringify(data)).then((res) => {
-        console.log(res)
+        // console.log(res)
         if (res.status == 200) {
           this.commentList = res.data.code_url
-          console.log(this.commentList)
+          this.name = res.data.name
+          // console.log(this.commentList)
         }
       });
     },

@@ -2,9 +2,9 @@
   <div class="h-container">
       <div class="head">
         <van-search v-model="keyword" shape="round" background="#ffffff" placeholder="输入搜索词条"
-                    :change="onChange" @search="onSearch">
+                    :change="onChange($emit)" @search="onSearch">
         </van-search>
-        <div class="add-entry" bindtap="openEditUrl" data-id=""><van-icon color="#5387fd" name="plus" />词条</div>
+        <div class="add-entry" bindtap="openEditUrl" data-id="" @click="jumpRoute('/editor')"><van-icon color="#5387fd" name="plus" />词条</div>
       </div>
     <div class="content">
       <van-list v-model="loading" :finished="finished" :immediate-check="false" loading-text="加载中..." finished-text="没有更多了" @load="onLoad">
