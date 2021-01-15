@@ -52,7 +52,14 @@ export default {
             }
           }
           this.userdata = res.data.user_info;
-          this.recentVisit = res.data.statistics
+          this.recentVisit = res.data.statistics;
+          this.recentVisit.sort(function(a,b){
+            if(a.duration === b.duration){//如果时长相同，按照访问次数的降序
+              return b.count - a.count
+            }else{
+              return b.duration - a.duration
+            }
+          })
        }else if(res.status == 401){
           this.$router.push({
             path: '/toke',

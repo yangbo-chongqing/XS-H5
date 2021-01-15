@@ -42,13 +42,13 @@
         <div class="title">
           <p>词条</p>
           <p>最近访问次数</p>
-          <p>时间</p>
+          <p>时长</p>
         </div>
         <ul class="bt-recent-visit-list" v-for="(item ,index) in recentVisit">
           <li :style="{backgroundColor:index%2===0?'':'#f8f8f8'}">
             <p>{{ item.name }}</p>
             <p>{{ item.count }}</p>
-            <p>{{ item.create_time }}</p>
+            <p>{{ item.duration }}</p>
           </li>
         </ul>
         <div class="bt-tips" v-if="recentVisit.length<=0">
