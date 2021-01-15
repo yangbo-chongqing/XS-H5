@@ -1,6 +1,6 @@
 import api from '@/request/xsdt';
 import axios from 'axios';
-import BigImg from './BigImg/bigImg.vue';
+// import BigImg from './BigImg/bigImg.vue';
 import global from '@/global';
 import { Icon, Col, Row, Swipe, SwipeItem, NavBar, List, Toast, Uploader, Button , ImagePreview } from 'vant';
 import { showLoading, hideLoading } from '@/request/loading';
@@ -23,7 +23,7 @@ export default {
     VanButton: Button,
     ImagePreview:ImagePreview,
     // Loading:Loading,
-    'big-img': BigImg
+    // 'big-img': BigImg
   },
   data() {
     return {
@@ -289,15 +289,23 @@ export default {
     },
     // 自定义事件
     clickImg(e) {
-      console.log(e)
+      // console.log(e)
       if (e.target.nodeName == 'IMG') {
         if (e.target.parentElement.parentElement.tagName !== 'A' && e.target.parentElement.tagName !== 'A') {
           if(e.target.className == 'a-href-icon'){
             return false;
           }
-          this.showImg = true;
+          // this.showImg = true;
           // 获取当前图片地址
-          this.imgSrc = e.target.src;
+          // this.imgSrc = e.target.src;
+          ImagePreview({
+            images: [
+              e.target.src
+            ],
+            'max-zoom':5,
+            'min-zoom':10,
+            background:'#0000000'
+          });
         }
       }
     },

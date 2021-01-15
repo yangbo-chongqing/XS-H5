@@ -23,31 +23,12 @@
             <!--Add list -->
             <button class="ql-list" value="ordered" title="有序列表"></button>
             <button class="ql-list" value="bullet" title="无序列表"></button>
-            <!-- Add font size dropdown -->
-            <select class="ql-header" title="段落格式">
-              <option selected>段落</option>
-              <option value="1">标题1</option>
-              <option value="2">标题2</option>
-              <option value="3">标题3</option>
-              <option value="4">标题4</option>
-              <option value="5">标题5</option>
-              <option value="6">标题6</option>
-            </select>
-            <select class="ql-size" title="字体大小">
-              <option value="10px">10px</option>
-              <option value="12px">12px</option>
-              <option value="14px">14px</option>
-              <option value="16px" selected>16px</option>
-              <option value="18px">18px</option>
-              <option value="20px">20px</option>
-              <option value="30px">30px</option>
-            </select>
-            <!-- Add subscript and superscript buttons -->
-            <select class="ql-color" value="color" title="字体颜色"></select>
-            <select class="ql-background" value="background" title="背景颜色"></select>
-            <select class="ql-align" value="align" title="对齐"></select>
-            <button class="ql-clean" title="清除字体样式"></button>
+            <button class="ql-align" value="center" title="对齐"></button>
+            <button class="ql-align" value="right" title="对齐"></button>
+<!--            <button class="ql-align" value="align" title="对齐"></button>-->
             <button class="ql-image" title="照片"></button>
+            <button class="ql-video" title="视频"></button>
+            <button class="ql-clean" title="清除字体样式"></button>
           </div>
         </quill-editor>
       </div>
