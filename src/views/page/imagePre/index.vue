@@ -56,7 +56,8 @@ export default {
     //请求接口得到数据
     getMapDetails(){
       let params = {
-        muse_id:this.muse_id
+        muse_id:this.muse_id,
+        preview:1
       }
       api.postMapDetails(this.qs.stringify(params)).then((res)=>{
         this.map_img = res.data.info.map_img;
