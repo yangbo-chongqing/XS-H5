@@ -133,16 +133,16 @@ const routes = [
       keepAlive: false,
     },
   },
-  {
-    // 词条编辑
-    path: '/editor',
-    name: 'editor',
-    component: () => import('@/views/page/editor/index.vue'),
-    meta: {
-      title: '寻声地图',
-      keepAlive: false,
-    },
-  },
+  // {
+  //   // 词条编辑
+  //   path: '/editor',
+  //   name: 'editor',
+  //   component: () => import('@/views/page/editor/index.vue'),
+  //   meta: {
+  //     title: '寻声地图',
+  //     keepAlive: false,
+  //   },
+  // },
   {
     // 用户行为轨迹
     path: '/behaviorTrack',
