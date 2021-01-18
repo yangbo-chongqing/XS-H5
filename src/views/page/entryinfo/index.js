@@ -722,11 +722,6 @@ export default {
 
     //获取订阅二维码
     getsubscribe() {
-      let value = {
-        token: '4840ae51fc23da0dfd3b5ecc024abb6b',
-        user_id: 399,
-      };
-      window.localStorage.setItem("storage", JSON.stringify(value));
       let data = {
         relics_id: this.id,
       }
@@ -753,6 +748,7 @@ export default {
       if (e.target.visibilityState === 'visible') {
         // 要执行的方法
         this.relicsInfo();
+        this.getsubscribe();
         this.wrapper_show =false;
       }
     }

@@ -93,16 +93,16 @@
         >
         <span @click="jumpRoute('/report',{id:id,muse_id:relicsDataInfo.muse_id})"><van-icon name="warn-o" />举报</span>
       </div>
-      <div class="app-subscribe">
+      <div class="app-subscribe" v-if="Show">
         <div class="app-subscribe-title">
           <div class="app-subscribe-icont"><img src="@/assets/images/subscribe.png" alt=""></div>
           <span class="" v-if="relicsDataInfo.subscribe == 0" @click="wrapper_show = true" >订阅</span>
-          <span class="" v-if="relicsDataInfo.subscribe == 1" @click = 'unsubscribe'>取消订阅</span>
+          <span class="" v-if="relicsDataInfo.subscribe == 1" @click = "unsubscribe">取消订阅</span>
         </div>
-        <div class="app-subscribe-number">
-          <span>已订阅</span>
-          <span>{{ relicsDataInfo.subscribe_count }} </span>
-        </div>
+<!--        <div class="app-subscribe-number">-->
+<!--          <span>已订阅</span>-->
+<!--          <span>{{ relicsDataInfo.subscribe_count }} </span>-->
+<!--        </div>-->
       </div>
       <van-overlay :show="wrapper_show">
         <div class="wrapper">
