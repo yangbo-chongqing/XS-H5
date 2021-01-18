@@ -77,7 +77,7 @@ export default {
   },
   mounted() {
     this.relicsInfo();
-    // this.getUser();
+    this.getUser();
     this.onLoad();
     // this.getUserInfo();
     this.getsubscribe();
@@ -739,6 +739,7 @@ export default {
       api.postunsubscribe(this.qs.stringify(data)).then((res) => {
         if (res.status == 200) {
           // console.log(res)
+          Toast.success('取消订阅成功');
           this.relicsDataInfo.subscribe = 0;
           this.relicsDataInfo.subscribe_count = this.relicsDataInfo.subscribe_count - 1;
         }
