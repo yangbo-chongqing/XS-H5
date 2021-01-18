@@ -93,7 +93,29 @@
         >
         <span @click="jumpRoute('/report',{id:id,muse_id:relicsDataInfo.muse_id})"><van-icon name="warn-o" />举报</span>
       </div>
-      
+      <div class="app-subscribe">
+        <div class="app-subscribe-title">
+          <div class="app-subscribe-icont"><img src="@/assets/images/subscribe.png" alt=""></div>
+          <span class="" v-if="relicsDataInfo.subscribe == 0" @click="wrapper_show = true" >订阅</span>
+          <span class="" v-if="relicsDataInfo.subscribe == 1" @click = 'unsubscribe'>取消订阅</span>
+        </div>
+        <div class="app-subscribe-number">
+          <span>已订阅</span>
+          <span>{{ relicsDataInfo.subscribe_count }} </span>
+        </div>
+      </div>
+      <van-overlay :show="wrapper_show">
+        <div class="wrapper">
+          <div>
+            <div class="wrapper-img">
+              <img :src="subscribe.img" alt="">
+            </div>
+            <p class="wrapper-title">长按识别订阅该词条</p>
+            <p class="wrapper-tips">词条发生变化时，通知到您</p>
+          </div>
+          <div class="wrapper-close" @click="wrapper_show = false">x</div>
+        </div>
+      </van-overlay>
 
     </div>
 
@@ -289,20 +311,10 @@
                             </div>
                           </div>
                         </div>
-
-
                       </div>
-
-
-
                     </div>
-
                   </div>
-
-
-
                 </div>
-
 
               </div>
             </van-list>

@@ -147,6 +147,22 @@ const api = {
             data: params,
         });
     },
+    //获取订阅二维码
+    postsubscribe(params) {
+        return http({
+            method: 'post',
+            url: '/api/web/relics/attention',
+            data: params,
+        });
+    },
+    // 取消订阅
+    postunsubscribe(params) {
+        return http({
+            method: 'post',
+            url: '/api/web/relics/unsubscribe',
+            data: params,
+        });
+    },
 
 }
 export default api;

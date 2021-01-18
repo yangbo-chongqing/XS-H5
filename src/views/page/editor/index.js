@@ -29,6 +29,7 @@ export default {
       value:'',
       editor_data:'',
       name:'',
+      edit_show:false,
       entrySelectData:[],
       content: "写内容",
       editorOption:{
@@ -102,6 +103,13 @@ export default {
           console.log(res)
         }
       });
+    },
+    toolbarShow(){
+      if(this.edit_show){
+        this.edit_show = false ;
+      }else {
+        this.edit_show = true ;
+      }
     },
   }
 };
