@@ -35,6 +35,9 @@ export default {
     openApp,
     xsdtfooter
   },
+  created () {
+    document.body.removeChild(document.getElementById('Loading'));
+  },
   watch: {
     $route: {
       handler(to, from) {
