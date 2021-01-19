@@ -89,7 +89,11 @@
             <p class="entry-send-btn">完成</p>
           </div>
           <van-search v-model="value" shape="round" @search="getSearch"  background="#ffffff" placeholder="请输入搜索关键词" />
+          <div class="entry-popup-list">
+            aads
+          </div>
         </van-popup>
+
       </div>
     </div>
   </div>
