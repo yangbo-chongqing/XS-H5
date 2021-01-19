@@ -277,9 +277,9 @@ export default {
       api.postadvertising(this.qs.stringify(data)).then((res) => {
         if (res.status == 200) {
           this.imgSrc = res.data.info
-          if(this.imgSrc.method==2){
+          if(this.imgSrc.method==1){
             this.showImg = true;
-          }else if(this.imgSrc.method==1){
+          }else if(this.imgSrc.method==2){
            let time=  window.localStorage.getItem('time')
             if(time<this.dealWithTime(new Date())){
 
@@ -290,6 +290,8 @@ export default {
               window.localStorage.setItem('time',JSON.stringify(s3))
               this.showImg = true;
             }
+          }else {
+
           }
         }
       });

@@ -1,9 +1,10 @@
 <template>
   <div class="app-video">
     <div class="app-video-list" v-for="(itme,index) in datavideo.video">
-      <h5>{{ itme.video_name }}</h5>
-      <embed :src="itme.video_url" type=""  >
-<!--      <video :src="itme.video_url" controls :poster="itme.video_url"></video>-->
+
+<!--      <embed :src="itme.video_url" type=""  >-->
+      <video :src="itme.video_url" controls :poster="itme.video_url+'?vframe/jpg/offset/0/w/325/h200'"></video>
+      <p>{{ itme.video_name }}</p>
     </div>
   </div>
 </template>
@@ -68,10 +69,17 @@ name: "index",
   padding: 20px;
   .app-video-list{
     margin-top: 10px;
-    h5{
+    width: 100%;
+    p{
       font-weight: 500;
       font-size: 16px;
+      //width: 100%;
       padding-bottom: 10px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
     }
     embed{
       width: 100%;

@@ -62,14 +62,14 @@ export default {
     },
   },
   mounted() {
-    this.showLoading();
+    // this.showLoading();
     let CNZZ_ID = "1278811724";
     // 创建cnzz统计js
     const script = document.createElement("script");
     script.src = `https://s95.cnzz.com/z_stat.php?id=${CNZZ_ID}&web_id=${CNZZ_ID}`;
     script.language = "JavaScript";
     document.body.appendChild(script);
-    window.addEventListener("load", function () {  Toast.clear(); });
+    // window.addEventListener("load", function () {  Toast.clear(); });
   },
   methods: {
     showLoading(){
