@@ -1,11 +1,12 @@
 import api from '@/request/xsdt';
-import { Icon , Col, Row , Search , List , Popup   } from 'vant';
+import { Icon , Col, Row , Search , List , Popup , Uploader  } from 'vant';
 import html2canvas from 'html2canvas';
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
 
 import { quillEditor } from 'vue-quill-editor'
+import axios from "axios";
 html2canvas(document.body).then(function(canvas) {
   // document.body.appendChild(canvas);
 });
@@ -19,6 +20,7 @@ export default {
     VanSearch:Search,
     VanList:List,
     VanPopup:Popup,
+    VanUploader:Uploader,
     quillEditor:quillEditor,
   },
   data() {
@@ -28,14 +30,37 @@ export default {
       show: false,
       value:'',
       editor_data:'',
+      A_show:false,
       name:'',
       edit_show:false,
       entrySelectData:[],
-      content: "写内容",
+      content: "",
       editorOption:{
+        placeholder: "写点什么",
         modules:{
           toolbar:{
             container: "#toolbar",
+            handlers: {
+              'image': function (value) {
+                if (value) {
+                  // 触发input框选择图片文件
+                  // console.log(document.querySelector('.van-uploader input'))
+                  document.querySelector('.van-uploader input').click()
+                } else {
+                  this.quill.format('image', false);
+                }
+              },
+              'video': function (value) {
+                if (value) {
+                  // 触发input框选择图片文件
+                  // console.log(document.querySelector('.van-uploader input'))
+                  // document.querySelector('.Upload-video').setAttribute('display','')
+                  document.querySelector('.Upload-video').setAttribute('style','display:inline-block')
+                } else {
+                  this.quill.format('image', false);
+                }
+              },
+            }
           }
         }
       }
@@ -52,6 +77,7 @@ export default {
   mounted() {
     this.getdata();
     this.getUser();
+    // this.getpolicy();
   },
   methods: {
     showPopup(){
@@ -60,7 +86,69 @@ export default {
     onEditorChange({ editor, html, text }) {
       this.content = html;
     },
+    //搜索相关词条
+    getSearch(){
+      let data = {
+        keyword:this.value,
+      }
+      if(this.value !== undefined){
+        api.postrelated(this.qs.stringify(data)).then((res) => {
+          // console.log(res)
+          if (res.status === 200) {
+            console.log(res.data.info)
+            this.editor_data = res.data.info;
+            if(this.editor_data.content !== ''){
+              this.content = this.editor_data.content;
+            }
+            this.name = this.editor_data.name;
+            this.entrySelectData = this.editor_data.related_list;
+          }
+        });
+      }
+    },
     getUser(){
+
+    },
+    a(){
+      document.querySelector('.Upload-video').setAttribute('style','display:none')
+    },
+    //上传图片
+    afterRead(file) {
+      // 此时可以自行将文件上传至服务器
+      this.getpolicy(file.file);
+    },
+// 获取七牛云token
+    getpolicy(file) {
+      let data ={
+        suffix:file.type.split('/')[1],
+      };
+      api.postqiniu(data).then((res) => {
+        if (res.status == "200") {
+          // console.log(res)
+          this.qiniuyunUpload(file,res.data.data)
+        }
+      });
+    },
+    // 上传七牛云
+    qiniuyunUpload(file, qiniuyunToken) {
+      let formData = new FormData();
+      //注意formData里append添加的键的大小写
+      formData.append('key', qiniuyunToken.key)
+      formData.append('token', qiniuyunToken.upToken)
+      //如果是base64文件，那么直接把base64字符串转成blob对象进行上传就可以了
+      formData.append("file", file);
+      axios.post('http://upload.qiniup.com', formData, {
+        'Content-Type': 'multipart/form-data'
+      }).then(res => {
+        console.log(res)
+        if (res.status == 200) {
+         console.log(res)
+          let img_url = 'https://voice.xunsheng.org.cn/'+ res.data.key;
+         console.log(img_url)
+        } else {
+          // this.$util.message("err", res.message);
+        }
+      })
 
     },
     // 获取数据

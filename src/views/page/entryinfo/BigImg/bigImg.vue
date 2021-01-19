@@ -1,17 +1,25 @@
 <template>
   <!-- 过渡动画 -->
   <transition name="fade">
-    <div class="img-view" @click="bigImg">
+    <div class="img-view" >
       <!-- 遮罩层 -->
-<!--      <div class="img-layer"></div>-->
       <div class="img">
-        <img :src="imgSrc">
+        <a :href="imgSrc.url">
+          <img :src="imgSrc.image">
+        </a>
       </div>
+      <div class="img-close" @click="bigImg"><van-icon name="cross" color="#ffffff"/></div>
     </div>
   </transition>
 </template>
 <script>
+import { Icon, Col, Row } from 'vant';
 export default {
+  components: {
+    VanIcon: Icon,
+    VanCol: Col,
+    VanRow:Row,
+  },
   props: ['imgSrc'],
   methods: {
     bigImg() {
@@ -48,6 +56,21 @@ export default {
   display: flex;
   justify-content: center;
   align-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.img-close{
+  background-color:rgba(0, 0, 0, 0.7);
+  margin-top: 20px;
+  color: #ffffff;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  text-align: center;
+  font-size: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /*遮罩层样式*/
@@ -61,6 +84,11 @@ export default {
 /*  height: 100%;*/
 /*  overflow: hidden;*/
 /*}*/
+.img{
+  width: 250px;
+  height: 350px;
+  background-color: #ffffff;
+}
 .img-view .img {
   display: inline-block;
   display: flex;

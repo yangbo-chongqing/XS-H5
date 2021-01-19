@@ -94,6 +94,26 @@ const routes = [
     },
   },
   {
+    // 相关视频
+    path: '/video',
+    name: 'video',
+    component: () => import('@/views/page/video/index.vue'),
+    meta: {
+      title: '相关视频',
+      keepAlive: false,
+    },
+  },
+  {
+    // 相关视频
+    path: '/productDetails',
+    name: 'productDetails',
+    component: () => import('@/views/page/productDetails/index.vue'),
+    meta: {
+      title: '寻声地图',
+      keepAlive: false,
+    },
+  },
+  {
     // 获取toke
     path: '/toke',
     name: 'toke',

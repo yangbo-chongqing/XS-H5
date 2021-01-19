@@ -18,7 +18,8 @@ import { mapGetters } from "vuex";
 import { getURLlist } from "@/utils/utils";
 import { Toast } from "vant";
 import openApp from "@/components/openApp";
-import xsdtfooter from '@/components/xsdtfooter'
+import xsdtfooter from '@/components/xsdtfooter';
+import Viewer from "viewerjs";
 export default {
   data() {
     return {
@@ -30,6 +31,7 @@ export default {
     };
   },
   components: {
+    Toast:Toast,
     openApp,
     xsdtfooter
   },
@@ -48,18 +50,34 @@ export default {
         }, 300);
       },
       immediate: true, // 首次进入页面即执行
+      message: function () {
+        // console.log(1);
+        this.$nextTick(() => {
+
+        })
+      }
     },
   },
   mounted() {
+    this.showLoading();
     let CNZZ_ID = "1278811724";
     // 创建cnzz统计js
     const script = document.createElement("script");
     script.src = `https://s95.cnzz.com/z_stat.php?id=${CNZZ_ID}&web_id=${CNZZ_ID}`;
     script.language = "JavaScript";
     document.body.appendChild(script);
+    window.addEventListener("load", function () {  Toast.clear(); });
   },
-  methods: {},
-  watch: {},
+  methods: {
+    showLoading(){
+      Toast.loading({
+        message: '加载中...',
+        forbidClick: true,
+        loadingType: 'spinner',
+      });
+    }
+  },
+  // watch: {},
   computed: {},
 };
 </script>

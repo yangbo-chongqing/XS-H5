@@ -32,3 +32,21 @@ export const hideLoading = () => {
         endLoading();
     }
 };
+export const parseQuery = (url) => {
+    let o = {};
+    let queryString = url.split("?")[1];
+    if (queryString) {
+        queryString.split("&").forEach(item => {
+            let [key, val] = item.split("=");
+            val = val ? decodeURI(val) : true;
+            //          转码         无值赋值true
+            if (o.hasOwnProperty(key)) {
+                //   已有属性转为数组
+                o[key] = [].concat(o[key], val);
+            } else {
+                o[key] = val;
+            }
+        });
+    }
+    return o;
+};

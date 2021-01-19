@@ -1,6 +1,6 @@
 import api from '@/request/xsdt';
 import axios from 'axios';
-// import BigImg from './BigImg/bigImg.vue';
+import BigImg from './BigImg/bigImg.vue';
 import global from '@/global';
 import { Icon, Col, Row, Swipe, SwipeItem, NavBar, List, Toast, Uploader, Button , ImagePreview , Overlay } from 'vant';
 import { showLoading, hideLoading } from '@/request/loading';
@@ -24,7 +24,7 @@ export default {
     VanOverlay: Overlay,
     ImagePreview:ImagePreview,
     // Loading:Loading,
-    // 'big-img': BigImg
+    'big-img': BigImg
   },
   data() {
     return {
@@ -80,6 +80,7 @@ export default {
     this.getUser();
     this.onLoad();
     // this.getUserInfo();
+    this.getadvertising();
     this.getsubscribe();
     document.addEventListener('visibilitychange', this.handleVisiable)
 
@@ -266,6 +267,42 @@ export default {
         }
       });
 
+    },
+    //获取广告弹窗数据
+    getadvertising(){
+      let data = {
+        muse_id: this.id,
+        position: 1,
+      }
+      api.postadvertising(this.qs.stringify(data)).then((res) => {
+        if (res.status == 200) {
+          this.imgSrc = res.data.info
+          if(this.imgSrc.method==2){
+            this.showImg = true;
+          }else if(this.imgSrc.method==1){
+           let time=  window.localStorage.getItem('time')
+            if(time<this.dealWithTime(new Date())){
+
+            }else {
+              let day3 = new Date();
+               day3.setTime(day3.getTime()+24*60*60*1000);
+               let s3 = day3.getFullYear()+"-" + (day3.getMonth()+1) + "-" + day3.getDate()+ "-" + day3.getHours()+ ':' + day3.getMinutes() + ':' + day3.getSeconds();
+              window.localStorage.setItem('time',JSON.stringify(s3))
+              this.showImg = true;
+            }
+          }
+        }
+      });
+    },
+    // 时间格式转换
+    dealWithTime(date) {
+      let Y = date.getFullYear()
+      let M = date.getMonth() + 1 - 0 >= 10 ? Number(date.getMonth()) + 1 : '0' + (Number(date.getMonth()) + 1)
+      let D = date.getDate()
+      let h = date.getHours() >= 10 ? date.getHours() : '0' + date.getHours()
+      let m = date.getMinutes() >= 10 ? date.getMinutes() : '0' + date.getMinutes()
+      let s = date.getSeconds() >= 10 ? date.getSeconds() : '0' + date.getSeconds()
+      return Y + '-' + M + '-' + D + ' ' + h + ':' + m + ':' + s
     },
     //数组去重
     unique(arr) {

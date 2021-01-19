@@ -25,6 +25,7 @@
                 </div>
               </div>
               <div class="toolbar-right">
+                <button class="ql-link" title="链接"></button>
                 <button class="ql-image" title="照片"></button>
                 <button class="ql-video" title="视频"></button>
                 <button class="ql-blockquote" title="引用"></button>
@@ -53,6 +54,23 @@
           </div>
         </quill-editor>
       </div>
+<!--      上传视频-->
+      <div class="Upload-video" style="display:none;">
+<!--        <div style="width: 100%;">-->
+          <div class="Upload-video-head">
+            <p @click="a">取消</p>
+            <p>嵌入视频</p>
+            <p >添加</p>
+          </div>
+        <div class="Upload-video-content">
+          <input type="text" >
+          <van-uploader :after-read="afterRead"  accept="video/*" >上传文件</van-uploader>
+        </div>
+<!--        </div>-->
+      </div>
+<!--      上传图片-->
+      <van-uploader :after-read="afterRead" style="display: none" accept="image/*" />
+
 <!--      相关添加-->
       <div class="ed-footer">
         <div class="editor-entry-tip-add" @click="showPopup">
@@ -70,7 +88,7 @@
             相关词条
             <p class="entry-send-btn">完成</p>
           </div>
-          <van-search v-model="value" shape="round" background="#ffffff" placeholder="请输入搜索关键词" />
+          <van-search v-model="value" shape="round" @search="getSearch"  background="#ffffff" placeholder="请输入搜索关键词" />
         </van-popup>
       </div>
     </div>

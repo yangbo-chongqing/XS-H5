@@ -1,41 +1,29 @@
-import api from '@/request/xsdt';
-import { Icon, Col, Row } from 'vant';
+<template>
+  <div class="app-video">
+    <div class="app-video-list" v-for="(itme,index) in datavideo.video">
+      <h5>{{ itme.video_name }}</h5>
+      <embed :src="itme.video_url" type=""  >
+<!--      <video :src="itme.video_url" controls :poster="itme.video_url"></video>-->
+    </div>
+  </div>
+</template>
+
+<script>
+import api from "@/request/xsdt";
+
 export default {
-  name:'Home',
-  components: {
-    VanIcon: Icon,
-    VanCol: Col,
-    VanRow:Row,
-  },
+name: "index",
   data() {
     return {
-      id: this.$route.query.id,
-      dataInfo: '',
-      pdfUrl:'',
-      showVideo:false,
-      url:this.parseQuery(window.location.href),
+      datavideo: '',
       muse_id:this.parseQuery(window.location.href).muse_id,
       pkid:this.parseQuery(window.location.href).pkid,
     }
-  },
-  computed: {
-   
-  },
-  created () {
   },
   mounted() {
     this.museinfo()
   },
   methods: {
-    //页面跳转
-    jumpRoute(path, obj) {
-      this.$router.push({
-        path: path,
-        query: {
-          ...obj
-        }
-      })  
-    },
     museinfo() {
       let url = this.parseQuery(window.location.href);
       let muse_id = url.muse_id;
@@ -46,9 +34,7 @@ export default {
       }
       api.postDetails(this.qs.stringify(params)).then((res) => {
         if (res.status == 200) {
-          this.dataInfo = res.data.product;
-          this.pdfUrl = res.data.product.manual.file
-          document.title = res.data.product.name;
+          this.datavideo = res.data.product;
         }
       });
     },
@@ -70,5 +56,32 @@ export default {
       }
       return o;
     }
+  },
+}
+
+</script>
+
+<style scoped lang="scss">
+.app-video{
+  //background-color: red;
+  box-sizing: border-box;
+  padding: 20px;
+  .app-video-list{
+    margin-top: 10px;
+    h5{
+      font-weight: 500;
+      font-size: 16px;
+      padding-bottom: 10px;
+    }
+    embed{
+      width: 100%;
+      height: 200px;
+    }
+    video{
+      width: 100%;
+      height: 200px;
+    }
   }
-};
+}
+
+</style>

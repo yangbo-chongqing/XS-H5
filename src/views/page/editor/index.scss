@@ -62,6 +62,47 @@
         }
       }
     }
+
+    .Upload-video{
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      z-index: 10;
+      padding: 10px 20px;
+      box-sizing: border-box;
+      width: 100%;
+      box-shadow: 3px 6px 10px #000000;
+      border-radius: 8px 8px 0 0;
+      background-color: #ffffff;
+      .Upload-video-head{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        font-size: 14px;
+        p:nth-child(2){
+          font-size: 18px;
+          font-weight: 600;
+        }
+      }
+      .Upload-video-content{
+        width: 100%;
+        margin-top: 20px;
+        border: 1px solid #5287fd;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        input{
+          margin: 0;
+          padding: 10px;
+          width: 70%;
+          border-radius: 4px;
+          box-sizing: border-box;
+          height: 40px;
+          font-size: 16px;
+          border: 0;
+        }
+      }
+    }
   }
 
 }

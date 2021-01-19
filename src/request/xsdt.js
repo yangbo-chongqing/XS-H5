@@ -163,6 +163,29 @@ const api = {
             data: params,
         });
     },
+    //获取七牛云token
+    postqiniu(params) {
+        return http({
+            method: 'post',
+            url: '/api/qiniu',
+            data: params,
+        });
+    },
+    postrelated(params) {
+        return http({
+            method: 'post',
+            url: '/api/web/relics/related',
+            data: params,
+        });
+    },
+    //获取广告弹窗
+    postadvertising(params) {
+        return http({
+            method: 'post',
+            url: '/api/web/muse/advertising',
+            data: params,
+        });
+    },
 
 }
 export default api;
