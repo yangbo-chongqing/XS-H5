@@ -1,3 +1,4 @@
+<script src="../../../request/xsdt.js"></script>
 <template>
   <div class="h-container" v-if="dataInfo">
      <div class="product-head">

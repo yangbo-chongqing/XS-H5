@@ -1,5 +1,6 @@
 import api from '@/request/xsdt';
 import { Icon, Col, Row } from 'vant';
+import global from '@/global';
 export default {
   name:'Home',
   components: {
@@ -49,6 +50,8 @@ export default {
           this.dataInfo = res.data.product;
           // this.pdfUrl = res.data.product.manual.file
           document.title = res.data.product.name;
+           let url = window.location.href;
+          this.$global.shareToWechat(res.data.product.name, url, res.data.product.image, res.data.product.name)
         }
       });
     },
