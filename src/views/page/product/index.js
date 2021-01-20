@@ -47,7 +47,7 @@ export default {
       api.postDetails(this.qs.stringify(params)).then((res) => {
         if (res.status == 200) {
           this.dataInfo = res.data.product;
-          this.pdfUrl = res.data.product.manual.file
+          // this.pdfUrl = res.data.product.manual.file
           document.title = res.data.product.name;
         }
       });

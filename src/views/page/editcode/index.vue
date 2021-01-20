@@ -1,6 +1,7 @@
 <template>
   <div class="h-container">
-    <canvas width="500" height="500" ></canvas>
+
+    <canvas width="80%" height="400" ></canvas>
     <div class="code-box" ref="imageDom">
       <img class="code1" src="@/assets/images/code1.png" />
       <img class="code2" src="@/assets/images/code2.png" />
