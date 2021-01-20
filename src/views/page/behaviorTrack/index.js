@@ -44,7 +44,6 @@ export default {
         user_id:this.user_id,
       }
      api.postBehaviorTrack(this.qs.stringify(data)).then((res) => {
-       // console.log(res)
         if (res.status == 200) {
           for( let i=0;i<res.data.data.length;i++){
             if(res.data.data[i].list.length >0){

@@ -36,7 +36,7 @@ const http = function (options) {
         if (res.status == 200) {
           resolve(res);
         } else if(res.status == 401){
-
+          resolve(res);
         }else {
           Toast(res.message);
           setTimeout(() => {
