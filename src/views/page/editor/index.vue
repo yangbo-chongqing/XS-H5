@@ -4,7 +4,7 @@
       <div class="ed-header">
         <div class="entry-title">
           <input type="text" bindinput="titleInput" v-model="name" placeholder="请输入词条名称" @blur.prevent="changeCount()">
-          <div class="send-data-btn" @click="modifyEntryDetails">修改</div>
+          <div class="send-data-btn" @click="postmodifyEntryDetails">修改</div>
         </div>
       </div>
       <div class="ed-content">
@@ -58,12 +58,12 @@
       <div class="Upload-video" style="display:none;">
 <!--        <div style="width: 100%;">-->
           <div class="Upload-video-head">
-            <p @click="a">取消</p>
+            <p @click="closeVideo">取消</p>
             <p>嵌入视频</p>
-            <p >添加</p>
+            <p @click="addVideo">添加</p>
           </div>
         <div class="Upload-video-content">
-          <input type="text" >
+          <input type="text" v-model="videoUrl" >
           <van-uploader :after-read="afterRead"  accept="video/*" >上传文件</van-uploader>
         </div>
 <!--        </div>-->
@@ -79,21 +79,33 @@
         <div class="editor-entry-tip-box">
           <div class="editor-entry-tip" v-for="(item,index) in entrySelectData" :key="index">
             {{item.name}}
-            <van-icon color="#5387fd" bindtap="delEntryData" :data-index='index' name="cross" />
+            <van-icon color="#5387fd" bindtap="delEntryData" :data-index='index' name="cross" @click="delrelevant($event)"/>
           </div>
         </div>
 <!--        弹出框-->
         <van-popup v-model="show" position="bottom" :style="{height: '70%'}">
           <div class="entry-popup-title">
             相关词条
-            <p class="entry-send-btn">完成</p>
+            <p class="entry-send-btn" @click="addarr">完成</p>
           </div>
           <van-search v-model="value" shape="round" @search="getSearch"  background="#ffffff" placeholder="请输入搜索关键词" />
           <div class="entry-popup-list">
-            aads
+            <van-checkbox-group v-model="result">
+              <van-cell-group>
+                <van-cell
+                    v-for="(item, index) in list"
+                    clickable
+                    :key="index"
+                    :title="`${item.name}`"
+                    @click="toggle(index)">
+                  <template #right-icon>
+                    <van-checkbox :name="item" ref="checkboxes" />
+                  </template>
+                </van-cell>
+              </van-cell-group>
+            </van-checkbox-group>
           </div>
         </van-popup>
-
       </div>
     </div>
   </div>

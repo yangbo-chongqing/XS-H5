@@ -123,11 +123,19 @@ const api = {
             data: params,
         });
     },
-    //获取词条详情
+    //修改词条详情
     modifyEntryDetails(params) {
         return http({
             method: 'post',
             url: '/api/web/relics/edit',
+            data: params,
+        });
+    },
+    //发布词条详情
+    addCreate(params) {
+        return http({
+            method: 'post',
+            url: '/api/web/relics/create',
             data: params,
         });
     },
