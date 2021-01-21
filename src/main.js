@@ -13,11 +13,12 @@ import fastclick from "fastclick";
 fastclick.attach(document.body);
 Vue.config.productionTip = false;
 import { Toast, Dialog } from 'vant';
-import { Loading , Button , Table} from 'element-ui';
+import { Loading , Button , Table , DatePicker } from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 
 Vue.use(Loading.directive);
-Vue.use(Dialog , Toast , Loading , Button , Table);
+Vue.use(Dialog , Toast , Loading , Button , Table );
+Vue.use(DatePicker);
 
 Vue.prototype.qs = qs;
 Vue.prototype.$loading = Loading.service;

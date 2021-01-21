@@ -174,6 +174,16 @@ const routes = [
     },
   },
   {
+    // 扫描量统计
+    path: '/scanStatistics',
+    name: 'scanStatistics',
+    component: () => import('@/views/page/scanStatistics/index.vue'),
+    meta: {
+      title: '扫描量统计',
+      keepAlive: false,
+    },
+  },
+  {
     // 404页面
     path: '*',
     name: 'notfound',

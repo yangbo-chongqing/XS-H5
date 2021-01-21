@@ -120,7 +120,7 @@ export default {
 
     getUserInfo() {
       let value = {
-        token: '6ce8705ee6fa0699e304e74c0e72b8c7',
+        token: '1f945a8e47de51c0fe48b1aee31e63d6',
         user_id: 399,
       };
       window.localStorage.setItem("storage", JSON.stringify(value));

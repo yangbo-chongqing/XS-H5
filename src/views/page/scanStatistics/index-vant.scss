@@ -1,0 +1,17 @@
+.h-container {
+  .scanStatistics{
+    .date{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      .el-date-editor{
+        width: 120px;
+        input{
+          padding-right: 0;
+          border: 0;
+        }
+      }
+    }
+
+  }
+}
