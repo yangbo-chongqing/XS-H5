@@ -52,7 +52,7 @@
           </li>
         </ul>
         <div class="bt-tips" v-if="recentVisit.length<=0">
-          暂无用户轨迹
+          暂无访问次数
         </div>
 
       </div>
