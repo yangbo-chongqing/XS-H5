@@ -17,6 +17,8 @@ export default {
       url:this.parseQuery(window.location.href),
       muse_id:this.parseQuery(window.location.href).muse_id,
       pkid:this.parseQuery(window.location.href).pkid,
+      expand_manual:'',
+      expand_details:'',
     }
   },
   computed: {
@@ -52,6 +54,13 @@ export default {
           document.title = res.data.product.name;
            let url = window.location.href;
           this.$global.shareToWechat(res.data.product.name, url, res.data.product.image, res.data.product.name)
+
+          this.expand_manual = (res.data.product.expand.manual.split("").length)
+          this.expand_details = (res.data.product.expand.details.split("").length)
+          let arr = '<p>aaaaa</p>'
+          console.log(arr.length)
+          console.log(res.data.product.expand.manual.length)
+          console.log(res.data.product.expand.manual.length)
         }
       });
     },
