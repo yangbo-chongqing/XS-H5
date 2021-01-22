@@ -6,7 +6,7 @@
       :autosize=" {minHeight: 300 }"
       type="textarea"
       maxlength="200"
-      placeholder="亲爱的寻声地图用户，请在此填写您的反馈~"
+      placeholder="亲爱的寻声扫码用户，请在此填写您的反馈~"
       show-word-limit
     />
     <van-field v-model="contact" label="联系方式:" placeholder="请输入邮箱或手机号码" />

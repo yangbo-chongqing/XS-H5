@@ -10,7 +10,7 @@ const routes = [
     name: 'ImagePre',
     component: () => import('@/views/page/imagePre/index.vue'),
     meta: {
-      title: '寻声地图',
+      title: '寻声扫码',
       keepAlive: false,
     },
   },
@@ -20,7 +20,7 @@ const routes = [
     name: 'Home',
     component: () => import('@/views/page/home/index.vue'),
     meta: {
-      title: '寻声地图',
+      title: '寻声扫码',
       keepAlive: false,
     },
   },
@@ -40,7 +40,7 @@ const routes = [
     name: 'EntryList',
     component: () => import('@/views/page/entrylist/index.vue'),
     meta: {
-      title: '寻声地图',
+      title: '寻声扫码',
       keepAlive: false,
     },
   },
@@ -50,7 +50,7 @@ const routes = [
     name: 'Report',
     component: () => import('@/views/page/report/index.vue'),
     meta: {
-      title: '寻声地图',
+      title: '寻声扫码',
       keepAlive: false,
     },
   },
@@ -60,7 +60,7 @@ const routes = [
     name: 'Entryinfo',
     component: () =>  import('@/views/page/entryinfo/index.vue'),
     meta: {
-      title: '寻声地图',
+      title: '寻声扫码',
       keepAlive: false,
     },
   },
@@ -70,7 +70,7 @@ const routes = [
     name: 'Product',
     component: () => import('@/views/page/product/index.vue'),
     meta: {
-      title: '寻声地图',
+      title: '寻声扫码',
       keepAlive: false,
     },
   },
@@ -79,7 +79,7 @@ const routes = [
     path: '/demo',
     name: 'demo',
     meta: {
-      title: '寻声地图',
+      title: '寻声扫码',
       keepAlive: false,
     },
   },
@@ -89,7 +89,7 @@ const routes = [
     name: 'Pdf',
     component: () => import('@/views/page/pdf/index.vue'),
     meta: {
-      title: '寻声地图',
+      title: '寻声扫码',
       keepAlive: false,
     },
   },
@@ -109,7 +109,7 @@ const routes = [
     name: 'productDetails',
     component: () => import('@/views/page/productDetails/index.vue'),
     meta: {
-      title: '寻声地图',
+      title: '寻声扫码',
       keepAlive: false,
     },
   },
@@ -119,7 +119,7 @@ const routes = [
     name: 'toke',
     component: () => import('@/views/page/toke/Authorize.vue'),
     meta: {
-      title: '寻声地图',
+      title: '寻声扫码',
       keepAlive: false,
     },
   },
@@ -129,7 +129,7 @@ const routes = [
   //   name: '111',
   //   component: () => import('@/views/page/toke/111.vue'),
   //   meta: {
-  //     title: '寻声地图',
+  //     title: '寻声扫码',
   //     keepAlive: false,
   //   },
   // },
@@ -139,7 +139,7 @@ const routes = [
     name: 'dataSearcartEdit',
     component: () => import('@/views/page/dataSearcartEdit/index.vue'),
     meta: {
-      title: '寻声地图',
+      title: '寻声扫码',
       keepAlive: false,
     },
   },
@@ -149,7 +149,7 @@ const routes = [
     name: 'editcode',
     component: () => import('@/views/page/editcode/index.vue'),
     meta: {
-      title: '寻声地图',
+      title: '寻声扫码',
       keepAlive: false,
     },
   },
@@ -159,7 +159,7 @@ const routes = [
     name: 'editor',
     component: () => import('@/views/page/editor/index.vue'),
     meta: {
-      title: '寻声地图',
+      title: '寻声扫码',
       keepAlive: false,
     },
   },
@@ -169,7 +169,7 @@ const routes = [
     name: 'behaviorTrack',
     component: () => import('@/views/page/behaviorTrack/index.vue'),
     meta: {
-      title: '寻声地图',
+      title: '寻声扫码',
       keepAlive: false,
     },
   },

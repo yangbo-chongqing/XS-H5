@@ -85,7 +85,7 @@
     </div>
     <div class="app-info-htmlCont" ref="htmlCont" v-if="relicsDataInfo.content" v-html="relicsDataInfo.content" @click="enlargeImg($event);clickImg($event)"></div>
     <div class="author-box">
-      <p>本文仅代表作者个人观点，不代表寻声地图立场</p>
+      <p>本文仅代表作者个人观点，不代表寻声扫码立场</p>
       <p>本文经授权发布，未经许可，请勿转载</p>
       <div class="author-body">
         <span v-if="relicsDataInfo.author"

@@ -1,6 +1,6 @@
 <template>
   <div class="footer">
-    <p><img src="@/assets/images/xsdtlogo.png" />寻声地图</p>
+    <p><img src="@/assets/images/xsdtlogo.png" />寻声扫码</p>
   </div>
 </template>
 
