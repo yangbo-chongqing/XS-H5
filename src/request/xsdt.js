@@ -194,6 +194,14 @@ const api = {
             data: params,
         });
     },
+    // 订阅词条码(获取二维码)
+    postattention(params) {
+        return http({
+            method: 'post',
+            url: '/api/web/relics/attention',
+            data: params,
+        });
+    },
 
 }
 export default api;

@@ -19,6 +19,7 @@ export default {
       pkid:this.parseQuery(window.location.href).pkid,
       expand_manual:'',
       expand_details:'',
+      attention:'',    //订阅词条码(获取二维码)
     }
   },
   computed: {
@@ -27,7 +28,8 @@ export default {
   created () {
   },
   mounted() {
-    this.museinfo()
+    this.museinfo();
+    this.postAttention();
   },
   methods: {
     //页面跳转
@@ -55,12 +57,23 @@ export default {
            let url = window.location.href;
           this.$global.shareToWechat(res.data.product.name, url, res.data.product.image, res.data.product.name)
 
-          this.expand_manual = (res.data.product.expand.manual.split("").length)
-          this.expand_details = (res.data.product.expand.details.split("").length)
-          let arr = '<p>aaaaa</p>'
-          console.log(arr.length)
-          console.log(res.data.product.expand.manual.length)
-          console.log(res.data.product.expand.manual.length)
+          this.expand_manual = (res.data.product.expand.manual.length)
+          this.expand_details = (res.data.product.expand.details.length)
+        }
+      });
+    },
+    postAttention() {
+      let url = this.parseQuery(window.location.href);
+      let muse_id = url.muse_id;
+      let params = {
+        relics_id: muse_id,
+        type:1,
+      }
+      api.postattention(this.qs.stringify(params)).then((res) => {
+        if (res.status == 200) {
+          console.log(res)
+          this.attention = res.data.img
+          console.log(this.attention)
         }
       });
     },
