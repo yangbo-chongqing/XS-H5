@@ -69,7 +69,7 @@ export default {
         xAxisData.push(item.date)
         yAxisData1.push(item.people)
         yAxisData2.push(item.frequency);
-        yAxisData3.push(item.frequencys);
+        yAxisData3.push(item.duration);
       })
 
       this.chart.setOption({

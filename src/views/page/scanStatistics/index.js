@@ -1,6 +1,7 @@
 import api from '@/request/xsdt';
-import { Icon, Col } from 'vant';
+import { Icon, Col ,Calendar , Cell} from 'vant';
 import LineChart from './components/LineChart';
+import global from "@/global";
 
 export default {
   name:'Home',
@@ -8,57 +9,21 @@ export default {
     VanIcon: Icon,
     VanCol: Col,
     LineChart,
+    VanCalendar:Calendar,
+    VanCell:Cell,
   },
   data() {
     return {
       dateTabIndex:'',
+      time_data:'',
       start_time:'',
       end_time:'',
-      chartData:[
-        {
-          date:"01-21",
-          frequency:58,
-          frequencys:0,
-          people:2,
-        },
-        {
-          date:"01-21",
-          frequency:1,
-          frequencys:1,
-          people:2,
-        },
-        {
-          date:"01-21",
-          frequency:39,
-          frequencys:3,
-          people:2,
-        },
-        {
-          date:"01-21",
-          frequency:39,
-          frequencys:5,
-          people:2,
-        },
-        {
-          date:"01-21",
-          frequency:39,
-          frequencys:2,
-          people:2,
-        },
-        {
-          date:"01-21",
-          frequency:39,
-          frequencys:2,
-          people:2,
-        },
-        {
-          date:"01-22",
-          frequency:39,
-          frequencys:2,
-          people:2,
-        },
-      ]
-
+      chartData:[],     //web端扫码统计
+      relics_list:[],  //排行榜
+      statistics:'',  //web工作台统计
+      show: false,
+      minDate: new Date(2020, 0, 1),
+      maxDate: new Date(2200, 0, 31),
     }
   },
   computed: {
@@ -68,24 +33,38 @@ export default {
 
   },
   mounted() {
+    // this.getUserInfo()
+    this.getUser();
     this.toggleDate(4)
+    this.getworkbench()
   },
   methods: {
     museinfo() { 
       let params = {
-        muse_id:this.muse_id
+        start_time:this.start_time,
+        end_time:this.end_time,
       }
-      api.postMuseIndex(this.qs.stringify(params)).then((res) => {
+      api.poststatistics(this.qs.stringify(params)).then((res) => {
         if (res.status == 200) {
-          this.museDataInfo = res.data;
-          let url = window.location.href;
-          this.$global.shareToWechat(res.data.info.share_title, url, res.data.info.share_image, res.data.info.share_content)
-          document.title = res.data.info.muse_name;
-          if(this.museDataInfo.info.Introduction){
-            if (this.museDataInfo.info.Introduction.length > 70) {
-              this.isShowMore = true;
-            }
-          }
+          // console.log(res.data.relics_list)
+          this.chartData = res.data.date;
+          this.relics_list = res.data.relics_list;
+        } else if(res.status == 401){
+          this.$router.push({
+            path: '/toke',
+          });
+        }
+      });
+    },
+    getworkbench() {
+      api.postworkbench(this.qs.stringify()).then((res) => {
+        if (res.status == 200) {
+          this.statistics = res.data;
+          // console.log(this.statistics)
+        } else if(res.status == 401){
+          this.$router.push({
+            path: '/toke',
+          });
         }
       });
     },
@@ -130,6 +109,8 @@ export default {
       } else {
 
       }
+      this.time_data = this.start_time + "-" + this.end_time;
+      this.museinfo();
     },
     // 获取近7天
     getLastWeek() {
@@ -175,8 +156,32 @@ export default {
         }
       }
       return dateObj;
-    }
+    },
+    onConfirm(date) {
+      const [start, end] = date;
+      this.show = false;
+      this.time_data = `${this.formatDate(start)} - ${this.formatDate(end)}`;
+      // console.log(this.time_data.split('-'))
+      this.start_time = this.time_data.split('-')[0];
+      this.end_time = this.time_data.split('-')[1];
+      this.time_data = this.start_time + "-" + this.end_time;
+      this.dateTabIndex = 5;
+      this.museinfo();
+    },
+    formatDate(date) {
+      return `${date.getFullYear() }/${date.getMonth() + 1}/${date.getDate()}`;
+    },
+    //判断有无用户信息
+    getUser() {
+        if (window.localStorage.getItem('storage') == null) {
+          // console.log(1);
+          this.Show = true;
+          this.$router.push({
+            path: '/toke',
+          });
+        }
 
+    },
 
 
   }

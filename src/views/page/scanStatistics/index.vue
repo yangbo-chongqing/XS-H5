@@ -5,19 +5,19 @@
         <div class="scanStatistics-hender-list">
           <div class="list">
             <h6>昨天</h6>
-            <p>0</p>
+            <p>{{ statistics.yesterday }}</p>
           </div>
           <div class="list">
             <h6>今天</h6>
-            <p>0</p>
+            <p>{{ statistics.nowadays }}</p>
           </div>
           <div class="list">
             <h6>近7日</h6>
-            <p>0</p>
+            <p>{{ statistics.seven_count }}</p>
           </div>
           <div class="list">
             <h6>近30日</h6>
-            <p>0</p>
+            <p>{{ statistics.monthly_count }}</p>
           </div>
         </div>
         <div class="scanStatistics-hender-date">
@@ -34,9 +34,9 @@
                  @click="toggleDate(4)">近30日</p>
             </div>
             <div class="date">
-              <el-date-picker v-model="start_time" type="date" @focus="changes" placeholder="选择日期"></el-date-picker>
-              <p>到</p>
-              <el-date-picker v-model="end_time" type="date" @focus="changes"   placeholder="选择日期"></el-date-picker>
+              <van-cell title="自定义日期区间" :value="time_data" @click="show = true" />
+<!--              <van-calendar v-model="show" />-->
+              <van-calendar v-model="show" color="#1989fa"  type="range" :min-date="minDate" :max-date="maxDate" @confirm="onConfirm"  />
             </div>
           </div>
         </div>
@@ -56,10 +56,18 @@
             <p>二维码名称</p>
             <p>近30日扫描量</p>
           </div>
-          <div class="scanStatistics-foot-list">
-            <p>测试</p>
-            <p>2次</p>
+          <div v-if="relics_list.length>0">
+            <div v-for="(ietm,index) in relics_list">
+              <div class="scanStatistics-foot-list" :key="index">
+                <p>{{ ietm.name }}</p>
+                <p><span>{{ ietm.frequency }}</span>次</p>
+              </div>
+            </div>
           </div>
+          <div v-if="relics_list.length<=0" class="scanStatistics-foot-nothing">
+            <p>暂无记录</p>
+          </div>
+
         </div>
       </div>
     </div>

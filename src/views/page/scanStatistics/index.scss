@@ -43,6 +43,7 @@
         }
         .hender-dateRange{
           margin-left: 10px;
+          width: 290px;
           .hender-date-list{
             display: flex;
             p{
@@ -102,6 +103,12 @@
           p:nth-child(1){
             color: #2b7399;
           }
+        }
+        .scanStatistics-foot-nothing{
+          font-size: 14px;
+          text-align: center;
+          padding: 10px;
+          color: #cdcdcd;
         }
       }
     }

@@ -202,6 +202,22 @@ const api = {
             data: params,
         });
     },
+    // web端扫码统计
+    poststatistics(params) {
+        return http({
+            method: 'post',
+            url: '/api/web/muse/statistics',
+            data: params,
+        });
+    },
+    // web工作台统计
+    postworkbench(params) {
+        return http({
+            method: 'post',
+            url: '/api/web/muse/workbench',
+            data: params,
+        });
+    },
 
 }
 export default api;
