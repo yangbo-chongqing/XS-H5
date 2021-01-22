@@ -7,7 +7,7 @@
      <div class="product-info">
        <div class="product-name">{{dataInfo.name}}</div>
        <div class="product-tip"><label>唯一码：</label><span>{{dataInfo.unique}}</span></div>
-       <div class="product-tip"><label>上市时间：</label><span>{{dataInfo.listed}}</span></div>
+<!--       <div class="product-tip"><label>上市时间：</label><span>{{dataInfo.listed}}</span></div>-->
        <div class="product-tip"><label>生产厂家：</label><span>{{dataInfo.factory}}</span></div>
      </div>
      <div class="product-in-list">
