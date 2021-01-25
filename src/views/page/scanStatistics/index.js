@@ -105,10 +105,14 @@ export default {
       } else if (index == 3) {
         this.start_time = this.getLastWeek().last;
         this.end_time = this.getLastWeek().now;
+        let arr = this.end_time.split('-')
+        this.end_time = arr[0] + '-' +arr[1] + '-' +(arr[2]-1);
         this.Scanning_volume = '近7日扫描量'
       } else if (index == 4) {
         this.start_time = this.getLastMonth().last;
         this.end_time = this.getLastMonth().now;
+        let arr = this.end_time.split('-')
+        this.end_time = arr[0] + '-' +arr[1] + '-' +(arr[2]-1);
         this.Scanning_volume = '近30日扫描量'
       } else {
 
@@ -121,7 +125,7 @@ export default {
       let now = new Date();
       let year = now.getFullYear();
       let month = now.getMonth() + 1;//0-11表示1-12月
-      let day = now.getDate()-1;
+      let day = now.getDate();
       let dateObj = {};
       dateObj.now = year + '-' + month + '-' + day;
       if(day - 7 <= 0){   //如果在当月7日之前
@@ -141,7 +145,7 @@ export default {
       let now = new Date();
       let year = now.getFullYear();
       let month = now.getMonth() + 1;//0-11表示1-12月
-      let day = now.getDate()-1;
+      let day = now.getDate();
       let dateObj = {};
       dateObj.now = year + '-' + month + '-' + day;
       let nowMonthDay = new Date(year, month, 0).getDate();    //当前月的总天数
