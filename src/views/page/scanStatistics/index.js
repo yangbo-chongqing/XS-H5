@@ -21,6 +21,7 @@ export default {
       chartData:[],     //web端扫码统计
       relics_list:[],  //排行榜
       statistics:'',  //web工作台统计
+      Scanning_volume:'',
       show: false,
       minDate: new Date(2020, 0, 1),
       maxDate: new Date(2200, 0, 31),
@@ -33,7 +34,6 @@ export default {
 
   },
   mounted() {
-    // this.getUserInfo()
     this.getUser();
     this.toggleDate(4)
     this.getworkbench()
@@ -87,6 +87,7 @@ export default {
             (new Date().getMonth() + 1) +
             '-' +
             (new Date().getDate() - 1)
+        this.Scanning_volume = '昨天扫描量'
       } else if (index == 2) {
         this.start_time =
             new Date().getFullYear() +
@@ -100,12 +101,15 @@ export default {
             (new Date().getMonth() + 1) +
             '-' +
             new Date().getDate()
+        this.Scanning_volume = '今天扫描量'
       } else if (index == 3) {
         this.start_time = this.getLastWeek().last;
         this.end_time = this.getLastWeek().now;
+        this.Scanning_volume = '近7日扫描量'
       } else if (index == 4) {
         this.start_time = this.getLastMonth().last;
         this.end_time = this.getLastMonth().now;
+        this.Scanning_volume = '近30日扫描量'
       } else {
 
       }
@@ -117,7 +121,7 @@ export default {
       let now = new Date();
       let year = now.getFullYear();
       let month = now.getMonth() + 1;//0-11表示1-12月
-      let day = now.getDate();
+      let day = now.getDate()-1;
       let dateObj = {};
       dateObj.now = year + '-' + month + '-' + day;
       if(day - 7 <= 0){   //如果在当月7日之前
@@ -137,7 +141,7 @@ export default {
       let now = new Date();
       let year = now.getFullYear();
       let month = now.getMonth() + 1;//0-11表示1-12月
-      let day = now.getDate();
+      let day = now.getDate()-1;
       let dateObj = {};
       dateObj.now = year + '-' + month + '-' + day;
       let nowMonthDay = new Date(year, month, 0).getDate();    //当前月的总天数
@@ -169,6 +173,7 @@ export default {
       this.museinfo();
     },
     formatDate(date) {
+      this.Scanning_volume = '扫描量'
       return `${date.getFullYear() }/${date.getMonth() + 1}/${date.getDate()}`;
     },
     //判断有无用户信息

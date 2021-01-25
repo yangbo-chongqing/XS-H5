@@ -54,7 +54,7 @@
           <h4>扫描量排行</h4>
           <div class="scanStatistics-foot-title">
             <p>二维码名称</p>
-            <p>近30日扫描量</p>
+            <p>{{ Scanning_volume }}</p>
           </div>
           <div v-if="relics_list.length>0">
             <div v-for="(ietm,index) in relics_list">
