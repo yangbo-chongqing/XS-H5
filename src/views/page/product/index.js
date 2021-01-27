@@ -46,6 +46,11 @@ export default {
     this.museinfo();
     this.postAttention();
   },
+  watch:{
+    $route(to,from){
+      this.museinfo();
+    }
+  },
   methods: {
     //页面跳转
     jumpRoute(path, obj) {

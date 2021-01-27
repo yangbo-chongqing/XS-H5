@@ -137,7 +137,6 @@ export default {
       api.postRelicsInfo(this.qs.stringify(params)).then((res) => {
         if (res.status == 200) {
           this.relicsDataInfo = res.data.info;
-
           // console.log(this.relicsDataInfo);
           this.relicsDataInfo.introduction = this.trim(this.relicsDataInfo.introduction);
           if (res.data.info.history_list.length > 0) {
@@ -275,23 +274,25 @@ export default {
         position: 1,
       }
       api.postadvertising(this.qs.stringify(data)).then((res) => {
+        console.log(res)
         if (res.status == 200) {
           this.imgSrc = res.data.info
-          if(this.imgSrc.method==1){
-            this.showImg = true;
-          }else if(this.imgSrc.method==2){
-           let time=  window.localStorage.getItem('time')
-            if(time<this.dealWithTime(new Date())){
-
-            }else {
-              let day3 = new Date();
-               day3.setTime(day3.getTime()+24*60*60*1000);
-               let s3 = day3.getFullYear()+"-" + (day3.getMonth()+1) + "-" + day3.getDate()+ "-" + day3.getHours()+ ':' + day3.getMinutes() + ':' + day3.getSeconds();
-              window.localStorage.setItem('time',JSON.stringify(s3))
+          if(res.data.info){
+            if(this.imgSrc.method==1){
               this.showImg = true;
-            }
-          }else {
+            }else if(this.imgSrc.method==2){
+              let time=  window.localStorage.getItem('time')
+              if(time<this.dealWithTime(new Date())){
+              }else {
+                let day3 = new Date();
+                day3.setTime(day3.getTime()+24*60*60*1000);
+                let s3 = day3.getFullYear()+"-" + (day3.getMonth()+1) + "-" + day3.getDate()+ "-" + day3.getHours()+ ':' + day3.getMinutes() + ':' + day3.getSeconds();
+                window.localStorage.setItem('time',JSON.stringify(s3))
+                this.showImg = true;
+              }
+            }else {
 
+            }
           }
         }
       });
