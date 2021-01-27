@@ -101,6 +101,6 @@ export default {
   display: block;
   margin: auto;
   z-index: 1000;
-
+  height: 100%;
 }
 </style>

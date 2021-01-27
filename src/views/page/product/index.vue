@@ -65,8 +65,8 @@
 <!--        <h5>改装范例</h5>-->
       </div>
       <div class="product-example-content"  >
-        <div class="product-example-list" v-for="(item,index) in examplevideo_list ":key="index">
-          <video :src="item.video_url" controls :poster="item.video_url+'?vframe/jpg/offset/0/w/325/h200'"></video>
+        <div class="product-example-list" v-for="(item,index) in examplevideo_list" :key="index">
+          <video :src="item.video_url" preload="none" controls :poster="item.video_url+'?vframe/jpg/offset/0/w/325/h200'"></video>
         </div>
       </div>
       <div class="Loadmore" @click="onexample(1)" v-if="examplevideo.length>3 & examplevideo_list.length<4"> <van-icon name="arrow" /> 加载更多  </div>
@@ -81,7 +81,7 @@
       <div class="product-activity-title"><h5>活动集锦</h5></div>
       <div class="product-activity-content" >
         <div class="product-activity-list" v-for="(item,index) in activity_list" :key="index">
-          <a :href="item.jump_url">
+          <a :href="item.jump_url" target="_blank">
             <img :src="item.image" alt="">
             <div class="product-activity-list-content">
               <h6>{{ item.title }}</h6>
@@ -98,7 +98,7 @@
       <div class="product-evaluating-title"><h5>产品评测</h5></div>
       <div class="product-evaluating-content" >
         <div class="product-evaluating-list" v-for="(item,index) in evaluation_list " :key="index">
-          <a :href="item.jump_url">
+          <a :href="item.jump_url" target="_blank">
             <div class="product-evaluating-list-img">
               <img :src="item.image" alt="">
             </div>
@@ -138,7 +138,7 @@
       <div class="product-problem-title"><h5>常见问题</h5></div>
       <div class="product-problem-content" >
         <div class="product-problem-list" v-for="(item,index) in problem_list " :key="index">
-          <a :href="item.jump_url">
+          <a :href="item.jump_url" target="_blank">
             <img :src="item.image" alt="">
             <div class="product-problem-list-content">
               <h6>{{ item.title }}</h6>

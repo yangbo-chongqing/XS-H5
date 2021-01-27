@@ -46,11 +46,11 @@ export default {
     this.museinfo();
     this.postAttention();
   },
-  watch:{
-    $route(to,from){
-      this.museinfo();
-    }
-  },
+  // watch:{
+  //   $route(to,from){
+  //     // this.museinfo();
+  //   }
+  // },
   methods: {
     //页面跳转
     jumpRoute(path, obj) {
@@ -102,25 +102,25 @@ export default {
           for (let i= 0 ;i<3 && i< res.data.product.video.length;i++){
             this.examplevideo_list.push(res.data.product.video[i]); //网络商城 3个
           }
-          if(this.examplevideo.length>0){
-            this.activeItem.push({'title':"改装范例"});
-          }
-          if(this.activity.length>0){
-            this.activeItem.push({'title':"活动集锦"});
-          }
-          if(this.evaluation.length>0){
-            this.activeItem.push({'title':"产品评测"});
-          }
-          if(this.service){
-            this.activeItem.push({'title':"售后服务"});
-          }
-          if(this.problem.length>0){
-            this.activeItem.push({'title':"常见问题"});
-          }
-          if(this.shopping.length>0){
-            this.activeItem.push({'title':"网络商城"});
-          }
-          console.log(this.activeItem)
+          // if(this.examplevideo.length>0){
+          //   this.activeItem.push({'title':"改装范例"});
+          // }
+          // if(this.activity.length>0){
+          //   this.activeItem.push({'title':"活动集锦"});
+          // }
+          // if(this.evaluation.length>0){
+          //   this.activeItem.push({'title':"产品评测"});
+          // }
+          // if(this.service){
+          //   this.activeItem.push({'title':"售后服务"});
+          // }
+          // if(this.problem.length>0){
+          //   this.activeItem.push({'title':"常见问题"});
+          // }
+          // if(this.shopping.length>0){
+          //   this.activeItem.push({'title':"网络商城"});
+          // }
+          // console.log(this.activeItem)
         }
       });
     },
