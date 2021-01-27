@@ -9,8 +9,8 @@
 <!--       <div class="product-tip" v-if="dataInfo.unique"><label>产品编号：</label><span>{{dataInfo.unique}}</span></div>-->
 <!--       <div class="product-tip" v-if="dataInfo.factory"><label>生产厂家：</label><span>{{dataInfo.factory}}</span></div>-->
 <!--       <div class="product-tip" v-if="dataInfo.listed"><label>上市时间：</label><span>{{dataInfo.listed}}</span></div>-->
-       <div class="product-tip" v-if="dataInfo.unique"><label>车架号：</label><span>{{dataInfo.unique}}</span></div>
-       <div class="product-tip" v-if="water_info.pkid"><label>合格证：</label><span>{{water_info.pkid}}</span></div>
+       <div class="product-tip" v-if="water_info.pkid"><label>车架号：</label><span>{{water_info.pkid}}</span></div>
+       <div class="product-tip" v-if="water_info.certificate_id"><label>合格证：</label><span>{{water_info.certificate_id}}</span></div>
        <div class="product-tit">
          <span class="product-tit-content" v-if="expand_manual>7"  @click="jumpRoute('/productDetails',{muse_id:muse_id,pkid:pkid,currentsum_id:1})">
            <span>使用说明书</span><van-icon name="arrow" />
