@@ -1,16 +1,14 @@
 import api from '@/request/xsdt';
-import { Icon , Col, Row , Search , List , Popup , Uploader , Checkbox, CheckboxGroup ,Cell ,CellGroup ,Toast } from 'vant';
-import html2canvas from 'html2canvas';
-import 'quill/dist/quill.core.css'
-import 'quill/dist/quill.snow.css'
-import 'quill/dist/quill.bubble.css'
+import { Icon , Col, Row , Search , List , Popup , Uploader , Checkbox, CheckboxGroup ,Cell ,CellGroup ,Toast ,Field } from 'vant';
+import VueUeditorWrap from "vue-ueditor-wrap";
 
-import { quillEditor } from 'vue-quill-editor'
+// import 'quill/dist/quill.core.css'
+// import 'quill/dist/quill.snow.css'
+// import 'quill/dist/quill.bubble.css'
+
+// import { quillEditor } from 'vue-quill-editor'
 import axios from "axios";
-html2canvas(document.body).then(function(canvas) {
-  // document.body.appendChild(canvas);
-});
-// const toolbarOptions = ['bold', 'italic', 'underline','link' , 'image' ,'video' ,'strike'  , { 'align': 'center'} ,{ 'align': 'right'}  ,{ 'list': 'ordered'}, { 'list': 'bullet' },{ 'header': 1 }, { 'header': 2 } ,'clean'];
+
 export default {
   name:'Home',
   components: {
@@ -26,7 +24,9 @@ export default {
     VanCell:Cell,
     VanCellGroup:CellGroup,
     Toast:Toast,
-    quillEditor:quillEditor,
+    VanField:Field,
+    // quillEditor:quillEditor,
+    VueUeditorWrap,
   },
   data() {
     return {
@@ -36,11 +36,14 @@ export default {
       value:'',
       editor_data:'',
       A_show:false,
+      editor:'',
       name:'',
       edit_show:false,
       entrySelectData:[],
       content: "",
       videoUrl:'',
+      linkContent:'',
+      linkhref:'http://',
       list: [],
       result: [],
       editorOption:{
@@ -71,7 +74,52 @@ export default {
             }
           }
         }
-      }
+      },
+      ueConfig: {
+        toolbars: [
+            // [
+          //    "undo", //撤销
+          //    "redo", //重做
+          // ],
+          //   [
+          //     "link", //超链接
+          //     "simpleupload", //单图上传
+          //     "insertvideo",
+          //     "blockquote", //引用
+          //     "horizontal", //分隔线
+          //     "insertorderedlist", //有序列表
+          //     'insertunorderedlist', //无序列表
+          //     "removeformat", //清除格式
+          //   ],
+          // [
+          //   "bold", //加粗
+          //   "italic", //斜体
+          //   "underline", //下划线
+          //   "strikethrough", //删除线
+          //   "subscript", //下标
+          // ],
+            [
+          //     "fontborder", //字符边框
+              "justifyleft", //居左对齐
+              "justifycenter", //居中对齐
+              "justifyright", //居右对齐
+          //     "justifyjustify", //两端对齐
+            ],
+        ],
+        labelMap: {
+        },
+        catchRemoteImageEnable: true,
+        // 初始容器高度
+        initialFrameHeight: 500,
+        // 初始容器宽度
+        initialFrameWidth: "100%",
+        enableAutoSave: false,
+        elementPathEnable: false,
+        wordCount: false,
+        serverUrl: "/api/store/ueditor/config",
+        UEDITOR_HOME_URL: "/UEditor/",
+      },
+      ueData: "",
     }
   },
   computed: {
@@ -93,6 +141,15 @@ export default {
     },
     onEditorChange({ editor, html, text }) {
       this.content = html;
+    },
+    // 配置按钮
+    ready(editorInstance) {
+      this.editor = editorInstance;
+    },
+    execCommands(name) {
+      // console.log(name)
+      // console.log(this.editor )
+      this.editor.execCommand(name)
     },
     //搜索相关词条
     getSearch(){
@@ -136,16 +193,43 @@ export default {
     },
     //添加视频
     addVideo(){
-      let myTextEditor = this.$refs.myTextEditor.quill
-      // 获取光标所在位置
-      let length = myTextEditor.getSelection().index;
-      // 插入图片，res为服务器返回的图片链接地址
-      myTextEditor.insertEmbed(length, 'video', this.videoUrl)
-      // 调整光标到最后
-      myTextEditor.setSelection(length + 1)
-      document.querySelector('.Upload-video').setAttribute('style','display:none')
+      // let myTextEditor = this.$refs.myTextEditor.quill
+      // // 获取光标所在位置
+      // let length = myTextEditor.getSelection().index;
+      // // 插入图片，res为服务器返回的图片链接地址
+      // myTextEditor.insertEmbed(length, 'video', this.videoUrl)
+      // // 调整光标到最后
+      // myTextEditor.setSelection(length + 1)
+      if(this.videoUrl){
+        let video =`<p> <video class="a-href-icon" max-width='100%' style='margin-left:5px' src='${this.videoUrl}' controls poster='${this.videoUrl}?vframe/jpg/offset/0/w/325/h200' > </video><p>`;
+        // this.insertImg(img)
+        this.editor.execCommand('inserthtml', video)
+        document.querySelector('.Upload-video').setAttribute('style','display:none')
+      }
+
+    },
+    onlink(){
+      document.querySelector('.Upload-link').setAttribute('style','display:block')
+    },
+    addlink(){
+      if(this.linkContent && this.linkhref){
+        let link =`<p><a href="${this.linkhref}" src='${this.linkhref}' target="_blank" > ${this.linkContent}</a><p>`
+        this.editor.execCommand('inserthtml',link)
+        document.querySelector('.Upload-link').setAttribute('style','display:none')
+      }
+    },
+    closelink(){
+      document.querySelector('.Upload-link').setAttribute('style','display:none')
     },
 
+    onimage(){
+      // console.log(document.querySelector('.Upload-image input'))
+      document.querySelector('.Upload-image input').click()
+
+    },
+    onvideo(){
+      document.querySelector('.Upload-video').setAttribute('style','display:inline-block')
+    },
     //上传图片
     afterRead(file) {
       // 此时可以自行将文件上传至服务器
@@ -183,14 +267,18 @@ export default {
           let img_url = 'https://voice.xunsheng.org.cn/'+ res.data.key;
           Toast.clear();
           // console.log(file.type.split('/')[0])
+          // console.log(img_url)
           if(file.type.split('/')[0] == 'image' ){
-            let myTextEditor = this.$refs.myTextEditor.quill
-            // 获取光标所在位置
-            let length = myTextEditor.getSelection().index;
-            // 插入图片，res为服务器返回的图片链接地址
-            myTextEditor.insertEmbed(length, 'image', img_url)
-            // 调整光标到最后
-            myTextEditor.setSelection(length + 1)
+            let img =`<p> <img class="a-href-icon" max-width='100%' style='margin-left:5px' src='${img_url}'><p>`;
+            // this.insertImg(img)
+            this.editor.execCommand('inserthtml', img)
+            // let myTextEditor = this.$refs.myTextEditor.quill
+            // // 获取光标所在位置
+            // let length = myTextEditor.getSelection().index;
+            // // 插入图片，res为服务器返回的图片链接地址
+            // myTextEditor.insertEmbed(length, 'image', img_url)
+            // // 调整光标到最后
+            // myTextEditor.setSelection(length + 1)
           }else if(file.type.split('/')[0] == 'video' ){
             this.videoUrl = img_url;
           }
