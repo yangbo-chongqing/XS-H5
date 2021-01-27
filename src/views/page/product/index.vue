@@ -69,8 +69,8 @@
           <video :src="item.video_url" preload="none" controls :poster="item.video_url+'?vframe/jpg/offset/0/w/325/h200'"></video>
         </div>
       </div>
-      <div class="Loadmore" @click="onexample(1)" v-if="examplevideo.length>3 & examplevideo_list.length<4"> <van-icon name="arrow" /> 加载更多  </div>
-      <div class="Loadmore" @click="onexample(2)"  v-if="examplevideo.length>3 & examplevideo_list.length>3"><van-icon name="arrow-up" /> 收起  </div>
+      <div class="Loadmore" @click="onexample(1)" v-if="examplevideo.length>3 & examplevideo_list.length<4">全部展开<van-icon name="arrow-down" /></div>
+      <div class="Loadmore" @click="onexample(2)"  v-if="examplevideo.length>3 & examplevideo_list.length>3">收起<van-icon name="arrow-up" /> </div>
     </div>
 <!--    <div class="product-example">-->
 <!--      <div class="product-example-title"></div>-->
@@ -90,8 +90,8 @@
           </a>
         </div>
       </div>
-      <div class="Loadmore" @click="onactivity(1)" v-if="activity.length>3 & activity_list.length<4"> <van-icon name="arrow" /> 加载更多  </div>
-      <div class="Loadmore" @click="onactivity(2)"  v-if="activity.length>3 & activity_list.length>3"><van-icon name="arrow-up" /> 收起  </div>
+      <div class="Loadmore" @click="onactivity(1)" v-if="activity.length>3 & activity_list.length<4">全部展开<van-icon name="arrow-down" /></div>
+      <div class="Loadmore" @click="onactivity(2)"  v-if="activity.length>3 & activity_list.length>3">收起<van-icon name="arrow-up" />   </div>
     </div>
 <!--产品评测-->
     <div class="product-evaluating"  v-if="evaluation.length>0" id="evaluating">
@@ -115,8 +115,8 @@
 
         </div>
       </div>
-      <div class="Loadmore" @click="onevaluation(1)" v-if="evaluation.length>3 & evaluation_list.length<4"> <van-icon name="arrow" /> 加载更多  </div>
-      <div class="Loadmore" @click="onevaluation(2)"  v-if="evaluation.length>3 & evaluation_list.length>3"><van-icon name="arrow-up" /> 收起  </div>
+      <div class="Loadmore" @click="onevaluation(1)" v-if="evaluation.length>3 & evaluation_list.length<4">全部展开<van-icon name="arrow-down" /> </div>
+      <div class="Loadmore" @click="onevaluation(2)"  v-if="evaluation.length>3 & evaluation_list.length>3">收起<van-icon name="arrow-up" />   </div>
     </div>
 <!--    售后服务-->
     <div class="product-service" v-if="service" id="service">
@@ -147,8 +147,8 @@
           </a>
         </div>
       </div>
-      <div class="Loadmore" @click="onproblem(1)" v-if="problem.length>3 & problem_list.length<4"> <van-icon name="arrow" /> 加载更多  </div>
-      <div class="Loadmore" @click="onproblem(2)"  v-if="problem.length>3 & problem_list.length>3"><van-icon name="arrow-up" /> 收起  </div>
+      <div class="Loadmore" @click="onproblem(1)" v-if="problem.length>3 & problem_list.length<4">全部展开<van-icon name="arrow-down" /></div>
+      <div class="Loadmore" @click="onproblem(2)"  v-if="problem.length>3 & problem_list.length>3">收起<van-icon name="arrow-up" /></div>
     </div>
 <!--    网络商城-->
     <div class="product-shopping"  v-if="shopping.length>0" id="shopping">
@@ -166,8 +166,8 @@
           </div>
         </div>
       </div>
-      <div class="Loadmore" @click="onshopping(1)" v-if="shopping.length>3 & shopping_list.length<4"> <van-icon name="arrow" /> 加载更多  </div>
-      <div class="Loadmore" @click="onshopping(2)"  v-if="shopping.length>3 & shopping_list.length>3"><van-icon name="arrow-up" /> 收起  </div>
+      <div class="Loadmore" @click="onshopping(1)" v-if="shopping.length>3 & shopping_list.length<4">全部展开<van-icon name="arrow-down" /> </div>
+      <div class="Loadmore" @click="onshopping(2)"  v-if="shopping.length>3 & shopping_list.length>3">收起<van-icon name="arrow-up" /></div>
     </div>
 <!--    底部菜单图片-->
     <div class="product-foot-img">
