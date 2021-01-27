@@ -1,0 +1,72 @@
+/*可以在这里添加你自己的css*/
+img{
+    max-width: 100%;
+}
+video{
+    max-width: 100%;
+}
+body::-webkit-scrollbar {
+    width: 0px;
+}
+body::-webkit-scrollbar-thumb {
+    background: #99a9bf;
+    border-radius: 20px;
+}
+body::-webkit-scrollbar-track-piece {
+    background: #d3dce6;
+}
+.view {
+word-break: break-all;
+}
+ul{
+    list-style: none;
+}
+body {
+    overflow-y: scroll !important;
+}
+.view {
+    word-break: break-all;
+}
+.vote_area {
+    display: block;
+}
+.vote_iframe {
+    background-color: transparent;
+    border: 0 none;
+    height: 100%;
+}
+#edui1_imagescale{display:none !important;} /*去除点击图片后出现的拉伸边框*/
+.ckEditorToolbarBtn {
+    /* el-button 的样式 */
+    display: inline-block;
+    line-height: 1;
+    white-space: nowrap;
+    cursor: pointer;
+    background: #fff;
+    border: 1px solid #dcdfe6;
+    color: #606266;
+    -webkit-appearance: none;
+    text-align: center;
+    box-sizing: border-box;
+    outline: none;
+    margin: 0;
+    transition: .1s;
+    font-weight: 500;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    padding:6px 10px;
+    font-size: 14px;
+    border-radius: 4px;
+}
+.ckEditorToolbarBtn:hover{
+    color: #409eef;
+    background-color: #ecf5ff;
+    border-color:#c6e2ff
+}
+.borderMy{
+    border:2px solid #fff
+}
+.borderMy:hover{
+border: 2px dotted #409eef;
+}
