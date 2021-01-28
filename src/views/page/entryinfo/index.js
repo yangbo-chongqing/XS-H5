@@ -80,7 +80,7 @@ export default {
     this.getUser();
     this.onLoad();
     // this.getUserInfo();
-    this.getadvertising();
+    // this.getadvertising();
     this.getsubscribe();
     document.addEventListener('visibilitychange', this.handleVisiable)
 
@@ -144,6 +144,7 @@ export default {
               item.playFlag = true;
             })
           }
+          this.getadvertising();
           let url = window.location.href;
           this.$global.shareToWechat(res.data.info.share_title, url, res.data.info.share_image, res.data.info.share_content)
           document.title = res.data.info.name;
@@ -270,7 +271,7 @@ export default {
     //获取广告弹窗数据
     getadvertising(){
       let data = {
-        muse_id: this.id,
+        muse_id: this.relicsDataInfo.muse_id,
         position: 1,
       }
       api.postadvertising(this.qs.stringify(data)).then((res) => {
