@@ -85,8 +85,8 @@ export default {
 /*  overflow: hidden;*/
 /*}*/
 .img{
-  max-width: 250px;
-  max-height: 350px;
+  width: 250px;
+  height: 350px;
   background-color: #ffffff;
 }
 .img-view .img {

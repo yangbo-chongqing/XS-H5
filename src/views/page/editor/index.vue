@@ -7,7 +7,7 @@
           <div class="send-data-btn" @click="postmodifyEntryDetails">修改</div>
         </div>
       </div>
-      <div class="ed-content">
+      <div class="ed-content" ref="us">
         <div id="toolbar" class="toolbar">
           <div class="toolbar-content">
             <div class="toolbar-left">
@@ -32,17 +32,17 @@
           </div>
           <div class="toolbar-show" v-show="edit_show">
             <div>
-              <div class="ql-bold ql-tool" title="加粗"  @click="execCommands('bold')"><span class="iconfont icon-jiacu"></span></div>
-              <div class="ql-italic ql-tool" title="斜体"  @click="execCommands('italic')"><span class="iconfont icon-02xieti"></span></div>
-              <div class="ql-underline ql-tool" title="下划线" @click="execCommands('underline')"><span class="iconfont icon-xiahuaxian" ></span></div>
-              <div class="ql-header ql-tool" title="标题1" @click="execCommands('undo')"><span class="iconfont icon-H-"></span></div>
-              <div class="ql-header ql-tool"  title="标题2" @click="execCommands('undo')"><span class="iconfont icon-H-1" ></span></div>
+              <div class="ql-bold ql-tool" title="加粗"  @click="justify(4)"><span class="iconfont icon-jiacu"></span></div>
+              <div class="ql-italic ql-tool" title="斜体"  @click="justify(5)"><span class="iconfont icon-02xieti"></span></div>
+              <div class="ql-underline ql-tool" title="下划线" @click="justify(6)"><span class="iconfont icon-xiahuaxian" ></span></div>
+              <div class="ql-header ql-tool" title="标题1" @click="ontitle(1)"><span class="iconfont icon-H-"></span></div>
+              <div class="ql-header ql-tool"  title="标题2" @click="ontitle(2)"><span class="iconfont icon-H-1" ></span></div>
             </div>
             <div>
-              <div class="ql-strike ql-tool" title="删除线"  @click="execCommands('strikethrough')"><span class="iconfont icon-fuwenbenbianjiqi_zhonghuaxian"></span></div>
-              <div class="ql-align ql-tool"  title="对齐" @click="execCommands('justifyleft')"><span class="iconfont icon-zuoduiqi"></span></div>
-              <div class="ql-align ql-tool"  title="对齐" @click="execCommands('justifycenter')"><span class="iconfont icon-juzhong"></span></div>
-              <div class="ql-align ql-tool" title="对齐" @click="execCommands('justifyright')"><span class="iconfont icon-youduiqi"></span></div>
+              <div class="ql-strike ql-tool" title="删除线"  @click="justify(7)"><span class="iconfont icon-fuwenbenbianjiqi_zhonghuaxian"></span></div>
+              <div class="ql-align ql-tool"  title="对齐" @click="justify(1)"><span class="iconfont icon-zuoduiqi"></span></div>
+              <div class="ql-align ql-tool"  title="对齐" @click="justify(2)"><span class="iconfont icon-juzhong"></span></div>
+              <div class="ql-align ql-tool" title="对齐" @click="justify(3)"><span class="iconfont icon-youduiqi"></span></div>
               <div class="ql-list ql-tool" title="有序列表" @click="execCommands('insertorderedlist')"><span class="iconfont icon-youxuliebiao"></span></div>
               <div class="ql-list ql-tool" title="无序列表" @click="execCommands('insertunorderedlist')"><span class="iconfont icon-liebiao"></span></div>
             </div>

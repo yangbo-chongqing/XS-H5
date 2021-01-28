@@ -70,3 +70,6 @@ body {
 .borderMy:hover{
 border: 2px dotted #409eef;
 }
+h1,h2{
+    margin: 5px 0;
+}

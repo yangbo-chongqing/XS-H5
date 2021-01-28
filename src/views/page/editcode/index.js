@@ -2,7 +2,7 @@ import api from '@/request/xsdt';
 import { Icon , Col, Row , Search  , Field } from 'vant';
 import html2canvas from 'html2canvas';
 html2canvas(document.body).then(function(canvas) {
-  // document.body.appendChild(canvas);
+  document.body.appendChild(canvas);
 },);
 export default {
   name:'Home',
