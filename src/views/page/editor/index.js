@@ -194,7 +194,7 @@ export default {
       // // 调整光标到最后
       // myTextEditor.setSelection(length + 1)
       if(this.videoUrl){
-        let video =`<p> <video class="a-href-icon" max-width='100%' style='margin-left:5px' src='${this.videoUrl}' controls poster='${this.videoUrl}?vframe/jpg/offset/0/w/325/h200' > </video><p>`;
+        let video =`<p> <video class="a-href-icon" max-width='100%' style='margin-top:5px;z-index: 0' src='${this.videoUrl}' controls poster='${this.videoUrl}?vframe/jpg/offset/0/w/325/h200' > </video><p>`;
         // this.insertImg(img)
         this.editor.execCommand('inserthtml', video)
         document.querySelector('.Upload-video').setAttribute('style','display:none')
@@ -803,7 +803,7 @@ export default {
           let img_url = 'https://voice.xunsheng.org.cn/'+ res.data.key;
           Toast.clear();
           if(file.type.split('/')[0] == 'image' ){
-            let img =`<p> <img class="a-href-icon" max-width='100%' style='margin-left:5px' src='${img_url}'><p>`;
+            let img =`<p> <img class="a-href-icon" max-width='100%' style='margin-top:5px' src='${img_url}'><p>`;
             // this.insertImg(img)
             this.editor.execCommand('inserthtml', img)
             // let myTextEditor = this.$refs.myTextEditor.quill
