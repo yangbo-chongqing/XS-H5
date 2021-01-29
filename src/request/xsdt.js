@@ -123,6 +123,14 @@ const api = {
             data: params,
         });
     },
+    // web端图册详情
+    getdetails(params) {
+        return http({
+            method: 'post',
+            url: '/api/web/album/details',
+            data: params,
+        });
+    },
     //修改词条详情
     modifyEntryDetails(params) {
         return http({
