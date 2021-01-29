@@ -2,7 +2,7 @@ import api from '@/request/xsdt';
 import { Icon , Col, Row , Search  , Field } from 'vant';
 import html2canvas from 'html2canvas';
 html2canvas(document.body).then(function(canvas) {
-  document.body.appendChild(canvas);
+  // document.body.appendChild(canvas);
 },);
 export default {
   name:'Home',
@@ -42,8 +42,10 @@ export default {
     toImage() {
       html2canvas(this.$refs.imageDom, {
         backgroundColor: '#ffffff',
+        useCORS: true,
+        allowTaint: true,
       }).then(canvas => {
-        let imgData = canvas.toDataURL("image/jpeg");
+        let imgData = canvas.toDataURL("image/jpg");
         this.fileDownload(imgData);
         // console.log(imgData)
       })
@@ -53,12 +55,12 @@ export default {
       let aLink = document.createElement("a");
       aLink.style.display = "none";
       aLink.href = downloadUrl;
-      aLink.download = this.commentList + ".png";
+      aLink.download = this.commentList;
       // 触发点击-然后移除
       document.body.appendChild(aLink);
-      aLink.click();
+      // aLink.click();
       console.log(aLink)
-      // document.body.removeChild(aLink);
+      document.body.removeChild(aLink);
     },
     museinfo () {
       // console.log(1)

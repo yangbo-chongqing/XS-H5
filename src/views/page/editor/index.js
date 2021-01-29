@@ -62,6 +62,7 @@ export default {
       rightcolor:false,
       insertorderedlistcolor:false,
       insertunorderedlistcolor:false,
+      blockquote:false,
       // 图片
       files: {
         name: "",
@@ -97,36 +98,7 @@ export default {
         }
       },
       ueConfig: {
-        toolbars: [
-            // [
-          //    "undo", //撤销
-          //    "redo", //重做
-          // ],
-          //   [
-          //     "link", //超链接
-          //     "simpleupload", //单图上传
-          //     "insertvideo",
-          //     "blockquote", //引用
-          //     "horizontal", //分隔线
-          //     "insertorderedlist", //有序列表
-          //     'insertunorderedlist', //无序列表
-          //     "removeformat", //清除格式
-          //   ],
-          // [
-          //   "bold", //加粗
-          //   "italic", //斜体
-          //   "underline", //下划线
-          //   "strikethrough", //删除线
-          //   "subscript", //下标
-          // ],
-          //   [
-          //     "fontborder", //字符边框
-          //     "justifyleft", //居左对齐
-              // "justifycenter", //居中对齐
-              // "justifyright", //居右对齐
-          //     "justifyjustify", //两端对齐
-          //   ],
-        ],
+        toolbars: [],
         labelMap: {
         },
         catchRemoteImageEnable: true,
@@ -276,6 +248,7 @@ export default {
       this.h2color = false;
       this.insertorderedlistcolor = false;
       this.insertunorderedlistcolor = false;
+      this.blockquote = false;
       for (let i = 0;i<e.path.length;i++){
         if(e.path[i].localName == 'h1' ){
           this.h1color = true;
@@ -557,6 +530,76 @@ export default {
         }
       }
       for (let i = 0;i<e.path.length;i++){
+        if(e.path[i].localName == 'blockquote'){
+          this.blockquote = true;
+          if(e.path[i].style){
+            if(e.path[i].style.textAlign){
+              if(e.path[i].style.textAlign == 'center'){
+                this.centercolor = true;
+                this.leftcolor = false;
+                this.rightcolor = false;
+              }
+              if(e.path[i].style.textAlign == 'left'){
+                this.leftcolor = true;
+                this.centercolor = false;
+                this.rightcolor = false;
+              }
+              if(e.path[i].style.textAlign == 'right'){
+                this.rightcolor = true;
+                this.centercolor = false;
+                this.leftcolor = false;
+              }
+            }else {
+              // console.log('dsdsd')
+              this.centercolor = false;
+              this.leftcolor = false;
+              this.rightcolor = false;
+            }
+            if(e.path[i].style.fontWeight){
+              if(e.path[i].style.fontWeight == '700'){
+                this.boldcolor = true;
+              }
+            }else {
+              this.boldcolor = false;
+            }
+            if(e.path[i].style.fontStyle){
+              if(e.path[i].style.fontStyle == 'oblique'){
+                this.italiccolor = true;
+              }
+            }else {
+              this.italiccolor = false;
+            }
+
+            if(e.path[i].style.textDecoration){
+              if(e.path[i].style.textDecoration == 'line-through'){
+                this.strikecolor = true;
+                this.underlineccolor = false;
+              }
+              if(e.path[i].style.textDecoration == 'underline'){
+                this.underlineccolor = true;
+                this.strikecolor = false;
+              }
+            }else {
+              this.strikecolor = false;
+              this.underlineccolor = false;
+            }
+          }else {
+            this.centercolor = false;
+            this.leftcolor = false;
+            this.rightcolor = false;
+            this.boldcolor = false;
+            this.italiccolor = false;
+            this.underlineccolor = false;
+            this.strikecolor = false;
+          }
+        }else {
+          // this.h1color = false;
+          // this.h2color = false;
+          // this.insertorderedlistcolor = false;
+          // this.insertunorderedlistcolor = false;
+        }
+      }
+      for (let i = 0;i<e.path.length;i++){
         if(e.path[i].localName == 'p') {
           if(e.path[i].style){
             if(e.path[i].style.textAlign){
@@ -620,6 +663,7 @@ export default {
           }
         }
       }
+
     },
     ontitle(index){
       if(this.htmls){

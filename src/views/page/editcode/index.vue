@@ -6,7 +6,7 @@
       <img class="code1" src="@/assets/images/code1.png" />
       <img class="code2" src="@/assets/images/code2.png" />
       <div class="code-image">
-        <img :src="commentList" alt="">
+        <img :src="commentList+'?'+new Date().getTime() " alt="">
       </div>
       <div class="canvas-input" >
           <div class="editBox" contenteditable="true"  @input="inputChange" placeholder="请输入文字"></div>

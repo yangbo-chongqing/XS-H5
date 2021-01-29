@@ -22,25 +22,25 @@
       <div class="product-set-content" @click="setContent($event)">
         <div class="product-title-list" :class="{'title-set':examplevideo.length>0}"  v-if="examplevideo.length>0">
           <a onclick="document.getElementById('example').scrollIntoView()">
-            <h5>改装范例</h5>
+            <h5>改装</h5>
             <h6><span></span></h6>
           </a>
         </div>
         <div class="product-title-list" v-if="activity.length>0" :class="{'title-set':examplevideo.length<=0 && activity.length>0}">
           <a  onclick="document.getElementById('activity').scrollIntoView()">
-            <h5>活动集锦</h5>
+            <h5>活动</h5>
             <h6><span></span></h6>
           </a>
         </div>
         <div class="product-title-list" v-if="evaluation.length>0"  :class="{'title-set':examplevideo.length<=0 && activity.length<0 && evaluation.length>0}">
           <a onclick="document.getElementById('evaluating').scrollIntoView()">
-            <h5>产品评测</h5>
+            <h5>评测</h5>
             <h6><span></span></h6>
           </a>
         </div>
         <div class="product-title-list" v-if="service" :class="{'title-set':examplevideo.length<=0 && activity.length<=0 && evaluation.length<=0 && service}">
           <a onclick="document.getElementById('service').scrollIntoView()">
-            <h5>售后服务</h5>
+            <h5>售后</h5>
             <h6><span></span></h6>
           </a>
         </div>
@@ -52,7 +52,7 @@
         </div>
         <div class="product-title-list" v-if="shopping.length>0" :class="{'title-set':examplevideo.length<=0 && activity.length<=0 && evaluation.length<=0 && service && problem.length<=0 && shopping.length>0}">
           <a onclick="document.getElementById('shopping').scrollIntoView()">
-            <h5>网络商城</h5>
+            <h5>商城</h5>
             <h6><span></span></h6>
           </a>
         </div>

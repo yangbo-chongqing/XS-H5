@@ -21,6 +21,10 @@ export default {
       page: 1,
       page_size: 10,
       commentList:[],
+      jurisdiction:{
+        show:true,
+        title:'',
+      },
     }
   },
   computed: {
@@ -63,7 +67,7 @@ export default {
         roles:'1',
       }
       api.postEntry(this.qs.stringify(data)).then((res) => {
-        console.log(res)
+        // console.log(res)
         if (res.status == 200) {
           this.total = this.total += res.data.list.length
           // console.log(res.data.list)
@@ -73,6 +77,9 @@ export default {
           this.keyword = '';
           this.page = data.page
           //         console.log(this.commentList)
+        }else if (res.status == 400){
+          this.jurisdiction.show = false;
+          this.jurisdiction.title = res.message;
         }
         // 加载状态结束
         this.loading = false;

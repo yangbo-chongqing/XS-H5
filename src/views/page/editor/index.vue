@@ -26,7 +26,7 @@
               <div class="ql-link ql-tool" title="链接" @click="onlink()"><span class="iconfont icon-lianjie"></span></div>
               <div class="ql-image ql-tool" title="照片" @click="onimage"><span class="iconfont icon-tupian"></span></div>
               <div class="ql-video ql-tool" title="视频" @click="onvideo"><span class="iconfont icon-shipin"></span></div>
-              <div class="ql-blockquote ql-tool" title="引用" @click="execCommands('blockquote')"><span class="iconfont icon-yinyong"></span></div>
+              <div class="ql-blockquote ql-tool" title="引用" :style="{'color':blockquote ?'#5287fd':''}" @click="execCommands('blockquote')"><span class="iconfont icon-yinyong"></span></div>
               <div class="ql-clean ql-tool" title="清除格式" @click="execCommands('removeformat')"><span class="iconfont icon-qingchu"></span></div>
             </div>
           </div>
