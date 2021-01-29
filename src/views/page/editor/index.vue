@@ -32,19 +32,19 @@
           </div>
           <div class="toolbar-show" v-show="edit_show">
             <div>
-              <div class="ql-bold ql-tool" title="加粗"  @click="justify(4)"><span class="iconfont icon-jiacu"></span></div>
-              <div class="ql-italic ql-tool" title="斜体"  @click="justify(5)"><span class="iconfont icon-02xieti"></span></div>
-              <div class="ql-underline ql-tool" title="下划线" @click="justify(6)"><span class="iconfont icon-xiahuaxian" ></span></div>
-              <div class="ql-header ql-tool" title="标题1" @click="ontitle(1)"><span class="iconfont icon-H-"></span></div>
-              <div class="ql-header ql-tool"  title="标题2" @click="ontitle(2)"><span class="iconfont icon-H-1" ></span></div>
+              <div class="ql-bold ql-tool" title="加粗" :style="{'color':boldcolor ?'#5287fd':''}" @click="justify(4)"><span class="iconfont icon-jiacu"></span></div>
+              <div class="ql-italic ql-tool" title="斜体" :style="{'color':italiccolor ?'#5287fd':''}"  @click="justify(5)"><span class="iconfont icon-02xieti"></span></div>
+              <div class="ql-underline ql-tool" title="下划线" :style="{'color':underlineccolor ?'#5287fd':''}" @click="justify(6)"><span class="iconfont icon-xiahuaxian" ></span></div>
+              <div class="ql-header ql-tool" title="标题1" :style="{'color':h1color ?'#5287fd':''}" @click="ontitle(1)"><span class="iconfont icon-H-"></span></div>
+              <div class="ql-header ql-tool"  title="标题2" :style="{'color':h2color ?'#5287fd':''}" @click="ontitle(2)"><span class="iconfont icon-H-1" ></span></div>
             </div>
             <div>
-              <div class="ql-strike ql-tool" title="删除线"  @click="justify(7)"><span class="iconfont icon-fuwenbenbianjiqi_zhonghuaxian"></span></div>
-              <div class="ql-align ql-tool"  title="对齐" @click="justify(1)"><span class="iconfont icon-zuoduiqi"></span></div>
-              <div class="ql-align ql-tool"  title="对齐" @click="justify(2)"><span class="iconfont icon-juzhong"></span></div>
-              <div class="ql-align ql-tool" title="对齐" @click="justify(3)"><span class="iconfont icon-youduiqi"></span></div>
-              <div class="ql-list ql-tool" title="有序列表" @click="execCommands('insertorderedlist')"><span class="iconfont icon-youxuliebiao"></span></div>
-              <div class="ql-list ql-tool" title="无序列表" @click="execCommands('insertunorderedlist')"><span class="iconfont icon-liebiao"></span></div>
+              <div class="ql-strike ql-tool" title="删除线" :style="{'color':strikecolor ?'#5287fd':''}"  @click="justify(7)"><span class="iconfont icon-fuwenbenbianjiqi_zhonghuaxian"></span></div>
+              <div class="ql-align ql-tool"  title="对齐"  :style="{'color':leftcolor ?'#5287fd':''}" @click="justify(1)"><span class="iconfont icon-zuoduiqi"></span></div>
+              <div class="ql-align ql-tool"  title="对齐" :style="{'color':centercolor ?'#5287fd':''}" @click="justify(2)"><span class="iconfont icon-juzhong"></span></div>
+              <div class="ql-align ql-tool" title="对齐" :style="{'color':rightcolor ?'#5287fd':''}" @click="justify(3)"><span class="iconfont icon-youduiqi"></span></div>
+              <div class="ql-list ql-tool" title="有序列表" :style="{'color':insertorderedlistcolor ?'#5287fd':''}" @click="execCommands('insertorderedlist')"><span class="iconfont icon-youxuliebiao"></span></div>
+              <div class="ql-list ql-tool" title="无序列表" :style="{'color':insertunorderedlistcolor ?'#5287fd':''}" @click="execCommands('insertunorderedlist')"><span class="iconfont icon-liebiao"></span></div>
             </div>
             <!-- Add a bold button -->
 
@@ -60,7 +60,7 @@
             </div>
             <div class="Upload-video-content">
               <input type="text" v-model="videoUrl" >
-              <van-uploader :after-read="afterRead"  accept="video/*" >上传文件</van-uploader>
+              <van-uploader :after-read="afterVideo"  accept="video/*" >上传文件</van-uploader>
             </div>
             <!--        </div>-->
           </div>

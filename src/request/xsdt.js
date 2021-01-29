@@ -139,6 +139,14 @@ const api = {
             data: params,
         });
     },
+    //web端导图详情
+    getdetails(params) {
+        return http({
+            method: 'post',
+            url: '/api/web/album/details',
+            data: params,
+        });
+    },
     //获取用户轨迹
     postBehaviorTrack(params) {
         return http({

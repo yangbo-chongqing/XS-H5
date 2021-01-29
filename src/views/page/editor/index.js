@@ -51,6 +51,22 @@ export default {
       html:'',
       onHtml:'',
       htmls:'',
+      boldcolor:false,
+      italiccolor:false,
+      underlineccolor:false,
+      h1color:false,
+      h2color:false,
+      strikecolor:false,
+      leftcolor:false,
+      centercolor:false,
+      rightcolor:false,
+      insertorderedlistcolor:false,
+      insertunorderedlistcolor:false,
+      // 图片
+      files: {
+        name: "",
+        type: ""
+      },
       editorOption:{
         placeholder: "写点什么",
         modules:{
@@ -240,10 +256,10 @@ export default {
       this.onHtml = e;
       // console.log(e.target.tagName)
       // console.log(e.target.nodeName)
-      // console.log(e)
+      console.log(e)
       for (let i = 0;i<e.path.length;i++){
         if(e.path[i].localName == 'p' || e.path[i].localName == 'h1' || e.path[i].localName == 'h2'){
-          console.log(e.path[i])
+          // console.log(e.path[i].style)
           // e.path[i].localName = 'h1'
           // this.html = e.path[i].remove();
           if(index == 1){
@@ -256,6 +272,354 @@ export default {
           // console.log(this.htmls)
         }
       }
+      this.h1color = false;
+      this.h2color = false;
+      this.insertorderedlistcolor = false;
+      this.insertunorderedlistcolor = false;
+      for (let i = 0;i<e.path.length;i++){
+        if(e.path[i].localName == 'h1' ){
+          this.h1color = true;
+          if(e.path[i].style){
+            if(e.path[i].style.textAlign){
+              if(e.path[i].style.textAlign == 'center'){
+                this.centercolor = true;
+                this.leftcolor = false;
+                this.rightcolor = false;
+              }
+              if(e.path[i].style.textAlign == 'left'){
+                this.leftcolor = true;
+                this.centercolor = false;
+                this.rightcolor = false;
+              }
+              if(e.path[i].style.textAlign == 'right'){
+                this.rightcolor = true;
+                this.centercolor = false;
+                this.leftcolor = false;
+              }
+            }else {
+              // console.log('dsdsd')
+              this.centercolor = false;
+              this.leftcolor = false;
+              this.rightcolor = false;
+            }
+            if(e.path[i].style.fontWeight){
+              if(e.path[i].style.fontWeight == '700'){
+                this.boldcolor = true;
+              }
+            }else {
+              this.boldcolor = false;
+            }
+            if(e.path[i].style.fontStyle){
+              if(e.path[i].style.fontStyle == 'oblique'){
+                this.italiccolor = true;
+              }
+            }else {
+              this.italiccolor = false;
+            }
+
+            if(e.path[i].style.textDecoration){
+              if(e.path[i].style.textDecoration == 'line-through'){
+                this.strikecolor = true;
+                this.underlineccolor = false;
+              }
+              if(e.path[i].style.textDecoration == 'underline'){
+                this.underlineccolor = true;
+                this.strikecolor = false;
+              }
+            }else {
+              this.strikecolor = false;
+              this.underlineccolor = false;
+            }
+          }else {
+            this.centercolor = false;
+            this.leftcolor = false;
+            this.rightcolor = false;
+            this.boldcolor = false;
+            this.italiccolor = false;
+            this.underlineccolor = false;
+            this.strikecolor = false;
+          }
+        }else {
+          // this.h1color = false;
+          // this.h2color = false;
+          // this.insertorderedlistcolor = false;
+          // this.insertunorderedlistcolor = false;
+        }
+      }
+      for (let i = 0;i<e.path.length;i++){
+        if(e.path[i].localName == 'h2'){
+          this.h2color = true;
+          if(e.path[i].style){
+            if(e.path[i].style.textAlign){
+              if(e.path[i].style.textAlign == 'center'){
+                this.centercolor = true;
+                this.leftcolor = false;
+                this.rightcolor = false;
+              }
+              if(e.path[i].style.textAlign == 'left'){
+                this.leftcolor = true;
+                this.centercolor = false;
+                this.rightcolor = false;
+              }
+              if(e.path[i].style.textAlign == 'right'){
+                this.rightcolor = true;
+                this.centercolor = false;
+                this.leftcolor = false;
+              }
+            }else {
+              // console.log('dsdsd')
+              this.centercolor = false;
+              this.leftcolor = false;
+              this.rightcolor = false;
+            }
+            if(e.path[i].style.fontWeight){
+              if(e.path[i].style.fontWeight == '700'){
+                this.boldcolor = true;
+              }
+            }else {
+              this.boldcolor = false;
+            }
+            if(e.path[i].style.fontStyle){
+              if(e.path[i].style.fontStyle == 'oblique'){
+                this.italiccolor = true;
+              }
+            }else {
+              this.italiccolor = false;
+            }
+
+            if(e.path[i].style.textDecoration){
+              if(e.path[i].style.textDecoration == 'line-through'){
+                this.strikecolor = true;
+                this.underlineccolor = false;
+              }
+              if(e.path[i].style.textDecoration == 'underline'){
+                this.underlineccolor = true;
+                this.strikecolor = false;
+              }
+            }else {
+              this.strikecolor = false;
+              this.underlineccolor = false;
+            }
+          }else {
+            this.centercolor = false;
+            this.leftcolor = false;
+            this.rightcolor = false;
+            this.boldcolor = false;
+            this.italiccolor = false;
+            this.underlineccolor = false;
+            this.strikecolor = false;
+          }
+        }else {
+          // this.h1color = false;
+          // this.h2color = false;
+          // this.insertorderedlistcolor = false;
+          // this.insertunorderedlistcolor = false;
+        }
+      }
+      for (let i = 0;i<e.path.length;i++){
+        if(e.path[i].localName == 'ol'){
+          this.insertorderedlistcolor = true;
+          if(e.path[i].style){
+            if(e.path[i].style.textAlign){
+              if(e.path[i].style.textAlign == 'center'){
+                this.centercolor = true;
+                this.leftcolor = false;
+                this.rightcolor = false;
+              }
+              if(e.path[i].style.textAlign == 'left'){
+                this.leftcolor = true;
+                this.centercolor = false;
+                this.rightcolor = false;
+              }
+              if(e.path[i].style.textAlign == 'right'){
+                this.rightcolor = true;
+                this.centercolor = false;
+                this.leftcolor = false;
+              }
+            }else {
+              // console.log('dsdsd')
+              this.centercolor = false;
+              this.leftcolor = false;
+              this.rightcolor = false;
+            }
+            if(e.path[i].style.fontWeight){
+              if(e.path[i].style.fontWeight == '700'){
+                this.boldcolor = true;
+              }
+            }else {
+              this.boldcolor = false;
+            }
+            if(e.path[i].style.fontStyle){
+              if(e.path[i].style.fontStyle == 'oblique'){
+                this.italiccolor = true;
+              }
+            }else {
+              this.italiccolor = false;
+            }
+
+            if(e.path[i].style.textDecoration){
+              if(e.path[i].style.textDecoration == 'line-through'){
+                this.strikecolor = true;
+                this.underlineccolor = false;
+              }
+              if(e.path[i].style.textDecoration == 'underline'){
+                this.underlineccolor = true;
+                this.strikecolor = false;
+              }
+            }else {
+              this.strikecolor = false;
+              this.underlineccolor = false;
+            }
+          }else {
+            this.centercolor = false;
+            this.leftcolor = false;
+            this.rightcolor = false;
+            this.boldcolor = false;
+            this.italiccolor = false;
+            this.underlineccolor = false;
+            this.strikecolor = false;
+          }
+        }else {
+          // this.h1color = false;
+          // this.h2color = false;
+          // this.insertorderedlistcolor = false;
+          // this.insertunorderedlistcolor = false;
+        }
+      }
+      for (let i = 0;i<e.path.length;i++){
+        if(e.path[i].localName == 'ul'){
+          this.insertunorderedlistcolor = true;
+          if(e.path[i].style){
+            if(e.path[i].style.textAlign){
+              if(e.path[i].style.textAlign == 'center'){
+                this.centercolor = true;
+                this.leftcolor = false;
+                this.rightcolor = false;
+              }
+              if(e.path[i].style.textAlign == 'left'){
+                this.leftcolor = true;
+                this.centercolor = false;
+                this.rightcolor = false;
+              }
+              if(e.path[i].style.textAlign == 'right'){
+                this.rightcolor = true;
+                this.centercolor = false;
+                this.leftcolor = false;
+              }
+            }else {
+              // console.log('dsdsd')
+              this.centercolor = false;
+              this.leftcolor = false;
+              this.rightcolor = false;
+            }
+            if(e.path[i].style.fontWeight){
+              if(e.path[i].style.fontWeight == '700'){
+                this.boldcolor = true;
+              }
+            }else {
+              this.boldcolor = false;
+            }
+            if(e.path[i].style.fontStyle){
+              if(e.path[i].style.fontStyle == 'oblique'){
+                this.italiccolor = true;
+              }
+            }else {
+              this.italiccolor = false;
+            }
+
+            if(e.path[i].style.textDecoration){
+              if(e.path[i].style.textDecoration == 'line-through'){
+                this.strikecolor = true;
+                this.underlineccolor = false;
+              }
+              if(e.path[i].style.textDecoration == 'underline'){
+                this.underlineccolor = true;
+                this.strikecolor = false;
+              }
+            }else {
+              this.strikecolor = false;
+              this.underlineccolor = false;
+            }
+          }else {
+            this.centercolor = false;
+            this.leftcolor = false;
+            this.rightcolor = false;
+            this.boldcolor = false;
+            this.italiccolor = false;
+            this.underlineccolor = false;
+            this.strikecolor = false;
+          }
+        }else {
+          // this.h1color = false;
+          // this.h2color = false;
+          // this.insertorderedlistcolor = false;
+          // this.insertunorderedlistcolor = false;
+        }
+      }
+      for (let i = 0;i<e.path.length;i++){
+        if(e.path[i].localName == 'p') {
+          if(e.path[i].style){
+            if(e.path[i].style.textAlign){
+              if(e.path[i].style.textAlign == 'center'){
+                this.centercolor = true;
+                this.leftcolor = false;
+                this.rightcolor = false;
+              }
+              if(e.path[i].style.textAlign == 'left'){
+                this.leftcolor = true;
+                this.centercolor = false;
+                this.rightcolor = false;
+              }
+              if(e.path[i].style.textAlign == 'right'){
+                this.rightcolor = true;
+                this.centercolor = false;
+                this.leftcolor = false;
+              }
+            }else {
+              // console.log('dsdsd')
+              this.centercolor = false;
+              this.leftcolor = false;
+              this.rightcolor = false;
+            }
+            if(e.path[i].style.fontWeight){
+              if(e.path[i].style.fontWeight == '700'){
+                this.boldcolor = true;
+              }
+            }else {
+              this.boldcolor = false;
+            }
+            if(e.path[i].style.fontStyle){
+              if(e.path[i].style.fontStyle == 'oblique'){
+                this.italiccolor = true;
+              }
+            }else {
+              this.italiccolor = false;
+            }
+
+            if(e.path[i].style.textDecoration){
+              if(e.path[i].style.textDecoration == 'line-through'){
+                this.strikecolor = true;
+                this.underlineccolor = false;
+              }
+              if(e.path[i].style.textDecoration == 'underline'){
+                this.underlineccolor = true;
+                this.strikecolor = false;
+              }
+            }else {
+              this.strikecolor = false;
+              this.underlineccolor = false;
+            }
+          }else {
+            this.centercolor = false;
+            this.leftcolor = false;
+            this.rightcolor = false;
+            this.boldcolor = false;
+            this.italiccolor = false;
+            this.underlineccolor = false;
+            this.strikecolor = false;
+          }
+        }
+      }
     },
     ontitle(index){
       if(this.htmls){
@@ -263,10 +627,12 @@ export default {
           this.htmls = this.htmls.replace(/&nbsp;/g," ");
           this.htmls = this.htmls.replace(/h2/g,"h1");
           this.htmls = this.htmls.replace(/p/g,"h1");
+          this.h1color = true;
         }else if(index == 2){
           this.htmls = this.htmls.replace(/&nbsp;/g," ");
           this.htmls = this.htmls.replace(/p/g,"h2");
           this.htmls = this.htmls.replace(/h1/g,"h2");
+          this.h2color = true;
         }
         // this.htmls = this.htmls.replace(/p/g,"h1");
         // this.htmls = this.htmls.replace(/p/g,"h2");
@@ -276,20 +642,70 @@ export default {
     justify(index){
       if(this.html){
         if(index == 1){
-          this.html.style.setProperty('text-align', 'left');
+          if(!this.leftcolor){
+            this.leftcolor = true;
+            this.centercolor = false;
+            this.rightcolor = false;
+            this.html.style.setProperty('text-align', 'left');
+          }else {
+            this.html.style.setProperty('text-align', '');
+            this.leftcolor = false;
+          }
         }else if(index == 2){
+          if(!this.centercolor){
+            this.centercolor = true;
+            this.leftcolor = false;
+            this.rightcolor = false;
+            this.html.style.setProperty('text-align', 'center');
+          }else {
+            this.html.style.setProperty('text-align', '');
+            this.centercolor = false;
+          }
           // console.log(index)
-          this.html.style.setProperty('text-align', 'center');
         }else if(index == 3){
-          this.html.style.setProperty('text-align', 'right');
+          if(!this.rightcolor){
+            this.rightcolor = true;
+            this.centercolor = false;
+            this.leftcolor = false;
+            this.html.style.setProperty('text-align', 'right');
+          }else {
+            this.html.style.setProperty('text-align', '');
+            this.rightcolor = false;
+          }
         }else if(index == 4){
-          this.html.style.setProperty('font-weight', '700');
+          if(!this.boldcolor){
+            this.boldcolor = true;
+            this.html.style.setProperty('font-weight', '700');
+          }else {
+            this.html.style.setProperty('font-weight', '');
+            this.boldcolor = false;
+          }
         }else if(index == 5){
-          this.html.style.setProperty('font-style', 'oblique');
+          if(!this.italiccolor){
+            this.italiccolor = true;
+            this.html.style.setProperty('font-style', 'oblique');
+          }else {
+            this.html.style.setProperty('font-style', '');
+            this.italiccolor = false;
+          }
         }else if(index == 6){
-          this.html.style.setProperty('text-decoration', 'underline');
+          if(!this.underlineccolor){
+            this.underlineccolor = true;
+            this.strikecolor = false;
+            this.html.style.setProperty('text-decoration', 'underline');
+          }else {
+            this.html.style.setProperty('text-decoration', '');
+            this.underlineccolor = false;
+          }
         }else if(index == 7){
-          this.html.style.setProperty('text-decoration','line-through');
+          if(!this.strikecolor){
+            this.strikecolor = true;
+            this.underlineccolor = false;
+            this.html.style.setProperty('text-decoration','line-through');
+          }else {
+            this.html.style.setProperty('text-decoration','');
+            this.strikecolor = false;
+          }
         }
       }
     },
@@ -302,7 +718,19 @@ export default {
         forbidClick: true,
         loadingType: 'spinner',
       });
+      this.files.name = file.file.name // 获取文件名
+      this.files.type = file.file.type // 获取类型
       this.imgPreview(file.file)
+    },
+    //上传图片
+    afterVideo(file) {
+      // 此时可以自行将文件上传至服务器
+      Toast.loading({
+        message: '上传中...',
+        forbidClick: true,
+        loadingType: 'spinner',
+      });
+      this.getpolicy(file.file)
     },
 // 获取七牛云token
     getpolicy(file) {
@@ -330,8 +758,6 @@ export default {
         if (res.status == 200) {
           let img_url = 'https://voice.xunsheng.org.cn/'+ res.data.key;
           Toast.clear();
-          // console.log(file.type.split('/')[0])
-          // console.log(img_url)
           if(file.type.split('/')[0] == 'image' ){
             let img =`<p> <img class="a-href-icon" max-width='100%' style='margin-left:5px' src='${img_url}'><p>`;
             // this.insertImg(img)
@@ -618,6 +1044,8 @@ export default {
       // 提交图片
       // Some code
       // this.fileChange(file)
+      // console.log(file)
+      // console.log(formData,'2')
       this.getpolicy(file);
     },
 
