@@ -342,44 +342,23 @@ export default {
     },
     // 自定义事件
     clickImg(e) {
-      if(e.target.getAttribute('data-id')){
-        let data_id = (e.target.getAttribute('data-id'))
-
-        let data = {
-          id:data_id,
-          // page_size: this.page_size,
-          // relics_id: this.id,
-          // reply_id: '',
-        }
-        api.getdetails(this.qs.stringify(data)).then((res) => {
-          // console.log(res)
-          if (res.status == 200) {
-            ImagePreview({
-              images:res.data.info.images ,
-              'max-zoom': 5,
-              'min-zoom': 10,
-              background: '#0000000'
-            });
+      // console.log(e)
+      if (e.target.nodeName == 'IMG') {
+        if (e.target.parentElement.parentElement.tagName !== 'A' && e.target.parentElement.tagName !== 'A') {
+          if (e.target.className == 'a-href-icon') {
+            return false;
           }
-        });
-      }else {
-        if (e.target.nodeName == 'IMG') {
-          if (e.target.parentElement.parentElement.tagName !== 'A' && e.target.parentElement.tagName !== 'A') {
-            if (e.target.className == 'a-href-icon') {
-              return false;
-            }
-            // this.showImg = true;
-            // 获取当前图片地址
-            // this.imgSrc = e.target.src;
-            ImagePreview({
-              images: [
-                e.target.src
-              ],
-              'max-zoom': 5,
-              'min-zoom': 10,
-              background: '#0000000'
-            });
-          }
+          // this.showImg = true;
+          // 获取当前图片地址
+          // this.imgSrc = e.target.src;
+          ImagePreview({
+            images: [
+              e.target.src
+            ],
+            'max-zoom': 5,
+            'min-zoom': 10,
+            background: '#0000000'
+          });
         }
       }
     },

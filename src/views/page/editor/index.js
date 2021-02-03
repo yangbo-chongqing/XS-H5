@@ -99,8 +99,7 @@ export default {
       },
       ueConfig: {
         toolbars: [],
-        labelMap: {
-        },
+        labelMap: {},
         catchRemoteImageEnable: true,
         // 初始容器高度
         initialFrameHeight: 500,
@@ -111,6 +110,8 @@ export default {
         wordCount: false,
         serverUrl: "/api/store/ueditor/config",
         UEDITOR_HOME_URL: "/UEditor/",
+        enableContextMenu:false,
+        elementPathEnabled:true,
       },
       ueData: "",
       defaultPhoneHeight:'',
@@ -262,8 +263,9 @@ export default {
     },
     updateOrDelete(e,index){
       this.onHtml = e;
+
       // console.log(e.target.tagName)
-      // console.log(e.target.nodeName)
+      // console.log(e)
       // console.log(e)
       if(index == 1){
         for (let i = 0;i<e.path.length;i++){
@@ -879,11 +881,21 @@ export default {
       }
     },
     upkeydown(e){
-      // let x = this.editor.execCommand()
       // console.log(e)
-      let a =  this.editor.getPlainTxt()
-      console.log(a)
-      if(e.key == 'E  nter'){
+      // let domUtils = UE.dom.domUtils;
+      // let x = domUtils.getXY(e.target)
+      // console.log(x)
+      // let x = this.editor.execCommand()
+      // console.log(this.editor)
+      let a =  this.editor.ui.getDom("elementpath")
+      // console.log(document.querySelector('.edui-editor-bottomContainer'))
+      console.log(a.childNodes[0].childNodes[3])
+      // let a =  this.editor.getLang("elementPathTip")
+      let b = this.editor.commands['elementpath'];
+      console.log(b)
+
+      if(e.key == 'Enter'){
+
         this.h1color = false;
         this.h2color = false;
         this.centercolor = false;
@@ -1253,7 +1265,11 @@ export default {
           .querySelector("iframe").contentWindow.document.body;
       ifm.addEventListener("click", this.updateOrDelete);
       ifm.addEventListener("keydown", this.upkeydown);
+      // ifm.addEventListener("input", this.upkeydown);
       this.$emit("input", this.content);
+
+      // console.log(ifm)
+
     },
     // mobHtml: function (val) {
     //   this.editor.execCommand("inserthtml", val);
@@ -1273,6 +1289,7 @@ export default {
         //手机键盘被关闭了。
       }
     },
+
 
   },
 };

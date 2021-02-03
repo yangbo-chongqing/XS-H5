@@ -4,9 +4,9 @@
     <div class="img-view" >
       <!-- 遮罩层 -->
       <div class="img">
-        <a :href="imgSrc.url">
+        <div  @click="jump">
           <img :src="imgSrc.image">
-        </a>
+        </div>
       </div>
       <div class="img-close" @click="bigImg"><van-icon name="cross" color="#ffffff"/></div>
     </div>
@@ -20,12 +20,22 @@ export default {
     VanCol: Col,
     VanRow:Row,
   },
+  data() {
+    return {
+
+    }
+  },
   props: ['imgSrc'],
   methods: {
     bigImg() {
       // 发送事件
       this.$emit('clickit')
-    }
+    },
+    jump(){
+
+      window.open(this.imgSrc.url);
+    },
+
   }
 }
 </script>
@@ -87,7 +97,7 @@ export default {
 .img{
   width: 250px;
   height: 350px;
-  background-color: #ffffff;
+  /*background-color: #ffffff;*/
 }
 .img-view .img {
   /*display: inline-block;*/
