@@ -1,8 +1,14 @@
 <script src="../../../request/xsdt.js"></script>
 <template>
-  <div class="h-container" v-if="dataInfo" @load="loadImage(1)">
-     <div class="product-head" v-if="dataInfo.image">
+  <div class="h-container" v-if="dataInfo" @load="loadImage(1)" >
+     <div class="product-head" v-if="dataInfo.image" @click="expandatlas">
        <img :src="dataInfo.image" alt="">
+       <div class="product-head-atlas"  v-if="dataInfo.picture.length>0">
+         <div class="product-head-atlas-img">
+           <img src="@/assets/images/lm77lsYIucG5n.png" alt="">
+         </div>
+         <div class="product-head-atlas-title">实拍{{ dataInfo.picture.length }}张 <van-icon name="arrow" /></div>
+       </div>
      </div>
      <div class="product-info">
        <div class="product-name" v-if="dataInfo.name">{{dataInfo.name}}</div>

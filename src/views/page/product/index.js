@@ -1,5 +1,5 @@
 import api from '@/request/xsdt';
-import { Icon, Col, Row } from 'vant';
+import {Icon, Col, Row, ImagePreview} from 'vant';
 import global from '@/global';
 export default {
   name:'Home',
@@ -7,6 +7,7 @@ export default {
     VanIcon: Icon,
     VanCol: Col,
     VanRow:Row,
+    ImagePreview:ImagePreview,
   },
   data() {
     return {
@@ -71,7 +72,7 @@ export default {
       }
       api.postDetails(this.qs.stringify(params)).then((res) => {
         if (res.status == 200) {
-          console.log(res.data)
+          // console.log(res.data)
           this.dataInfo = res.data.product;
           // this.pdfUrl = res.data.product.manual.file
           document.title = res.data.product.name;
@@ -133,9 +134,9 @@ export default {
       }
       api.postattention(this.qs.stringify(params)).then((res) => {
         if (res.status == 200) {
-          console.log(res)
+          // console.log(res)
           this.attention = res.data.img
-          console.log(this.attention)
+          // console.log(this.attention)
         }
       });
     },
@@ -230,6 +231,18 @@ export default {
 
   return r;
   },
+    //展开图集
+    expandatlas(){
+      if(this.dataInfo.picture.length>0){
+        ImagePreview({
+          images:this.dataInfo.picture,
+          'max-zoom': 5,
+          'min-zoom': 10,
+          background: '#0000000',
+          closeable: true,
+        });
+      }
+    },
 
 
 

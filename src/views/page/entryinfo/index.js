@@ -352,7 +352,7 @@ export default {
           // reply_id: '',
         }
         api.getdetails(this.qs.stringify(data)).then((res) => {
-         // console.log(res)
+          // console.log(res)
           if (res.status == 200) {
             ImagePreview({
               images:res.data.info.images ,
@@ -382,7 +382,6 @@ export default {
           }
         }
       }
-
     },
     viewImg() {
       this.showImg = false;

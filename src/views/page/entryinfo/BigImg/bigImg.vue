@@ -90,7 +90,7 @@ export default {
   background-color: #ffffff;
 }
 .img-view .img {
-  display: inline-block;
+  /*display: inline-block;*/
   display: flex;
   justify-content: center;
   align-content: center;
