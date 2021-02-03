@@ -83,6 +83,7 @@
             @ready="ready"
             v-model="content"
             :config="ueConfig"
+            ref="singleText"
         ></vue-ueditor-wrap>
 <!--        <quill-editor ref="myTextEditor" v-model="content" :options="editorOption" style="min-height: 100px">-->
 <!--          &lt;!&ndash; 自定义toolar &ndash;&gt;-->
