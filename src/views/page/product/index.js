@@ -1,5 +1,5 @@
 import api from '@/request/xsdt';
-import {Icon, Col, Row, ImagePreview} from 'vant';
+import { Icon, Col, Row ,ImagePreview} from 'vant';
 import global from '@/global';
 export default {
   name:'Home',

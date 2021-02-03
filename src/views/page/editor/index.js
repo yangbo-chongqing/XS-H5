@@ -880,8 +880,10 @@ export default {
     },
     upkeydown(e){
       // let x = this.editor.execCommand()
-      // console.log(x)
-      if(e.key == 'Enter'){
+      // console.log(e)
+      let a =  this.editor.getPlainTxt()
+      console.log(a)
+      if(e.key == 'E  nter'){
         this.h1color = false;
         this.h2color = false;
         this.centercolor = false;
@@ -892,9 +894,10 @@ export default {
     },
     upinput(index,item,$event){
       console.log(index)
-      let quill = this.$refs.singleText.iframe;
-      let length = quill.selection.savedRange.index;
-      console.log(length)
+
+      // let quill = this.$refs.singleText.iframe;
+      // let length = quill.selection.savedRange.index;
+      // console.log(length)
     },
 
     //上传图片
@@ -1061,7 +1064,6 @@ export default {
       const res = new Map();
       return arr.filter((arr) => !res.has(arr.id) && res.set(arr.id, 1));
     },
-
 
     imgPreview(file) {
       let self = this
@@ -1251,7 +1253,6 @@ export default {
           .querySelector("iframe").contentWindow.document.body;
       ifm.addEventListener("click", this.updateOrDelete);
       ifm.addEventListener("keydown", this.upkeydown);
-      ifm.addEventListener("input", this.upinput);
       this.$emit("input", this.content);
     },
     // mobHtml: function (val) {
