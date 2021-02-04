@@ -105,7 +105,7 @@ export default {
   justify-content: center;
   align-content: center;
 }
-  /*不限制图片大小，实现居中*/
+/*不限制图片大小，实现居中*/
 .img-view .img img {
   max-width: 100%;
   display: block;
