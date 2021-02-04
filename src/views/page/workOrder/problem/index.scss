@@ -1,0 +1,33 @@
+.workOrderProblem {
+  box-sizing: border-box;
+  padding: 20px;
+  .problem-header{
+    font-size: 18px;
+    //border:1px solid #000000;
+    text-align: center;
+    padding: 20px 0;
+  }
+  .problem-list{
+    li{
+      margin-top: 20px;
+      border: 1px solid #cdcdcd;
+      padding: 10px;
+      font-size: 14px;
+      display: flex;
+      justify-content: space-between;
+      .problem-list-left{
+        max-width: 70%;
+        text-overflow: -o-ellipsis-lastline;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+        -webkit-box-orient: vertical;
+      }
+    }
+    li:nth-child(1){
+      margin-top: 0;
+    }
+  }
+}

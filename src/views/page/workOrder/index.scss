@@ -1,0 +1,17 @@
+.workOrder {
+  box-sizing: border-box;
+  padding: 20px;
+  .workOrder_list{
+    li{
+      width: 100%;
+      text-align: center;
+      font-size: 16px;
+      margin-top: 20px;
+      border: 1px solid #000000;
+      padding: 20px 0;
+    }
+    li:nth-child(1){
+      margin-top: 0;
+    }
+  }
+}

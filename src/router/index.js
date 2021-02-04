@@ -184,6 +184,47 @@ const routes = [
     },
   },
   {
+    // 工单系统
+    path: '/workOrder',
+    name: 'workOrder',
+    component: () => import('@/views/page/workOrder/index.vue'),
+    meta: {
+      title: '工单系统',
+      keepAlive: false,
+    },
+  },
+  {
+    // 工单系统问题显示
+    path: '/workOrderProblem',
+    name: 'problem',
+    component: () => import('@/views/page/workOrder/problem/index.vue'),
+    meta: {
+      title: '工单系统',
+      keepAlive: false,
+    },
+  },
+  {
+    // 工单系统问题详情
+    path: '/questionDetails',
+    name: 'questionDetails',
+    component: () => import('@/views/page/workOrder/problem/questionDetails/index.vue'),
+    meta: {
+      title: '工单系统',
+      keepAlive: false,
+    },
+  },
+
+  {
+    // 工单问题提交
+    path: '/workOrderSubmit',
+    name: 'submit',
+    component: () => import('@/views/page/workOrder/submit/index.vue'),
+    meta: {
+      title: '工单系统',
+      keepAlive: false,
+    },
+  },
+  {
     // 404页面
     path: '*',
     name: 'notfound',
