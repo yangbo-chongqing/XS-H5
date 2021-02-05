@@ -14,14 +14,17 @@ export default {
   },
   data() {
     return {
-      muse_id: this.$route.query.muse_id,
+      workorder_id: this.$route.query.workorder_id,
       message:'',
+      image:[],
       smallShuw:false,
       chat_show:false,
+      replyData:'',
       files:{
         name:'',
         type:'',
       },
+      questionDetails:'',
     }
   },
   computed: {
@@ -31,7 +34,7 @@ export default {
 
   },
   mounted() {
-
+    this.getquestionDetails();
   },
   methods: {
     afterRead(file) {
@@ -71,14 +74,15 @@ export default {
       }).then(res => {
         if (res.status == 200) {
           let img_url = 'https://voice.xunsheng.org.cn/'+ res.data.key;
+          this.image.push(img_url)
           if(file.type.split('/')[0] == 'image' ){
             Toast.clear();
             // console.log(img_url,'1111111')
             // console.log(this.fileList,'2222221')
-
+            // console.log(img_url)
+            this.onSubmit()
           }else if(file.type.split('/')[0] == 'video' ){
             Toast.clear();
-
           }
         } else {
           // this.$util.message("err", res.message);
@@ -262,12 +266,38 @@ export default {
     },
     // 提交数据
     onSubmit(){
-      let day2 = new Date();
-      day2.setTime(day2.getTime());
-      let s2 = day2.getFullYear()+"-" + (day2.getMonth()+1) + "-" + day2.getDate() + " " + day2.getHours() + ":" + day2.getMinutes() + ":" + day2.getSeconds();
-      console.log(this.message,s2)
-
+      let datas = {
+        workorder_id: this.workorder_id,
+        content:this.message,
+        image:JSON.stringify(this.image),
+      }
+      console.log(datas)
+      api.submitReply(this.qs.stringify(datas)).then((res) => {
+        if(res.status == 200){
+          // console.log(res)
+          this.message = '';
+          this.image=[];
+          Toast.success(res.message);
+        }
+      })
     },
+    //获取数据
+    getquestionDetails(){
+      // console.log(this.workorder_id)
+      let datas = {
+        workorder_id: this.workorder_id,
+        type:1,
+      }
+      api.postWorkorderdetails(this.qs.stringify(datas)).then((res) => {
+        if(res.status == 200){
+          // console.log(res)
+          this.questionDetails = res.data.info;
+          this.replyData = res.data.list.data
+          // console.log(this.questionDetails)
+        }
+      })
+    },
+    //提交回复
 
   },
   watch:{

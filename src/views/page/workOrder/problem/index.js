@@ -10,7 +10,7 @@ export default {
   data() {
     return {
       muse_id: this.$route.query.muse_id,
-
+      problemData:'',
     }
   },
   computed: {
@@ -20,7 +20,7 @@ export default {
 
   },
   mounted() {
-
+    this.getProblemData();
   },
   methods: {
 //页面跳转
@@ -29,6 +29,18 @@ export default {
         path: path,
         query: {
           ...obj
+        }
+      })
+    },
+    getProblemData(){
+      let datas = {
+        type: 1,
+      }
+      api.postWorkorderList(this.qs.stringify(datas)).then((res) => {
+        if(res.status == 200){
+          // console.log(res)
+          this.problemData = res.data.list.data
+          console.log(this.problemData)
         }
       })
     },
