@@ -1,5 +1,5 @@
 <template>
-  <div class="h-container">
+  <div class="h-container" ref="appContainer">
     <div class="h-container_content">
       <div class="ed-header">
         <div class="entry-title">

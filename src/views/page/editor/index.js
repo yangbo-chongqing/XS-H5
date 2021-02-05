@@ -111,7 +111,8 @@ export default {
         serverUrl: "/api/store/ueditor/config",
         UEDITOR_HOME_URL: "/UEditor/",
         enableContextMenu:false,
-        elementPathEnabled:true,
+        zIndex:50,
+        // elementPathEnabled:true,
       },
       ueData: "",
       defaultPhoneHeight:'',
@@ -881,19 +882,17 @@ export default {
       }
     },
     upkeydown(e){
-      // console.log(e)
-      // let domUtils = UE.dom.domUtils;
-      // let x = domUtils.getXY(e.target)
-      // console.log(x)
-      // let x = this.editor.execCommand()
-      // console.log(this.editor)
-      let a =  this.editor.ui.getDom("elementpath")
-      // console.log(document.querySelector('.edui-editor-bottomContainer'))
-      console.log(a.childNodes[0].childNodes[3])
-      // let a =  this.editor.getLang("elementPathTip")
-      let b = this.editor.commands['elementpath'];
-      console.log(b)
+      // console.log(e.target.childNodes)
 
+      // //获取百度编辑器的工具类
+      // let domUtils = UE.dom.domUtils
+      // let bk_start = this.editor.selection.getRange().createBookmark().start // 创建一个临时dom，用于获取当前光标的坐标
+      // bk_start.style.display = '' // 设置临时dom不隐藏
+      // let top = domUtils.getXY(bk_start).y;
+      // // // console.log(bk_start)
+      // console.log(top,'top')
+      // //移除临时dom
+      // bk_start.remove();
       if(e.key == 'Enter'){
 
         this.h1color = false;
@@ -1250,7 +1249,15 @@ export default {
       // console.log(formData,'2')
       this.getpolicy(file);
     },
-
+    a(e){
+      console.log(e.data)
+      console.log(e.target.childNodes)
+      for(let i =0 ;i<e.target.childNodes.length;i++){
+        if(e.target.childNodes[i].textContent == e.data){
+          console.log(e.target.childNodes[i])
+        }
+      }
+    },
   },
   watch: {
     // 监听prop的变化，更新ckeditor中的值
@@ -1265,7 +1272,7 @@ export default {
           .querySelector("iframe").contentWindow.document.body;
       ifm.addEventListener("click", this.updateOrDelete);
       ifm.addEventListener("keydown", this.upkeydown);
-      // ifm.addEventListener("input", this.upkeydown);
+      // ifm.addEventListener("input", this.a);
       this.$emit("input", this.content);
 
       // console.log(ifm)
