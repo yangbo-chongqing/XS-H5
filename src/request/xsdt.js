@@ -226,6 +226,38 @@ const api = {
             data: params,
         });
     },
+    // 发布工单
+    submitCreate(params) {
+        return http({
+            method: 'post',
+            url: '/api/web/workorder/create',
+            data: params,
+        });
+    },
+    // 工单列表
+    postWorkorderList(params) {
+        return http({
+            method: 'post',
+            url: '/api/web/workorder/list',
+            data: params,
+        });
+    },
+    // 工单列表
+    postWorkorderdetails(params) {
+        return http({
+            method: 'post',
+            url: '/api/web/workorder/details',
+            data: params,
+        });
+    },
+    // 回复工单
+    submitReply(params) {
+        return http({
+            method: 'post',
+            url: '/api/web/workorder/reply',
+            data: params,
+        });
+    },
 
 }
 export default api;

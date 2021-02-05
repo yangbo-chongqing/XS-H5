@@ -290,6 +290,30 @@ export default {
     },
     // 点击提交数据
     onSubmit(){
+      if(!this.submitData.name){
+        alert(111)
+        return;
+      }
+      if(!this.submitData.name){
+        alert(111)
+        return;
+      }
+      if(!this.submitData.name){
+        alert(111)
+        return;
+      }
+      if(!this.submitData.name){
+        alert(111)
+        return;
+      }
+      if(!this.submitData.name){
+        alert(111)
+        return;
+      }
+      if(!this.submitData.name){
+        alert(111)
+        return;
+      }
       if(this.submitData.name != ""){
         if(this.submitData.frame != ""){
           if(this.submitData.productID != ""){
@@ -297,6 +321,22 @@ export default {
               if(this.submitData.problemDescription != ""){
                 if(this.submitData.phone != ""){
                   console.log(this.submitData);
+                  let params = {
+                    title: this.submitData.name,
+                    product_name:this.submitData.name,
+                    frame_number:this.submitData.frame,
+                    product_number:this.submitData.productID,
+                    phone:this.submitData.phone,
+                    problem_type:this.submitData.questionType ,//'问题类型'
+                    content:this.submitData.problemDescription,
+                    image:JSON.stringify(this.submitData.problemImg),
+                    muse_id:this.submitData.productID,
+                  }
+                  api.submitCreate(this.qs.stringify(params)).then((res) => {
+                    if(res.status == 200){
+                      console.log(res)
+                    }
+                  })
                 }else {
                   Toast.fail('手机号不能为空');
                 }

@@ -2,13 +2,13 @@
   <div class="workOrderProblem">
     <div class="problem-header">我的问题</div>
     <ul class="problem-list">
-      <li @click="jumpRoute('/questionDetails')">
+      <li  v-for="(item,index) in problemData" :data="item.id" @click="jumpRoute('/questionDetails',{workorder_id:item.id})">
         <div class="problem-list-left">
-          问题描述
+          {{ item.problem_content }}
         </div>
         <div class="problem-list-right">
-          <p>处理状态</p>
-          <p>时间</p>
+          <p>{{ item.state===0?'待回复':'已回复' }}</p>
+          <p>{{ item.create_time }}</p>
         </div>
       </li>
     </ul>
