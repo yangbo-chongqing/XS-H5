@@ -11,12 +11,12 @@
       <van-field v-model="submitData.problemDescription"  rows="1"  autosize label="问题描述" type="textarea" placeholder="请输入" />
       <van-field name="uploader" label="图片上传">
         <template #input>
-          <van-uploader :after-read="afterRead" v-model="submitData.problemImg"  accept="image/*"/>
+          <van-uploader :after-read="afterRead" v-model="fileList"  accept="image/*"/>
         </template>
       </van-field>
       <van-field v-model="submitData.phone"  label="手机号" placeholder="请输入手机号" :rules="[{ pattern:/^1[3456789]\d{9}$/, message: '手机号格式错误' }]"/>
       <div style="margin: 16px 0;">
-        <van-button round block type="info" native-type="submit">提交</van-button>
+        <van-button round block type="info" native-type="submit" @click="onSubmit">提交</van-button>
       </div>
     </van-form>
   </div>

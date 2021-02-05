@@ -18,12 +18,12 @@
     <div class="questionDetails-chat">
       <van-field v-model="message" rows="1" autosize type="textarea" show-word-limit >
         <template #button>
-          <van-button v-if="smallShuw" size="small" type="primary">发送</van-button>
+          <van-button v-if="smallShuw" size="small" type="primary" @click="onSubmit">发送</van-button>
           <van-icon  v-if="!smallShuw" name="add-o" @click="chat_show = !chat_show;" />
         </template>
       </van-field>
       <div class="questionDetails-chat-show" v-show="chat_show">
-        <van-uploader :after-read="afterRead" />
+        <van-uploader :after-read="afterRead" accept="image/*"/>
       </div>
     </div>
   </div>
