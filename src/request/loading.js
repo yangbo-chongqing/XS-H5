@@ -1,19 +1,19 @@
-
-import { Loading } from 'element-ui';
+import Vue from 'vue';
+import { Toast } from 'vant';
 
 let loadingCount = 0;
-let loading;
+Vue.use(Toast);
 
 const startLoading = () => {
-    loading = Loading.service({
-        lock: true,
-        text: '加载中……',
-        background: 'rgba(0, 0, 0, 0.7)'
+    Toast.loading({
+        message: '上传中...',
+        forbidClick: true,
+        loadingType: 'spinner',
     });
 };
 
 const endLoading = () => {
-    loading.close();
+    Toast.clear();
 };
 
 export const showLoading = () => {

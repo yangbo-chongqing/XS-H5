@@ -70,7 +70,7 @@ const routes = [
     name: 'Product',
     component: () => import('@/views/page/product/index.vue'),
     meta: {
-      title: '寻声扫码',
+      // title: '寻声扫码',
       keepAlive: false,
     },
   },
@@ -79,7 +79,7 @@ const routes = [
     path: '/demo',
     name: 'demo',
     meta: {
-      title: '寻声扫码',
+      // title: '寻声扫码',
       keepAlive: false,
     },
   },
@@ -89,7 +89,7 @@ const routes = [
     name: 'Pdf',
     component: () => import('@/views/page/pdf/index.vue'),
     meta: {
-      title: '寻声扫码',
+      // title: '寻声扫码',
       keepAlive: false,
     },
   },
@@ -99,7 +99,7 @@ const routes = [
     name: 'video',
     component: () => import('@/views/page/video/index.vue'),
     meta: {
-      title: '相关视频',
+      // title: '相关视频',
       keepAlive: false,
     },
   },
@@ -109,7 +109,7 @@ const routes = [
     name: 'productDetails',
     component: () => import('@/views/page/productDetails/index.vue'),
     meta: {
-      title: '寻声扫码',
+      // title: '寻声扫码',
       keepAlive: false,
     },
   },
@@ -220,7 +220,7 @@ const routes = [
     name: 'submit',
     component: () => import('@/views/page/workOrder/submit/index.vue'),
     meta: {
-      title: '工单系统',
+      title: '提交工单',
       keepAlive: false,
     },
   },

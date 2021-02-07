@@ -1,5 +1,14 @@
 <template>
   <div class="workOrderSubmit">
+    <div class="submit-information">
+      <div class="submit-information-img"></div>
+      <div class="submit-information-content">
+        <h2 class="submit-information-name"></h2>
+        <p class="submit-information-frame"></p>
+        <p class="submit-information-qualified"></p>
+        <p class="submit-information-productID"></p>
+      </div>
+    </div>
     <van-form>
       <van-field v-model="submitData.name" label="产品名称"  placeholder="请输入当前产品"/>
       <van-field v-model="submitData.frame" label="车架号"  placeholder="请输入车架号"/>
