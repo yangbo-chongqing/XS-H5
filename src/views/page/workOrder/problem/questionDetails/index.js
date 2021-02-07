@@ -35,7 +35,15 @@ export default {
   },
   mounted() {
     this.getquestionDetails();
+    this.scrollTop();
+    // this.$nextTick(()=>{
+    //   let doclass = document.getElementsByClassName("questionDetails");
+    //   console.log(doclass[0].scrollHeight);
+    //   doclass[0].scrollTop = doclass[0].scrollHeight;
+    //   console.log(doclass[0].scrollTop);
+    // })
   },
+
   methods: {
     afterRead(file) {
       file.message = '上传中...';
@@ -278,6 +286,7 @@ export default {
           this.message = '';
           this.image=[];
           Toast.success(res.message);
+          this.replyData.push(res.data.data)
         }
       })
     },
@@ -294,16 +303,38 @@ export default {
           this.questionDetails = res.data.info;
           this.replyData = res.data.list.data
           // console.log(this.questionDetails)
+          this.scrollTop();
         }
       })
     },
-    //提交回复
+    //设置滚动条到底部
+    scrollTop(){
+      this.$nextTick(()=>{
+        document.querySelector('.footer').scrollIntoView()
+        console.log(document.getElementById('scroll'))
+
+      })
+
+    },
+    loadImageOne () {
+      let that = this
+      ++that.loadImage   // 设置的变量名
+      console.log(that.loadImage)
+      if (that.loadImage === 9) {  // 这个数据为 页面中图片的总个数
+        that.scrollTop()  // 这个方法就是前面所说的最后可以去执行的方法
+      }
+    },
+    focus(){
+      // console.log(1111)
+      this.chat_show = false;
+    },
 
   },
   watch:{
     message:function (){
       if(this.message==''){
         this.smallShuw = false;
+        // this.chat_show = false;
       }else {
         this.smallShuw = true;
       }

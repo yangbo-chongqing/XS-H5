@@ -12,12 +12,14 @@
     padding: 0;
     .van-field__body{
       //align-items: flex-end;
+      background-color: #f5f5f5;
     }
     .van-field__control{
       background-color: #ffffff;
       //border: 1px solid #dcdcdc;
       border-radius: 4px;
       font-size: 16px;
+      padding: 6px;
     }
     .van-field__button{
       display: flex;

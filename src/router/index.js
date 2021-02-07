@@ -199,7 +199,7 @@ const routes = [
     name: 'problem',
     component: () => import('@/views/page/workOrder/problem/index.vue'),
     meta: {
-      title: '工单系统',
+      title: '我的问题',
       keepAlive: false,
     },
   },

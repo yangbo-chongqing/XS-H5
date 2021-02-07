@@ -1,5 +1,5 @@
 <template>
-  <div class="questionDetails">
+  <div class="questionDetails" ref="questionDetails">
     <div class="questionDetails-header">问题详情 <span>{{ questionDetails.state===0?'待回复':'已回复' }}</span></div>
     <div class="questionDetails-list">
       <div v-for="(item,index) in replyData" :class="item.type===1?'questionDetails-list-left':'questionDetails-list-right'" >
@@ -8,10 +8,11 @@
            <div v-if="item.type===0" class="list-right-title"><span>{{ item.create_time }}</span> <span class="questionDetails-list-name">{{ item.type===0?'我':item.nickname }}</span></div>
           <div class="list-content">
             <p v-if="item.content">{{ item.content }}</p>
-            <img v-if="item.image.length>0" v-for="i in item.image" :src="i" alt="">
+            <img v-if="item.image.length>0" v-for="i in item.image" :src="i" alt="" @load="scrollTop">
           </div>
         </span>
       </div>
+      <div id="scroll"></div>
 <!--      <div class="questionDetails-list-right">-->
 <!--        <span>-->
 <!--          <div class="list-right-title"><span>22323</span> <span class="questionDetails-list-name">wo</span></div>-->
@@ -20,9 +21,9 @@
 <!--      </div>-->
     </div>
     <div class="questionDetails-chat">
-      <van-field v-model="message" rows="1" autosize type="textarea" show-word-limit >
+      <van-field v-model="message" rows="1" autosize type="textarea" show-word-limit @focus="focus">
         <template #button>
-          <van-button v-if="smallShuw" size="small" type="primary" @click="onSubmit($event)">发送</van-button>
+          <van-button v-if="smallShuw" size="small" type="primary" @click="onSubmit($event)" >发送</van-button>
           <van-icon  v-if="!smallShuw" name="add-o" @click="chat_show = !chat_show;" />
         </template>
       </van-field>

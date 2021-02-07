@@ -75,6 +75,7 @@ export default {
           // console.log(res.data)
           this.dataInfo = res.data.product;
           // this.pdfUrl = res.data.product.manual.file
+           this.dataInfo.picture.unshift(this.dataInfo.image)
           document.title = res.data.product.name;
            let url = window.location.href;
           this.$global.shareToWechat(res.data.product.name, url, res.data.product.image, res.data.product.name)

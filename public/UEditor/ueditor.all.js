@@ -18983,107 +18983,106 @@
           }
         }
       })
-      if (!browser.ie && me.options.imageScaleEnabled) {
-        me.addListener("click", function (type, e) {
-          var range = me.selection.getRange(),
-            img = range.getClosedNode();
-
-          if (img && img.tagName == "IMG" && me.body.contentEditable != "false") {
-            if (
-              img.className.indexOf("edui-faked-music") != -1 ||
-              img.getAttribute("anchorname") ||
-              domUtils.hasClass(img, "loadingclass") ||
-              domUtils.hasClass(img, "loaderrorclass")
-            ) {
-              return;
-            }
-
-            if (!imageScale) {
-              imageScale = new Scale();
-              imageScale.init(me);
-              me.ui.getDom().appendChild(imageScale.resizer);
-
-              var _keyDownHandler = function (e) {
-                imageScale.hide();
-                if (imageScale.target)
-                  me.selection.getRange().selectNode(imageScale.target).select();
-              },
-                _mouseDownHandler = function (e) {
-                  var ele = e.target || e.srcElement;
-                  if (
-                    ele &&
-                    (ele.className === undefined ||
-                      ele.className.indexOf("edui-editor-imagescale") == -1)
-                  ) {
-                    _keyDownHandler(e);
-                  }
-                },
-                timer;
-
-              me.addListener("afterscaleshow", function (e) {
-                me.addListener("beforekeydown", _keyDownHandler);
-                me.addListener("beforemousedown", _mouseDownHandler);
-                domUtils.on(document, "keydown", _keyDownHandler);
-                domUtils.on(document, "mousedown", _mouseDownHandler);
-                me.selection.getNative().removeAllRanges();
-              });
-              me.addListener("afterscalehide", function (e) {
-                me.removeListener("beforekeydown", _keyDownHandler);
-                me.removeListener("beforemousedown", _mouseDownHandler);
-                domUtils.un(document, "keydown", _keyDownHandler);
-                domUtils.un(document, "mousedown", _mouseDownHandler);
-                var target = imageScale.target;
-                if (target.parentNode) {
-                  me.selection.getRange().selectNode(target).select();
-                }
-              });
-              //TODO 有iframe的情况，mousedown不能往下传。。
-              domUtils.on(imageScale.resizer, "mousedown", function (e) {
-                me.selection.getNative().removeAllRanges();
-                var ele = e.target || e.srcElement;
-                if (
-                  ele &&
-                  ele.className.indexOf("edui-editor-imagescale-hand") == -1
-                ) {
-                  timer = setTimeout(function () {
-                    imageScale.hide();
-                    if (imageScale.target)
-                      me.selection.getRange().selectNode(ele).select();
-                  }, 200);
-                }
-              });
-              domUtils.on(imageScale.resizer, "mouseup", function (e) {
-                var ele = e.target || e.srcElement;
-                if (
-                  ele &&
-                  ele.className.indexOf("edui-editor-imagescale-hand") == -1
-                ) {
-                  clearTimeout(timer);
-                }
-              });
-            }
-            imageScale.show(img);
-          } else {
-            if (imageScale && imageScale.resizer.style.display != "none")
-              imageScale.hide();
-          }
-        });
-      }
-
-      if (browser.webkit) {
-        me.addListener("click", function (type, e) {
-          // 判断是否是自定义模块，是就不允许拉伸缩放 杨波
-          if (e.target.dataset.id) {
-            // alert('1122aa')
-            // console.log(e.target)
-          }
-
-          else if (e.target.tagName == "IMG" && me.body.contentEditable != "false") {
-            var range = new dom.Range(me.document);
-            range.selectNode(e.target).select();
-          }
-        });
-      }
+  //     if (!browser.ie && me.options.imageScaleEnabled) {
+  //       me.addListener("click", function (type, e) {
+  //         var range = me.selection.getRange(),
+  //           img = range.getClosedNode();
+  //
+  //         if (img && img.tagName == "IMG" && me.body.contentEditable != "false") {
+  //           if (
+  //             img.className.indexOf("edui-faked-music") != -1 ||
+  //             img.getAttribute("anchorname") ||
+  //             domUtils.hasClass(img, "loadingclass") ||
+  //             domUtils.hasClass(img, "loaderrorclass")
+  //           ) {
+  //             return;
+  //           }
+  //
+  //           if (!imageScale) {
+  //             imageScale = new Scale();
+  //             imageScale.init(me);
+  //             me.ui.getDom().appendChild(imageScale.resizer);
+  //
+  //             var _keyDownHandler = function (e) {
+  //               imageScale.hide();
+  //               if (imageScale.target)
+  //                 me.selection.getRange().selectNode(imageScale.target).select();
+  //             },
+  //               _mouseDownHandler = function (e) {
+  //                 var ele = e.target || e.srcElement;
+  //                 if (
+  //                   ele &&
+  //                   (ele.className === undefined ||
+  //                     ele.className.indexOf("edui-editor-imagescale") == -1)
+  //                 ) {
+  //                   _keyDownHandler(e);
+  //                 }
+  //               },
+  //               timer;
+  //
+  //             me.addListener("afterscaleshow", function (e) {
+  //               me.addListener("beforekeydown", _keyDownHandler);
+  //               me.addListener("beforemousedown", _mouseDownHandler);
+  //               domUtils.on(document, "keydown", _keyDownHandler);
+  //               domUtils.on(document, "mousedown", _mouseDownHandler);
+  //               me.selection.getNative().removeAllRanges();
+  //             });
+  //             me.addListener("afterscalehide", function (e) {
+  //               me.removeListener("beforekeydown", _keyDownHandler);
+  //               me.removeListener("beforemousedown", _mouseDownHandler);
+  //               domUtils.un(document, "keydown", _keyDownHandler);
+  //               domUtils.un(document, "mousedown", _mouseDownHandler);
+  //               var target = imageScale.target;
+  //               if (target.parentNode) {
+  //                 me.selection.getRange().selectNode(target).select();
+  //               }
+  //             });
+  //             domUtils.on(imageScale.resizer, "mousedown", function (e) {
+  //               me.selection.getNative().removeAllRanges();
+  //               var ele = e.target || e.srcElement;
+  //               if (
+  //                 ele &&
+  //                 ele.className.indexOf("edui-editor-imagescale-hand") == -1
+  //               ) {
+  //                 timer = setTimeout(function () {
+  //                   imageScale.hide();
+  //                   if (imageScale.target)
+  //                     me.selection.getRange().selectNode(ele).select();
+  //                 }, 200);
+  //               }
+  //             });
+  //             domUtils.on(imageScale.resizer, "mouseup", function (e) {
+  //               var ele = e.target || e.srcElement;
+  //               if (
+  //                 ele &&
+  //                 ele.className.indexOf("edui-editor-imagescale-hand") == -1
+  //               ) {
+  //                 clearTimeout(timer);
+  //               }
+  //             });
+  //           }
+  //           imageScale.show(img);
+  //         } else {
+  //           if (imageScale && imageScale.resizer.style.display != "none")
+  //             imageScale.hide();
+  //         }
+  //       });
+  //     }
+  //
+  //     if (browser.webkit) {
+  //       me.addListener("click", function (type, e) {
+  //         // 判断是否是自定义模块，是就不允许拉伸缩放 杨波
+  //         if (e.target.dataset.id) {
+  //           // alert('1122aa')
+  //           // console.log(e.target)
+  //         }
+  //
+  //         else if (e.target.tagName == "IMG" && me.body.contentEditable != "false") {
+  //           var range = new dom.Range(me.document);
+  //           range.selectNode(e.target).select();
+  //         }
+  //       });
+  //     }
     };
   })();
 

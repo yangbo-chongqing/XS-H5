@@ -40,7 +40,7 @@ export default {
         if(res.status == 200){
           // console.log(res)
           this.problemData = res.data.list.data
-          console.log(this.problemData)
+          // console.log(this.problemData)
         }
       })
     },

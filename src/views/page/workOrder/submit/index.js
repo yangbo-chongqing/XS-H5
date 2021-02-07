@@ -29,13 +29,14 @@ export default {
         questionType:'',  //问题类型
         problemDescription:'', //问题描述
         problemImg:[],  //问题图片
-        phone:'',
+        phone:'',//手机号码
       },
       files:{
         name:'',
         type:'',
       },
       fileList:[],
+      problemType:'',
     }
   },
   computed: {
@@ -45,7 +46,7 @@ export default {
 
   },
   mounted() {
-
+    this.getType();
   },
   methods: {
     onConfirm(value) {
@@ -290,71 +291,71 @@ export default {
     },
     // 点击提交数据
     onSubmit(){
-      if(!this.submitData.name){
-        alert(111)
-        return;
+      // console.log(this.fileList)
+      let imgarr=[]
+      for (let i=0;i<this.fileList.length;i++){
+        imgarr.push(this.fileList[i].content);
       }
-      if(!this.submitData.name){
-        alert(111)
-        return;
-      }
-      if(!this.submitData.name){
-        alert(111)
-        return;
-      }
-      if(!this.submitData.name){
-        alert(111)
-        return;
-      }
-      if(!this.submitData.name){
-        alert(111)
-        return;
-      }
-      if(!this.submitData.name){
-        alert(111)
-        return;
-      }
-      if(this.submitData.name != ""){
-        if(this.submitData.frame != ""){
-          if(this.submitData.productID != ""){
-            if(this.submitData.questionType != ""){
-              if(this.submitData.problemDescription != ""){
-                if(this.submitData.phone != ""){
-                  console.log(this.submitData);
-                  let params = {
-                    title: this.submitData.name,
-                    product_name:this.submitData.name,
-                    frame_number:this.submitData.frame,
-                    product_number:this.submitData.productID,
-                    phone:this.submitData.phone,
-                    problem_type:this.submitData.questionType ,//'问题类型'
-                    content:this.submitData.problemDescription,
-                    image:JSON.stringify(this.submitData.problemImg),
-                    muse_id:this.submitData.productID,
-                  }
-                  api.submitCreate(this.qs.stringify(params)).then((res) => {
-                    if(res.status == 200){
-                      console.log(res)
-                    }
-                  })
-                }else {
-                  Toast.fail('手机号不能为空');
-                }
-              }else {
-                Toast.fail('请描述问题');
-              }
-            }else {
-              Toast.fail('请选择问题类型');
-            }
-          }else {
-            Toast.fail('请输入产品号');
-          }
-        }else {
-          Toast.fail('请输入车架号');
-        }
-      }else {
+      // 判断是不是空值
+      if(this.submitData.name === ""){
         Toast.fail('请输入产品名称');
+        return;
       }
+      if(this.submitData.frame === ""){
+        Toast.fail('请输入车架号');
+        return;
+      }
+      if(this.submitData.productID === ""){
+        Toast.fail('请输入产品号');
+        return;
+      }
+      if(this.submitData.questionType === ""){
+        Toast.fail('请选择问题类型');
+        return;
+      }
+      if(this.submitData.problemDescription === ""){
+        Toast.fail('请描述问题');
+        return;
+      }
+      if(this.submitData.phone === ""){
+        Toast.fail('手机号不能为空');
+        return;
+      }
+      let params = {
+        title: this.submitData.name,
+        product_name:this.submitData.name,
+        frame_number:this.submitData.frame,
+        product_number:this.submitData.productID,
+        phone:this.submitData.phone,
+        problem_type:this.submitData.questionType ,//'问题类型'
+        content:this.submitData.problemDescription,
+        image:JSON.stringify(imgarr),
+        muse_id:this.submitData.productID,
+      }
+      api.submitCreate(this.qs.stringify(params)).then((res) => {
+        if(res.status == 200){
+          console.log(res)
+          Toast.success(res.message);
+          this.submitData.name='';
+          this.submitData.frame='';
+          this.submitData.productID='';
+          this.submitData.questionType='';
+          this.submitData.problemDescription='';
+          this.submitData.problemImg=[];
+          this.submitData.phone='';
+          this.fileList='';
+        }
+      })
+    },
+    getType(){
+      let params= {}
+      api.postType(this.qs.stringify(params)).then((res) => {
+        this.columns = res;
+        // if(res.status == 200){
+        //   console.log(res)
+        //   // this.columns
+        // }
+      })
     },
 
   }
