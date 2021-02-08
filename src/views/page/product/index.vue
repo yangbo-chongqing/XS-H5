@@ -17,6 +17,21 @@
 <!--       <div class="product-tip" v-if="dataInfo.listed"><label>上市时间：</label><span>{{dataInfo.listed}}</span></div>-->
        <div class="product-tip" v-if="water_info.clsbdh"><label>车架号：</label><span>{{water_info.clsbdh}}</span></div>
        <div class="product-tip" v-if="water_info.certificate_id"><label>合格证：</label><span>{{water_info.certificate_id}}</span></div>
+       <div class="product-extend">
+         <div class="extend-content" v-show="extendshow" v-if="expand_details.length>0">
+           <div class="" v-for="(expandItem,index) in expand_details">
+             <img v-if="expandItem.field_type==='图片' && expandItem.value"  :src="expandItem.value" alt="">
+             <video v-if="expandItem.field_type==='视频' && expandItem.value" :src="expandItem.value" preload="none" controls :poster="expandItem.value+'?vframe/jpg/offset/0/w/325/h200'"></video>
+             <p v-if="expandItem.field_type==='富文本' && expandItem.value" v-html="expandItem.value"></p>
+             <p v-if="expandItem.field_type==='文本' && expandItem.value">{{expandItem.value}}</p>
+           </div>
+         </div>
+         <div class="extend-show">
+           <div class="Loadmore" @click="extendshow=true" v-show="!extendshow">全部展开<van-icon name="arrow-down" /> </div>
+           <div class="Loadmore" @click="extendshow=false" v-show="extendshow">收起<van-icon name="arrow-up" />   </div>
+         </div>
+
+       </div>
        <div class="product-tit">
          <span class="product-tit-content" v-if="expand_manual>7"  @click="jumpRoute('/productDetails',{muse_id:muse_id,pkid:pkid,currentsum_id:1})">
            <span>使用说明书</span><van-icon name="arrow" />
@@ -178,6 +193,21 @@
 <!--    底部菜单图片-->
     <div class="product-foot-img">
       <img :src="buttom" alt="">
+    </div>
+    <div class="product-workOrder">
+      <div class="product-workOrder-list" @click="jumpRoute('/workOrderProblem')">
+        <span>
+          <img src="@/assets/images/ltXljZUucGn.png" alt="">
+          <p>工单</p>
+        </span>
+      </div>
+      <div class="product-workOrder-ask" @click="jumpRoute('/workOrderSubmit',{muse_id:muse_id,pkid:pkid,currentsum_id:1})">
+        <span>
+          <img src="@/assets/images/mjDplucGn.png" alt="">
+          <p>提问</p>
+        </span>
+
+      </div>
     </div>
 
 <!--     <div class="product-in-list">-->

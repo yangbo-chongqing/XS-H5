@@ -1,20 +1,18 @@
 import api from '@/request/xsdt';
-import {Icon, Col, Row, Form, Field, Uploader, Picker, Popup, Button, Toast} from 'vant';
+import {Icon, Form, Field, Uploader, Picker, Popup, Button} from 'vant';
 import axios from "axios";
 import Exif from "exif-js";
+
 export default {
   name:'Home',
   components: {
     VanIcon: Icon,
-    VanCol: Col,
-    VanRow:Row,
     VanForm:Form,
     VanField:Field,
     VanUploader:Uploader,
     VanPicker:Picker,
     VanPopup:Popup,
     VanButton:Button,
-    Toast:Toast,
   },
   data() {
     return {
@@ -30,6 +28,8 @@ export default {
         problemDescription:'', //问题描述
         problemImg:[],  //问题图片
         phone:'',//手机号码
+        qualified:'', //合格证
+        imgs:'',
       },
       files:{
         name:'',
@@ -47,8 +47,48 @@ export default {
   },
   mounted() {
     this.getType();
+    this.getproduct();
   },
   methods: {
+    getproduct(){
+      let url = this.parseQuery(window.location.href);
+      let muse_id = url.muse_id;
+      let pkid = url.pkid;
+      let params = {
+        muse_id: muse_id,
+        pkid:pkid,
+      }
+      api.postDetails(this.qs.stringify(params)).then((res) => {
+        if (res.status == 200) {
+          // console.log(res.data.product)
+          console.log(res.data.water_info)
+          this.submitData.imgs = res.data.product.image
+          this.submitData.name = res.data.product.name;
+          this.submitData.frame = res.data.water_info.clsbdh;
+          this.submitData.qualified = res.data.water_info.certificate_id;
+          this.submitData.productID = res.data.water_info.muse_id
+        }
+      })
+    },
+    // url 信息
+    parseQuery(url) {
+      let o = {};
+      let queryString = url.split("?")[1];
+      if (queryString) {
+        queryString.split("&").forEach(item => {
+          let [key, val] = item.split("=");
+          val = val ? decodeURI(val) : true;
+          //          转码         无值赋值true
+          if (o.hasOwnProperty(key)) {
+            //   已有属性转为数组
+            o[key] = [].concat(o[key], val);
+          } else {
+            o[key] = val;
+          }
+        });
+      }
+      return o;
+    },
     onConfirm(value) {
       this.submitData.questionType = value;
       this.showPicker = false;
@@ -56,7 +96,7 @@ export default {
     afterRead(file) {
       file.message = '上传中...';
       // 此时可以自行将文件上传至服务器
-      Toast.loading({
+      this.$toast.loading({
         message: '上传中...',
         forbidClick: true,
         loadingType: 'spinner',
@@ -91,7 +131,7 @@ export default {
         if (res.status == 200) {
           let img_url = 'https://voice.xunsheng.org.cn/'+ res.data.key;
           if(file.type.split('/')[0] == 'image' ){
-            Toast.clear();
+            this.$toast.clear();
             // console.log(img_url,'1111111')
             // console.log(this.fileList,'2222221')
             this.submitData.problemImg.push(img_url);
@@ -101,7 +141,7 @@ export default {
               }
             }
           }else if(file.type.split('/')[0] == 'video' ){
-            Toast.clear();
+            this.$toast.clear();
 
           }
         } else {
@@ -297,28 +337,16 @@ export default {
         imgarr.push(this.fileList[i].content);
       }
       // 判断是不是空值
-      if(this.submitData.name === ""){
-        Toast.fail('请输入产品名称');
-        return;
-      }
-      if(this.submitData.frame === ""){
-        Toast.fail('请输入车架号');
-        return;
-      }
-      if(this.submitData.productID === ""){
-        Toast.fail('请输入产品号');
-        return;
-      }
       if(this.submitData.questionType === ""){
-        Toast.fail('请选择问题类型');
+        this.$toast.fail('请选择问题类型');
         return;
       }
       if(this.submitData.problemDescription === ""){
-        Toast.fail('请描述问题');
+        this.$toast.fail('请描述问题');
         return;
       }
       if(this.submitData.phone === ""){
-        Toast.fail('手机号不能为空');
+        this.$toast.fail('手机号不能为空');
         return;
       }
       let params = {
@@ -335,7 +363,7 @@ export default {
       api.submitCreate(this.qs.stringify(params)).then((res) => {
         if(res.status == 200){
           console.log(res)
-          Toast.success(res.message);
+          this.$toast.success(res.message);
           this.submitData.name='';
           this.submitData.frame='';
           this.submitData.productID='';
@@ -343,7 +371,7 @@ export default {
           this.submitData.problemDescription='';
           this.submitData.problemImg=[];
           this.submitData.phone='';
-          this.fileList='';
+          this.fileList=[];
         }
       })
     },

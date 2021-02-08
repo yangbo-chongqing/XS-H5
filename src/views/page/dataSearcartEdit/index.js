@@ -1,16 +1,13 @@
 import api from '@/request/xsdt';
-import { Icon, Col, Row , Search , List } from 'vant';
-import {parseQuery} from "@/utils/utils";
-import global from "@/global";
+import { Icon, Search , List } from 'vant';
+// import {parseQuery} from "@/utils/utils";
+// import global from "@/global";
 export default {
   name:'Home',
   components: {
     VanIcon: Icon,
-    VanCol: Col,
-    VanRow:Row,
     VanSearch:Search,
     VanList:List,
-
   },
   data() {
     return {

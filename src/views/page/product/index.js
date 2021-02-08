@@ -1,12 +1,10 @@
 import api from '@/request/xsdt';
-import { Icon, Col, Row ,ImagePreview} from 'vant';
+import { Icon ,ImagePreview} from 'vant';
 import global from '@/global';
 export default {
   name:'Home',
   components: {
     VanIcon: Icon,
-    VanCol: Col,
-    VanRow:Row,
     ImagePreview:ImagePreview,
   },
   data() {
@@ -36,6 +34,8 @@ export default {
       examplevideo:[],//改装范例 3个
       activeItem:[],
       activeIndex: 0,
+      extendshow:false,
+      product_extend:'', //扩展字段
     }
   },
   computed: {
@@ -80,9 +80,10 @@ export default {
           }
           document.title = res.data.product.name;
            let url = window.location.href;
-          this.$global.shareToWechat(res.data.product.name, url, res.data.product.image, res.data.product.name)
-          this.expand_manual = (res.data.product.expand.manual.length)
-          this.expand_details = (res.data.product.expand.details.length)
+          this.$global.shareToWechat(res.data.product.name, url, res.data.product.image, res.data.product.name);
+          this.product_extend = res.data.product.expand.manual.length;;//扩展字段
+          this.expand_manual = res.data.product.expand.manual.length;
+          this.expand_details = res.data.product.expand_list.data;
           this.buttom = res.data.buttom;  //底部菜单
           this.water_info = res.data.water_info;
           this.service =  res.data.service; //售后服务
@@ -216,6 +217,7 @@ export default {
         this.shopping_list = arr;
       }
     },
+
     setContent(e){
       e.target.parentNode.parentNode.classList.add('title-set')
       let arr=this.sibling(e.target.parentNode.parentNode)

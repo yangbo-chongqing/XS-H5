@@ -1,15 +1,8 @@
 import api from '@/request/xsdt';
 import {parseQuery} from '@/utils/utils.js'
-import { Icon , Col, Row , Search  , Field } from 'vant';
 export default {
   name:'Home',
   components: {
-    VanIcon: Icon ,
-    VanCol: Col,
-    VanRow:Row,
-    VanSearch:Search,
-    VanField:Field,
-
   },
   data() {
     return {

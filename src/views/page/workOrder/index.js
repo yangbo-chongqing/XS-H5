@@ -1,11 +1,8 @@
-import api from '@/request/xsdt';
-import { Icon, Col, Row } from 'vant';
+// import api from '@/request/xsdt';
 export default {
   name:'Home',
   components: {
-    VanIcon: Icon,
-    VanCol: Col,
-    VanRow:Row
+
   },
   data() {
     return {

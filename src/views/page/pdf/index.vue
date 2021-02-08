@@ -30,7 +30,6 @@
 
 <script>
 import pdf from "vue-pdf";
-import { Toast } from 'vant';
 export default {
   name: "Pdf",
   components: { pdf },
@@ -43,7 +42,7 @@ export default {
     };
   },
   created() {
-    Toast.loading({
+    this.$toast.loading({
       forbidClick: true,
       loadingType: 'spinner',
       duration: 0,
@@ -63,7 +62,7 @@ export default {
     // pdf加载时
     loadPdfHandler(e) {
       this.currentPage = 1;
-      Toast.clear();
+      this.$toast.clear();
     },
   },
 };

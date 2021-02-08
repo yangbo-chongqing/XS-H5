@@ -12,9 +12,9 @@ import Logic from "./index";
 
 export default Logic;
 </script>
-<style lang="scss">
-@import "./index-vant.scss";
-</style>
+<!--<style lang="scss">-->
+<!--@import "./index-vant.scss";-->
+<!--</style>-->
 <style scoped lang="scss">
 @import "./index.scss";
 </style>

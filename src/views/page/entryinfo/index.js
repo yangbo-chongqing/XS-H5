@@ -2,7 +2,7 @@ import api from '@/request/xsdt';
 import axios from 'axios';
 import BigImg from './BigImg/bigImg.vue';
 import global from '@/global';
-import { Icon, Col, Row, Swipe, SwipeItem, NavBar, List, Toast, Uploader, Button , ImagePreview , Overlay } from 'vant';
+import { Icon, Col, Row, Swipe, SwipeItem, NavBar, List, Uploader, Button , ImagePreview , Overlay } from 'vant';
 import { showLoading, hideLoading } from '@/request/loading';
 import Viewer from "viewerjs";
 import {parseQuery} from "@/utils/utils";
@@ -18,7 +18,6 @@ export default {
     VanSwipeItem: SwipeItem,
     VanNavBar: NavBar,
     VanList: List,
-    Toast: Toast,
     VanUploader: Uploader,
     VanButton: Button,
     VanOverlay: Overlay,
@@ -410,7 +409,7 @@ export default {
       api.likeEntry(this.qs.stringify(prams)).then((res) => {
         // console.log(res)
         if (res.status == 200) {
-          Toast.success(res.message);
+          this.$toast.success(res.message);
           e.likes = e.is_like + 1
           e.is_like = e.is_like + 1
         } else if (res.status == 401) {
@@ -432,7 +431,7 @@ export default {
       api.commentLike(this.qs.stringify(data)).then((res) => {
         // console.log(res)
         if (res.status == 200) {
-          Toast.success(res.message);
+          this.$toast.success(res.message);
           datas.is_like = datas.is_like + 1;
           datas.likes = datas.likes + 1;
         } else if (res.status == 401) {
@@ -481,7 +480,7 @@ export default {
         api.CommentEntry(this.qs.stringify(data)).then((res) => {
           // console.log(res)
           if (res.status == 200) {
-            Toast.success(res.message);
+            this.$toast.success(res.message);
             console.log(this.setData.reply_id === '')
             if (this.setData.reply_id === '' || this.setData.reply_id == null) {
               this.commentList.unshift(res.data.info)
@@ -501,7 +500,7 @@ export default {
 
     fileChange(el) {
       // console.log(el)
-      Toast.loading({
+      this.$toast.loading({
         duration: 0,
         message: '上传中...',
         forbidClick: true,
@@ -530,12 +529,12 @@ export default {
                   image: imgs,
                   voice: '',
                 }
-                // Toast.success(res.data.message);
+                // this.$toast.success(res.data.message);
                 api.CommentEntry(_this.qs.stringify(data)).then((res) => {
                   // console.log(res)
                   if (res.status == 200) {
-                    Toast.clear();
-                    Toast.success(res.message);
+                    this.$toast.clear();
+                    this.$toast.success(res.message);
                     if (_this.setData.reply_id === '' || _this.setData.reply_id == null) {
                       _this.commentList.unshift(res.data.info)
                     } else {
@@ -552,21 +551,21 @@ export default {
                     });
                   }
                 }).then((err) => {
-                  Toast.clear();
+                  this.$toast.clear();
                   console.log(err)
                 });
               }
             }).then((err) => {
               // file.status="failed";
               // file.message="上传失败";
-              Toast.clear();
-              // Toast.fail('上传失败');
+              this.$toast.clear();
+              // this.$toast.fail('上传失败');
             });
           }).catch(function (error) {
         //失败时执行
-        // Toast.fail('上传失败');
+        // this.$toast.fail('上传失败');
       }).always(function () {
-        Toast.clear();
+        this.$toast.clear();
       })
     },
 
@@ -780,7 +779,7 @@ export default {
       api.postunsubscribe(this.qs.stringify(data)).then((res) => {
         if (res.status == 200) {
           // console.log(res)
-          Toast.success('取消订阅成功');
+          this.$toast.success('取消订阅成功');
           this.relicsDataInfo.subscribe = 0;
           this.relicsDataInfo.subscribe_count = this.relicsDataInfo.subscribe_count - 1;
         }

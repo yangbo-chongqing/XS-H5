@@ -13,7 +13,8 @@ fastclick.attach(document.body);
 Vue.config.productionTip = false;
 import { Toast, Dialog } from 'vant';
 
-Vue.use(Dialog , Toast );
+Vue.use(Dialog);
+Vue.use(Toast);
 
 Vue.prototype.qs = qs;
 Vue.prototype.$loading = Loading.service;

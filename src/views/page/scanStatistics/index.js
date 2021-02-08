@@ -1,5 +1,5 @@
 import api from '@/request/xsdt';
-import { Icon, Col ,Calendar , Cell} from 'vant';
+import { Icon ,Calendar , Cell} from 'vant';
 import LineChart from './components/LineChart';
 import global from "@/global";
 
@@ -7,7 +7,6 @@ export default {
   name:'Home',
   components: {
     VanIcon: Icon,
-    VanCol: Col,
     LineChart,
     VanCalendar:Calendar,
     VanCell:Cell,

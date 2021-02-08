@@ -1,5 +1,12 @@
 .h-container {
-    
+    .product-extend{
+      p{
+        >div{
+          width: 100%;
+          box-sizing: border-box !important;
+        }
+      }
+    }
 }
 .van-image-preview{
   background-color: #000000;

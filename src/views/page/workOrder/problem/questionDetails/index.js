@@ -1,13 +1,11 @@
 import api from '@/request/xsdt';
-import {Icon, Col, Row, Field, Button, Uploader, Toast} from 'vant';
+import {Icon, Field, Button, Uploader} from 'vant';
 import axios from "axios";
 import Exif from "exif-js";
 export default {
   name:'Home',
   components: {
     VanIcon: Icon,
-    VanCol: Col,
-    VanRow:Row,
     VanField:Field,
     VanButton:Button,
     VanUploader:Uploader,
@@ -48,7 +46,7 @@ export default {
     afterRead(file) {
       file.message = '上传中...';
       // 此时可以自行将文件上传至服务器
-      Toast.loading({
+      this.$toast.loading({
         message: '上传中...',
         forbidClick: true,
         loadingType: 'spinner',
@@ -84,13 +82,13 @@ export default {
           let img_url = 'https://voice.xunsheng.org.cn/'+ res.data.key;
           this.image.push(img_url)
           if(file.type.split('/')[0] == 'image' ){
-            Toast.clear();
+            this.$toast.clear();
             // console.log(img_url,'1111111')
             // console.log(this.fileList,'2222221')
             // console.log(img_url)
             this.onSubmit()
           }else if(file.type.split('/')[0] == 'video' ){
-            Toast.clear();
+            this.$toast.clear();
           }
         } else {
           // this.$util.message("err", res.message);
@@ -279,13 +277,13 @@ export default {
         content:this.message,
         image:JSON.stringify(this.image),
       }
-      console.log(datas)
+      // console.log(datas)
       api.submitReply(this.qs.stringify(datas)).then((res) => {
         if(res.status == 200){
           // console.log(res)
           this.message = '';
           this.image=[];
-          Toast.success(res.message);
+          this.$toast.success(res.message);
           this.replyData.push(res.data.data)
         }
       })
@@ -311,7 +309,7 @@ export default {
     scrollTop(){
       this.$nextTick(()=>{
         document.querySelector('.footer').scrollIntoView()
-        console.log(document.getElementById('scroll'))
+        // console.log(document.getElementById('scroll'))
 
       })
 

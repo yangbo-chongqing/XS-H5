@@ -1,5 +1,5 @@
 import api from '@/request/xsdt';
-import { Icon , Col, Row , Search , List , Popup , Uploader , Checkbox, CheckboxGroup ,Cell ,CellGroup ,Toast ,Field } from 'vant';
+import { Icon , Col, Row , Search , List , Popup , Uploader , Checkbox, CheckboxGroup ,Cell ,CellGroup ,Field } from 'vant';
 import VueUeditorWrap from "vue-ueditor-wrap";
 
 // import 'quill/dist/quill.core.css'
@@ -24,7 +24,6 @@ export default {
     VanCheckboxGroup:CheckboxGroup,
     VanCell:Cell,
     VanCellGroup:CellGroup,
-    Toast:Toast,
     VanField:Field,
     // quillEditor:quillEditor,
     VueUeditorWrap,
@@ -914,7 +913,7 @@ export default {
     //上传图片
     afterRead(file) {
       // 此时可以自行将文件上传至服务器
-      Toast.loading({
+      this.$toast.loading({
         message: '上传中...',
         forbidClick: true,
         loadingType: 'spinner',
@@ -926,7 +925,7 @@ export default {
     //上传视频
     afterVideo(file) {
       // 此时可以自行将文件上传至服务器
-      Toast.loading({
+      this.$toast.loading({
         message: '上传中...',
         forbidClick: true,
         loadingType: 'spinner',
@@ -959,7 +958,7 @@ export default {
         if (res.status == 200) {
           let img_url = 'https://voice.xunsheng.org.cn/'+ res.data.key;
           if(file.type.split('/')[0] == 'image' ){
-            Toast.clear();
+            this.$toast.clear();
             let img =`<p> <img class="a-href-icon" max-width='100%' style='margin-top:5px' src='${img_url}'><p>`;
             // this.insertImg(img)
             this.editor.execCommand('inserthtml', img)
@@ -971,7 +970,7 @@ export default {
             // // 调整光标到最后
             // myTextEditor.setSelection(length + 1)
           }else if(file.type.split('/')[0] == 'video' ){
-            Toast.clear();
+            this.$toast.clear();
             this.videoUrl = img_url;
           }
 
@@ -1031,7 +1030,7 @@ export default {
           // console.log(res)
           if (res.status == 200) {
             // console.log(res)
-            Toast.success(res.message);
+            this.$toast.success(res.message);
             // this.getdata();
           }
         });
@@ -1040,7 +1039,7 @@ export default {
           // console.log(res)
           if (res.status == 200) {
             // console.log(res)
-            Toast.success(res.message);
+            this.$toast.success(res.message);
             // this.getdata();
           }
         });
@@ -1290,8 +1289,8 @@ export default {
       if(this.defaultPhoneHeight != this.nowPhoneHeight){
         //手机键盘被唤起了。
         this.edit_show = false ;
-        document.querySelector('.Upload-video').setAttribute('style','display:none');
-        document.querySelector('.Upload-link').setAttribute('style','display:none');
+        // document.querySelector('.Upload-video').setAttribute('style','display:none');
+        // document.querySelector('.Upload-link').setAttribute('style','display:none');
       }else{
         //手机键盘被关闭了。
       }
