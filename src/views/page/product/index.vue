@@ -17,7 +17,7 @@
 <!--       <div class="product-tip" v-if="dataInfo.listed"><label>上市时间：</label><span>{{dataInfo.listed}}</span></div>-->
        <div class="product-tip" v-if="water_info.clsbdh"><label>车架号：</label><span>{{water_info.clsbdh}}</span></div>
        <div class="product-tip" v-if="water_info.certificate_id"><label>合格证：</label><span>{{water_info.certificate_id}}</span></div>
-       <div class="product-extend" v-if="expand_details.length>0">
+       <div class="product-extend" v-if="productExtend">
          <div class="extend-content" v-show="extendshow" >
            <div class="" v-for="(expandItem,index) in expand_details">
              <img v-if="expandItem.field_type==='图片' && expandItem.value"  :src="expandItem.value" alt="">
@@ -31,6 +31,7 @@
            <div class="Loadmore" @click="extendshow=false" v-show="extendshow">收起<van-icon name="arrow-up" />   </div>
          </div>
        </div>
+
        <div class="product-tit">
          <span class="product-tit-content" v-if="expand_manual>7"  @click="jumpRoute('/productDetails',{muse_id:muse_id,pkid:pkid,currentsum_id:1})">
            <span>使用说明书</span><van-icon name="arrow" />
@@ -205,7 +206,6 @@
 <!--          <img src="@/assets/images/mjDplucGn.png" alt="">-->
 <!--          <p>提问</p>-->
 <!--        </span>-->
-
 <!--      </div>-->
 <!--    </div>-->
 

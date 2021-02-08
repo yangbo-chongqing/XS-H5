@@ -28,14 +28,14 @@
       <h4>问题大类</h4>
       <van-field readonly clickable name="picker" :value="submitData.problem_categories" is-link placeholder="点击选择" @click="showPicker = true" />
       <van-popup v-model="showPicker" position="bottom">
-        <van-picker show-toolbar :columns="columns" @confirm="onConfirm"  @cancel="showPicker = false" />
+        <van-picker show-toolbar :columns="columns_categories" @confirm="onConfirm"  @cancel="showPicker = false" />
       </van-popup>
     </van-form>
     <van-form style="margin-top: 6px;">
       <h4>问题类型</h4>
-      <van-field readonly clickable name="picker" :value="submitData.questionType" is-link placeholder="点击选择" @click="showPicker = true" />
-      <van-popup v-model="showPicker" position="bottom">
-        <van-picker show-toolbar :columns="columns" @confirm="onConfirm"  @cancel="showPicker = false" />
+      <van-field readonly clickable name="picker" :value="submitData.questionType" is-link placeholder="点击选择" @click="showPickers = true" />
+      <van-popup v-model="showPickers" position="bottom">
+        <van-picker show-toolbar :columns="columns_type" @confirm="onConfirm2"  @cancel="showPicker = false" />
       </van-popup>
     </van-form>
 

@@ -18,8 +18,9 @@ export default {
     return {
       muse_id: this.$route.query.muse_id,
       pattern: /^1[3456789]d{9}$/,
-      columns: ['杭州', '宁波', '温州', '嘉兴', '湖州'],
+      columns: [],
       showPicker: false,
+      showPickers: false,
       submitData:{
         name:'',   //产品名称
         frame:'', //车架号
@@ -41,6 +42,8 @@ export default {
       },
       fileList:[],
       problemType:'',
+      columns_categories:[],
+      columns_type:[],
     }
   },
   computed: {
@@ -65,7 +68,7 @@ export default {
       api.postDetails(this.qs.stringify(params)).then((res) => {
         if (res.status == 200) {
           // console.log(res.data.product)
-          console.log(res.data.water_info)
+          // console.log(res.data.water_info)
           this.submitData.imgs = res.data.product.image
           this.submitData.name = res.data.product.name;
           this.submitData.frame = res.data.water_info.clsbdh;
@@ -96,8 +99,19 @@ export default {
       return o;
     },
     onConfirm(value) {
-      this.submitData.questionType = value;
+      this.submitData.problem_categories = value;
       this.showPicker = false;
+      for (let i=0;i<this.columns.length;i++){
+        if(this.columns[i].name === value){
+          for (let j=0;j<this.columns[i].children.length;j++){
+            this.columns_type.push(this.columns[i].children[j].name)
+          }
+        }
+      }
+    },
+    onConfirm2(value) {
+      this.submitData.questionType = value;
+      this.showPickers = false;
     },
     afterRead(file) {
       file.message = '上传中...';
@@ -357,15 +371,19 @@ export default {
         return;
       }
       let params = {
-        title: this.submitData.title,
-        content:this.submitData.problemDescription,
-        product_name:this.submitData.name,
-        frame_number:this.submitData.frame,
-        product_number:this.submitData.productID,
-        phone:this.submitData.phone,
-        problem_type:this.submitData.questionType ,//'问题类型'
-        image:JSON.stringify(imgarr),
-        muse_id:this.submitData.productID,
+        title: this.submitData.title, //标题
+        content:this.submitData.problemDescription,//描述
+        image:JSON.stringify(imgarr),//图片
+        muse_id:this.submitData.muse_id,//商家id
+        product_name:this.submitData.name,//产品名
+        frame_number:this.submitData.frame,//车架号
+        product_number:this.submitData.productID,//产品编号
+        phone:this.submitData.phone,//手机号
+        problem_type:this.submitData.questionType ,//'产品小分类'
+        product_id:this.submitData.productID ,//产品编号
+        problem_categories:this.submitData.problem_categories ,//产品大分类
+        username:this.submitData.username ,//姓名
+
       }
       api.submitCreate(this.qs.stringify(params)).then((res) => {
         if(res.status == 200){
@@ -391,6 +409,11 @@ export default {
       api.postType(this.qs.stringify(params)).then((res) => {
         if(res.status == 200){
           this.columns = res.data;
+          console.log(this.columns)
+          this.columns_categories=[]
+          for (let i=0;i<this.columns.length;i++){
+            this.columns_categories.push(this.columns[i].name)
+          }
         }
         // if(res.status == 200){
         //   console.log(res)
