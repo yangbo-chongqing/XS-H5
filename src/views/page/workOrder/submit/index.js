@@ -378,7 +378,9 @@ export default {
     getType(){
       let params= {}
       api.postType(this.qs.stringify(params)).then((res) => {
-        this.columns = res;
+        if(res.status == 200){
+          this.columns = res.data;
+        }
         // if(res.status == 200){
         //   console.log(res)
         //   // this.columns
