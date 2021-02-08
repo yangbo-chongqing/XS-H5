@@ -343,12 +343,13 @@ export default {
         imgarr.push(this.fileList[i].content);
       }
       // 判断是不是空值
-      if(this.submitData.questionType === ""){
-        this.$toast.fail('请选择问题类型');
-        return;
-      }
+
       if(this.submitData.problemDescription === ""){
         this.$toast.fail('请描述问题');
+        return;
+      }
+      if(this.submitData.title === ""){
+        this.$toast.fail('请填写标题');
         return;
       }
       if(this.submitData.phone === ""){
@@ -356,19 +357,19 @@ export default {
         return;
       }
       let params = {
-        title: this.submitData.name,
+        title: this.submitData.title,
+        content:this.submitData.problemDescription,
         product_name:this.submitData.name,
         frame_number:this.submitData.frame,
         product_number:this.submitData.productID,
         phone:this.submitData.phone,
         problem_type:this.submitData.questionType ,//'问题类型'
-        content:this.submitData.problemDescription,
         image:JSON.stringify(imgarr),
         muse_id:this.submitData.productID,
       }
       api.submitCreate(this.qs.stringify(params)).then((res) => {
         if(res.status == 200){
-          console.log(res)
+          // console.log(res)
           this.$toast.success(res.message);
           this.submitData.name='';
           this.submitData.frame='';

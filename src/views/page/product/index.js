@@ -84,6 +84,7 @@ export default {
           this.product_extend = res.data.product.expand.manual.length;;//扩展字段
           this.expand_manual = res.data.product.expand.manual.length;
           this.expand_details = res.data.product.expand_list.data;
+          console.log(this.expand_details.length>0)
           this.buttom = res.data.buttom;  //底部菜单
           this.water_info = res.data.water_info;
           this.service =  res.data.service; //售后服务

@@ -17,8 +17,8 @@
 <!--       <div class="product-tip" v-if="dataInfo.listed"><label>上市时间：</label><span>{{dataInfo.listed}}</span></div>-->
        <div class="product-tip" v-if="water_info.clsbdh"><label>车架号：</label><span>{{water_info.clsbdh}}</span></div>
        <div class="product-tip" v-if="water_info.certificate_id"><label>合格证：</label><span>{{water_info.certificate_id}}</span></div>
-       <div class="product-extend">
-         <div class="extend-content" v-show="extendshow" v-if="expand_details.length>0">
+       <div class="product-extend" v-if="expand_details.length>0">
+         <div class="extend-content" v-show="extendshow" >
            <div class="" v-for="(expandItem,index) in expand_details">
              <img v-if="expandItem.field_type==='图片' && expandItem.value"  :src="expandItem.value" alt="">
              <video v-if="expandItem.field_type==='视频' && expandItem.value" :src="expandItem.value" preload="none" controls :poster="expandItem.value+'?vframe/jpg/offset/0/w/325/h200'"></video>
