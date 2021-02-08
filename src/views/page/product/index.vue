@@ -30,7 +30,6 @@
            <div class="Loadmore" @click="extendshow=true" v-show="!extendshow">全部展开<van-icon name="arrow-down" /> </div>
            <div class="Loadmore" @click="extendshow=false" v-show="extendshow">收起<van-icon name="arrow-up" />   </div>
          </div>
-
        </div>
        <div class="product-tit">
          <span class="product-tit-content" v-if="expand_manual>7"  @click="jumpRoute('/productDetails',{muse_id:muse_id,pkid:pkid,currentsum_id:1})">
@@ -194,21 +193,21 @@
     <div class="product-foot-img">
       <img :src="buttom" alt="">
     </div>
-    <div class="product-workOrder">
-      <div class="product-workOrder-list" @click="jumpRoute('/workOrderProblem')">
-        <span>
-          <img src="@/assets/images/ltXljZUucGn.png" alt="">
-          <p>工单</p>
-        </span>
-      </div>
-      <div class="product-workOrder-ask" @click="jumpRoute('/workOrderSubmit',{muse_id:muse_id,pkid:pkid,currentsum_id:1})">
-        <span>
-          <img src="@/assets/images/mjDplucGn.png" alt="">
-          <p>提问</p>
-        </span>
+<!--    <div class="product-workOrder">-->
+<!--      <div class="product-workOrder-list" @click="jumpRoute('/workOrderProblem')">-->
+<!--        <span>-->
+<!--          <img src="@/assets/images/ltXljZUucGn.png" alt="">-->
+<!--          <p>工单</p>-->
+<!--        </span>-->
+<!--      </div>-->
+<!--      <div class="product-workOrder-ask" @click="jumpRoute('/workOrderSubmit',{muse_id:muse_id,pkid:pkid,currentsum_id:1})">-->
+<!--        <span>-->
+<!--          <img src="@/assets/images/mjDplucGn.png" alt="">-->
+<!--          <p>提问</p>-->
+<!--        </span>-->
 
-      </div>
-    </div>
+<!--      </div>-->
+<!--    </div>-->
 
 <!--     <div class="product-in-list">-->
 <!--       <div class="product-in-item" v-if="expand_manual>7"  @click="jumpRoute('/productDetails',{muse_id:muse_id,pkid:pkid,currentsum_id:1})">-->

@@ -24,12 +24,16 @@ export default {
         name:'',   //产品名称
         frame:'', //车架号
         productID:'',  //产品号
-        questionType:'',  //问题类型
+        problem_categories:'',//产品大分类
+        questionType:'',  //产品小分类
         problemDescription:'', //问题描述
         problemImg:[],  //问题图片
         phone:'',//手机号码
         qualified:'', //合格证
         imgs:'',
+        muse_id:'', //商家id
+        title:'' ,//标题
+        username:'',//商家姓名
       },
       files:{
         name:'',
@@ -66,7 +70,9 @@ export default {
           this.submitData.name = res.data.product.name;
           this.submitData.frame = res.data.water_info.clsbdh;
           this.submitData.qualified = res.data.water_info.certificate_id;
-          this.submitData.productID = res.data.water_info.muse_id
+          this.submitData.muse_id = res.data.water_info.muse_id;
+          this.submitData.productID = res.data.product.id;
+
         }
       })
     },
@@ -376,7 +382,11 @@ export default {
       })
     },
     getType(){
-      let params= {}
+      let url = this.parseQuery(window.location.href);
+      let muse_id = url.muse_id;
+      let params= {
+        muse_id:muse_id,
+      }
       api.postType(this.qs.stringify(params)).then((res) => {
         if(res.status == 200){
           this.columns = res.data;
