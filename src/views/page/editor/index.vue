@@ -4,7 +4,7 @@
       <div class="ed-header">
         <div class="entry-title">
           <input type="text" bindinput="titleInput" v-model="name" placeholder="请输入词条名称" @blur.prevent="changeCount()">
-          <div class="send-data-btn" @click="postmodifyEntryDetails">修改</div>
+          <div class="send-data-btn" @click="postmodifyEntryDetails">{{ modify }}</div>
         </div>
       </div>
       <div class="ed-content" ref="us">
@@ -169,9 +169,13 @@
           </div>
         </van-popup>
       </div>
+
+<!--      封面添加-->
+      <div class="ed-cover"></div>
     </div>
   </div>
 </template>
+
 
 <script>
 import Logic from "./index";

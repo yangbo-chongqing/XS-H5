@@ -1,5 +1,5 @@
 import api from '@/request/xsdt';
-import {Icon, Form, Field, Uploader, Picker, Popup, Button} from 'vant';
+import {Icon, Form, Field, Uploader, Picker, Popup, Button } from 'vant';
 import axios from "axios";
 import Exif from "exif-js";
 
@@ -44,6 +44,7 @@ export default {
       problemType:'',
       columns_categories:[],
       columns_type:[],
+      column:'',
     }
   },
   computed: {
@@ -99,15 +100,18 @@ export default {
       return o;
     },
     onConfirm(value) {
-      this.submitData.problem_categories = value;
-      this.showPicker = false;
-      for (let i=0;i<this.columns.length;i++){
-        if(this.columns[i].name === value){
-          for (let j=0;j<this.columns[i].children.length;j++){
-            this.columns_type.push(this.columns[i].children[j].name)
-          }
-        }
+      console.log(value,'11111111111111111111')
+      let a='';
+      if(value[1]){
+        a=value[0]+' ' +"-"+ ' ' +value[1];
+        this.submitData.problem_categories = value[0];
+        this.submitData.questionType = value[1];
+      }else {
+        a=value[0];
+        this.submitData.problem_categories = value[0];
       }
+      this.column = a;
+      this.showPicker = false;
     },
     onConfirm2(value) {
       this.submitData.questionType = value;
@@ -123,6 +127,7 @@ export default {
       });
       this.files.name = file.file.name // 获取文件名
       this.files.type = file.file.type // 获取类型
+      console.log(file.file)
       this.imgPreview(file.file)
     },
 // 获取七牛云token
@@ -409,10 +414,28 @@ export default {
       api.postType(this.qs.stringify(params)).then((res) => {
         if(res.status == 200){
           this.columns = res.data;
-          console.log(this.columns)
+          // console.log(this.columns)
           this.columns_categories=[]
           for (let i=0;i<this.columns.length;i++){
-            this.columns_categories.push(this.columns[i].name)
+            let a='';
+            let b='';
+            let arr=[];
+            if(this.columns[i].children.length>0){
+              for (let j=0;j<this.columns[i].children.length;j++){
+                b={
+                  text:this.columns[i].children[j].name,
+                }
+                arr.push(b)
+                this.columns_type.push(this.columns[i].children[j].name)
+              }
+            }
+            a={
+              text:this.columns[i].name,
+              children:arr,
+            }
+            // this.columns_categories.push(this.columns[i].name)
+            this.columns_categories.push(a)
+            // console.log(this.columns_categories)
           }
         }
         // if(res.status == 200){

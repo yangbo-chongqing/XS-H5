@@ -1,6 +1,7 @@
 import api from '@/request/xsdt';
-import { Icon  } from 'vant';
+import { Icon , Uploader } from 'vant';
 import html2canvas from 'html2canvas';
+import axios from "axios";
 // html2canvas(document.body).then(function(canvas) {
 //   // document.body.appendChild(canvas);
 // },);
@@ -12,6 +13,8 @@ export default {
     // VanRow:Row,
     // VanSearch:Search,
     // VanField:Field,
+    VanUploader:Uploader,
+    html2canvas:html2canvas,
 
   },
   data() {
@@ -40,35 +43,71 @@ export default {
   },
   methods: {
     toImage() {
+      this.$toast.loading({
+        message: '下载中...',
+        forbidClick: true,
+        loadingType: 'spinner',
+      });
       html2canvas(this.$refs.imageDom, {
         backgroundColor: '#ffffff',
         useCORS: true,
         allowTaint: true,
+        taintTest: true,
       }).then(canvas => {
         let imgData = canvas.toDataURL("image/jpg");
-        this.savePic(imgData);
+        // this.fileDownload(imgData);
+        // this.savePicture(imgData)
         // window.location.href = imgData;
         // console.log(imgData)
+        let file = this.dataURLtoFile(imgData);
+        console.log(file)
+        this.getpolicy(file);
       })
     },
-    savePic(Url){
-      // Url = this.dialogImgUrl //图片路径，也可以传值进来
-      let triggerEvent = "touchstart"; //指定下载方式
-      let blob=new Blob([''], {type:'application/octet-stream'}); //二进制大型对象blob
-      let url = URL.createObjectURL(blob); //创建一个字符串路径空位
-      let a = document.createElement('a'); //创建一个 a 标签
-      a.href = Url;  //把路径赋到a标签的href上
-      //正则表达式，这里是把图片文件名分离出来。拿到文件名赋到a.download,作为文件名来使用文本
-      a.download = Url.replace(/(.*\/)*([^.]+.*)/ig,"$2").split("?")[0];
-      /* var e = document.createEvent('MouseEvents');  //创建事件（MouseEvents鼠标事件）
-      e.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null); //初始化鼠标事件（initMouseEvent已弃用）*/
+    dataURLtoFile(dataurl) {
+      var arr = dataurl.split(','),
+          bstr = atob(arr[1]),
+          n = bstr.length,
+          u8arr = new Uint8Array(n)
+      while (n--) {
+        u8arr[n] = bstr.charCodeAt(n)
+      }
+      return new File([u8arr], this.commentList, {
+        type:'image/png'
+      })
+    },
+    getpolicy(file) {
+      let data ={
+        suffix:file.type.split('/')[1],
+      };
+      api.postqiniu(data).then((res) => {
+        if (res.status == "200") {
+          // console.log(res)
+          this.qiniuyunUpload(file,res.data.data)
+        }
+      });
+    },
+    // 上传七牛云
+    qiniuyunUpload(file, qiniuyunToken) {
+      let formData = new FormData();
+      //注意formData里append添加的键的大小写
+      formData.append('key', qiniuyunToken.key)
+      formData.append('token', qiniuyunToken.upToken)
+      //如果是base64文件，那么直接把base64字符串转成blob对象进行上传就可以了
+      formData.append("file", file);
+      axios.post('http://upload.qiniup.com', formData, {
+        'Content-Type': 'multipart/form-data'
+      }).then(res => {
+        if (res.status == 200) {
+          let img_url = 'https://voice.xunsheng.org.cn/'+ res.data.key;
 
-      //代替方法。创建鼠标事件并初始化（后面这些参数我也不清楚，参考文档吧 https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/MouseEvent）
-      let e = new MouseEvent('click', ( true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null));
-      //派遣后，它将不再执行任何操作。执行保存到本地
-      a.dispatchEvent(e);
-      //释放一个已经存在的路径（有创建createObjectURL就要释放revokeObjectURL）
-      URL.revokeObjectURL(url);
+          console.log(img_url,'1111111')
+          // console.log(this.fileList,'2222221')
+          this.fileDownload(img_url);
+        }
+
+      })
+
     },
     fileDownload(downloadUrl) {
       // console.log(downloadUrl)
@@ -79,8 +118,9 @@ export default {
       // 触发点击-然后移除
       document.body.appendChild(aLink);
       aLink.click();
-      // console.log(aLink)
+      console.log(aLink)
       document.body.removeChild(aLink);
+      this.$toast.clear();
     },
 
 

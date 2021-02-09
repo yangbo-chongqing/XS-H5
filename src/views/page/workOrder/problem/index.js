@@ -72,7 +72,7 @@ export default {
           this.total = this.total += res.data.list.length
           // console.log(res.data.list.data[1])
           for (let i = 0; i < res.data.list.data.length; i++) {
-            console.log(res.data.list.data[i])
+            // console.log(res.data.list.data[i])
             this.problemData.push(res.data.list.data[i]);
           }
           // this.keyword = '';

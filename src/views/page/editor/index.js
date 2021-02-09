@@ -116,6 +116,7 @@ export default {
       ueData: "",
       defaultPhoneHeight:'',
       nowPhoneHeight:'',
+      modify:'新增',
     }
   },
   computed: {
@@ -989,6 +990,7 @@ export default {
         }
         // console.log(this.relics_id !== undefined)
         if(this.relics_id !== undefined){
+          this.modify='修改';
           api.postEntryDetails(this.qs.stringify(data)).then((res) => {
             // console.log(res)
             if (res.status == 200) {
@@ -1248,15 +1250,6 @@ export default {
       // console.log(formData,'2')
       this.getpolicy(file);
     },
-    a(e){
-      console.log(e.data)
-      console.log(e.target.childNodes)
-      for(let i =0 ;i<e.target.childNodes.length;i++){
-        if(e.target.childNodes[i].textContent == e.data){
-          console.log(e.target.childNodes[i])
-        }
-      }
-    },
   },
   watch: {
     // 监听prop的变化，更新ckeditor中的值
@@ -1271,7 +1264,6 @@ export default {
           .querySelector("iframe").contentWindow.document.body;
       ifm.addEventListener("click", this.updateOrDelete);
       ifm.addEventListener("keydown", this.upkeydown);
-      // ifm.addEventListener("input", this.a);
       this.$emit("input", this.content);
 
       // console.log(ifm)
