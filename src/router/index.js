@@ -133,36 +133,36 @@ const routes = [
   //     keepAlive: false,
   //   },
   // },
-  {
-    // 词条管理
-    path: '/dataSearcartEdit',
-    name: 'dataSearcartEdit',
-    component: () => import('@/views/page/dataSearcartEdit/index.vue'),
-    meta: {
-      title: '寻声扫码',
-      keepAlive: false,
-    },
-  },
-  {
-    // 下载二维码
-    path: '/editcode',
-    name: 'editcode',
-    component: () => import('@/views/page/editcode/index.vue'),
-    meta: {
-      title: '寻声扫码',
-      keepAlive: false,
-    },
-  },
-  {
-    // 词条编辑
-    path: '/editor',
-    name: 'editor',
-    component: () => import('@/views/page/editor/index.vue'),
-    meta: {
-      title: '寻声扫码',
-      keepAlive: false,
-    },
-  },
+  // {
+  //   // 词条管理
+  //   path: '/dataSearcartEdit',
+  //   name: 'dataSearcartEdit',
+  //   component: () => import('@/views/page/dataSearcartEdit/index.vue'),
+  //   meta: {
+  //     title: '寻声扫码',
+  //     keepAlive: false,
+  //   },
+  // },
+  // {
+  //   // 下载二维码
+  //   path: '/editcode',
+  //   name: 'editcode',
+  //   component: () => import('@/views/page/editcode/index.vue'),
+  //   meta: {
+  //     title: '寻声扫码',
+  //     keepAlive: false,
+  //   },
+  // },
+  // {
+  //   // 词条编辑
+  //   path: '/editor',
+  //   name: 'editor',
+  //   component: () => import('@/views/page/editor/index.vue'),
+  //   meta: {
+  //     title: '寻声扫码',
+  //     keepAlive: false,
+  //   },
+  // },
   {
     // 用户行为轨迹
     path: '/behaviorTrack',
