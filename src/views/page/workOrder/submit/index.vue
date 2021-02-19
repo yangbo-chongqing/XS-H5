@@ -22,7 +22,7 @@
     </div>
     <van-form style="margin-top: 6px;">
       <h4> <span>标题 <img src="@/assets/images/five-pointedstar.png" alt=""></span></h4>
-      <van-field v-model="submitData.title"  rows="1"  autosize  type="textarea" placeholder="请输入" />
+      <van-field v-model="submitData.title"  rows="1"  autosize  type="textarea" placeholder="请输入标题" />
     </van-form>
     <van-form style="margin-top: 6px;">
 <!--      <h4>问题大类</h4>-->
@@ -42,14 +42,14 @@
 
     <van-form style="margin-top: 6px;">
       <h4><span>问题描述 <img src="@/assets/images/five-pointedstar.png" alt=""></span></h4>
-      <van-field v-model="submitData.problemDescription"  rows="7"  autosize type="textarea" placeholder="请输入" />
+      <van-field v-model="submitData.problemDescription"  rows="7"  autosize type="textarea" placeholder="请描述您的问题" />
     </van-form>
 
     <van-form style="margin-top: 6px;">
       <h4>图片上传</h4>
       <van-field name="uploader" label="">
         <template #input>
-          <van-uploader :after-read="afterRead" v-model="fileList"  accept="image/*"/>
+          <van-uploader :after-read="afterRead" v-model="fileList"  accept="image/*" :max-count="5"/>
         </template>
       </van-field>
     </van-form>

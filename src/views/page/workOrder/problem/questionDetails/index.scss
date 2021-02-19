@@ -23,9 +23,10 @@
     }
     .questionDetails-header-problem{
       border: 1px solid #969696;
-      padding: 2px 4px;
+      padding: 0 4px;
       display: inline-block;
       border-radius: 25px;
+      font-size: 12px;
     }
 
     .questionDetails-header-img{
@@ -42,6 +43,7 @@
         //padding-top: 24px;
         max-height: 50px;
         color: #3e70df;
+        margin-left: auto;
         span{
           font-size: 14px;
 

@@ -37,6 +37,7 @@ export default {
       extendshow:false,
       product_extend:'', //扩展字段
       productExtend:false,
+      workorder:'',//判断是否开启工单
     }
   },
   computed: {
@@ -132,6 +133,8 @@ export default {
           //   this.activeItem.push({'title':"网络商城"});
           // }
           // console.log(this.activeItem)
+          // 判断是否开启工单
+          this.workorder = res.workorder;
         }
       });
     },

@@ -67,6 +67,9 @@ export default {
         name: "",
         type: ""
       },
+      fileList:[],
+      indeximg:'',
+      cover_show:false,
       editorOption:{
         placeholder: "写点什么",
         modules:{
@@ -116,7 +119,6 @@ export default {
       ueData: "",
       defaultPhoneHeight:'',
       nowPhoneHeight:'',
-      modify:'新增',
     }
   },
   computed: {
@@ -912,8 +914,10 @@ export default {
     },
 
     //上传图片
-    afterRead(file) {
+    afterRead(index) {
       // 此时可以自行将文件上传至服务器
+      return file => {
+        this.indeximg=index;
       this.$toast.loading({
         message: '上传中...',
         forbidClick: true,
@@ -922,6 +926,8 @@ export default {
       this.files.name = file.file.name // 获取文件名
       this.files.type = file.file.type // 获取类型
       this.imgPreview(file.file)
+      console.log(this.fileList)
+      }
     },
     //上传视频
     afterVideo(file) {
@@ -960,9 +966,13 @@ export default {
           let img_url = 'https://voice.xunsheng.org.cn/'+ res.data.key;
           if(file.type.split('/')[0] == 'image' ){
             this.$toast.clear();
-            let img =`<p> <img class="a-href-icon" max-width='100%' style='margin-top:5px' src='${img_url}'><p>`;
-            // this.insertImg(img)
-            this.editor.execCommand('inserthtml', img)
+            if( this.indeximg ===1){
+              this.fileList[0].content=img_url;
+            }else {
+              let img =`<p> <img class="a-href-icon" max-width='100%' style='margin-top:5px' src='${img_url}'><p>`;
+              // this.insertImg(img)
+              this.editor.execCommand('inserthtml', img)
+            }
             // let myTextEditor = this.$refs.myTextEditor.quill
             // // 获取光标所在位置
             // let length = myTextEditor.getSelection().index;
@@ -990,12 +1000,12 @@ export default {
         }
         // console.log(this.relics_id !== undefined)
         if(this.relics_id !== undefined){
-          this.modify='修改';
           api.postEntryDetails(this.qs.stringify(data)).then((res) => {
             // console.log(res)
             if (res.status == 200) {
               // console.log(res.data.info)
               this.editor_data = res.data.info;
+              // this.fileList[0].content = this.editor_data.image
               if(this.editor_data.content !== ''){
                 this.content = this.editor_data.content;
               }
@@ -1018,7 +1028,7 @@ export default {
       let data = {
         id:this.id,
         name:this.name,
-        image:'',
+        image:this.fileList[0].content,
         voice_url:'',
         video_url:'',
         content:this.content,
@@ -1034,6 +1044,7 @@ export default {
             // console.log(res)
             this.$toast.success(res.message);
             // this.getdata();
+            this.cover_show=false;
           }
         });
       }else {
@@ -1042,6 +1053,7 @@ export default {
           if (res.status == 200) {
             // console.log(res)
             this.$toast.success(res.message);
+            this.cover_show=false;
             // this.getdata();
           }
         });

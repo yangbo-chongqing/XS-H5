@@ -1,6 +1,6 @@
 import api from '@/request/xsdt';
 import { Icon, Search , List } from 'vant';
-// import {parseQuery} from "@/utils/utils";
+import {parseQuery} from "@/utils/utils";
 // import global from "@/global";
 export default {
   name:'Home',
@@ -124,7 +124,7 @@ export default {
 
     getUserInfo() {
       let value = {
-        token: '615396b1efa5bd94bda1b43585398667',
+        token: 'cfb99e051986d1c41dd3e87e7cb46ffc',
         user_id: 399,
       };
       window.localStorage.setItem("storage", JSON.stringify(value));

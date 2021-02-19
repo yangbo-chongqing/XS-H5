@@ -188,4 +188,20 @@
       }
     }
   }
+  .ed-cover{
+    .van-uploader{
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+      .van-uploader__preview-image{
+        width: 250px;
+        height: 200px;
+      }
+    }
+    .van-uploader__upload{
+      width: 250px;
+      height: 200px;
+    }
+  }
 }

@@ -297,7 +297,8 @@ export default {
             user_id:res.data.data.user_id,
             workorder_id:res.data.data.workorder_id,
           }
-          this.replyData.push(data_res)
+          this.replyData.push(data_res);
+          this.scrollTop();
         }else if(res.status == 401){
           this.$router.push({
             path: '/toke',
@@ -317,7 +318,9 @@ export default {
           // console.log(res)
           this.questionDetails = res.data.info;
           this.questionDetailsimg = JSON.parse(res.data.info.problem_image);
-          this.replyData = res.data.list.data
+          this.replyData = res.data.list.data;
+          this.replyData.splice(0,1);
+          console.log(this.replyData)
           // console.log(this.questionDetails)
           this.scrollTop();
         }else if(res.status == 401){

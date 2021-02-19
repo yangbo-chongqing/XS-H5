@@ -194,7 +194,7 @@
     <div class="product-foot-img">
       <img :src="buttom" alt="">
     </div>
-    <div class="product-workOrder">
+    <div class="product-workOrder" v-if="workorder">
       <div class="product-workOrder-list" @click="jumpRoute('/workOrderProblem')">
         <span>
           <img src="@/assets/images/ltXljZUucGn.png" alt="">

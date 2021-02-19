@@ -73,22 +73,7 @@ export default {
           this.$router.push({
             path: '/toke',
           });
-        } else {
-          let data = {
-            'relics_id': this.id,
-          }
-          api.ScanCode(data).then((res) => {
-            if (res.status === 200) {
-            } else if (res.status === 401) {
-              this.$router.push({
-                path: '/toke',
-              });
-            }
-          }).then((err) => {
-            // console.log(err)
-          })
         }
-
     },
     getproduct(){
       let url = this.parseQuery(window.location.href);
@@ -433,6 +418,7 @@ export default {
           this.submitData.problemImg=[];
           this.submitData.phone='';
           this.fileList=[];
+          this.$router.back()
         }else if(res.status == 401){
           this.$router.push({
             path: '/toke',

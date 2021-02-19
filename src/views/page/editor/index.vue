@@ -4,7 +4,7 @@
       <div class="ed-header">
         <div class="entry-title">
           <input type="text" bindinput="titleInput" v-model="name" placeholder="请输入词条名称" @blur.prevent="changeCount()">
-          <div class="send-data-btn" @click="postmodifyEntryDetails">{{ modify }}</div>
+          <div class="send-data-btn" @click="cover_show=true">下一步</div>
         </div>
       </div>
       <div class="ed-content" ref="us">
@@ -65,7 +65,7 @@
             <!--        </div>-->
           </div>
           <!--      上传图片-->
-          <van-uploader class="Upload-image" :after-read="afterRead" style="display: none" accept="image/*" />
+          <van-uploader class="Upload-image" :after-read="afterRead(2)" style="display: none" accept="image/*" />
           <div class="Upload-link" style="display: none">
             <div class="Upload-link-head">
               <p @click="closelink">取消</p>
@@ -171,7 +171,11 @@
       </div>
 
 <!--      封面添加-->
-      <div class="ed-cover"></div>
+      <div class="ed-cover" v-show="cover_show">
+        <div class="ed-cover-title" @click="cover_show=false"> <span>上一步</span></div>
+        <van-uploader  v-model="fileList"  multiple :max-count="1" :after-read="afterRead(1)" upload-icon="photo"/>
+        <p class="ed-cover-preservation" @click="postmodifyEntryDetails">保存草稿箱</p>
+      </div>
     </div>
   </div>
 </template>
