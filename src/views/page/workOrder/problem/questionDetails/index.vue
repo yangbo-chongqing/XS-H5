@@ -1,6 +1,22 @@
 <template>
   <div class="questionDetails" ref="questionDetails">
-    <div class="questionDetails-header">问题详情 <span>{{ questionDetails.state===0?'待回复':'已回复' }}</span></div>
+    <div class="questionDetails-header">
+      <h4>{{ questionDetails.title}}</h4>
+      <p class="questionDetails-header-problem" v-if="questionDetails.problem_categories">{{questionDetails.problem_categories}} <span v-if="questionDetails.problem_type">-{{questionDetails.problem_type}}</span></p>
+      <p v-if="questionDetails.problem_content">{{questionDetails.problem_content}}</p>
+      <div class="questionDetails-header-img">
+        <div class="questionDetails-img-list" v-if="questionDetailsimg.length>0">
+          <img :src="item" alt="" v-for="(item,index) in questionDetailsimg" :index="index">
+        </div>
+        <div class="questionDetails-header-state" :style="{'padding-top':questionDetailsimg.length>0?'24px':''}">
+          <span v-if="questionDetails.state===0">已提交</span>
+          <span v-if="questionDetails.state===1">已受理分析中</span>
+          <span v-if="questionDetails.state===2">已确认处理中</span>
+          <span v-if="questionDetails.state===3">已结束</span>
+        </div>
+      </div>
+
+    </div>
     <div class="questionDetails-list">
       <div v-for="(item,index) in replyData" :class="item.type===1?'questionDetails-list-left':'questionDetails-list-right'" >
         <span>

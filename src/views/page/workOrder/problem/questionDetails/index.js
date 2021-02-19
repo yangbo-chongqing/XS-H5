@@ -23,6 +23,7 @@ export default {
         type:'',
       },
       questionDetails:'',
+      questionDetailsimg:'',
     }
   },
   computed: {
@@ -283,8 +284,20 @@ export default {
           // console.log(res)
           this.message = '';
           this.image=[];
-          this.$toast.success(res.message);
-          this.replyData.push(res.data.data)
+          // this.$toast.success(res.message);
+          let data_res={
+            avatar:this.replyData[0].avatar,
+            content:res.data.data.content,
+            create_time: res.data.data.create_time,
+            id: res.data.data.id,
+            image: res.data.data.image,
+            muse_id: res.data.data.muse_id,
+            nickname: '',
+            type: 0,
+            user_id:res.data.data.user_id,
+            workorder_id:res.data.data.workorder_id,
+          }
+          this.replyData.push(data_res)
         }
       })
     },
@@ -299,6 +312,7 @@ export default {
         if(res.status == 200){
           // console.log(res)
           this.questionDetails = res.data.info;
+          this.questionDetailsimg = JSON.parse(res.data.info.problem_image);
           this.replyData = res.data.list.data
           // console.log(this.questionDetails)
           this.scrollTop();

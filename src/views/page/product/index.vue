@@ -194,20 +194,20 @@
     <div class="product-foot-img">
       <img :src="buttom" alt="">
     </div>
-<!--    <div class="product-workOrder">-->
-<!--      <div class="product-workOrder-list" @click="jumpRoute('/workOrderProblem')">-->
-<!--        <span>-->
-<!--          <img src="@/assets/images/ltXljZUucGn.png" alt="">-->
-<!--          <p>工单</p>-->
-<!--        </span>-->
-<!--      </div>-->
-<!--      <div class="product-workOrder-ask" @click="jumpRoute('/workOrderSubmit',{muse_id:muse_id,pkid:pkid,currentsum_id:1})">-->
-<!--        <span>-->
-<!--          <img src="@/assets/images/mjDplucGn.png" alt="">-->
-<!--          <p>提问</p>-->
-<!--        </span>-->
-<!--      </div>-->
-<!--    </div>-->
+    <div class="product-workOrder">
+      <div class="product-workOrder-list" @click="jumpRoute('/workOrderProblem')">
+        <span>
+          <img src="@/assets/images/ltXljZUucGn.png" alt="">
+          <p>工单</p>
+        </span>
+      </div>
+      <div class="product-workOrder-ask" @click="jumpRoute('/workOrderSubmit',{muse_id:muse_id,pkid:pkid,currentsum_id:1})">
+        <span>
+          <img src="@/assets/images/mjDplucGn.png" alt="">
+          <p>提问</p>
+        </span>
+      </div>
+    </div>
 
 <!--     <div class="product-in-list">-->
 <!--       <div class="product-in-item" v-if="expand_manual>7"  @click="jumpRoute('/productDetails',{muse_id:muse_id,pkid:pkid,currentsum_id:1})">-->
