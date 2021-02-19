@@ -2,6 +2,7 @@ import api from '@/request/xsdt';
 import {Icon, Form, Field, Uploader, Picker, Popup, Button } from 'vant';
 import axios from "axios";
 import Exif from "exif-js";
+import global from "@/global";
 
 export default {
   name:'Home',
@@ -56,8 +57,39 @@ export default {
   mounted() {
     this.getType();
     this.getproduct();
+    this.getUser();
   },
   methods: {
+    getUser() {
+      // let storage = {
+      //   'code':'3ce36580b51083ba3e7e636b4f808d14',
+      //   'user_id':399,
+      // }
+      // window.localStorage.setItem('storage',JSON.stringify(storage))
+
+        if (window.localStorage.getItem('storage') == null) {
+          // console.log(1);
+          this.Show = true;
+          this.$router.push({
+            path: '/toke',
+          });
+        } else {
+          let data = {
+            'relics_id': this.id,
+          }
+          api.ScanCode(data).then((res) => {
+            if (res.status === 200) {
+            } else if (res.status === 401) {
+              this.$router.push({
+                path: '/toke',
+              });
+            }
+          }).then((err) => {
+            // console.log(err)
+          })
+        }
+
+    },
     getproduct(){
       let url = this.parseQuery(window.location.href);
       let muse_id = url.muse_id;
