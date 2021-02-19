@@ -139,7 +139,7 @@ const routes = [
   //   name: 'dataSearcartEdit',
   //   component: () => import('@/views/page/dataSearcartEdit/index.vue'),
   //   meta: {
-  //     title: '寻声扫码',
+  //     title: '词条管理',
   //     keepAlive: false,
   //   },
   // },
@@ -149,7 +149,7 @@ const routes = [
   //   name: 'editcode',
   //   component: () => import('@/views/page/editcode/index.vue'),
   //   meta: {
-  //     title: '寻声扫码',
+  //     title: '二维码下载',
   //     keepAlive: false,
   //   },
   // },
@@ -159,7 +159,7 @@ const routes = [
   //   name: 'editor',
   //   component: () => import('@/views/page/editor/index.vue'),
   //   meta: {
-  //     title: '寻声扫码',
+  //     title: '词条编辑',
   //     keepAlive: false,
   //   },
   // },

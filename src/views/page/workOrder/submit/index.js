@@ -394,7 +394,6 @@ export default {
         imgarr.push(this.fileList[i].content);
       }
       // 判断是不是空值
-
       if(this.submitData.problemDescription === ""){
         this.$toast.fail('请描述问题');
         return;
@@ -434,7 +433,12 @@ export default {
           this.submitData.problemImg=[];
           this.submitData.phone='';
           this.fileList=[];
+        }else if(res.status == 401){
+          this.$router.push({
+            path: '/toke',
+          });
         }
+
       })
     },
     getType(){

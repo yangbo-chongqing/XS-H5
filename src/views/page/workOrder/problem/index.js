@@ -113,6 +113,10 @@ export default {
           // this.keyword = '';
           this.page = datas.page
           //         console.log(this.commentList)
+        }else if(res.status == 401){
+          this.$router.push({
+            path: '/toke',
+          });
         }
         // 加载状态结束
         this.loading = false;

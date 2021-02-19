@@ -298,6 +298,10 @@ export default {
             workorder_id:res.data.data.workorder_id,
           }
           this.replyData.push(data_res)
+        }else if(res.status == 401){
+          this.$router.push({
+            path: '/toke',
+          });
         }
       })
     },
@@ -316,6 +320,10 @@ export default {
           this.replyData = res.data.list.data
           // console.log(this.questionDetails)
           this.scrollTop();
+        }else if(res.status == 401){
+          this.$router.push({
+            path: '/toke',
+          });
         }
       })
     },
