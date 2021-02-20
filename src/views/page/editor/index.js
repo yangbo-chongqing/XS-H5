@@ -70,35 +70,6 @@ export default {
       fileList:[],
       indeximg:'',
       cover_show:false,
-      editorOption:{
-        placeholder: "写点什么",
-        modules:{
-          toolbar:{
-            container: "#toolbar",
-            handlers: {
-              'image': function (value) {
-                if (value) {
-                  // 触发input框选择图片文件
-                  // console.log(document.querySelector('.van-uploader input'))
-                  document.querySelector('.Upload-image input').click()
-                } else {
-                  this.quill.format('image', false);
-                }
-              },
-              'video': function (value) {
-                if (value) {
-                  // 触发input框选择图片文件
-                  // console.log(document.querySelector('.van-uploader input'))
-                  // document.querySelector('.Upload-video').setAttribute('display','')
-                  document.querySelector('.Upload-video').setAttribute('style','display:inline-block')
-                } else {
-                  this.quill.format('image', false);
-                }
-              },
-            }
-          }
-        }
-      },
       ueConfig: {
         toolbars: [],
         labelMap: {},
@@ -139,6 +110,16 @@ export default {
     }
   },
   methods: {
+    //页面跳转
+    jumpRoute(path, obj) {
+      let routeUrl= this.$router.resolve({
+        path: path,
+        query: {
+          ...obj
+        }
+      })
+      window.open(routeUrl.href, '_blank');
+    },
     showPopup(){
       this.show = true;
     },
@@ -965,14 +946,18 @@ export default {
         if (res.status == 200) {
           let img_url = 'https://voice.xunsheng.org.cn/'+ res.data.key;
           if(file.type.split('/')[0] == 'image' ){
-            this.$toast.clear();
+
             if( this.indeximg ===1){
-              this.fileList[0].content=img_url;
+              this.fileList=[];
+              this.fileList.push({
+                url:img_url
+              })
             }else {
               let img =`<p> <img class="a-href-icon" max-width='100%' style='margin-top:5px' src='${img_url}'><p>`;
               // this.insertImg(img)
               this.editor.execCommand('inserthtml', img)
             }
+            this.$toast.clear();
             // let myTextEditor = this.$refs.myTextEditor.quill
             // // 获取光标所在位置
             // let length = myTextEditor.getSelection().index;
@@ -1006,6 +991,11 @@ export default {
               // console.log(res.data.info)
               this.editor_data = res.data.info;
               // this.fileList[0].content = this.editor_data.image
+              if(this.editor_data.image){
+                this.fileList.push({
+                  url:this.editor_data.image
+                })
+              }
               if(this.editor_data.content !== ''){
                 this.content = this.editor_data.content;
               }
@@ -1020,7 +1010,7 @@ export default {
         }
     },
     // 修改提交数据
-    postmodifyEntryDetails(){
+    postmodifyEntryDetails(index){
       let relateds = [];
       for(let i=0;i<this.entrySelectData.length;i++){
         relateds.push(this.entrySelectData[i].id)
@@ -1028,15 +1018,18 @@ export default {
       let data = {
         id:this.id,
         name:this.name,
-        image:this.fileList[0].content,
+        image:'',
         voice_url:'',
         video_url:'',
         content:this.content,
         related_ids:relateds.toString(),
         type_id:0,
       }
-      console.log(this.id)
-      console.log(this.id !== undefined)
+      if(this.fileList.length>0){
+        data.image=this.fileList[0].url
+      }
+      // console.log(this.id)
+      // console.log(this.id !== undefined)
       if(this.id !== undefined){
         api.modifyEntryDetails(this.qs.stringify(data)).then((res) => {
           // console.log(res)
@@ -1044,7 +1037,12 @@ export default {
             // console.log(res)
             this.$toast.success(res.message);
             // this.getdata();
-            this.cover_show=false;
+            // this.cover_show=false;
+            if(index === 1){
+              this.$router.back()
+            }else {
+              this.jumpRoute('/entryinfo',{id:this.editor_data.id});
+            }
           }
         });
       }else {
@@ -1055,9 +1053,18 @@ export default {
             this.$toast.success(res.message);
             this.cover_show=false;
             // this.getdata();
+            if(index === 1){
+              this.$router.back()
+            }else {
+              this.jumpRoute('/entryinfo',{id:res.data.id});
+            }
           }
         });
       }
+    },
+    //保存并预览
+    savePreview(index){
+     this.postmodifyEntryDetails(index);
     },
     toolbarShow(){
       if(this.edit_show){

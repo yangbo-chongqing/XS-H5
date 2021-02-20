@@ -1,5 +1,5 @@
 <template>
-  <div class="h-container" ref="appContainer">
+  <div class="editor-container" ref="appContainer">
     <div class="h-container_content">
       <div class="ed-header">
         <div class="entry-title">
@@ -172,9 +172,12 @@
 
 <!--      封面添加-->
       <div class="ed-cover" v-show="cover_show">
-        <div class="ed-cover-title" @click="cover_show=false"> <span>上一步</span></div>
-        <van-uploader  v-model="fileList"  multiple :max-count="1" :after-read="afterRead(1)" upload-icon="photo"/>
-        <p class="ed-cover-preservation" @click="postmodifyEntryDetails">保存草稿箱</p>
+        <div class="ed-cover-title"><span @click="postmodifyEntryDetails(1)">完成</span></div>
+        <van-uploader  v-model="fileList"  multiple :max-count="1" :after-read="afterRead(1)">
+          <van-icon name="photo" />
+          <p>上传封面</p>
+        </van-uploader>
+        <p class="ed-cover-preservation"  @click="savePreview(2)">保存并预览</p>
       </div>
     </div>
   </div>
