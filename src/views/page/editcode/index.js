@@ -20,6 +20,7 @@ export default {
   data() {
     return {
       id: this.$route.query.id,
+      muse_id: this.$route.query.muse_id,
       keyword:'',
       loading: false,
       finished: false,
@@ -51,6 +52,7 @@ export default {
       html2canvas(this.$refs.imageDom, {
         backgroundColor: '#ffffff',
         useCORS: true,
+        logging:true,
         allowTaint: true,
         taintTest: true,
       }).then(canvas => {
@@ -101,7 +103,7 @@ export default {
         if (res.status == 200) {
           let img_url = 'https://voice.xunsheng.org.cn/'+ res.data.key;
 
-          console.log(img_url,'1111111')
+          // console.log(img_url,'1111111')
           // console.log(this.fileList,'2222221')
           this.fileDownload(img_url);
         }
@@ -129,17 +131,20 @@ export default {
 
     museinfo () {
       // console.log(1)
-      let data = {
-        id:this.id,
-      }
-      api.postminicode(this.qs.stringify(data)).then((res) => {
-        // console.log(res)
-        if (res.status == 200) {
-          this.commentList = res.data.code_url
-          this.name = res.data.name
-          // console.log(this.commentList)
-        }
-      });
+      this.commentList = "http://xsdt.xunsheng.org.cn/api/web/code?type=1&id=" +this.id +"&muse_id=" +this.muse_id
+      // let data = {
+      //   id:this.id,
+      //   type:2,
+      //   muse_id:this.muse_id,
+      // }
+      // api.postminicode(this.qs.stringify(data)).then((res) => {
+      //   // console.log(res)
+      //   if (res.status == 200) {
+      //     this.commentList = res.data.code_url
+      //     this.name = res.data.name
+      //     // console.log(this.commentList)
+      //   }
+      // });
     },
 
 
