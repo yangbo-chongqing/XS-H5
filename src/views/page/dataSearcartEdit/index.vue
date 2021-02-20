@@ -10,7 +10,7 @@
       </div>
       <div class="content">
         <van-list v-model="loading" :finished="finished" :immediate-check="false" loading-text="加载中..." finished-text="没有更多了" @load="onLoad">
-          <ul class="content-list">
+          <ul class="content-list" v-if="commentList.length>0">
             <li class="list" v-for="(item, index) in commentList">
               <h5 class="home-you-name">{{ item.name }}</h5>
               <div class="home-you-body">

@@ -112,13 +112,12 @@ export default {
   methods: {
     //页面跳转
     jumpRoute(path, obj) {
-      let routeUrl= this.$router.resolve({
+      this.$router.push({
         path: path,
         query: {
           ...obj
         }
       })
-      window.open(routeUrl.href, '_blank');
     },
     showPopup(){
       this.show = true;

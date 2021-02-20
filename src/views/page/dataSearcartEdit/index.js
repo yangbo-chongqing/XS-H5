@@ -32,8 +32,8 @@ export default {
   },
   mounted() {
     this.onLoad();
-    // this.getUser();
-    this.getUserInfo();
+    this.getUser();
+    // this.getUserInfo();
   },
   methods: {
 
@@ -77,6 +77,11 @@ export default {
         }else if (res.status == 400){
           this.jurisdiction.show = false;
           this.jurisdiction.title = res.message;
+        }else if(res.status == 401){
+          this.Show = true;
+          this.$router.push({
+            path: '/toke',
+          });
         }
         // 加载状态结束
         this.loading = false;
@@ -113,22 +118,22 @@ export default {
       console.info(e);
     },
     getUser() {
-        if (window.localStorage.getItem('storage') == null) {
-          // console.log(1);
-          this.Show = true;
-          this.$router.push({
-            path: '/toke',
-          });
-        }
+      if (window.localStorage.getItem('storage') == null) {
+        // console.log(1);
+        this.Show = true;
+        this.$router.push({
+          path: '/toke',
+        });
+      }
     },
 
     getUserInfo() {
       let value = {
-        token: 'cfb99e051986d1c41dd3e87e7cb46ffc',
+        token: 'efe6f20dfdfe7b693e55771f341cfb99',
         user_id: 399,
       };
       window.localStorage.setItem("storage", JSON.stringify(value));
-
+      // efe6f20dfdfe7b693e55771f341cfb99
         // let url = parseQuery(window.location.href);
         // let  code = url.code;
         // let params = {
