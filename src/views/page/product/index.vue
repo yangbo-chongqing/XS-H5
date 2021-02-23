@@ -71,7 +71,7 @@
             <h6><span></span></h6>
           </a>
         </div>
-        <div class="product-title-list" v-if="shopping.length>0" :class="{'title-set':examplevideo.length<=0 && activity.length<=0 && evaluation.length<=0 && service && problem.length<=0 && shopping.length>0}">
+        <div class="product-title-list" v-if="shopping.length>0" :class="{'title-set':examplevideo.length<=0 && activity.length<=0 && evaluation.length<=0 && service==null && problem.length<=0 && shopping.length>0}">
           <a onclick="document.getElementById('shopping').scrollIntoView()">
             <h5>商城</h5>
             <h6><span></span></h6>
