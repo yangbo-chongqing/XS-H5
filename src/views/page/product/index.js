@@ -134,7 +134,7 @@ export default {
           // }
           // console.log(this.activeItem)
           // 判断是否开启工单
-          this.workorder = res.workorder;
+          this.workorder = res.data.workorder;
         }
       });
     },
