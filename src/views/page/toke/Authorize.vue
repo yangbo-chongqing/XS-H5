@@ -52,8 +52,7 @@ export default {
       let params = {
         code: this.code,
       };
-      api
-        .postUser(this.qs.stringify(params))
+      api.postUser(this.qs.stringify(params))
         .then((res) => {
           let data = res.data;
           if (res.status == 200) {

@@ -43,7 +43,7 @@
       <div class="product-set-content" @click="setContent($event)">
         <div class="product-title-list" :class="{'title-set':examplevideo.length>0}"  v-if="examplevideo.length>0">
           <a onclick="document.getElementById('example').scrollIntoView()">
-            <h5>改装</h5>
+            <h5>视频</h5>
             <h6><span></span></h6>
           </a>
         </div>
@@ -80,10 +80,10 @@
       </div>
 
     </div>
-<!--    改装范例-->
+<!--    视频范例-->
     <div class="product-example" id="example" v-if="examplevideo.length>0">
       <div class="product-example-title">
-<!--        <h5>改装范例</h5>-->
+<!--        <h5>视频范例</h5>-->
       </div>
       <div class="product-example-content"  >
         <div class="product-example-list" v-for="(item,index) in examplevideo_list" :key="index">
