@@ -16,6 +16,7 @@ export default {
       url:this.parseQuery(window.location.href),
       muse_id:this.parseQuery(window.location.href).muse_id,
       product_id:this.parseQuery(window.location.href).product_id,
+      pkid:this.parseQuery(window.location.href).pkid,
       expand_manual:'',
       expand_details:'',
       water_info:'',
@@ -68,9 +69,11 @@ export default {
       let url = this.parseQuery(window.location.href);
       let muse_id = url.muse_id;
       let product_id = url.product_id;
+      let pkid = url.pkid;
       let params = {
         muse_id: muse_id,
         product_id:product_id,
+        pkid:pkid,
       }
       api.postDetails(this.qs.stringify(params)).then((res) => {
         if (res.status == 200) {
