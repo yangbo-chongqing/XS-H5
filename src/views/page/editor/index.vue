@@ -170,6 +170,24 @@
         </van-popup>
       </div>
 
+      <div class="ed—entryClassification">
+        <van-field
+            readonly
+            clickable
+            label="词条分类"
+            :value="entryClassificationValue"
+            placeholder="选择词条分类"
+            @click="showEntryClassification = true"
+        />
+        <van-popup v-model="showEntryClassification" round position="bottom">
+          <van-picker
+              show-toolbar
+              :columns="entryClassification"
+              @cancel="showEntryClassification = false"
+              @confirm="onConfirm"
+          />
+        </van-popup>
+      </div>
 <!--      封面添加-->
       <div class="ed-cover" v-show="cover_show">
         <div class="ed-cover-title"><span @click="postmodifyEntryDetails(1)">完成</span></div>

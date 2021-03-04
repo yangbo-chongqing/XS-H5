@@ -36,7 +36,6 @@ export default {
     // this.getUserInfo();
   },
   methods: {
-
     //页面跳转
     jumpRoute(path, obj) {
       this.$router.push({
@@ -129,11 +128,11 @@ export default {
 
     getUserInfo() {
       let value = {
-        token: '8cf6a2f7a5f7c5e26b4c5075b971e5f5',
+        token: '1e0e2295b8024b97d4d9ae8628ece1ed',
         user_id: 399,
       };
       window.localStorage.setItem("storage", JSON.stringify(value));
-      // efe6f20dfdfe7b693e55771f341cfb99
+
         // let url = parseQuery(window.location.href);
         // let  code = url.code;
         // let params = {

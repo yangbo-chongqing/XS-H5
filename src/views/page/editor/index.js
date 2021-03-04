@@ -1,5 +1,5 @@
 import api from '@/request/xsdt';
-import { Icon , Col, Row , Search , List , Popup , Uploader , Checkbox, CheckboxGroup ,Cell ,CellGroup ,Field } from 'vant';
+import { Icon , Col, Row , Search , List , Popup , Uploader , Checkbox, CheckboxGroup ,Cell ,CellGroup ,Field , Picker } from 'vant';
 import VueUeditorWrap from "vue-ueditor-wrap";
 
 // import 'quill/dist/quill.core.css'
@@ -25,6 +25,7 @@ export default {
     VanCell:Cell,
     VanCellGroup:CellGroup,
     VanField:Field,
+    VanPicker:Picker,
     // quillEditor:quillEditor,
     VueUeditorWrap,
   },
@@ -40,6 +41,11 @@ export default {
       name:'',
       edit_show:false,
       entrySelectData:[],
+      entryClassification:[],
+      entry_Classification:[],
+      entrySelectData_id:0,
+      showEntryClassification:false,
+      entryClassificationValue:'',
       content: "",
       videoUrl:'',
       linkContent:'',
@@ -102,6 +108,7 @@ export default {
   },
   mounted() {
     this.getdata();
+    this.getEntryClassification();
     // this.getUser();
     // this.getpolicy();
     this.defaultPhoneHeight = window.innerHeight
@@ -124,6 +131,12 @@ export default {
     },
     onEditorChange({ editor, html, text }) {
       this.content = html;
+    },
+    onConfirm(value) {
+      this.entryClassificationValue = value.text;
+      this.entrySelectData_id = value.id;
+      this.showEntryClassification = false;
+
     },
     // 配置按钮
     ready(editorInstance) {
@@ -976,6 +989,33 @@ export default {
       })
 
     },
+    // 获取词条分类
+    getEntryClassification(){
+      api.postEntryClassification(this.qs.stringify()).then((res) => {
+        // console.log(res)
+        if (res.status == 200) {
+         // console.log(res.data.type_list)
+          this.entry_Classification=res.data.type_list
+          if(this.entry_Classification.length>0){
+            for (let i=0;i<this.entry_Classification.length;i++){
+              this.entryClassification.push({
+                id: this.entry_Classification[i].id,
+                muse_id: this.entry_Classification[i].muse_id,
+                position: this.entry_Classification[i].position,
+                sort: this.entry_Classification[i].sort,
+                top_id: this.entry_Classification[i].top_id,
+                text: this.entry_Classification[i].type_name,
+                })
+              if(this.entry_Classification[i].id==this.entrySelectData_id){
+                this.entryClassificationValue = this.entry_Classification[i].type_name
+              }
+            }
+          }
+        } else if (res.status === 401) {
+
+        }
+      });
+    },
     // 获取数据
     getdata(){
         // console.log(1)
@@ -988,6 +1028,7 @@ export default {
             // console.log(res)
             if (res.status == 200) {
               // console.log(res.data.info)
+              this.entrySelectData_id = res.data.info.type_id;
               this.editor_data = res.data.info;
               // this.fileList[0].content = this.editor_data.image
               if(this.editor_data.image){
@@ -1022,7 +1063,7 @@ export default {
         video_url:'',
         content:this.content,
         related_ids:relateds.toString(),
-        type_id:0,
+        type_id:this.entrySelectData_id,
       }
       if(this.fileList.length>0){
         data.image=this.fileList[0].url
@@ -1305,7 +1346,15 @@ export default {
         //手机键盘被关闭了。
       }
     },
-
+    editor_data:function (){
+      if(this.entry_Classification.length>0){
+        for (let i=0;i<this.entry_Classification.length;i++){
+          if(this.entry_Classification[i].id==this.entrySelectData_id){
+            this.entryClassificationValue = this.entry_Classification[i].type_name
+          }
+        }
+      }
+    },
 
   },
 };

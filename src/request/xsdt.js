@@ -123,6 +123,14 @@ const api = {
             data: params,
         });
     },
+    //词条分类
+    postEntryClassification(params) {
+        return http({
+            method: 'post',
+            url: '/api/web/relics/type',
+            data: params,
+        });
+    },
     // web端图册详情
     getdetails(params) {
         return http({

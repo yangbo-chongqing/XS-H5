@@ -227,4 +227,16 @@
       height: 200px;
     }
   }
+  .ed—entryClassification{
+    .van-cell--clickable{
+      padding: 20px 0;
+      font-size: 18px;
+      .van-cell__title{
+        width: 100px;
+        span{
+          color: rgb(83, 135, 253)
+        }
+      }
+    }
+  }
 }
