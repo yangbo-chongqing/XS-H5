@@ -4,14 +4,14 @@
       <ul class="scanRecord-content">
         <draggable v-model="rows" class="row wrap fill-height align-center sortable-list" :disabled= "true">
         <li v-for="(row,rowindex) in rows" :key="rowindex" :data-muse_id="row.muse_id"  class="scanRecord-sortable">
-          <div class="scanRecord-title" @click="show($event)" @touchstart="gotouchstart(row.tag,rowindex)" @touchend="gtouchend">
-            <div class="scanRecord-title-left">
+          <div class="scanRecord-title" >
+            <div class="scanRecord-title-left" @click="show($event)" >
               <van-icon name="play" style="transform:rotate(0deg)"/>
               <h4>{{ row.tag }}</h4>
               <span>( {{ row.list.length }} )</span>
             </div>
-            <div class="scanRecord-title-right">
-<!--              <van-icon name="edit" />-->
+            <div class="scanRecord-title-right" @click="gotouchstart(row.tag,rowindex)" @touchend="gtouchend">
+              <van-icon name="edit" />
             </div>
           </div>
           <ul class="scanRecord-list" style="display: none;min-height: 50px">
@@ -42,7 +42,7 @@
     </van-popup>
     <van-popup v-model="start.delShow" closeable position="bottom" :style="{ height: popupHeight }">
       <van-field v-model="start.modifyname" label="分类名字:" placeholder="请输入分类名字" />
-      <p class="scanRecord-modify" @click="modifyTrack(1)" >修改</p>
+      <p class="scanRecord-modify" @click="modifyTrack(1)" >保存</p>
       <p class="scanRecord-del" @click="delEdit(1)">删除</p>
     </van-popup>
   </div>

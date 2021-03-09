@@ -181,8 +181,9 @@ export default {
     },
     //点击显示隐藏数据
     show(e){
-      let onclick_html = e.currentTarget.nextElementSibling;
-      let onclick_htmls = e.currentTarget
+      let onclick_html = e.currentTarget.parentElement.nextElementSibling;
+      let onclick_htmls = e.currentTarget.parentElement
+      // console.log(onclick_html)
       // console.log(onclick_htmls)
       // console.log(e.currentTarget.nextElementSibling)
       // console.log(onclick_htmls.querySelector(".van-icon-play"))
@@ -196,16 +197,16 @@ export default {
     },
     gotouchstart(data,rowindex){
       let that = this;
-      clearTimeout(this.timeOutEvent);//清除定时器
-      this.timeOutEvent = 0;
-      this.timeOutEvent = setTimeout(function(){
+      // clearTimeout(this.timeOutEvent);//清除定时器
+      // this.timeOutEvent = 0;
+      // this.timeOutEvent = setTimeout(function(){
         //执行长按要执行的内容，
         that.start.modifyname = data;
         that.start.history = data;
         that.start.rowindex = rowindex;
         that.start.delShow = true;
-        console.log(data,that.start)
-      },600);//这里设置定时
+        // console.log(data,that.start)
+      // },600);//这里设置定时
     },
 //如果手指有移动，则取消所有事件，此时说明用户只是要移动而不是长按
     gtouchend(){
