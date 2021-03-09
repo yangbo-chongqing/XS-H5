@@ -1,0 +1,71 @@
+.scanRecord {
+    .scanRecord_newCategory{
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        background-color: #FFFFFF;
+        color: #1756e7;
+        width: 100%;
+        z-index: 10;
+        padding: 20px;
+        font-size: 18px;
+        //font-weight: 600;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-sizing: border-box;
+        span{
+            margin-left: 10px;
+        }
+    }
+   .van-popup--bottom{
+       padding: 20px;
+       box-sizing: border-box;
+       .van-field{
+           padding-left: 0;
+           margin-top: 10px;
+           font-size: 16px;
+       }
+       .van-field::after{
+           border: 0;
+       }
+       .scanRecord-complete{
+           width:100%;
+           font-size: 18px;
+           background-color: #388dea;
+           color: #FFFFFF;
+           border-radius: 25px;
+           padding: 8px 20px;
+           box-sizing: border-box;
+           text-align: center;
+           margin-top: 40px;
+       }
+       .scanRecord-modify{
+           width:100%;
+           font-size: 18px;
+           background-color: #388dea;
+           color: #FFFFFF;
+           border-radius: 25px;
+           padding: 8px 20px;
+           box-sizing: border-box;
+           text-align: center;
+           margin-top: 20px;
+       }
+       .scanRecord-del{
+           width:100%;
+           font-size: 18px;
+           background-color: red;
+           color: #FFFFFF;
+           border-radius: 25px;
+           padding: 8px 20px;
+           box-sizing: border-box;
+           text-align: center;
+           margin-top: 10px;
+       }
+   }
+
+}
+.xsdt{
+    background-color: #f7f7f7;
+}
+

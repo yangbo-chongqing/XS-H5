@@ -48,7 +48,6 @@ export default {
   },
   mounted() {
     this.museinfo();
-    this.postAttention();
   },
   // watch:{
   //   $route(to,from){
@@ -84,7 +83,7 @@ export default {
             this.dataInfo.picture.unshift(this.dataInfo.image)
           }
           document.title = res.data.product.name;
-           let url = window.location.href;
+          let url = window.location.href;
           this.$global.shareToWechat(res.data.product.name, url, res.data.product.image, res.data.product.name);
           this.product_extend = res.data.product.expand.manual.length;;//扩展字段
           this.expand_manual = res.data.product.expand.manual.length;
@@ -138,6 +137,7 @@ export default {
           // console.log(this.activeItem)
           // 判断是否开启工单
           this.workorder = res.data.workorder;
+          this.postAttention();
         }
       });
     },
@@ -145,7 +145,7 @@ export default {
       let url = this.parseQuery(window.location.href);
       let muse_id = url.muse_id;
       let params = {
-        relics_id: muse_id,
+        relics_id: this.dataInfo.id,
         type:1,
       }
       api.postattention(this.qs.stringify(params)).then((res) => {

@@ -281,6 +281,38 @@ const api = {
             data: params,
         });
     },
+    // 扫码记录
+    postLocusList(params) {
+        return http({
+            method: 'post',
+            url: '/api/web/locus/list',
+            data: params,
+        });
+    },
+    // 添加分类
+    postCreate(params) {
+        return http({
+            method: 'post',
+            url: '/api/web/locus/create',
+            data: params,
+        });
+    },
+    // 修改轨迹
+    postEdit(params) {
+        return http({
+            method: 'post',
+            url: '/api/web/locus/edit',
+            data: params,
+        });
+    },
+    // 删除轨迹
+    postDelEdit(params) {
+        return http({
+            method: 'post',
+            url: '/api/web/locus/del',
+            data: params,
+        });
+    },
 
 }
 export default api;

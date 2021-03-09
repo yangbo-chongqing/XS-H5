@@ -225,6 +225,16 @@ const routes = [
     },
   },
   {
+    // 扫描记录
+    path: '/scanRecord',
+    name: 'submit',
+    component: () => import('@/views/page/scanRecord/index.vue'),
+    meta: {
+      title: '扫描记录',
+      keepAlive: false,
+    },
+  },
+  {
     // 404页面
     path: '*',
     name: 'notfound',
