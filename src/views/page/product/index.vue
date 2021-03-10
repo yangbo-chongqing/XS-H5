@@ -231,10 +231,10 @@
 <!--         <span class="right"><van-icon name="arrow" /></span>-->
 <!--       </div>-->
 <!--     </div>-->
-<!--    <div class="product-attention" v-if="attention">-->
-<!--      <div><img :src="attention" alt=""></div>-->
-<!--      <p>公众服务号</p>-->
-<!--    </div>-->
+    <div class="product-attention" v-if="attention">
+      <div><img :src="attention" alt=""></div>
+      <p style="color: #9a9a9a;margin-bottom: 20px;">长按识别二维码，订阅本车型</p>
+    </div>
   </div>
 </template>
 
