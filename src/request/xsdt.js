@@ -313,6 +313,14 @@ const api = {
             data: params,
         });
     },
+    // 订阅产品码列表
+    postSubscriptionProduct(params) {
+        return http({
+            method: 'post',
+            url: '/api/web/subscription/product',
+            data: params,
+        });
+    },
 
 }
 export default api;

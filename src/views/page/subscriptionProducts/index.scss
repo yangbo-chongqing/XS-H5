@@ -1,0 +1,47 @@
+.subscriptionProducts {
+  div,li{
+    box-sizing: border-box;
+  }
+  padding: 20px;
+  .subscriptionProducts-list{
+    li {
+      display: flex;
+      align-items: center;
+      background-color: #ffffff;
+      padding: 16px;
+      border-radius: 10px;
+      margin-top: 10px;
+      .list-img{
+        width: 50px;
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 10px;
+        img{
+          width: 100%;
+          height: 100%;
+        }
+      }
+      .list-title{
+        //max-width: 220px;
+        width: 220px;
+        font-size: 20px;
+        h6{
+          font-size: 18px;
+          overflow:hidden; //超出的文本隐藏
+          text-overflow:ellipsis; //溢出用省略号显示
+          white-space:nowrap; //溢出不换行
+        }
+        p{
+          font-size: 14px;
+          color: #c0c0c0;
+          margin-top: 10px;
+        }
+      }
+    }
+    li:nth-child(1){
+      margin-top: 0;
+    }
+  }
+}

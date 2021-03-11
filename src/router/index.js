@@ -217,7 +217,7 @@ const routes = [
   {
     // 工单问题提交
     path: '/workOrderSubmit',
-    name: 'submit',
+    name: 'workOrderSubmit',
     component: () => import('@/views/page/workOrder/submit/index.vue'),
     meta: {
       title: '提交工单',
@@ -227,10 +227,40 @@ const routes = [
   {
     // 扫描记录
     path: '/scanRecord',
-    name: 'submit',
+    name: 'scanRecord',
     component: () => import('@/views/page/scanRecord/index.vue'),
     meta: {
       title: '扫描记录',
+      keepAlive: false,
+    },
+  },
+  // {
+  //   // 说明书
+  //   path: '/instructions',
+  //   name: 'instructions',
+  //   component: () => import('@/views/page/instructions/index.vue'),
+  //   meta: {
+  //     // title: '说明书',
+  //     keepAlive: false,
+  //   },
+  // },
+  // {
+  //   // 说明书详情
+  //   path: '/instructionsDetails',
+  //   name: 'instructionsDetails',
+  //   component: () => import('@/views/page/instructions/instructionsDetails/index.vue'),
+  //   meta: {
+  //     // title: '说明书',
+  //     keepAlive: false,
+  //   },
+  // },
+  {
+    // 订阅产品码
+    path: '/subscriptionProducts',
+    name: 'subscriptionProducts',
+    component: () => import('@/views/page/subscriptionProducts/index.vue'),
+    meta: {
+      title: '订阅产品码',
       keepAlive: false,
     },
   },
