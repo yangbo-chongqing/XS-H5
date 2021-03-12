@@ -17,7 +17,6 @@ export default {
       muse_id:this.parseQuery(window.location.href).muse_id,
       product_id:this.parseQuery(window.location.href).product_id,
       pkid:this.parseQuery(window.location.href).pkid,
-      expand_manual:'',
       expand_details:'',
       water_info:'',
       attention:'',    //订阅词条码(获取二维码)
@@ -86,7 +85,6 @@ export default {
           let url = window.location.href;
           this.$global.shareToWechat(res.data.product.name, url, res.data.product.image, res.data.product.name);
           this.product_extend = res.data.product.expand.manual.length;;//扩展字段
-          this.expand_manual = res.data.product.expand.manual.length;
           this.expand_details = res.data.product.expand_list.data;
           for (let i=0;i<this.expand_details.length;i++){
             if(this.expand_details[i].value){

@@ -234,26 +234,26 @@ const routes = [
       keepAlive: false,
     },
   },
-  // {
-  //   // 说明书
-  //   path: '/instructions',
-  //   name: 'instructions',
-  //   component: () => import('@/views/page/instructions/index.vue'),
-  //   meta: {
-  //     // title: '说明书',
-  //     keepAlive: false,
-  //   },
-  // },
-  // {
-  //   // 说明书详情
-  //   path: '/instructionsDetails',
-  //   name: 'instructionsDetails',
-  //   component: () => import('@/views/page/instructions/instructionsDetails/index.vue'),
-  //   meta: {
-  //     // title: '说明书',
-  //     keepAlive: false,
-  //   },
-  // },
+  {
+    // 说明书
+    path: '/instructions',
+    name: 'instructions',
+    component: () => import('@/views/page/instructions/index.vue'),
+    meta: {
+      // title: '说明书',
+      keepAlive: false,
+    },
+  },
+  {
+    // 说明书详情
+    path: '/instructionsDetails',
+    name: 'instructionsDetails',
+    component: () => import('@/views/page/instructionsDetails/index.vue'),
+    meta: {
+      // title: '说明书',
+      keepAlive: false,
+    },
+  },
   {
     // 订阅产品码
     path: '/subscriptionProducts',

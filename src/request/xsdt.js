@@ -321,6 +321,22 @@ const api = {
             data: params,
         });
     },
+    // 说明书目录
+    postMenu(params) {
+        return http({
+            method: 'post',
+            url: '/api/web/manual/menu',
+            data: params,
+        });
+    },
+    // 说明书详情
+    postMenuDetails(params) {
+        return http({
+            method: 'post',
+            url: '/api/web/manual/details',
+            data: params,
+        });
+    },
 
 }
 export default api;

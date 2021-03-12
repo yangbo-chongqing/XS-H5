@@ -33,7 +33,7 @@
        </div>
 
        <div class="product-tit">
-         <span class="product-tit-content" v-if="expand_manual>7"  @click="jumpRoute('/productDetails',{muse_id:muse_id,pkid:pkid,currentsum_id:1})">
+         <span class="product-tit-content" v-if="dataInfo.manual_id != 0"  @click="jumpRoute('/instructions',{manual_id:dataInfo.manual_id})">
            <span>使用说明书</span><van-icon name="arrow" />
          </span>
        </div>
