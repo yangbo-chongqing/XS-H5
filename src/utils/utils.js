@@ -2,6 +2,7 @@ import moment from 'moment';
 import axios from 'axios'
 import qs from 'qs'
 import {Toast} from 'vant'
+import * as qiniu from "qiniu-js";
 export function getURLlist() {
   let url = window.location.href;
   let o = {};
@@ -20,6 +21,85 @@ export function getURLlist() {
     });
   }
   return o;
+}
+//获取七牛云上传token
+export function getQiniuTk(mid, tk,suffix) {
+  return new Promise((resolve, reject) => {
+      let params = {
+          member_id: mid,
+          token: tk,
+          suffix: suffix,
+          device_id: 'sczp',
+          bucket: 'resource'
+      };
+      axios.post("/api/qiniu", qs.stringify(params)).then(res => {
+          let data = res.data;
+          if (data.status == 200) {
+              resolve(data.data.data);
+          } else {
+              Toast(data.msg);
+              reject({upToken: '', key: ''});
+          }
+      }).catch(err => {
+          Toast(err.message);
+          reject({upToken: '', key: ''});
+      })
+  })
+}
+
+//上传到七牛云
+export function uploadToQiniu(upToken, key, file) {
+  return new Promise((resolve, reject) => {
+    //上传进度
+    let filePercent = 0;
+    Toast.loading({
+      forbidClick: true,
+      loadingType: 'spinner',
+      duration: 0,
+      icon: require('@/assets/images/jingdong.gif'),
+      message:'已上传'+filePercent+'%'
+    });
+    // 上传时的配置
+    var config = {
+      useCdnDomain: true,
+    };
+    //  设置文件的配置
+    var putExtra = {
+      fname: key,
+      params: {},
+      mimeType: null
+    };
+    //实例化七牛云的上传实例
+    var observable = qiniu.upload(file, null, upToken, putExtra, config);
+    //设置实例的监听对象
+    var observer = {
+      //接收上传进度信息
+      next(res) {
+        // 上传进度
+        let filePercent = parseInt(res.total.percent)
+        Toast.loading({
+          forbidClick: true,
+          loadingType: 'spinner',
+          duration: 0,
+          icon: require('@/assets/images/jingdong.gif'),
+          message:'已上传'+filePercent+'%'
+        });
+        if (filePercent == 100) {
+          Toast.clear();
+        }
+      },
+      // 接收上传错误信息
+      error(err) {
+        console.log(err)
+      },
+      // 接收上传完成后的信息
+      complete(res) {
+        resolve('https://voice.xunsheng.org.cn/' + res.key);
+      }
+    };
+    // 上传开始
+    var subscription = observable.subscribe(observer);
+  })
 }
 export function parseQuery() {
   let url = window.location.href;
