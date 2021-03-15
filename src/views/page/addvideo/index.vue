@@ -21,8 +21,8 @@
 
 <script>
 import api from "@/request/xsdt";
-import { Icon, Uploader, Field, Button } from "vant";
-import { uploadToQiniu, getQiniuTk } from "@/utils/utils.js";
+import { Icon, Uploader, Field, Button,Dialog } from "vant";
+import { uploadToQiniu, getQiniuTk  } from "@/utils/utils.js";
 export default {
   name: "add-video",
   components: {
@@ -30,6 +30,7 @@ export default {
     VanUploader: Uploader,
     VanField: Field,
     VanButton: Button,
+    [Dialog.Component.name]: Dialog.Component,
   },
   data() {
     return {
@@ -41,7 +42,7 @@ export default {
   },
   mounted() {
     let url = window.location.origin+'/addvideo';
-    this.$global.shareToWechat('【雨雲轩】视频上传', url, 'https://resource.xunsheng.org.cn/file/upload.jpg', '点击上传')
+    this.$global.shareToWechat('【畅雲轩】视频上传', url, 'https://resource.xunsheng.org.cn/file/upload.jpg', '点击上传')
     this.getUser();
   },
   methods: {
@@ -96,10 +97,14 @@ export default {
         // console.log(res)
         if (res.status == 200) {
           this.name = "";
-          this.school = "";
           this.desire = "";
           this.datavideo = "";
-          this.$toast.success(res.message);
+          // this.$toast.success();
+          Dialog.alert({
+            message: res.message,
+          }).then(() => {
+            // on close
+          });
         } else if (res.status == 401) {
           this.$router.push({
             path: "/toke",
