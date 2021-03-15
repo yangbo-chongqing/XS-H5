@@ -52,7 +52,6 @@
 
 <script>
 import api from "@/request/xsdt";
-import axios from "axios";
 import { Icon, Uploader, Field, Button } from "vant";
 import { uploadToQiniu, getQiniuTk } from "@/utils/utils.js";
 export default {
@@ -74,7 +73,7 @@ export default {
   mounted() {
     let url = window.location.origin+'/addvideo';
     this.$global.shareToWechat('【雨雲轩】视频上传', url, '', '点击上传')
-    this.getUserInfo();
+    this.getUser();
   },
   methods: {
     getUser() {
