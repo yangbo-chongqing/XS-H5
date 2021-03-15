@@ -96,9 +96,9 @@ export default {
       api.postGrowingCreate(this.qs.stringify(data)).then((res) => {
         // console.log(res)
         if (res.status == 200) {
-          this.name = "";
-          this.desire = "";
-          this.datavideo = "";
+          // this.name = "";
+          // this.desire = "";
+          // this.datavideo = "";
           // this.$toast.success();
           Dialog.alert({
             message: res.message,
