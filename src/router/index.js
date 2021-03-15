@@ -265,6 +265,17 @@ const routes = [
     },
   },
   {
+    // 添加视频
+    path: '/addvideo',
+    name: 'addvideo',
+    component: () => import('@/views/page/addvideo/index.vue'),
+    meta: {
+      title: '上传作品',
+      keepAlive: false,
+    },
+  },
+
+  {
     // 404页面
     path: '*',
     name: 'notfound',

@@ -1,4 +1,4 @@
-/**   
+/**
  * 接口统一管理
  */
 import http from './http';
@@ -334,6 +334,14 @@ const api = {
         return http({
             method: 'post',
             url: '/api/web/manual/details',
+            data: params,
+        });
+    },
+    // 成长记录
+    postGrowingCreate(params) {
+        return http({
+            method: 'post',
+            url: '/api/web/growing/create',
             data: params,
         });
     },
