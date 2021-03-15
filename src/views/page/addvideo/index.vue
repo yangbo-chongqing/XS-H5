@@ -1,52 +1,21 @@
 <template>
   <div class="add-video">
-    <!--    <van-uploader icon='video-o'/>-->
-    <van-uploader
-      :after-read="qiniuyunUpload"
-      :max-count="1"
-      accept="video/*"
-      v-show="!datavideo"
-    >
+<!--    <van-uploader icon='video-o'/>-->
+    <van-uploader :after-read="qiniuyunUpload" :max-count="1" accept="video/*" v-show="!datavideo">
       <div class="icon-video-o">
         <img class="code1" src="@/assets/images/video.png" />
       </div>
-      <span style="margin-left: 20px">上传视频</span>
+      <span style="margin-left: 20px;">上传视频</span>
     </van-uploader>
     <div class="add-video-url" v-show="datavideo">
-      <video
-        :src="datavideo"
-        v-show="datavideo"
-        controls
-        :poster="datavideo + '?vframe/jpg/offset/0/w/325/h200'"
-      ></video>
-      <van-icon name="cross" @click="datavideo = ''" />
+      <video :src="datavideo" v-show="datavideo" controls playsinline="true" webkit-playsinline="true" x5-video-player-type="h5" x5-video-orientation="portraint"  :poster="datavideo+'?vframe/jpg/offset/0/w/325/h200'"> </video>
+      <van-icon name="cross" @click="datavideo=''"/>
     </div>
 
-    <van-field
-      v-model="school"
-      label="学校"
-      placeholder="请输入学生学校"
-      readonly
-    />
+    <van-field v-model="school" label="学校" placeholder="请输入学生学校" readonly />
     <van-field v-model="name" label="名字" placeholder="请输入学生姓名" />
-    <van-field
-      v-model="desire"
-      class="desire"
-      rows="6"
-      autosize
-      label="愿望"
-      type="textarea"
-      placeholder="请填写你的愿望"
-      :border="false"
-    />
-    <van-button
-      type="primary"
-      class="submit"
-      color="#ff80ab"
-      block
-      @click="submit"
-      >提交</van-button
-    >
+    <van-field v-model="desire" class="desire" rows="6" autosize label="愿望" type="textarea" placeholder="请填写你的愿望" :border="false"/>
+    <van-button type="primary" class="submit" color="#ff80ab" block @click="submit">提交</van-button>
   </div>
 </template>
 
@@ -72,7 +41,7 @@ export default {
   },
   mounted() {
     let url = window.location.origin+'/addvideo';
-    this.$global.shareToWechat('【雨雲轩】视频上传', url, '', '点击上传')
+    this.$global.shareToWechat('【雨雲轩】视频上传', url, 'https://resource.xunsheng.org.cn/file/upload.jpg', '点击上传')
     this.getUser();
   },
   methods: {
@@ -186,6 +155,7 @@ export default {
     position: relative;
     video {
       width: 100%;
+      height: 260px;
     }
     .van-icon-cross {
       width: 20px;
@@ -214,7 +184,7 @@ export default {
     position: fixed;
     bottom: 0;
     left: 0;
-    z-index: 1;
+    z-index: 100;
   }
 }
 </style>
