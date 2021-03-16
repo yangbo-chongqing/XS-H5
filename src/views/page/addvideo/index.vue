@@ -12,9 +12,9 @@
       <van-icon name="cross" @click="datavideo=''"/>
     </div>
 
-    <van-field v-model="school" label="学校" placeholder="请输入学生学校" readonly />
-    <van-field v-model="name" label="名字" placeholder="请输入学生姓名" />
-    <van-field v-model="desire" class="desire" rows="6" autosize label="愿望" type="textarea" placeholder="请填写你的愿望" :border="false"/>
+    <van-field v-model="school" label="学校" placeholder="请输入学校" readonly />
+    <van-field v-model="name" label="名字" placeholder="请输入您的姓名" />
+    <van-field v-model="desire" class="desire" rows="6" autosize label="愿望" type="textarea" placeholder="请填写您的愿望" :border="false"/>
     <van-button type="primary" class="submit" color="#ff80ab" block @click="submit">提交</van-button>
   </div>
 </template>
