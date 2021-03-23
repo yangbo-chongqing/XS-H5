@@ -26,7 +26,7 @@
           :poster="`${dataList.file_url}` + '?vframe/jpg/offset/0/w/325/h200'"
           height="166"
           width="297"
-          style="display: inline-block; border-radius: 12px"
+          style="display: inline-block; border-radius: 12px； max-width：100%"
           controls
           :src="dataList.file_url"
         ></video>
