@@ -32,30 +32,73 @@
         ></video>
       </div>
       <div style="display: flex; justify-content: space-around">
-        <van-icon
-          style="display: inline-block"
-          @click="upTo(dataList)"
-          name="replay"
-        />
+        <div style="display: inline-block">
+          <img
+            style="
+              display: inline-block;
+              width: 22px;
+              height: 22px;
+              vertical-align: super;
+            "
+            src="@/assets/images/share.png"
+            @click.stop="upTo(dataList)"
+            alt=""
+          />
+        </div>
         <div
           v-if="!dataList.is_like"
           style="display: inline-block"
           @click="giveLike(dataList)"
         >
-          <van-icon style="vertical-align: unset" name="good-job-o" />
-          <span>{{ dataList.flower }}</span>
+          <img
+            style="
+              display: inline-block;
+              width: 22px;
+              height: 22px;
+              vertical-align: text-top;
+            "
+            src="@/assets/images/flower12.png"
+            @click.stop="upTo(dataList)"
+            alt=""
+          />
+          <!-- <van-icon style="vertical-align: unset" name="good-job-o" /> -->
+          <span
+            style="
+              font-size: 22px;
+              color: #fcbb2e;
+              vertical-align: text-top;
+              margin-left: 5px;
+            "
+            >{{ dataList.flower }}</span
+          >
         </div>
         <div
           v-if="dataList.is_like"
           style="display: inline-block"
-          @click="giveLike(dataList)"
+          @click="giveLike(item)"
         >
-          <van-icon
-            style="vertical-align: unset"
-            color="#3484FE"
-            name="good-job-o"
+          <img
+            style="
+              display: inline-block;
+              width: 22px;
+              height: 22px;
+              vertical-align: text-top;
+            "
+            src="@/assets/images/flower11.png"
+            @click.stop="upTo(dataList)"
+            alt=""
           />
-          <span style="color: #3484fe">{{ dataList.flower }}</span>
+          <span
+            style="
+              color: #fcbb2e;
+              font-size: 22px;
+              color: #999999;
+              vertical-align: text-top;
+              margin-left: 5px;
+              vertical-align: super;
+            "
+            >{{ dataList.flower }}</span
+          >
         </div>
       </div>
     </div>
@@ -69,6 +112,7 @@ export default {
     return {
       dataList: {},
       userInfo: {},
+      user: this.$route.query.user_id,
     };
   },
   methods: {
@@ -81,7 +125,8 @@ export default {
     },
     getList() {
       let params = {
-        user_id: 399,
+        user_id: this.user,
+        // user_id: 399,
         page: 1,
         tag: this.tag,
         page_size: 50,
@@ -96,9 +141,10 @@ export default {
     },
     upTo(item) {
       //   console.log(window.location.href);
+      let title = "心愿视频分享";
       let url = `${window.location.href}?id=${item.id}`;
       this.$global.shareToWechat(
-        "心愿视频分享",
+        title,
         url,
         item.file_url + "?vframe/jpg/offset/0/w/325/h200",
         item.desire

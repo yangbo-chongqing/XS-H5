@@ -18,8 +18,8 @@
       <div class="Titright">
         <div class="circleIcon">
           <img
-            style="width: 80%; vertical-align: sub"
-            src="@/assets/images/flower2.png"
+            style="width: 80%; vertical-align: super; margin-top: 4px"
+            src="@/assets/images/hua.png"
             alt=""
           />
         </div>
@@ -43,13 +43,12 @@
           class="rightUpload"
           @click="$router.push({ path: '/addvideo', query: { type: 1 } })"
         >
-          <van-icon
-            name="video-o"
-            style="padding-top: 3px"
-            color="#fff"
-            size="30"
+          <img
+            style="width: 32px; vertical-align: bottom; margin-top: 5px"
+            src="@/assets/images/upVideo.png"
+            alt=""
           />
-          <div>继续上传</div>
+          <div style="line-height: 5px">继续上传</div>
         </div>
         <div
           @click.stop="
@@ -79,34 +78,66 @@
               ></video>
             </div>
             <div style="display: flex; justify-content: space-around">
-              <van-icon
-                style="display: inline-block"
-                @click.stop="upTo(item)"
-                name="replay"
-              />
+              <div style="display: inline-block">
+                <img
+                  style="
+                    display: inline-block;
+                    width: 22px;
+                    height: 22px;
+                    vertical-align: top;
+                  "
+                  src="@/assets/images/share.png"
+                  @click.stop="upTo(item)"
+                  alt=""
+                />
+              </div>
               <div
                 v-if="!item.is_like"
                 style="display: inline-block"
                 @click="giveLike(item)"
               >
-                <van-icon style="vertical-align: unset" name="good-job-o" />
-                <span style="font-size: 20px; vertical-align: text-top">{{
-                  item.flower
-                }}</span>
+                <img
+                  style="
+                    display: inline-block;
+                    width: 22px;
+                    height: 22px;
+                    vertical-align: top;
+                  "
+                  src="@/assets/images/flower12.png"
+                  @click.stop="upTo(item)"
+                  alt=""
+                />
+                <!-- <van-icon style="vertical-align: unset" name="good-job-o" /> -->
+                <span
+                  style="
+                    font-size: 22px;
+                    color: #fcbb2e;
+                    vertical-align: top;
+                    margin-left: 5px;
+                    vertical-align: top;
+                  "
+                  >{{ item.flower }}</span
+                >
               </div>
               <div
                 v-if="item.is_like"
                 style="display: inline-block"
                 @click="giveLike(item)"
               >
-                <van-icon
-                  style="vertical-align: unset"
-                  color="#3484FE"
-                  name="good-job-o"
+                <img
+                  style="display: inline-block; width: 22px; height: 22px"
+                  src="@/assets/images/flower11.png"
+                  @click.stop="upTo(item)"
+                  alt=""
                 />
                 <span
-                  style="color: #3484fe; font-size: 20px;vertical-align: text-top;
-}"
+                  style="
+                    color: #fcbb2e;
+                    font-size: 22px;
+                    color: #999999;
+                    margin-left: 5px;
+                    vertical-align: top;
+                  "
                   >{{ item.flower }}</span
                 >
               </div>
@@ -137,12 +168,15 @@ export default {
       form: {},
       dataList: [],
       userInfo: {},
+      //   user: localStorage.getItem("storage").user_id,
+      user: this.$route.query.user_id,
     };
   },
   methods: {
     getList() {
+      console.log(this.user);
       let params = {
-        user_id: 399,
+        user_id: this.user,
         page: 1,
         tag: this.tag,
         page_size: 50,
@@ -174,7 +208,7 @@ export default {
     goUpload() {},
     upTo(item) {
       //   console.log(window.location.href);
-      let url = `${window.location.href}/wishDetail?id=${item.id}`;
+      let url = `${window.location.href}/wishDetail?id=${item.id}$user_id=${user}`;
 
       this.$global.shareToWechat(
         "心愿视频分享",
