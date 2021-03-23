@@ -52,7 +52,7 @@
           <div>继续上传</div>
         </div>
         <div
-          @click="
+          @click.stop="
             $router.push({
               path: '/wishVideo/wishDetail',
               query: { id: item.id },
@@ -81,7 +81,7 @@
             <div style="display: flex; justify-content: space-around">
               <van-icon
                 style="display: inline-block"
-                @click="upTo(item)"
+                @click.stop="upTo(item)"
                 name="replay"
               />
               <div
@@ -90,7 +90,9 @@
                 @click="giveLike(item)"
               >
                 <van-icon style="vertical-align: unset" name="good-job-o" />
-                <span>{{ item.flower }}</span>
+                <span style="font-size: 20px; vertical-align: text-top">{{
+                  item.flower
+                }}</span>
               </div>
               <div
                 v-if="item.is_like"
@@ -102,7 +104,11 @@
                   color="#3484FE"
                   name="good-job-o"
                 />
-                <span style="color: #3484fe">{{ item.flower }}</span>
+                <span
+                  style="color: #3484fe; font-size: 20px;vertical-align: text-top;
+}"
+                  >{{ item.flower }}</span
+                >
               </div>
             </div>
           </div>
@@ -169,6 +175,7 @@ export default {
     upTo(item) {
       //   console.log(window.location.href);
       let url = `${window.location.href}/wishDetail?id=${item.id}`;
+
       this.$global.shareToWechat(
         "心愿视频分享",
         url,
@@ -192,11 +199,11 @@ export default {
   },
   mounted() {
     this.container = this.$refs.container;
-    let value = {
-      token: "d99b797e4baa5489574f2114ce178b97",
-      user_id: 399,
-    };
-    window.localStorage.setItem("storage", JSON.stringify(value));
+    // let value = {
+    //   token: "d99b797e4baa5489574f2114ce178b97",
+    //   user_id: 399,
+    // };
+    // window.localStorage.setItem("storage", JSON.stringify(value));
   },
 };
 </script>
