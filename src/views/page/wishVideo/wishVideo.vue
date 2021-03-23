@@ -91,14 +91,13 @@
                     vertical-align: middle;
                   "
                   src="@/assets/images/share.png"
-                  @click.stop="upTo(item)"
                   alt=""
                 />
               </div>
               <div
                 v-if="!item.is_like"
                 style="display: inline-block"
-                @click="giveLike(item)"
+                @click.stop="giveLike(item)"
               >
                 <img
                   style="
@@ -108,7 +107,6 @@
                     vertical-align: middle;
                   "
                   src="@/assets/images/flower12.png"
-                  @click.stop="upTo(item)"
                   alt=""
                 />
                 <!-- <van-icon style="vertical-align: unset" name="good-job-o" /> -->
@@ -125,7 +123,7 @@
               <div
                 v-if="item.is_like"
                 style="display: inline-block"
-                @click="giveLike(item)"
+                @click.stop="giveLike(item)"
               >
                 <img
                   style="
