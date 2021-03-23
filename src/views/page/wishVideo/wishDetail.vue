@@ -58,7 +58,6 @@
               vertical-align: text-top;
             "
             src="@/assets/images/flower12.png"
-            @click.stop="upTo(dataList)"
             alt=""
           />
           <!-- <van-icon style="vertical-align: unset" name="good-job-o" /> -->
@@ -85,7 +84,6 @@
               vertical-align: text-top;
             "
             src="@/assets/images/flower11.png"
-            @click.stop="upTo(dataList)"
             alt=""
           />
           <span

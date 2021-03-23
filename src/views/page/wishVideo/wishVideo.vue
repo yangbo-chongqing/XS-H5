@@ -82,7 +82,7 @@
               ></video>
             </div>
             <div style="display: flex; justify-content: space-around">
-              <div style="display: inline-block">
+              <div style="display: inline-block" @click="upTo(item)">
                 <img
                   style="
                     display: inline-block;
@@ -133,7 +133,6 @@
                     vertical-align: middle;
                   "
                   src="@/assets/images/flower11.png"
-                  @click.stop="upTo(item)"
                   alt=""
                 />
                 <span
@@ -214,7 +213,7 @@ export default {
     goUpload() {},
     upTo(item) {
       //   console.log(window.location.href);
-      let url = `${window.location.href}/wishDetail?id=${item.id}$user_id=${user}`;
+      let url = `${window.location.href}/wishDetail?id=${item.id}$user_id=${this.user}`;
 
       this.$global.shareToWechat(
         "心愿视频分享",
@@ -230,11 +229,11 @@ export default {
     },
   },
   created() {
-    // if (window.localStorage.getItem("storage") == null) {
-    //   this.$router.push({
-    //     path: "/toke",
-    //   });
-    // }
+    if (window.localStorage.getItem("storage") == null) {
+      this.$router.push({
+        path: "/toke",
+      });
+    }
     this.getBackground();
   },
   mounted() {
