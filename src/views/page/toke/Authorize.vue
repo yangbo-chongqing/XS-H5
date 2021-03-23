@@ -1,14 +1,14 @@
 <template>
-    <div class="authorize">
-        <van-loading size="24px">授权中...</van-loading>
-    </div>
+  <div class="authorize">
+    <van-loading size="24px">授权中...</van-loading>
+  </div>
 </template>
 
 <script>
-    import {parseQuery} from '@/utils/utils.js'
-    // import {cookie} from 'vux'
-    import {Loading} from 'vant'
-    import api from '@/request/xsdt';
+import { parseQuery } from "@/utils/utils.js";
+// import {cookie} from 'vux'
+import { Loading } from "vant";
+import api from "@/request/xsdt";
 
 export default {
   name: "Authorize",
@@ -25,7 +25,7 @@ export default {
   },
   beforeRouteEnter(to, from, next) {
     let { path, query, params } = from;
-    if (!parseQuery().code && from.path !== '/') {
+    if (!parseQuery().code && from.path !== "/") {
       localStorage.setItem(
         "apph5_recirect_url",
         JSON.stringify({ path: path, query: query, params: params })
@@ -52,7 +52,8 @@ export default {
       let params = {
         code: this.code,
       };
-      api.postUser(this.qs.stringify(params))
+      api
+        .postUser(this.qs.stringify(params))
         .then((res) => {
           let data = res.data;
           if (res.status == 200) {
@@ -61,31 +62,30 @@ export default {
               user_id: data.user_id,
             };
             window.localStorage.setItem("storage", JSON.stringify(value));
-              let router_info = JSON.parse(
-                localStorage.getItem("apph5_recirect_url")
-              );
-              this.$router.replace({
-                path: router_info.path,
-                query: Object.assign(router_info.query, {
-                  mid: this.member_id,
-                  tk: this.token,
-                }),
-                params: router_info.params,
-              });
+            let router_info = JSON.parse(
+              localStorage.getItem("apph5_recirect_url")
+            );
+            this.$router.replace({
+              path: router_info.path,
+              query: Object.assign(router_info.query, {
+                mid: this.member_id,
+                tk: this.token,
+              }),
+              params: router_info.params,
+            });
           }
         })
         .catch((err) => {
           // this..toast.show({type: 'text', text: '网络错误'});
         });
     },
-
   },
 };
 </script>
 
 <style scoped lang="less">
-    .authorize {
-        text-align: center;
-        padding-top: 35px;
-    }
+.authorize {
+  text-align: center;
+  padding-top: 35px;
+}
 </style>

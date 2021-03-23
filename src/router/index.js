@@ -58,7 +58,7 @@ const routes = [
     // 词条详情
     path: '/entryinfo',
     name: 'Entryinfo',
-    component: () =>  import('@/views/page/entryinfo/index.vue'),
+    component: () => import('@/views/page/entryinfo/index.vue'),
     meta: {
       title: '寻声扫码',
       keepAlive: false,
@@ -274,7 +274,26 @@ const routes = [
       keepAlive: false,
     },
   },
-
+  {
+    // 心愿视频
+    path: '/wishVideo',
+    name: 'wishVideo',
+    component: () => import('@/views/page/wishVideo/wishVideo.vue'),
+    meta: {
+      title: '心愿视频',
+      keepAlive: false,
+    },
+  },
+  {
+    // 心愿视频详情
+    path: '/wishVideo/wishDetail',
+    name: 'wishDetail',
+    component: () => import('@/views/page/wishVideo/wishDetail.vue'),
+    meta: {
+      title: '心愿视频详情',
+      keepAlive: false,
+    },
+  },
   {
     // 404页面
     path: '*',

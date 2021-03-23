@@ -345,7 +345,54 @@ const api = {
             data: params,
         });
     },
-
+    // 设置背景
+    setGrowing(params) {
+        return http({
+            method: 'post',
+            url: '/api/web/growing/set',
+            data: params,
+        });
+    },
+    // 获取设置
+    settingGrow(params) {
+        return http({
+            method: 'post',
+            url: '/api/web/growing/setting',
+            data: params,
+        });
+    },
+    // 视频列表
+    growList(params) {
+        return http({
+            method: 'post',
+            url: '/api/web/growing/list',
+            data: params,
+        });
+    },
+    // 发布视频
+    publish(params) {
+        return http({
+            method: 'post',
+            url: '/api/web/growing/publish',
+            data: params,
+        });
+    },
+    // 视频点赞
+    likeGrowing(params) {
+        return http({
+            method: 'post',
+            url: '/api/web/growing/like',
+            data: params,
+        });
+    },
+    // 视频点赞
+    getDetail(params) {
+        return http({
+            method: 'post',
+            url: '/api/web/growing/details',
+            data: params,
+        });
+    },
 }
 export default api;
 

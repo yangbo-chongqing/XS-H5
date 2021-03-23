@@ -11,10 +11,26 @@ import './request/http';
 import fastclick from "fastclick";
 fastclick.attach(document.body);
 Vue.config.productionTip = false;
-import { Toast, Dialog } from 'vant';
+import {
+  Toast, Dialog, Icon, Uploader,
+  Sticky,
+  Field,
+  Form,
+  Picker,
+  Popup, NavBar
+} from 'vant';
 
-Vue.use(Dialog);
 Vue.use(Toast);
+Vue.use(Picker);
+Vue.use(Icon);
+Vue.use(Uploader);
+Vue.use(Sticky);
+Vue.use(Dialog);
+Vue.use(Field);
+Vue.use(Form);
+Vue.use(Popup);
+Vue.use(NavBar);
+
 
 Vue.prototype.qs = qs;
 Vue.prototype.$loading = Loading.service;

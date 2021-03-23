@@ -1,34 +1,34 @@
 import api from '@/request/xsdt';
-import { Icon, Search , List } from 'vant';
-import {parseQuery} from "@/utils/utils";
+import { Icon, Search, List } from 'vant';
+import { parseQuery } from "@/utils/utils";
 // import global from "@/global";
 export default {
-  name:'Home',
+  name: 'Home',
   components: {
     VanIcon: Icon,
-    VanSearch:Search,
-    VanList:List,
+    VanSearch: Search,
+    VanList: List,
   },
   data() {
     return {
       muse_id: this.$route.query.muse_id,
-      keyword:'',
+      keyword: '',
       loading: false,
       finished: false,
       page: 1,
       page_size: 10,
-      commentList:[],
-      jurisdiction:{
-        show:true,
-        title:'',
+      commentList: [],
+      jurisdiction: {
+        show: true,
+        title: '',
       },
     }
   },
   computed: {
-   
+
   },
-  created () {
-    localStorage.setItem('muse_id',this.muse_id)
+  created() {
+    localStorage.setItem('muse_id', this.muse_id)
   },
   mounted() {
     this.onLoad();
@@ -43,24 +43,24 @@ export default {
         query: {
           ...obj
         }
-      })  
+      })
     },
-    onSearch(){
+    onSearch() {
       console.log(this.keyword)
       this.page = 1;
       this.commentList = [];
       this.onLoad()
     },
-    onChange(e){
+    onChange(e) {
       // console.log(e)
     },
-    onLoad () {
+    onLoad() {
       // console.log(1)
       let data = {
         page_size: 10,
         page: this.page,
-        keyword:this.keyword,
-        roles:'1',
+        keyword: this.keyword,
+        roles: '1',
       }
       api.postEntry(this.qs.stringify(data)).then((res) => {
         // console.log(res)
@@ -73,10 +73,10 @@ export default {
           this.keyword = '';
           this.page = data.page
           //         console.log(this.commentList)
-        }else if (res.status == 400){
+        } else if (res.status == 400) {
           this.jurisdiction.show = false;
           this.jurisdiction.title = res.message;
-        }else if(res.status == 401){
+        } else if (res.status == 401) {
           this.Show = true;
           this.$router.push({
             path: '/toke',
@@ -96,7 +96,7 @@ export default {
 
     museinfo() {
       let params = {
-        muse_id:this.muse_id
+        muse_id: this.muse_id
       }
       api.postMuseIndex(this.qs.stringify(params)).then((res) => {
         if (res.status == 200) {
@@ -104,7 +104,7 @@ export default {
           let url = window.location.href;
           this.$global.shareToWechat(res.data.info.share_title, url, res.data.info.share_image, res.data.info.share_content)
           document.title = res.data.info.muse_name;
-          if(this.museDataInfo.info.Introduction){
+          if (this.museDataInfo.info.Introduction) {
             if (this.museDataInfo.info.Introduction.length > 70) {
               this.isShowMore = true;
             }
@@ -133,42 +133,42 @@ export default {
       };
       window.localStorage.setItem("storage", JSON.stringify(value));
 
-        // let url = parseQuery(window.location.href);
-        // let  code = url.code;
-        // let params = {
-        //   code: code,
-        // };
-        // if(code != null){
-        //   api.postUser(this.qs.stringify(params))
-        //       .then((res) => {
-        //         let data = res.data;
-        //         if (res.status == 200) {
-        //           let value = {
-        //             token: data.token,
-        //             user_id: data.user_id,
-        //           };
-        //           window.localStorage.setItem("storage", JSON.stringify(value));
-        //
-        //           // let router_info = JSON.parse(
-        //           //   localStorage.getItem("apph5_recirect_url")
-        //           // );
-        //           // this.$router.replace({
-        //           //   path: router_info.path,
-        //           //   query: Object.assign(router_info.query, {
-        //           //     mid: this.member_id,
-        //           //     tk: this.token,
-        //           //   }),
-        //           //   params: router_info.params,
-        //           // });
-        //         }
-        //       })
-        //       .catch((err) => {
-        //         // this..toast.show({type: 'text', text: '网络错误'});
-        //       });
-        // }else {
-        //   this.$router.replace({
-        //     path: '/111',})
-        // }
+      // let url = parseQuery(window.location.href);
+      // let  code = url.code;
+      // let params = {
+      //   code: code,
+      // };
+      // if(code != null){
+      //   api.postUser(this.qs.stringify(params))
+      //       .then((res) => {
+      //         let data = res.data;
+      //         if (res.status == 200) {
+      //           let value = {
+      //             token: data.token,
+      //             user_id: data.user_id,
+      //           };
+      //           window.localStorage.setItem("storage", JSON.stringify(value));
+      //
+      //           // let router_info = JSON.parse(
+      //           //   localStorage.getItem("apph5_recirect_url")
+      //           // );
+      //           // this.$router.replace({
+      //           //   path: router_info.path,
+      //           //   query: Object.assign(router_info.query, {
+      //           //     mid: this.member_id,
+      //           //     tk: this.token,
+      //           //   }),
+      //           //   params: router_info.params,
+      //           // });
+      //         }
+      //       })
+      //       .catch((err) => {
+      //         // this..toast.show({type: 'text', text: '网络错误'});
+      //       });
+      // }else {
+      //   this.$router.replace({
+      //     path: '/111',})
+      // }
     },
   }
 };
