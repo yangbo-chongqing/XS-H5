@@ -240,11 +240,11 @@ export default {
     },
   },
   created() {
-    // if (window.localStorage.getItem("storage") == null) {
-    //   this.$router.push({
-    //     path: "/toke",
-    //   });
-    // }
+    if (window.localStorage.getItem("storage") == null) {
+      this.$router.push({
+        path: "/toke",
+      });
+    }
     this.getBackground();
   },
   mounted() {
