@@ -46,7 +46,7 @@
           />
         </div>
         <div
-          v-if="!dataList.is_like"
+          v-if="dataList.is_like"
           style="display: inline-block"
           @click="giveLike(dataList)"
         >
@@ -71,11 +71,7 @@
             >{{ dataList.flower }}</span
           >
         </div>
-        <div
-          v-if="dataList.is_like"
-          style="display: inline-block"
-          @click="giveLike(item)"
-        >
+        <div v-else style="display: inline-block" @click="giveLike(item)">
           <img
             style="
               display: inline-block;
