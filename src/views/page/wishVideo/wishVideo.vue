@@ -95,7 +95,7 @@
                 />
               </div>
               <div
-                v-if="!item.is_like"
+                v-if="item.is_like"
                 style="display: inline-block"
                 @click.stop="giveLike(item)"
               >
@@ -121,7 +121,7 @@
                 >
               </div>
               <div
-                v-if="item.is_like"
+                v-else
                 style="display: inline-block"
                 @click.stop="giveLike(item)"
               >
