@@ -135,7 +135,10 @@ export default {
       });
     },
     onClickLeft() {
-      this.$router.push("/wishVideo");
+      this.$router.push({
+        path: "/wishVideo",
+        query: { type: 1, user_id: this.user },
+      });
     },
     upTo(item) {
       //   console.log(window.location.href);

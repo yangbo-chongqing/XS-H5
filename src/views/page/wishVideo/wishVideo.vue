@@ -41,7 +41,12 @@
         <!-- 悬浮上传按钮 -->
         <div
           class="rightUpload"
-          @click="$router.push({ path: '/addvideo', query: { type: 1 } })"
+          @click="
+            $router.push({
+              path: '/addvideo',
+              query: { type: 1 },
+            })
+          "
         >
           <img
             style="width: 30px; vertical-align: bottom; margin-top: 5px"
@@ -54,7 +59,7 @@
           @click.stop="
             $router.push({
               path: '/wishVideo/wishDetail',
-              query: { id: item.id },
+              query: { id: item.id, user_id: user },
             })
           "
           class="steps"
@@ -225,15 +230,21 @@ export default {
     giveLike(item) {
       api.likeGrowing(this.qs.stringify({ id: item.id })).then((res) => {
         this.getList();
+        if (res.status == 401) {
+          localStorage.removeItem("storage");
+          this.$router.push({
+            path: "/toke",
+          });
+        }
       });
     },
   },
   created() {
-    if (window.localStorage.getItem("storage") == null) {
-      this.$router.push({
-        path: "/toke",
-      });
-    }
+    // if (window.localStorage.getItem("storage") == null) {
+    //   this.$router.push({
+    //     path: "/toke",
+    //   });
+    // }
     this.getBackground();
   },
   mounted() {
@@ -371,7 +382,6 @@ export default {
           .contentFont {
             font-size: 14px;
             color: #000;
-            min-height: 34px;
             padding-top: 5px;
             overflow: hidden;
             -webkit-line-clamp: 2;
