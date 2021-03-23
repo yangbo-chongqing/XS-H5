@@ -44,7 +44,7 @@
           @click="$router.push({ path: '/addvideo', query: { type: 1 } })"
         >
           <img
-            style="width: 32px; vertical-align: bottom; margin-top: 5px"
+            style="width: 30px; vertical-align: bottom; margin-top: 5px"
             src="@/assets/images/upVideo.png"
             alt=""
           />
@@ -88,7 +88,7 @@
                     display: inline-block;
                     width: 22px;
                     height: 22px;
-                    vertical-align: top;
+                    vertical-align: middle;
                   "
                   src="@/assets/images/share.png"
                   @click.stop="upTo(item)"
@@ -105,7 +105,7 @@
                     display: inline-block;
                     width: 22px;
                     height: 22px;
-                    vertical-align: top;
+                    vertical-align: middle;
                   "
                   src="@/assets/images/flower12.png"
                   @click.stop="upTo(item)"
@@ -116,9 +116,8 @@
                   style="
                     font-size: 22px;
                     color: #fcbb2e;
-                    vertical-align: top;
+                    vertical-align: middle;
                     margin-left: 5px;
-                    vertical-align: top;
                   "
                   >{{ item.flower }}</span
                 >
@@ -129,7 +128,12 @@
                 @click="giveLike(item)"
               >
                 <img
-                  style="display: inline-block; width: 22px; height: 22px"
+                  style="
+                    display: inline-block;
+                    width: 22px;
+                    height: 22px;
+                    vertical-align: middle;
+                  "
                   src="@/assets/images/flower11.png"
                   @click.stop="upTo(item)"
                   alt=""
@@ -140,7 +144,7 @@
                     font-size: 22px;
                     color: #999999;
                     margin-left: 5px;
-                    vertical-align: top;
+                    vertical-align: middle;
                   "
                   >{{ item.flower }}</span
                 >
@@ -228,11 +232,11 @@ export default {
     },
   },
   created() {
-    if (window.localStorage.getItem("storage") == null) {
-      this.$router.push({
-        path: "/toke",
-      });
-    }
+    // if (window.localStorage.getItem("storage") == null) {
+    //   this.$router.push({
+    //     path: "/toke",
+    //   });
+    // }
     this.getBackground();
   },
   mounted() {
@@ -358,7 +362,7 @@ export default {
           //   margin-right: 1rem;
           //   width: 100%;
           //   box-sizing: border-box;
-          height: 260px;
+          //   height: 260px;
           background: #fff;
           margin-bottom: 1rem;
           border-radius: 12px;
