@@ -8,8 +8,8 @@ import store from './store/index.js'
 import qs from 'qs';
 import './request/http';
 //处理移动端点击延迟
-import fastclick from "fastclick";
-fastclick.attach(document.body);
+// import fastclick from "fastclick";
+// fastclick.attach(document.body);
 Vue.config.productionTip = false;
 import {
   Toast, Dialog, Icon, Uploader,
