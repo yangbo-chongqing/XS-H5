@@ -135,6 +135,12 @@ export default {
           item.flower+=1;
           item.is_like = true;
         }
+        if (res.status == 401) {
+          localStorage.removeItem("storage");
+          this.$router.push({
+            path: "/toke",
+          });
+        }
       });
     },
   },
@@ -164,9 +170,11 @@ export default {
   }
   position: relative;
   .headIcon {
+    width: 335px;
+    margin: auto;
     position: relative;
     border-bottom: 1px solid #f5f5f5;
-    padding: 5px 20px;
+    padding: 5px 0px;
     box-sizing: border-box;
     display: flex;
     align-items: center;

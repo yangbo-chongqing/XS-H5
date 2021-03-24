@@ -11,13 +11,16 @@
         <div class="circleIcon">
           <img :src="userInfo.avatar" alt="" />
         </div>
-        <div class="nameFont">{{ userInfo.nickname }}</div>
+        <div class="nameFont">
+          <p>{{ userInfo.nickname }}</p>
+          <p>{{userInfo.school_name}}</p>
+          </div>
       </div>
       <div class="Titright">
         <div class="circleIcon">
           <img src="@/assets/images/hua.png" alt="" />
         </div>
-        <div class="numFont">鲜花总量&nbsp;{{ userInfo.activity_flower }}</div>
+        <div class="numFont">小花&nbsp;{{ userInfo.activity_flower }}</div>
       </div>
     </div>
     <div class="bodyCl" :style="{ background: `${backgroundColor}` }">
@@ -31,7 +34,7 @@
           {{ item }}</span
         >
       </div>
-      <div class="content" ref="container">
+      <div class="content" :style="dataList==''?'border:none':''" ref="container">
         <!-- 悬浮上传按钮 -->
         <div
           class="rightUpload"
@@ -43,88 +46,104 @@
           "
         >
           <img
-            style="width: 30px; vertical-align: bottom; margin-top: 5px"
+           
             src="@/assets/images/upVideo.png"
             alt=""
           />
           <div style="line-height: 5px">继续上传</div>
         </div>
-        <div
-          @click.stop="
-            $router.push({
-              path: '/wishVideo/wishDetail',
-              query: { id: item.id, user_id: user },
-            })
-          "
-          class="steps"
-          v-for="(item, index) of dataList"
-          :key="index"
-        >
-          <span class="dotClass"></span>
-          <div class="contentbody">
-            <div class="timeFont">{{ item.time }} {{ item.date }}</div>
-            <div class="contentFont">
-              {{ item.desire }}
-            </div>
-            <div class="videoClass">
-              <div class="video-img-body" @click.stop="videoPlay(item.file_url)">
-                <img
-                  :src="`${item.file_url}` + '?vframe/jpg/offset/0/w/325/h200'"
-                  alt=""
-                  srcset=""
-                />
-                <div class="video-play-body">
-                  <van-icon size="45" color="#fff" name="play-circle-o" />
+        <template v-if="dataList">
+          <div
+            @click.stop="
+              $router.push({
+                path: '/wishVideo/wishDetail',
+                query: { id: item.id, user_id: user },
+              })
+            "
+            class="steps"
+            v-for="(item, index) of dataList"
+            :key="index"
+          >
+            <span class="dotClass" v-if="item.time != dataList[index>0?index-1:0].time || index == 0"></span>
+            <div class="contentbody">
+              <div class="timeFont">{{ item.time }} {{ item.date }}</div>
+              <div class="contentFont">
+                {{ item.desire }}
+              </div>
+              <div class="videoClass">
+                <div
+                  class="video-img-body"
+                  @click.stop="videoPlay(item.file_url)"
+                >
+                  <img
+                    :src="
+                      `${item.file_url}` + '?vframe/jpg/offset/0/w/325/h200'
+                    "
+                    alt=""
+                    srcset=""
+                  />
+                  <div class="video-play-body">
+                    <van-icon size="45" color="#fff" name="play-circle-o" />
+                  </div>
+                  <div class="video-time">
+                    {{ $global.formateSeconds(item.duration, 1) }}
+                  </div>
                 </div>
-                <div class="video-time">{{$global.formateSeconds(item.duration,1)}}</div>
               </div>
-            </div>
-            <div class="video-tips">
-              <div class="video-tips-item" @click.stop="upTo(item)">
-                <img src="@/assets/images/share.png" alt="" />
-              </div>
-              <div
-                v-if="item.is_like"
-                class="video-tips-item"
-                @click.stop="giveLike(item)"
-              >
-                <img src="@/assets/images/flower12.png" alt="" />
-                <!-- <van-icon style="vertical-align: unset" name="good-job-o" /> -->
-                <span>{{ item.flower }}</span>
-              </div>
-              <div
-                class="video-tips-item"
-                v-else
-                @click.stop="giveLike(item)"
-              >
-                <img src="@/assets/images/flower11.png" alt="" />
-                <span style="color:#d2d2d2">{{ item.flower }}</span>
+              <div class="video-tips">
+                <div class="video-tips-item" @click.stop="upTo(item)">
+                  <img src="@/assets/images/share.png" alt="" />
+                </div>
+                <div
+                  v-if="item.is_like"
+                  class="video-tips-item"
+                  @click.stop="giveLike(item)"
+                >
+                  <img src="@/assets/images/flower12.png" alt="" />
+                  <!-- <van-icon style="vertical-align: unset" name="good-job-o" /> -->
+                  <span>{{ item.flower }}</span>
+                </div>
+                <div
+                  class="video-tips-item"
+                  v-else
+                  @click.stop="giveLike(item)"
+                >
+                  <img src="@/assets/images/flower11.png" alt="" />
+                  <span style="color: #d2d2d2">{{ item.flower }}</span>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </template>
+        <van-empty
+          v-else
+          class="custom-image"
+          image="https://img01.yzcdn.cn/vant/custom-empty-image.png"
+          description="暂无视频"
+        />
       </div>
     </div>
 
-<!-- 分享提示 -->
+    <!-- 分享提示 -->
     <van-overlay :show="shareShow" @click="shareShow = false">
-    <div class="wrapper">
-      <div class="block">
-        <img src="@/assets/images/share-tip.png" alt="" srcset="">
+      <div class="wrapper">
+        <div class="block">
+          <img src="@/assets/images/share-tip.png" alt="" srcset="" />
+        </div>
       </div>
-    </div>
-  </van-overlay>
+    </van-overlay>
   </div>
 </template>
 <script>
 import api from "@/request/xsdt.js";
 import { uploadToQiniu, getQiniuTk } from "@/utils/utils.js";
-import { Icon,Overlay  } from "vant";
+import { Icon, Overlay, Empty } from "vant";
 export default {
   name: "wishVideo",
   components: {
-    VanIcon:Icon,
-    VanOverlay:Overlay
+    VanIcon: Icon,
+    VanOverlay: Overlay,
+    VanEmpty: Empty,
   },
   data() {
     return {
@@ -138,7 +157,7 @@ export default {
       pageNo: 1,
       showPicker: false,
       show: true,
-      shareShow:false,
+      shareShow: false,
       form: {},
       dataList: [],
       userInfo: {},
@@ -148,8 +167,8 @@ export default {
   },
   methods: {
     //视频播放
-    videoPlay(videoUrl){
-      let video = document.createElement('video');
+    videoPlay(videoUrl) {
+      let video = document.createElement("video");
       video.src = videoUrl;
       video.play();
     },
@@ -164,7 +183,17 @@ export default {
         this.backgroundUrl = res.data.user.activity_background.url;
         this.backgroundColor = res.data.user.activity_background.color;
         this.dataList = res.data.list.data;
+        if (this.dataList.length == 0) {
+          this.dataList = "";
+        }
         this.userInfo = res.data.user;
+        let url = `${window.location.origin}/wishVideo?user_id=${this.user}`;
+        this.$global.shareToWechat(
+          `${this.userInfo.nickname}小朋友关于的心愿视频`,
+          url,
+          this.userInfo.avatar,
+          "欢迎大家送花！"
+        );
       });
     },
     select(index) {
@@ -185,21 +214,14 @@ export default {
     },
     goUpload() {},
     upTo(item) {
-      let url = `${window.location.origin}/wishDetail?id=${item.id}&user_id=${this.user}`;
-      this.$global.shareToWechat(
-        "心愿视频分享",
-        url,
-        item.file_url + "?vframe/jpg/offset/0/w/325/h200",
-        item.desire
-      );
       this.shareShow = true;
     },
     giveLike(item) {
       api.likeGrowing(this.qs.stringify({ id: item.id })).then((res) => {
         // this.getList();
-        if(res.status == 200){
-          item.flower+=1;
-          this.userInfo.activity_flower+=1;
+        if (res.status == 200) {
+          item.flower += 1;
+          this.userInfo.activity_flower += 1;
           item.is_like = true;
         }
         if (res.status == 401) {
@@ -221,6 +243,7 @@ export default {
   },
   mounted() {
     this.container = this.$refs.container;
+
     // let value = {
     //   token: "d99b797e4baa5489574f2114ce178b97",
     //   user_id: 399,
@@ -242,7 +265,7 @@ export default {
     width: 100%;
     height: 100%;
     position: relative;
-    img{
+    img {
       position: absolute;
       right: 20px;
       width: 50%;
@@ -281,25 +304,34 @@ export default {
       left: 20px;
       color: #fff;
       display: flex;
-      flex-wrap: wrap;
-      width: 50px;
       .circleIcon {
         width: 50px;
         height: 50px;
+        flex-shrink: 0;
+        border: 2px solid #fff;
+        box-sizing: border-box;
+        border-radius: 50%;
+        overflow: hidden;
         img {
           width: 100%;
           height: 100%;
           object-fit: cover;
-          border-radius: 50%;
-          border: 2.5px solid #fff;
-          box-sizing: border-box;
         }
       }
       .nameFont {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
         width: 100%;
-        text-align: center;
-        font-size: 16px;
+        font-size: 14px;
         font-weight: 600;
+        margin-left: 10px;
+        p{
+          width: 100%;
+          &:nth-of-type(1){
+            font-size: 16px;
+          }
+        }
       }
     }
     .Titright {
@@ -369,6 +401,11 @@ export default {
         height: 60px;
         background: #277bff;
         z-index: 999;
+        img{
+          width: 30px; 
+          vertical-align: bottom; 
+          margin-top: 5px
+        }
       }
       .steps {
         margin: 0px 0.5rem 15px 0;
@@ -434,32 +471,32 @@ export default {
                 transform: translate(-50%, -50%);
               }
             }
-            .video-time{
-              background: rgba(0,0,0,0.5);
+            .video-time {
+              background: rgba(0, 0, 0, 0.5);
               position: absolute;
               right: 10px;
               bottom: 10px;
               color: #fff;
               font-size: 12px;
               border-radius: 999px;
-              padding:1px 5px;
+              padding: 1px 5px;
             }
           }
           .video-tips {
             width: 100%;
             display: flex;
-            justify-content:space-between;
+            justify-content: space-between;
             padding: 0 15px;
             box-sizing: border-box;
             margin-top: 10px;
-            .video-tips-item{
+            .video-tips-item {
               display: flex;
               align-content: center;
-              img{
+              img {
                 width: 21px;
                 height: 21px;
               }
-              span{
+              span {
                 color: #fdcc5d;
                 margin-left: 3px;
                 font-size: 16.67px;
@@ -471,6 +508,16 @@ export default {
           }
         }
       }
+    }
+  }
+}
+</style>
+<style lang="scss">
+.wishAll {
+  .custom-image {
+    .van-empty__image {
+      width: 90px;
+      height: 90px;
     }
   }
 }

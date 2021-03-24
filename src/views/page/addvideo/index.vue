@@ -79,6 +79,7 @@
         ></video>
         <van-icon name="cross" @click="datavideo = ''" />
       </div>
+      <van-field v-model="schoolName" label="班级名称" placeholder="请输入您所在的班级" />
       <van-field v-model="name" label="名字" placeholder="请输入您的姓名" />
       <van-field
         readonly
@@ -152,6 +153,7 @@ export default {
       datavideo: "",
       school: "巴蜀常春藤(畅雲轩)",
       name: "",
+      schoolName:"",
       desire: "",
       type: this.$route.query.type,
       showPicker: false,
@@ -181,6 +183,8 @@ export default {
     getList() {
       api.settingGrow().then((res) => {
         this.columns = res.data.tag;
+        this.name = res.data.user.user_name;
+        this.schoolName = res.data.user.school_name;
       });
     },
     getUserInfo() {
@@ -208,7 +212,7 @@ export default {
     },
     submit(n) {
       if (n == 1) {
-        if (!this.Videotype && this.datavideo) {
+        if (!this.Videotype && !this.datavideo && !this.schoolName) {
           this.$toast.fail("请完善数据");
           return;
         }
@@ -217,6 +221,7 @@ export default {
           tags: this.Videotype,
           file_url: this.datavideo,
           desire: this.desire,
+          school_name:this.schoolName
         };
         api.publish(this.qs.stringify(parasm)).then((res) => {
           if (res.status == 200) {
