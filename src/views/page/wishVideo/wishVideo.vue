@@ -1,5 +1,5 @@
 <template>
-  <div class="wishAll">
+  <div class="wishAll" :style="{ background: `${backgroundColor}` }">
     <div class="wishTit">
       <div class="wishTit-img">
         <img :src="backgroundUrl" alt="" />
@@ -13,8 +13,8 @@
         </div>
         <div class="nameFont">
           <p>{{ userInfo.nickname }}</p>
-          <p>{{userInfo.school_name}}</p>
-          </div>
+          <p>{{ userInfo.school_name }}</p>
+        </div>
       </div>
       <div class="Titright">
         <div class="circleIcon">
@@ -23,7 +23,7 @@
         <div class="numFont">小花&nbsp;{{ userInfo.activity_flower }}</div>
       </div>
     </div>
-    <div class="bodyCl" :style="{ background: `${backgroundColor}` }">
+    <div class="bodyCl">
       <div class="bodyTab">
         <span
           v-for="(item, index) of tags"
@@ -34,7 +34,11 @@
           {{ item }}</span
         >
       </div>
-      <div class="content" :style="dataList==''?'border:none':''" ref="container">
+      <div
+        class="content"
+        :style="dataList == '' ? 'border:none' : ''"
+        ref="container"
+      >
         <!-- 悬浮上传按钮 -->
         <div
           class="rightUpload"
@@ -45,11 +49,7 @@
             })
           "
         >
-          <img
-           
-            src="@/assets/images/upVideo.png"
-            alt=""
-          />
+          <img src="@/assets/images/upVideo.png" alt="" />
           <div style="line-height: 5px">继续上传</div>
         </div>
         <template v-if="dataList">
@@ -64,7 +64,13 @@
             v-for="(item, index) of dataList"
             :key="index"
           >
-            <span class="dotClass" v-if="item.time != dataList[index>0?index-1:0].time || index == 0"></span>
+            <span
+              class="dotClass"
+              v-if="
+                item.time != dataList[index > 0 ? index - 1 : 0].time ||
+                index == 0
+              "
+            ></span>
             <div class="contentbody">
               <div class="timeFont">{{ item.time }} {{ item.date }}</div>
               <div class="contentFont">
@@ -132,6 +138,9 @@
         </div>
       </div>
     </van-overlay>
+    <div class="bottomJpg">
+      <img src="@/assets/images/bottom.png" alt="" />
+    </div>
   </div>
 </template>
 <script>
@@ -189,7 +198,7 @@ export default {
         this.userInfo = res.data.user;
         let url = `${window.location.origin}/wishVideo?user_id=${this.user}`;
         this.$global.shareToWechat(
-          `${this.userInfo.nickname}小朋友关于的心愿视频`,
+          `${this.userInfo.nickname}小朋友的心愿视频`,
           url,
           this.userInfo.avatar,
           "欢迎大家送花！"
@@ -234,11 +243,11 @@ export default {
     },
   },
   created() {
-    if (window.localStorage.getItem("storage") == null) {
-      this.$router.push({
-        path: "/toke",
-      });
-    }
+    // if (window.localStorage.getItem("storage") == null) {
+    //   this.$router.push({
+    //     path: "/toke",
+    //   });
+    // }
     this.getBackground();
   },
   mounted() {
@@ -326,9 +335,9 @@ export default {
         font-size: 14px;
         font-weight: 600;
         margin-left: 10px;
-        p{
+        p {
           width: 100%;
-          &:nth-of-type(1){
+          &:nth-of-type(1) {
             font-size: 16px;
           }
         }
@@ -401,10 +410,10 @@ export default {
         height: 60px;
         background: #277bff;
         z-index: 999;
-        img{
-          width: 30px; 
-          vertical-align: bottom; 
-          margin-top: 5px
+        img {
+          width: 30px;
+          vertical-align: bottom;
+          margin-top: 5px;
         }
       }
       .steps {
@@ -508,6 +517,13 @@ export default {
           }
         }
       }
+    }
+  }
+  .bottomJpg {
+    width: 100%;
+    img {
+      width: 100%;
+      object-fit: cover;
     }
   }
 }

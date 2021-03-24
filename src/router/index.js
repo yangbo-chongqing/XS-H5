@@ -282,6 +282,7 @@ const routes = [
     meta: {
       title: '心愿视频',
       keepAlive: false,
+      bottomShow: true,
     },
   },
   {

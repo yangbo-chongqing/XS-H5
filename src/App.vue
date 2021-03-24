@@ -1,11 +1,19 @@
 <template>
-  <div class="xsdt">
-    <keep-alive>
-      <router-view v-if="$route.meta.keepAlive"></router-view>
-    </keep-alive>
-    <router-view v-if="!$route.meta.keepAlive"></router-view>
-    <!-- <open-app v-if="isApp"></open-app> -->
-    <xsdtfooter />
+  <div>
+    <div class="xsdt" v-if="!$route.meta.bottomShow">
+      <keep-alive>
+        <router-view v-if="$route.meta.keepAlive"></router-view>
+      </keep-alive>
+      <router-view v-if="!$route.meta.keepAlive"></router-view>
+      <!-- <open-app v-if="isApp"></open-app> -->
+      <xsdtfooter />
+    </div>
+    <div class="xsdtt" v-if="$route.meta.bottomShow">
+      <keep-alive>
+        <router-view v-if="$route.meta.keepAlive"></router-view>
+      </keep-alive>
+      <router-view v-if="!$route.meta.keepAlive"></router-view>
+    </div>
   </div>
 </template>
 
@@ -18,7 +26,7 @@ import { mapGetters } from "vuex";
 import { getURLlist } from "@/utils/utils";
 import { Toast } from "vant";
 import openApp from "@/components/openApp";
-import xsdtfooter from '@/components/xsdtfooter';
+import xsdtfooter from "@/components/xsdtfooter";
 import Viewer from "viewerjs";
 export default {
   data() {
@@ -31,12 +39,12 @@ export default {
     };
   },
   components: {
-    Toast:Toast,
+    Toast: Toast,
     openApp,
-    xsdtfooter
+    xsdtfooter,
   },
-  created () {
-    document.body.removeChild(document.getElementById('Loading'));
+  created() {
+    document.body.removeChild(document.getElementById("Loading"));
   },
   watch: {
     $route: {
@@ -55,10 +63,8 @@ export default {
       immediate: true, // 首次进入页面即执行
       message: function () {
         // console.log(1);
-        this.$nextTick(() => {
-
-        })
-      }
+        this.$nextTick(() => {});
+      },
     },
   },
   mounted() {
@@ -72,13 +78,13 @@ export default {
     // window.addEventListener("load", function () {  Toast.clear(); });
   },
   methods: {
-    showLoading(){
+    showLoading() {
       Toast.loading({
-        message: '加载中...',
+        message: "加载中...",
         forbidClick: true,
-        loadingType: 'spinner',
+        loadingType: "spinner",
       });
-    }
+    },
   },
   // watch: {},
   computed: {},
@@ -87,9 +93,14 @@ export default {
 
 <style lang="scss">
 @import "@/styles/reset.scss";
-.xsdt{
+.xsdt {
   position: relative;
-  padding-bottom:50px;
+  padding-bottom: 50px;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+.xsdtt {
+  position: relative;
   min-height: 100vh;
   box-sizing: border-box;
 }
