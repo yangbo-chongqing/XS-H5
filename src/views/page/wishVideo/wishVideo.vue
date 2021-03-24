@@ -170,6 +170,7 @@ export default {
       form: {},
       dataList: [],
       userInfo: {},
+      isLikeFlag: true,
       // user: localStorage.getItem("storage").user_id,
       user: this.$route.query.user_id,
     };
@@ -227,20 +228,26 @@ export default {
       this.shareShow = true;
     },
     giveLike(item) {
-      api.likeGrowing(this.qs.stringify({ id: item.id })).then((res) => {
-        // this.getList();
-        if (res.status == 200) {
-          item.flower += 1;
-          this.userInfo.activity_flower += 1;
-          item.is_like = true;
-        }
-        if (res.status == 401) {
-          localStorage.removeItem("storage");
-          this.$router.push({
-            path: "/toke",
-          });
-        }
-      });
+      if (this.isLikeFlag) {
+        this.isLikeFlag = false;
+        api.likeGrowing(this.qs.stringify({ id: item.id })).then((res) => {
+          this.isLikeFlag = true;
+          // this.getList();
+          if (res.status == 200) {
+            item.flower += 1;
+            this.userInfo.activity_flower += 1;
+            item.is_like = true;
+          }
+          if (res.status == 401) {
+            localStorage.removeItem("storage");
+            this.$router.push({
+              path: "/toke",
+            });
+          }
+        }).catch(()=>{
+          this.isLikeFlag = true;
+        });
+      }
     },
   },
   created() {
