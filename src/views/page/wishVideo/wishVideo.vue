@@ -189,7 +189,7 @@ export default {
         this.userInfo = res.data.user;
         let url = `${window.location.origin}/wishVideo?user_id=${this.user}`;
         this.$global.shareToWechat(
-          `${this.userInfo.nickname}小朋友关于的心愿视频`,
+          `${this.userInfo.nickname}小朋友的心愿视频`,
           url,
           this.userInfo.avatar,
           "欢迎大家送花！"
