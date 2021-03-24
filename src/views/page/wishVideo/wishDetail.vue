@@ -200,12 +200,11 @@ export default {
     background: #0057de;
   }
   .contentbody {
-    margin-left: 0.5rem;
     height: 260px;
     background: #fff;
     margin-bottom: 1rem;
     border-radius: 12px;
-    padding: 10px;
+    padding:10px 20px;
     .timeFont {
       font-size: 12px;
       color: #c0c0c0;
