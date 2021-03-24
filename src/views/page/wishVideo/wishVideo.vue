@@ -196,6 +196,7 @@ export default {
           this.dataList = "";
         }
         this.userInfo = res.data.user;
+        document.title = `${this.userInfo.nickname}小朋友的心愿视频`;
         let url = `${window.location.origin}/wishVideo?user_id=${this.user}`;
         this.$global.shareToWechat(
           `${this.userInfo.nickname}小朋友的心愿视频`,
