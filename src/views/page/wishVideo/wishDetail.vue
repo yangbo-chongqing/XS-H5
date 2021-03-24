@@ -1,15 +1,14 @@
 <template>
-  <div class="steps">
-    <van-nav-bar
+  <div class="steps" v-if="dataList">
+    <!-- <van-nav-bar
       title="视频详情"
       left-text="返回"
       left-arrow
       @click-left="onClickLeft"
-    />
+    /> -->
     <div class="headIcon">
       <div class="circleIcon">
         <img
-          style="width: 90%; border-radius: 50%; vertical-align: middle"
           :src="userInfo.avatar"
           alt=""
         />
@@ -22,94 +21,76 @@
         {{ dataList.desire }}
       </div>
       <div class="videoClass">
-        <video
-          :poster="`${dataList.file_url}` + '?vframe/jpg/offset/0/w/325/h200'"
-          height="166"
-          width="297"
-          style="display: inline-block; border-radius: 12px； max-width：100%"
-          controls
-          :src="dataList.file_url"
-        ></video>
+        <div class="video-img-body" @click.stop="videoPlay(dataList.file_url)">
+          <img
+            :src="`${dataList.file_url}` + '?vframe/jpg/offset/0/w/325/h200'"
+            alt=""
+            srcset=""
+          />
+          <div class="video-play-body">
+            <van-icon size="45" color="#fff" name="play-circle-o" />
+          </div>
+          <div class="video-time">{{$global.formateSeconds(dataList.duration,1)}}</div>
+        </div>
       </div>
-      <div style="display: flex; justify-content: space-around">
-        <div style="display: inline-block">
-          <img
-            style="
-              display: inline-block;
-              width: 22px;
-              height: 22px;
-              vertical-align: super;
-            "
-            src="@/assets/images/share.png"
-            @click.stop="upTo(dataList)"
-            alt=""
-          />
-        </div>
-        <div
-          v-if="dataList.is_like"
-          style="display: inline-block"
-          @click="giveLike(dataList)"
-        >
-          <img
-            style="
-              display: inline-block;
-              width: 22px;
-              height: 22px;
-              vertical-align: text-top;
-            "
-            src="@/assets/images/flower12.png"
-            alt=""
-          />
-          <!-- <van-icon style="vertical-align: unset" name="good-job-o" /> -->
-          <span
-            style="
-              font-size: 22px;
-              color: #fcbb2e;
-              vertical-align: text-top;
-              margin-left: 5px;
-            "
-            >{{ dataList.flower }}</span
-          >
-        </div>
-        <div v-else style="display: inline-block" @click="giveLike(item)">
-          <img
-            style="
-              display: inline-block;
-              width: 22px;
-              height: 22px;
-              vertical-align: text-top;
-            "
-            src="@/assets/images/flower11.png"
-            alt=""
-          />
-          <span
-            style="
-              color: #fcbb2e;
-              font-size: 22px;
-              color: #999999;
-              vertical-align: text-top;
-              margin-left: 5px;
-              vertical-align: super;
-            "
-            >{{ dataList.flower }}</span
-          >
-        </div>
+      <div class="video-tips">
+              <div class="video-tips-item" @click.stop="upTo(dataList)">
+                <img src="@/assets/images/share.png" alt="" />
+              </div>
+              <div
+                v-if="dataList.is_like"
+                class="video-tips-item"
+                @click.stop="giveLike(dataList)"
+              >
+                <img src="@/assets/images/flower12.png" alt="" />
+                <!-- <van-icon style="vertical-align: unset" name="good-job-o" /> -->
+                <span>{{ dataList.flower }}</span>
+              </div>
+              <div
+                class="video-tips-item"
+                v-else
+                
+                @click.stop="giveLike(dataList)"
+              >
+                <img src="@/assets/images/flower11.png" alt="" />
+                <span style="color:#d2d2d2">{{ dataList.flower }}</span>
+              </div>
+            </div>
+      
+    </div>
+    <!-- 分享提示 -->
+    <van-overlay :show="shareShow" @click="shareShow = false">
+    <div class="wrapper">
+      <div class="block">
+        <img src="@/assets/images/share-tip.png" alt="" srcset="">
       </div>
     </div>
+  </van-overlay>
   </div>
 </template>
 <script>
 import api from "@/request/xsdt.js";
-
+import { Icon,Overlay } from "vant";
 export default {
+  components: {
+    VanIcon: Icon,
+    VanOverlay:Overlay
+  },
   data() {
     return {
-      dataList: {},
+      dataList: null,
       userInfo: {},
       user: this.$route.query.user_id,
+      shareShow:false,
     };
   },
   methods: {
+    //视频播放
+    videoPlay(videoUrl) {
+      let video = document.createElement("video");
+      video.src = videoUrl;
+      video.play();
+    },
     getDetail() {
       api
         .getDetail(this.qs.stringify({ id: this.$route.query.id }))
@@ -137,19 +118,23 @@ export default {
       });
     },
     upTo(item) {
-      //   console.log(window.location.href);
       let title = "心愿视频分享";
-      let url = `${window.location.href}?id=${item.id}`;
+      let url = `${window.location.origin}/wishVideo/wishDetail?id=${item.id}&user_id=${this.user}`;
+      console.log(url);
       this.$global.shareToWechat(
         title,
         url,
         item.file_url + "?vframe/jpg/offset/0/w/325/h200",
         item.desire
       );
+      this.shareShow = true;
     },
     giveLike(item) {
       api.likeGrowing(this.qs.stringify({ id: item.id })).then((res) => {
-        this.getList();
+        if(res.status == 200){
+          item.flower+=1;
+          item.is_like = true;
+        }
       });
     },
   },
@@ -161,31 +146,47 @@ export default {
 </script>
 <style lang="scss" scoped>
 .steps {
-  margin: 0rem 0.5rem 1rem 0;
+  .wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+  .block {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    img{
+      position: absolute;
+      right: 20px;
+      width: 50%;
+    }
+  }
   position: relative;
   .headIcon {
     position: relative;
-    margin-left: 1rem;
     border-bottom: 1px solid #f5f5f5;
-    padding-top: 5px;
+    padding: 5px 20px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
     .circleIcon {
-      border-radius: 50%;
-      width: 60px;
+      width: 50px;
       text-align: center;
-      // line-height: 60px;
-      display: table-cell;
-      vertical-align: middle;
-      height: 60px;
-      background: #fff;
+      height: 50px;
+      img{
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        border: 2.5px solid #fff;
+        box-sizing: border-box;
+      }
     }
     .nameFont {
       text-align: center;
-      left: 80px;
-      top: 20px;
-      position: absolute;
-      font-size: 20px;
-      display: inline-block;
-      font-weight: 500;
+      font-size: 16.67px;
+      font-weight: 600;
+      margin-left: 10px;
     }
   }
   .dotClass {
@@ -210,7 +211,7 @@ export default {
       color: #c0c0c0;
     }
     .contentFont {
-      font-size: 14px;
+      font-size: 15.5px;
       color: #000;
       padding-top: 5px;
       overflow: hidden;
@@ -222,13 +223,64 @@ export default {
       display: box;
     }
     .videoClass {
-      text-align: center;
-      border-radius: 5px;
-      width: 100%;
-      height: auto;
-      padding-top: 10px;
-      box-sizing: border-box;
-    }
+            text-align: center;
+            border-radius: 5px;
+            width: 100%;
+            height: auto;
+            padding-top: 10px;
+            box-sizing: border-box;
+            position: relative;
+            .video-img-body {
+              width: 100%;
+              height: 166px;
+              position: relative;
+              img {
+                width: 100%;
+                height: 100%;
+                border-radius: 10px;
+              }
+              .video-play-body {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+              }
+            }
+            .video-time{
+              background: rgba(0,0,0,0.5);
+              position: absolute;
+              right: 10px;
+              bottom: 10px;
+              color: #fff;
+              font-size: 12px;
+              border-radius: 999px;
+              padding:1px 5px;
+            }
+          }
+          .video-tips {
+            width: 100%;
+            display: flex;
+            justify-content:space-between;
+            padding: 0 15px;
+            box-sizing: border-box;
+            margin-top: 10px;
+            .video-tips-item{
+              display: flex;
+              align-content: center;
+              img{
+                width: 21px;
+                height: 21px;
+              }
+              span{
+                color: #fdcc5d;
+                margin-left: 3px;
+                font-size: 16.67px;
+                display: flex;
+                align-content: center;
+                justify-content: center;
+              }
+            }
+          }
   }
 }
 </style>

@@ -1,27 +1,21 @@
 <template>
   <div class="wishAll">
     <div class="wishTit">
-      <img width="100%" :src="backgroundUrl" alt="" />
+      <div class="wishTit-img">
+        <img :src="backgroundUrl" alt="" />
+      </div>
       <!-- <div class="setting">
         <van-icon color="#fff" style="z-index: 9999" name="setting-o" />
       </div> -->
       <div class="headIcon">
         <div class="circleIcon">
-          <img
-            style="width: 90%; border-radius: 50%; vertical-align: middle"
-            :src="userInfo.avatar"
-            alt=""
-          />
+          <img :src="userInfo.avatar" alt="" />
         </div>
         <div class="nameFont">{{ userInfo.nickname }}</div>
       </div>
       <div class="Titright">
         <div class="circleIcon">
-          <img
-            style="width: 80%; vertical-align: super; margin-top: 4px"
-            src="@/assets/images/hua.png"
-            alt=""
-          />
+          <img src="@/assets/images/hua.png" alt="" />
         </div>
         <div class="numFont">鲜花总量&nbsp;{{ userInfo.activity_flower }}</div>
       </div>
@@ -73,96 +67,65 @@
               {{ item.desire }}
             </div>
             <div class="videoClass">
-              <video
-                :poster="`${item.file_url}` + '?vframe/jpg/offset/0/w/325/h200'"
-                height="166"
-                width="297"
-                style="
-                  display: inline-block;
-                  border-radius: 12px;
-                  max-width: 100%;
-                "
-                controls
-                :src="item.file_url"
-              ></video>
-            </div>
-            <div style="display: flex; justify-content: space-around">
-              <div style="display: inline-block" @click="upTo(item)">
+              <div class="video-img-body" @click.stop="videoPlay(item.file_url)">
                 <img
-                  style="
-                    display: inline-block;
-                    width: 22px;
-                    height: 22px;
-                    vertical-align: middle;
-                  "
-                  src="@/assets/images/share.png"
+                  :src="`${item.file_url}` + '?vframe/jpg/offset/0/w/325/h200'"
                   alt=""
+                  srcset=""
                 />
+                <div class="video-play-body">
+                  <van-icon size="45" color="#fff" name="play-circle-o" />
+                </div>
+                <div class="video-time">{{$global.formateSeconds(item.duration,1)}}</div>
+              </div>
+            </div>
+            <div class="video-tips">
+              <div class="video-tips-item" @click.stop="upTo(item)">
+                <img src="@/assets/images/share.png" alt="" />
               </div>
               <div
                 v-if="item.is_like"
-                style="display: inline-block"
+                class="video-tips-item"
                 @click.stop="giveLike(item)"
               >
-                <img
-                  style="
-                    display: inline-block;
-                    width: 22px;
-                    height: 22px;
-                    vertical-align: middle;
-                  "
-                  src="@/assets/images/flower12.png"
-                  alt=""
-                />
+                <img src="@/assets/images/flower12.png" alt="" />
                 <!-- <van-icon style="vertical-align: unset" name="good-job-o" /> -->
-                <span
-                  style="
-                    font-size: 22px;
-                    color: #fcbb2e;
-                    vertical-align: middle;
-                    margin-left: 5px;
-                  "
-                  >{{ item.flower }}</span
-                >
+                <span>{{ item.flower }}</span>
               </div>
               <div
+                class="video-tips-item"
                 v-else
-                style="display: inline-block"
                 @click.stop="giveLike(item)"
               >
-                <img
-                  style="
-                    display: inline-block;
-                    width: 22px;
-                    height: 22px;
-                    vertical-align: middle;
-                  "
-                  src="@/assets/images/flower11.png"
-                  alt=""
-                />
-                <span
-                  style="
-                    color: #fcbb2e;
-                    font-size: 22px;
-                    color: #999999;
-                    margin-left: 5px;
-                    vertical-align: middle;
-                  "
-                  >{{ item.flower }}</span
-                >
+                <img src="@/assets/images/flower11.png" alt="" />
+                <span style="color:#d2d2d2">{{ item.flower }}</span>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+
+<!-- 分享提示 -->
+    <van-overlay :show="shareShow" @click="shareShow = false">
+    <div class="wrapper">
+      <div class="block">
+        <img src="@/assets/images/share-tip.png" alt="" srcset="">
+      </div>
+    </div>
+  </van-overlay>
   </div>
 </template>
 <script>
 import api from "@/request/xsdt.js";
 import { uploadToQiniu, getQiniuTk } from "@/utils/utils.js";
+import { Icon,Overlay  } from "vant";
 export default {
   name: "wishVideo",
+  components: {
+    VanIcon:Icon,
+    VanOverlay:Overlay
+  },
   data() {
     return {
       activeNum: 0,
@@ -175,16 +138,22 @@ export default {
       pageNo: 1,
       showPicker: false,
       show: true,
+      shareShow:false,
       form: {},
       dataList: [],
       userInfo: {},
-      //   user: localStorage.getItem("storage").user_id,
+      // user: localStorage.getItem("storage").user_id,
       user: this.$route.query.user_id,
     };
   },
   methods: {
+    //视频播放
+    videoPlay(videoUrl){
+      let video = document.createElement('video');
+      video.src = videoUrl;
+      video.play();
+    },
     getList() {
-      console.log(this.user);
       let params = {
         user_id: this.user,
         page: 1,
@@ -198,7 +167,6 @@ export default {
         this.userInfo = res.data.user;
       });
     },
-
     select(index) {
       this.activeNum = index;
       this.tag = this.tags[index];
@@ -217,19 +185,23 @@ export default {
     },
     goUpload() {},
     upTo(item) {
-      //   console.log(window.location.href);
-      let url = `${window.location.href}/wishDetail?id=${item.id}$user_id=${this.user}`;
-
+      let url = `${window.location.origin}/wishDetail?id=${item.id}&user_id=${this.user}`;
       this.$global.shareToWechat(
         "心愿视频分享",
         url,
         item.file_url + "?vframe/jpg/offset/0/w/325/h200",
         item.desire
       );
+      this.shareShow = true;
     },
     giveLike(item) {
       api.likeGrowing(this.qs.stringify({ id: item.id })).then((res) => {
-        this.getList();
+        // this.getList();
+        if(res.status == 200){
+          item.flower+=1;
+          this.userInfo.activity_flower+=1;
+          item.is_like = true;
+        }
         if (res.status == 401) {
           localStorage.removeItem("storage");
           this.$router.push({
@@ -254,16 +226,50 @@ export default {
     //   user_id: 399,
     // };
     // window.localStorage.setItem("storage", JSON.stringify(value));
+    // this.user = JSON.parse(localStorage.getItem("storage")).user_id;
   },
 };
 </script>
 <style lang="scss" scoped>
 .wishAll {
+  .wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+  .block {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    img{
+      position: absolute;
+      right: 20px;
+      width: 50%;
+    }
+  }
   .wishTit {
     width: 100%;
     height: 287.5px;
     background: #3f3f3f;
     position: relative;
+    .wishTit-img {
+      width: 100%;
+      height: 287.5px;
+      position: relative;
+      &::after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 287.5px;
+        bottom: 0;
+        left: 0;
+        background: linear-gradient(rgba(0, 0, 0, 0) 80%, rgba(1, 23, 44, 0.8));
+      }
+      img {
+        width: 100%;
+      }
+    }
     .setting {
       position: absolute;
       right: 10px;
@@ -271,50 +277,62 @@ export default {
     }
     .headIcon {
       position: absolute;
-      bottom: 10px;
-      left: 30px;
+      bottom: 5px;
+      left: 20px;
       color: #fff;
+      display: flex;
+      flex-wrap: wrap;
+      width: 50px;
       .circleIcon {
-        border-radius: 50%;
-        width: 60px;
-        text-align: center;
-        // line-height: 60px;
-        display: table-cell;
-        vertical-align: middle;
-        height: 60px;
-        background: #fff;
+        width: 50px;
+        height: 50px;
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          border-radius: 50%;
+          border: 2.5px solid #fff;
+          box-sizing: border-box;
+        }
       }
       .nameFont {
+        width: 100%;
         text-align: center;
-        font-size: 18px;
-        font-weight: 500;
+        font-size: 16px;
+        font-weight: 600;
       }
     }
     .Titright {
       position: absolute;
       right: 20px;
-      bottom: 24px;
+      bottom: 15px;
       color: #fff;
+      display: flex;
       .circleIcon {
+        flex-shrink: 0;
         border-radius: 50%;
         width: 32px;
         height: 32px;
         background: #fff;
-        display: inline-block;
-        vertical-align: middle;
-        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        img {
+          width: 23px;
+          height: 23px;
+        }
       }
       .numFont {
-        font-size: 14px;
-        display: inline-block;
-        vertical-align: middle;
-        margin-left: 5px;
+        width: 100%;
+        font-size: 12.5px;
+        display: flex;
+        align-items: center;
+        margin-left: 10px;
       }
     }
   }
   .bodyCl {
     padding: 1rem 0 0 0;
-    // background: #02519c;
     .bodyTab {
       display: flex;
       justify-content: space-around;
@@ -337,6 +355,7 @@ export default {
       border-left: 1px solid #fff;
       margin-left: 0.5rem;
       box-sizing: border-box;
+      margin-top: 35px;
       padding-bottom: 1px;
       .rightUpload {
         text-align: center;
@@ -352,7 +371,7 @@ export default {
         z-index: 999;
       }
       .steps {
-        margin: 1rem 0.5rem 1rem 0;
+        margin: 0px 0.5rem 15px 0;
         position: relative;
         .dotClass {
           left: -6px;
@@ -372,7 +391,7 @@ export default {
           //   box-sizing: border-box;
           //   height: 260px;
           background: #fff;
-          margin-bottom: 1rem;
+          margin-bottom: 15px;
           border-radius: 12px;
           padding: 10px;
           .timeFont {
@@ -380,8 +399,8 @@ export default {
             color: #c0c0c0;
           }
           .contentFont {
-            font-size: 14px;
-            color: #000;
+            font-size: 15.5px;
+            color: #333;
             padding-top: 5px;
             overflow: hidden;
             -webkit-line-clamp: 2;
@@ -398,6 +417,57 @@ export default {
             height: auto;
             padding-top: 10px;
             box-sizing: border-box;
+            position: relative;
+            .video-img-body {
+              width: 100%;
+              height: 166px;
+              position: relative;
+              img {
+                width: 100%;
+                height: 100%;
+                border-radius: 10px;
+              }
+              .video-play-body {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+              }
+            }
+            .video-time{
+              background: rgba(0,0,0,0.5);
+              position: absolute;
+              right: 10px;
+              bottom: 10px;
+              color: #fff;
+              font-size: 12px;
+              border-radius: 999px;
+              padding:1px 5px;
+            }
+          }
+          .video-tips {
+            width: 100%;
+            display: flex;
+            justify-content:space-between;
+            padding: 0 15px;
+            box-sizing: border-box;
+            margin-top: 10px;
+            .video-tips-item{
+              display: flex;
+              align-content: center;
+              img{
+                width: 21px;
+                height: 21px;
+              }
+              span{
+                color: #fdcc5d;
+                margin-left: 3px;
+                font-size: 16.67px;
+                display: flex;
+                align-content: center;
+                justify-content: center;
+              }
+            }
           }
         }
       }
