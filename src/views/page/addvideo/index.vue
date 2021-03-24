@@ -225,7 +225,12 @@ export default {
         };
         api.publish(this.qs.stringify(parasm)).then((res) => {
           if (res.status == 200) {
-            this.$router.go(-1);
+            this.$router.replace({
+              path: '/wishVideo',
+              query: {
+                user_id: JSON.parse(localStorage.getItem('storage')).user_id
+              }
+            })
           }
         });
       } else {
