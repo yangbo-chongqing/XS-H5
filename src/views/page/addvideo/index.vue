@@ -53,7 +53,7 @@
         >提交</van-button
       >
     </div>
-    <div class="add-video" v-if="type">
+    <div class="add-video" v-if="type == 1">
       <!--    <van-uploader icon='video-o'/>-->
       <van-uploader
         :after-read="qiniuyunUpload"
@@ -235,6 +235,7 @@ export default {
                 user_id: JSON.parse(localStorage.getItem("storage")).user_id,
               },
             });
+          } else if (res.status == 401) {
           }
         });
       } else {

@@ -5,9 +5,9 @@ axios.defaults.timeout = 15000;//超时时间
 //线上地址
 axios.interceptors.request.use(
   config => {
-    if(config.headers['Content-Type']==='multipart/form-data'){
+    if (config.headers['Content-Type'] === 'multipart/form-data') {
       return config
-    }else {
+    } else {
       if (!config.signature) {
         config.headers['Authorization'] = 'Bearer ' + localStorage.getItem('storage')
         if (config.method === 'post') {
@@ -35,9 +35,11 @@ const http = function (options) {
         Toast.clear();
         if (res.status == 200) {
           resolve(res);
-        } else if(res.status == 401){
-            resolve(res);
-        }else {
+        } else if (res.status == 401) {
+          localStorage.removeItem('storage')
+          location.reload()
+          resolve(res);
+        } else {
           Toast(res.message);
           setTimeout(() => {
             resolve(res);
