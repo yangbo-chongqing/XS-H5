@@ -20,11 +20,11 @@
         <div class="circleIcon">
           <img src="@/assets/images/hua.png" alt="" />
         </div>
-        <div class="numFont">小花&nbsp;{{ userInfo.activity_flower }}</div>
+        <div class="numFont">总数&nbsp;{{ userInfo.activity_flower }}</div>
       </div>
     </div>
     <div class="bodyCl">
-      <div class="bodyTab">
+      <!-- <div class="bodyTab">
         <span
           v-for="(item, index) of tags"
           :key="index"
@@ -33,14 +33,14 @@
         >
           {{ item }}</span
         >
-      </div>
+      </div> -->
       <div
         class="content"
         :style="dataList == '' ? 'border:none' : ''"
         ref="container"
       >
         <!-- 悬浮上传按钮 -->
-        <div
+        <!-- <div
           class="rightUpload"
           @click="
             $router.push({
@@ -51,7 +51,7 @@
         >
           <img src="@/assets/images/upVideo.png" alt="" />
           <div style="line-height: 5px">继续上传</div>
-        </div>
+        </div> -->
         <template v-if="dataList">
           <div
             @click.stop="
@@ -64,18 +64,18 @@
             v-for="(item, index) of dataList"
             :key="index"
           >
-            <span
+            <!-- <span
               class="dotClass"
               v-if="
                 item.time != dataList[index > 0 ? index - 1 : 0].time ||
                 index == 0
               "
-            ></span>
+            ></span> -->
             <div class="contentbody">
-              <div class="timeFont">{{ item.time }} {{ item.date }}</div>
+              <!-- <div class="timeFont">{{ item.time }} {{ item.date }}</div>
               <div class="contentFont">
                 {{ item.desire }}
-              </div>
+              </div> -->
               <div class="videoClass">
                 <div
                   class="video-img-body"
@@ -89,7 +89,7 @@
                     srcset=""
                   />
                   <div class="video-play-body">
-                    <van-icon size="45" color="#fff" name="play-circle-o" />
+                    <van-icon color="#fff" name="play-circle-o" />
                   </div>
                   <div class="video-time">
                     {{ $global.formateSeconds(item.duration, 1) }}
@@ -186,7 +186,7 @@ export default {
       let params = {
         user_id: this.user,
         page: 1,
-        tag: this.tag,
+        // tag: this.tag,
         page_size: 50,
       };
       api.growList(this.qs.stringify(params)).then((res) => {
@@ -230,23 +230,26 @@ export default {
     giveLike(item) {
       if (this.isLikeFlag) {
         this.isLikeFlag = false;
-        api.likeGrowing(this.qs.stringify({ id: item.id })).then((res) => {
-          this.isLikeFlag = true;
-          // this.getList();
-          if (res.status == 200) {
-            item.flower += 1;
-            this.userInfo.activity_flower += 1;
-            item.is_like = true;
-          }
-          if (res.status == 401) {
-            localStorage.removeItem("storage");
-            this.$router.push({
-              path: "/toke",
-            });
-          }
-        }).catch(()=>{
-          this.isLikeFlag = true;
-        });
+        api
+          .likeGrowing(this.qs.stringify({ id: item.id }))
+          .then((res) => {
+            this.isLikeFlag = true;
+            // this.getList();
+            if (res.status == 200) {
+              item.flower += 1;
+              this.userInfo.activity_flower += 1;
+              item.is_like = true;
+            }
+            if (res.status == 401) {
+              localStorage.removeItem("storage");
+              this.$router.push({
+                path: "/toke",
+              });
+            }
+          })
+          .catch(() => {
+            this.isLikeFlag = true;
+          });
       }
     },
   },
@@ -381,7 +384,7 @@ export default {
     }
   }
   .bodyCl {
-    padding: 1rem 0 0 0;
+    // padding: 1rem 0 0 0;
     .bodyTab {
       display: flex;
       justify-content: space-around;
@@ -401,10 +404,10 @@ export default {
       }
     }
     .content {
-      border-left: 1px solid #fff;
-      margin-left: 0.5rem;
+      // border-left: 1px solid #fff;
+      // margin-left: 0.5rem;
       box-sizing: border-box;
-      margin-top: 35px;
+      margin-top: 20px;
       padding-bottom: 1px;
       .rightUpload {
         text-align: center;
@@ -444,7 +447,9 @@ export default {
           //   width: 100%;
           //   box-sizing: border-box;
           //   height: 260px;
-          background: #fff;
+          // background: #fff;
+          background-image: url(http://voice.xunsheng.org.cn/sydt/muse_12/1616657760011.png);
+          background-size: cover;
           margin-bottom: 15px;
           border-radius: 12px;
           padding: 10px;
@@ -466,6 +471,7 @@ export default {
           }
           .videoClass {
             text-align: center;
+            // background-image: url(/assets/images/background.png);
             border-radius: 5px;
             width: 100%;
             height: auto;
@@ -473,16 +479,18 @@ export default {
             box-sizing: border-box;
             position: relative;
             .video-img-body {
-              width: 100%;
+              width: 97%;
+              padding: 0px 5px;
               height: 166px;
               position: relative;
               img {
                 width: 100%;
                 height: 100%;
-                border-radius: 10px;
+                // border-radius: 10px;
               }
               .video-play-body {
                 position: absolute;
+                font-size: 45px !important;
                 top: 50%;
                 left: 50%;
                 transform: translate(-50%, -50%);
