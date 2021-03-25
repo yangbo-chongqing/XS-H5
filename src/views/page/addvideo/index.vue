@@ -79,9 +79,13 @@
         ></video>
         <van-icon name="cross" @click="datavideo = ''" />
       </div>
-      <van-field v-model="schoolName" label="班级名称" placeholder="请输入您所在的班级" />
-      <van-field v-model="name" label="名字" placeholder="请输入您的姓名" />
       <van-field
+        v-model="schoolName"
+        label="班级名称"
+        placeholder="请输入您所在的班级"
+      />
+      <van-field v-model="name" label="名字" placeholder="请输入您的姓名" />
+      <!-- <van-field
         readonly
         clickable
         name="picker"
@@ -97,7 +101,7 @@
           @confirm="onConfirm"
           @cancel="showPicker = false"
         />
-      </van-popup>
+      </van-popup> -->
       <van-field
         v-model="desire"
         class="desire"
@@ -153,7 +157,7 @@ export default {
       datavideo: "",
       school: "巴蜀常春藤(畅雲轩)",
       name: "",
-      schoolName:"",
+      schoolName: "",
       desire: "",
       type: this.$route.query.type,
       showPicker: false,
@@ -212,25 +216,25 @@ export default {
     },
     submit(n) {
       if (n == 1) {
-        if (!this.Videotype && !this.datavideo && !this.schoolName) {
+        if (!this.datavideo && !this.schoolName) {
           this.$toast.fail("请完善数据");
           return;
         }
         let parasm = {
           user_name: this.name,
-          tags: this.Videotype,
+          // tags: this.Videotype,
           file_url: this.datavideo,
           desire: this.desire,
-          school_name:this.schoolName
+          school_name: this.schoolName,
         };
         api.publish(this.qs.stringify(parasm)).then((res) => {
           if (res.status == 200) {
             this.$router.replace({
-              path: '/wishVideo',
+              path: "/wishVideo",
               query: {
-                user_id: JSON.parse(localStorage.getItem('storage')).user_id
-              }
-            })
+                user_id: JSON.parse(localStorage.getItem("storage")).user_id,
+              },
+            });
           }
         });
       } else {

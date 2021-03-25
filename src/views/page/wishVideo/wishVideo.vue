@@ -471,7 +471,6 @@ export default {
           }
           .videoClass {
             text-align: center;
-            // background-image: url(/assets/images/background.png);
             border-radius: 5px;
             width: 100%;
             height: auto;
