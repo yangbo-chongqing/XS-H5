@@ -8,7 +8,7 @@ Vue.use(Vuex)
 //创建VueX对象
 const store = new Vuex.Store({
     state: {
-        dbTask_data:''
+        dbTask_data: '',
     },
     getters: {
         getDbTaskData: state => {

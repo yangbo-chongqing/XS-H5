@@ -112,7 +112,6 @@
         placeholder="请填写简介"
         :border="false"
       />
-
       <van-button
         type="primary"
         class="submit"
@@ -145,6 +144,16 @@ Vue.use(Field);
 import { uploadToQiniu, getQiniuTk } from "@/utils/utils.js";
 export default {
   name: "add-video",
+  beforeRouteEnter(to, from, next) {
+    // 进入路由判断 是否需要跳转微信授权
+    if (from.path != "/toke") {
+      next((vm) => {
+        vm.$router.push("/toke");
+      });
+    } else {
+      next();
+    }
+  },
   components: {
     VanIcon: Icon,
     VanUploader: Uploader,

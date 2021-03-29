@@ -81,13 +81,14 @@
                   class="video-img-body"
                   @click.stop="videoPlay(item.file_url)"
                 >
-                  <img
-                    :src="
-                      `${item.file_url}` + '?vframe/jpg/offset/0/w/325/h200'
-                    "
-                    alt=""
-                    srcset=""
-                  />
+                  <div class="imgDiv">
+                    <img
+                      :src="`${item.file_url}` + '?vframe/jpg/offset/0'"
+                      alt=""
+                      srcset=""
+                    />
+                  </div>
+
                   <div class="video-play-body">
                     <van-icon color="#fff" name="play-circle-o" />
                   </div>
@@ -482,11 +483,18 @@ export default {
               padding: 0px 5px;
               height: 166px;
               position: relative;
-              img {
+              .imgDiv {
                 width: 100%;
                 height: 100%;
-                // border-radius: 10px;
+                background-color: rgba(0, 0, 0, 1);
+                img {
+                  width: 100%;
+                  height: 100%;
+                  object-fit: contain;
+                  // border-radius: 10px;
+                }
               }
+
               .video-play-body {
                 position: absolute;
                 font-size: 45px !important;
