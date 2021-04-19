@@ -292,7 +292,6 @@ const vglobal = function (_this) {
           signature: ''
         }
       });
-
     }
   };
 };

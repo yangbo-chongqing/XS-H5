@@ -1,9 +1,16 @@
 <template>
   <div class="app-video">
-    <div class="app-video-list" v-for="(itme,index) in datavideo.video">
-
-<!--      <embed :src="itme.video_url" type=""  >-->
-      <video :src="itme.video_url" controls :poster="itme.video_url+'?vframe/jpg/offset/0/w/325/h200'"></video>
+    <div
+      class="app-video-list"
+      v-for="(itme, index) in datavideo.video"
+      :key="index"
+    >
+      <!--      <embed :src="itme.video_url" type=""  >-->
+      <video
+        :src="itme.video_url"
+        controls
+        :poster="itme.video_url + '?vframe/jpg/offset/0/w/325/h200'"
+      ></video>
       <p>{{ itme.video_name }}</p>
     </div>
   </div>
@@ -13,16 +20,16 @@
 import api from "@/request/xsdt";
 
 export default {
-name: "index",
+  name: "index",
   data() {
     return {
-      datavideo: '',
-      muse_id:this.parseQuery(window.location.href).muse_id,
-      pkid:this.parseQuery(window.location.href).pkid,
-    }
+      datavideo: "",
+      muse_id: this.parseQuery(window.location.href).muse_id,
+      pkid: this.parseQuery(window.location.href).pkid,
+    };
   },
   mounted() {
-    this.museinfo()
+    this.museinfo();
   },
   methods: {
     museinfo() {
@@ -31,8 +38,8 @@ name: "index",
       let pkid = url.pkid;
       let params = {
         muse_id: muse_id,
-        pkid:pkid,
-      }
+        pkid: pkid,
+      };
       api.postDetails(this.qs.stringify(params)).then((res) => {
         if (res.status == 200) {
           this.datavideo = res.data.product;
@@ -43,7 +50,7 @@ name: "index",
       let o = {};
       let queryString = url.split("?")[1];
       if (queryString) {
-        queryString.split("&").forEach(item => {
+        queryString.split("&").forEach((item) => {
           let [key, val] = item.split("=");
           val = val ? decodeURI(val) : true;
           //          转码         无值赋值true
@@ -56,21 +63,20 @@ name: "index",
         });
       }
       return o;
-    }
+    },
   },
-}
-
+};
 </script>
 
 <style scoped lang="scss">
-.app-video{
+.app-video {
   //background-color: red;
   box-sizing: border-box;
   padding: 20px;
-  .app-video-list{
+  .app-video-list {
     margin-top: 10px;
     width: 100%;
-    p{
+    p {
       font-weight: 500;
       font-size: 16px;
       //width: 100%;
@@ -81,15 +87,14 @@ name: "index",
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
     }
-    embed{
+    embed {
       width: 100%;
       height: 200px;
     }
-    video{
+    video {
       width: 100%;
       height: 200px;
     }
   }
 }
-
 </style>

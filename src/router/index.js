@@ -22,6 +22,7 @@ const routes = [
     meta: {
       title: '寻声扫码',
       keepAlive: false,
+      remove: false
     },
   },
   {

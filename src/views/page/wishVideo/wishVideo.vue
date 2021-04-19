@@ -264,7 +264,6 @@ export default {
   },
   mounted() {
     this.container = this.$refs.container;
-
     // let value = {
     //   token: "d99b797e4baa5489574f2114ce178b97",
     //   user_id: 399,
