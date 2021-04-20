@@ -174,13 +174,24 @@
           class="product-example-list"
           v-for="(item, index) in examplevideo_list"
           :key="index"
+          @click.stop="videoPlay(item.video_url)"
         >
-          <video
+          <!-- <video
             :src="item.video_url"
             preload="none"
             controls
             :poster="item.video_url + '?vframe/jpg/offset/0/w/325/h200'"
-          ></video>
+          ></video> -->
+          <div class="imgDiv">
+            <img
+              :src="`${item.video_url}` + '?vframe/jpg/offset/0'"
+              alt=""
+              srcset=""
+            />
+          </div>
+          <div class="video-play-body">
+            <van-icon color="#fff" name="play-circle-o" />
+          </div>
           <div class="product-activity-list-content">
             <p>{{ item.video_name }}</p>
             <p>{{ $global.formateSeconds(item.duration, 1) }}</p>
