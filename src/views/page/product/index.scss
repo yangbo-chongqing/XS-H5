@@ -368,10 +368,25 @@
           border-radius: 0 0 10px 10px;
           h6{
             font-size: 14px;
+            margin-left:10px;
           }
           .van-icon{
             font-size: 14px;
           }
+        }
+        .product_titleFont{
+          color:#fff;
+          font-size:18px;
+          position: absolute;
+          top:20px;
+          left: 20px;
+        }
+        .product_bottomFont{
+          color:#BEBEBE;
+          font-size:12px;
+          position: absolute;
+          top:55px;
+          left: 20px;
         }
       }
     }
@@ -531,3 +546,12 @@
       }
     }
 }
+.imgDiv{
+margin-top:.7rem;
+.detailImg{
+  width:100%;
+  font-size:0;
+  img{
+    width:100%
+  }
+}}

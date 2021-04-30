@@ -38,6 +38,7 @@ export default {
       product_extend: '', //扩展字段
       productExtend: false,
       workorder: '',//判断是否开启工单
+      detailImgs: {}//详情图片
     }
   },
   computed: {
@@ -99,12 +100,25 @@ export default {
           }
           this.buttom = res.data.buttom;  //底部菜单
           this.water_info = res.data.water_info;
+          this.detailImgs.image = res.data.product.detail_img//详情图片
           this.service = res.data.service; //售后服务
           this.activity = res.data.activity_list; //活动集锦
           this.evaluation = res.data.evaluation_list;//产品评测 全部
           this.problem = res.data.problem_list;//常见问题 全部
           this.shopping = res.data.shopping_list;//网络商城 全部
+          this.detailImgs.parameter_img = res.data.product.parameter_img//参数图片
           this.examplevideo = res.data.product.video;
+          this.detailImgs.circle_list = res.data.circle_list//圈子数据
+          console.log(this.detailImgs.circle_list)
+          this.detailImgs.image_list = []
+          this.detailImgs.parameter_img_list = []
+          for (let i = 0; i < 3 && i < res.data.product.parameter_img.length; i++) {
+            this.detailImgs.parameter_img_list.push(res.data.product.parameter_img[i]); //参数图片 3
+          }
+          for (let i = 0; i < 3 && i < res.data.product.detail_img.length; i++) {
+            this.detailImgs.image_list.push(res.data.product.detail_img[i]); //详情图片 3
+          }
+          console.log(this.detailImgs.image_list)
           for (let i = 0; i < 3 && i < res.data.activity_list.length; i++) {
             this.activity_list.push(res.data.activity_list[i]); //活动集锦 3
           }
@@ -177,6 +191,34 @@ export default {
         });
       }
       return o;
+    },
+    openParameter(index) {
+      // 参数图示
+      if (index == 1) {
+        this.detailImgs.parameter_img_list = this.detailImgs.parameter_img;
+      } else if (index == 2) {
+        let arr = [];
+        for (let i = 0; i < 3 && i < this.detailImgs.parameter_img.length; i++) {
+          arr.push(this.detailImgs.parameter_img[i]); //网络商城 3个
+        }
+        this.detailImgs.parameter_img_list = arr;
+      }
+      this.$forceUpdate();
+    },
+    openDetail(index) {
+      // 详情图示
+      if (index == 1) {
+        this.detailImgs.image_list = this.detailImgs.image;
+        console.log(this.detailImgs.image_list)
+      } else if (index == 2) {
+        let arr = [];
+        for (let i = 0; i < 3 && i < this.detailImgs.image.length; i++) {
+          arr.push(this.detailImgs.image[i]); //网络商城 3个
+        }
+        this.detailImgs.image_list = arr;
+      }
+      this.$forceUpdate();
+
     },
     onactivity(index) {
       if (index == 1) {

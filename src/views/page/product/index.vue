@@ -76,7 +76,36 @@
       <div class="product-set-content" @click="setContent($event)">
         <div
           class="product-title-list"
-          :class="{ 'title-set': examplevideo.length > 0 }"
+          :class="{ 'title-set': dataInfo.detail_img.length > 0 }"
+          v-if="dataInfo.detail_img.length > 0"
+        >
+          <a onclick="document.getElementById('detail').scrollIntoView()">
+            <h5>详情</h5>
+            <h6><span></span></h6>
+          </a>
+        </div>
+        <div
+          class="product-title-list"
+          :class="{
+            'title-set':
+              dataInfo.parameter_img.length > 0 &&
+              dataInfo.detail_img.length <= 0,
+          }"
+          v-if="dataInfo.parameter_img.length > 0"
+        >
+          <a onclick="document.getElementById('parameter').scrollIntoView()">
+            <h5>参数</h5>
+            <h6><span></span></h6>
+          </a>
+        </div>
+        <div
+          class="product-title-list"
+          :class="{
+            'title-set':
+              examplevideo.length > 0 &&
+              dataInfo.detail_img.length <= 0 &&
+              dataInfo.parameter_img.length <= 0,
+          }"
           v-if="examplevideo.length > 0"
         >
           <a onclick="document.getElementById('example').scrollIntoView()">
@@ -162,11 +191,107 @@
             <h6><span></span></h6>
           </a>
         </div>
+        <div
+          class="product-title-list"
+          v-if="shopping.length > 0"
+          :class="{
+            'title-set':
+              examplevideo.length <= 0 &&
+              activity.length <= 0 &&
+              evaluation.length <= 0 &&
+              service == null &&
+              problem.length <= 0 &&
+              shopping.length > 0,
+          }"
+        >
+          <a onclick="document.getElementById('circle').scrollIntoView()">
+            <h5>圈子</h5>
+            <h6><span></span></h6>
+          </a>
+        </div>
+      </div>
+    </div>
+    <!-- 详情 -->
+    <div
+      class="product-example"
+      id="detail"
+      v-if="dataInfo.detail_img.length > 0"
+    >
+      <div class="product-example-title">
+        <!--        <h5>详情范例</h5>-->
+      </div>
+      <div class="imgDiv">
+        <div v-for="(item, index) in detailImgs.image_list" :key="index">
+          <div class="detailImg">
+            <img :src="item" alt="" />
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="Loadmore"
+        @click="openDetail(1)"
+        v-if="
+          (detailImgs.image.length > 3) & (detailImgs.image_list.length < 4)
+        "
+      >
+        全部展开<van-icon name="arrow-down" />
+      </div>
+      <div
+        class="Loadmore"
+        @click="openDetail(2)"
+        v-if="
+          (detailImgs.image.length > 3) & (detailImgs.image_list.length > 3)
+        "
+      >
+        收起<van-icon name="arrow-up" />
+      </div>
+    </div>
+    <!-- 参数 -->
+    <div
+      class="product-example"
+      id="parameter"
+      v-if="dataInfo.detail_img.length > 0"
+    >
+      <div class="product-example-title">
+        <h5>参数图示</h5>
+      </div>
+      <div class="imgDiv">
+        <div
+          v-for="(item, index) in detailImgs.parameter_img_list"
+          :key="index"
+        >
+          <div class="detailImg">
+            <img :src="item" alt="" />
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="Loadmore"
+        @click="openParameter(1)"
+        v-if="
+          (detailImgs.parameter_img.length > 3) &
+          (detailImgs.parameter_img_list.length < 4)
+        "
+      >
+        全部展开<van-icon name="arrow-down" />
+      </div>
+      <div
+        class="Loadmore"
+        @click="openParameter(2)"
+        v-if="
+          (detailImgs.parameter_img.length > 3) &
+          (detailImgs.parameter_img_list.length > 3)
+        "
+      >
+        收起<van-icon name="arrow-up" />
       </div>
     </div>
     <!--    视频范例-->
     <div class="product-example" id="example" v-if="examplevideo.length > 0">
       <div class="product-example-title">
+        <h5>视频</h5>
         <!--        <h5>视频范例</h5>-->
       </div>
       <div class="product-example-content">
@@ -382,6 +507,31 @@
         v-if="(shopping.length > 3) & (shopping_list.length > 3)"
       >
         收起<van-icon name="arrow-up" />
+      </div>
+    </div>
+    <!--    常见问题-->
+    <div
+      class="product-problem"
+      v-if="detailImgs.circle_list.length > 0"
+      id="problem"
+    >
+      <div class="product-problem-title"><h5>圈子</h5></div>
+      <div class="product-problem-content">
+        <div
+          class="product-problem-list"
+          v-for="(item, index) in detailImgs.circle_list"
+          :key="index"
+        >
+          <a :href="item.jump_url" target="_blank">
+            <img :src="item.image" alt="" />
+            <div class="product-problem-list-content">
+              <h6>进入圈子</h6>
+              <van-icon name="arrow" />
+            </div>
+            <div class="product_titleFont">{{ item.title }}</div>
+            <div class="product_bottomFont">{{ item.summary }}</div>
+          </a>
+        </div>
       </div>
     </div>
     <!--    底部菜单图片-->
