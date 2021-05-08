@@ -12,6 +12,7 @@ export default {
       id: this.$route.query.id,
       dataInfo: '',
       pdfUrl: '',
+      ids: '',
       showVideo: false,
       url: this.parseQuery(window.location.href),
       muse_id: this.parseQuery(window.location.href).muse_id,
@@ -66,9 +67,21 @@ export default {
     },
     //视频播放
     videoPlay(videoUrl) {
-      let video = document.createElement("video");
-      video.src = videoUrl;
-      video.play();
+      // console.log(videoUrl)
+      // let video = document.createElement("video");
+      // video.src = videoUrl;
+      // console.log(video);
+      // video.play();
+      window.location.href = videoUrl
+
+    },
+    go() {
+      this.$router.push({
+        path: '/product',
+        query: { muse_id: this.muse_id, product_id: this.ids },
+      })
+      location.reload();
+
     },
     museinfo() {
       let url = this.parseQuery(window.location.href);
@@ -85,9 +98,10 @@ export default {
           // console.log(res.data)
           this.dataInfo = res.data.product;
           // this.pdfUrl = res.data.product.manual.file
-          if (this.dataInfo.image) {
-            this.dataInfo.picture.unshift(this.dataInfo.image)
-          }
+          // if (this.dataInfo.image) {
+          //   console.log(this.dataInfo.picture)
+          //   this.dataInfo.picture.unshift(this.dataInfo.image)
+          // }
           document.title = res.data.product.name;
           let url = window.location.href;
           this.$global.shareToWechat(res.data.product.name, url, res.data.product.image, res.data.product.name);
@@ -102,6 +116,7 @@ export default {
           this.water_info = res.data.water_info;
           this.detailImgs.image = res.data.product.detail_img//详情图片
           this.service = res.data.service; //售后服务
+          this.ids = res.data.product.id
           this.activity = res.data.activity_list; //活动集锦
           this.evaluation = res.data.evaluation_list;//产品评测 全部
           this.problem = res.data.problem_list;//常见问题 全部
@@ -296,15 +311,17 @@ export default {
     },
     //展开图集
     expandatlas() {
-      if (this.dataInfo.picture.length > 0) {
-        ImagePreview({
-          images: this.dataInfo.picture,
-          'max-zoom': 5,
-          'min-zoom': 10,
-          background: '#0000000',
-          closeable: true,
-        });
-      }
+      console.log(this.dataInfo.picture_array)
+      this.$router.push({ path: '/productList', query: { detail: this.dataInfo.picture_array.detail, kv: this.dataInfo.picture_array.kv, orientation: this.dataInfo.picture_array.orientation, scene: this.dataInfo.picture_array.scene } })
+      // if (this.dataInfo.picture.length > 0) {
+      //   ImagePreview({
+      //     images: this.dataInfo.picture,
+      //     'max-zoom': 5,
+      //     'min-zoom': 10,
+      //     background: '#0000000',
+      //     closeable: true,
+      //   });
+      // }
     },
 
 

@@ -7,6 +7,10 @@ import 'amfe-flexible/index.js'
 import store from './store/index.js'
 import qs from 'qs';
 import './request/http';
+// H5 debug
+// import VConsole from 'vconsole'
+// const vConsole = new VConsole()
+// Vue.use(vConsole)
 //处理移动端点击延迟
 // import fastclick from "fastclick";
 // fastclick.attach(document.body);
@@ -17,9 +21,13 @@ import {
   Field,
   Form,
   Picker,
-  Popup, NavBar
+  Popup, NavBar, Tab, Tabs, Grid, GridItem, Image as VanImage
 } from 'vant';
-
+Vue.use(Tab);
+Vue.use(Grid);
+Vue.use(VanImage);
+Vue.use(GridItem);
+Vue.use(Tabs);
 Vue.use(Toast);
 Vue.use(Picker);
 Vue.use(Icon);

@@ -1,74 +1,86 @@
 <script src="../../../request/xsdt.js"></script>
 <template>
   <div class="h-container" v-if="dataInfo" @load="loadImage(1)">
-    <div class="product-head" v-if="dataInfo.image" @click="expandatlas">
-      <img :src="dataInfo.image" alt="" />
-      <div class="product-head-atlas" v-if="dataInfo.picture.length > 0">
-        <div class="product-head-atlas-img">
-          <img src="@/assets/images/lm77lsYIucG5n.png" alt="" />
-        </div>
-        <div class="product-head-atlas-title">
-          实拍{{ dataInfo.picture.length }}张 <van-icon name="arrow" />
-        </div>
-      </div>
-    </div>
-    <div class="product-info">
-      <div class="product-name" v-if="dataInfo.name">{{ dataInfo.name }}</div>
-      <!--       <div class="product-tip" v-if="dataInfo.unique"><label>产品编号：</label><span>{{dataInfo.unique}}</span></div>-->
-      <!--       <div class="product-tip" v-if="dataInfo.factory"><label>生产厂家：</label><span>{{dataInfo.factory}}</span></div>-->
-      <!--       <div class="product-tip" v-if="dataInfo.listed"><label>上市时间：</label><span>{{dataInfo.listed}}</span></div>-->
-      <div class="product-tip" v-if="water_info.clsbdh">
-        <label>车架号：</label><span>{{ water_info.clsbdh }}</span>
-      </div>
-      <div class="product-tip" v-if="water_info.certificate_id">
-        <label>合格证：</label><span>{{ water_info.certificate_id }}</span>
-      </div>
-      <div class="product-extend" v-if="productExtend">
-        <div class="extend-content" v-show="extendshow">
-          <div
-            class=""
-            v-for="(expandItem, index) in expand_details"
-            :key="index"
-          >
-            <img
-              v-if="expandItem.field_type === '图片' && expandItem.value"
-              :src="expandItem.value"
-              alt=""
-            />
-            <video
-              v-if="expandItem.field_type === '视频' && expandItem.value"
-              :src="expandItem.value"
-              preload="none"
-              controls
-              :poster="expandItem.value + '?vframe/jpg/offset/0/w/325/h200'"
-            ></video>
-            <p
-              v-if="expandItem.field_type === '富文本' && expandItem.value"
-              v-html="expandItem.value"
-            ></p>
-            <p v-if="expandItem.field_type === '文本' && expandItem.value">
-              {{ expandItem.value }}
-            </p>
+    <div class="headPosition">
+      <div class="product-head" v-if="dataInfo.image" @click="expandatlas">
+        <img :src="dataInfo.image" alt="" />
+        <div class="product-head-atlas" v-if="dataInfo.picture_count">
+          <div class="product-head-atlas-img">
+            <img src="@/assets/images/lm77lsYIucG5n.png" alt="" />
           </div>
-        </div>
-        <div class="extend-show">
-          <div class="Loadmore" @click="extendshow = true" v-show="!extendshow">
-            全部展开<van-icon name="arrow-down" />
-          </div>
-          <div class="Loadmore" @click="extendshow = false" v-show="extendshow">
-            收起<van-icon name="arrow-up" />
+          <div class="product-head-atlas-title">
+            实拍{{ dataInfo.picture_count }}张 <van-icon name="arrow" />
           </div>
         </div>
       </div>
+      <div class="product-info">
+        <div class="product-name" v-if="dataInfo.name">{{ dataInfo.name }}</div>
+        <!--       <div class="product-tip" v-if="dataInfo.unique"><label>产品编号：</label><span>{{dataInfo.unique}}</span></div>-->
+        <!--       <div class="product-tip" v-if="dataInfo.factory"><label>生产厂家：</label><span>{{dataInfo.factory}}</span></div>-->
+        <!--       <div class="product-tip" v-if="dataInfo.listed"><label>上市时间：</label><span>{{dataInfo.listed}}</span></div>-->
+        <div class="product-tip" v-if="water_info.clsbdh">
+          <label>车架号：</label><span>{{ water_info.clsbdh }}</span>
+        </div>
+        <div class="product-tip" v-if="water_info.certificate_id">
+          <label>合格证：</label><span>{{ water_info.certificate_id }}</span>
+        </div>
+        <div class="product-extend" v-if="productExtend">
+          <div class="extend-content" v-show="extendshow">
+            <div
+              class=""
+              v-for="(expandItem, index) in expand_details"
+              :key="index"
+            >
+              <img
+                v-if="expandItem.field_type === '图片' && expandItem.value"
+                :src="expandItem.value"
+                alt=""
+              />
+              <video
+                v-if="expandItem.field_type === '视频' && expandItem.value"
+                :src="expandItem.value"
+                preload="none"
+                controls
+                :poster="expandItem.value + '?vframe/jpg/offset/0/w/325/h200'"
+              ></video>
+              <p
+                v-if="expandItem.field_type === '富文本' && expandItem.value"
+                v-html="expandItem.value"
+              ></p>
+              <p v-if="expandItem.field_type === '文本' && expandItem.value">
+                {{ expandItem.value }}
+              </p>
+            </div>
+          </div>
+          <div class="extend-show">
+            <div
+              class="Loadmore"
+              @click="extendshow = true"
+              v-show="!extendshow"
+            >
+              全部展开<van-icon name="arrow-down" />
+            </div>
+            <div
+              class="Loadmore"
+              @click="extendshow = false"
+              v-show="extendshow"
+            >
+              收起<van-icon name="arrow-up" />
+            </div>
+          </div>
+        </div>
 
-      <div class="product-tit">
-        <span
-          class="product-tit-content"
-          v-if="dataInfo.manual_id != 0"
-          @click="jumpRoute('/instructions', { manual_id: dataInfo.manual_id })"
-        >
-          <span>使用说明书</span><van-icon name="arrow" />
-        </span>
+        <div class="product-tit">
+          <span
+            class="product-tit-content"
+            v-if="dataInfo.manual_id != 0"
+            @click="
+              jumpRoute('/instructions', { manual_id: dataInfo.manual_id })
+            "
+          >
+            <span>使用说明书</span><van-icon name="arrow" />
+          </span>
+        </div>
       </div>
     </div>
     <div class="product-a"></div>
@@ -77,7 +89,7 @@
         <div
           class="product-title-list"
           :class="{ 'title-set': dataInfo.detail_img.length > 0 }"
-          v-if="dataInfo.detail_img.length > 0"
+          v-if="dataInfo.detail_img.length > 0 && !pkid"
         >
           <a onclick="document.getElementById('detail').scrollIntoView()">
             <h5>详情</h5>
@@ -91,7 +103,7 @@
               dataInfo.parameter_img.length > 0 &&
               dataInfo.detail_img.length <= 0,
           }"
-          v-if="dataInfo.parameter_img.length > 0"
+          v-if="dataInfo.parameter_img.length > 0 && !pkid"
         >
           <a onclick="document.getElementById('parameter').scrollIntoView()">
             <h5>参数</h5>
@@ -106,28 +118,17 @@
               dataInfo.detail_img.length <= 0 &&
               dataInfo.parameter_img.length <= 0,
           }"
-          v-if="examplevideo.length > 0"
+          v-if="examplevideo.length > 0 && !pkid"
         >
           <a onclick="document.getElementById('example').scrollIntoView()">
             <h5>视频</h5>
             <h6><span></span></h6>
           </a>
         </div>
+
         <div
           class="product-title-list"
-          v-if="activity.length > 0"
-          :class="{
-            'title-set': examplevideo.length <= 0 && activity.length > 0,
-          }"
-        >
-          <a onclick="document.getElementById('activity').scrollIntoView()">
-            <h5>活动</h5>
-            <h6><span></span></h6>
-          </a>
-        </div>
-        <div
-          class="product-title-list"
-          v-if="evaluation.length > 0"
+          v-if="evaluation.length > 0 && !pkid"
           :class="{
             'title-set':
               examplevideo.length <= 0 &&
@@ -142,7 +143,7 @@
         </div>
         <div
           class="product-title-list"
-          v-if="service"
+          v-if="service && pkid"
           :class="{
             'title-set':
               examplevideo.length <= 0 &&
@@ -158,7 +159,7 @@
         </div>
         <div
           class="product-title-list"
-          v-if="problem.length > 0"
+          v-if="problem.length > 0 && pkid"
           :class="{
             'title-set':
               examplevideo.length <= 0 &&
@@ -193,7 +194,19 @@
         </div>
         <div
           class="product-title-list"
-          v-if="shopping.length > 0"
+          v-if="activity.length > 0 && !pkid"
+          :class="{
+            'title-set': examplevideo.length <= 0 && activity.length > 0,
+          }"
+        >
+          <a onclick="document.getElementById('activity').scrollIntoView()">
+            <h5>活动</h5>
+            <h6><span></span></h6>
+          </a>
+        </div>
+        <div
+          class="product-title-list"
+          v-if="detailImgs.circle_list.length > 0"
           :class="{
             'title-set':
               examplevideo.length <= 0 &&
@@ -215,7 +228,7 @@
     <div
       class="product-example"
       id="detail"
-      v-if="dataInfo.detail_img.length > 0"
+      v-if="dataInfo.detail_img.length > 0 && !pkid"
     >
       <div class="product-example-title">
         <!--        <h5>详情范例</h5>-->
@@ -251,10 +264,10 @@
     <div
       class="product-example"
       id="parameter"
-      v-if="dataInfo.detail_img.length > 0"
+      v-if="dataInfo.detail_img.length > 0 && !pkid"
     >
       <div class="product-example-title">
-        <h5>参数图示</h5>
+        <h5 v-if="dataInfo.detail_img.length">规格参数</h5>
       </div>
       <div class="imgDiv">
         <div
@@ -289,9 +302,15 @@
       </div>
     </div>
     <!--    视频范例-->
-    <div class="product-example" id="example" v-if="examplevideo.length > 0">
+    <div
+      class="product-example"
+      id="example"
+      v-if="examplevideo.length > 0 && !pkid"
+    >
       <div class="product-example-title">
-        <h5>视频</h5>
+        <h5 v-if="dataInfo.detail_img.length && dataInfo.parameter_img.length">
+          视频
+        </h5>
         <!--        <h5>视频范例</h5>-->
       </div>
       <div class="product-example-content">
@@ -342,43 +361,11 @@
     <!--      <div class="product-example-title"></div>-->
     <!--      <div class="product-example-content"></div>-->
     <!--    </div>-->
-    <!--    活动集锦-->
-    <div class="product-activity" v-if="activity.length > 0" id="activity">
-      <div class="product-activity-title"><h5>活动集锦</h5></div>
-      <div class="product-activity-content">
-        <div
-          class="product-activity-list"
-          v-for="(item, index) in activity_list"
-          :key="index"
-        >
-          <a :href="item.jump_url" target="_blank">
-            <img :src="item.image" alt="" />
-            <div class="product-activity-list-content">
-              <h6>{{ item.title }}</h6>
-              <van-icon name="arrow" />
-            </div>
-          </a>
-        </div>
-      </div>
-      <div
-        class="Loadmore"
-        @click="onactivity(1)"
-        v-if="(activity.length > 3) & (activity_list.length < 4)"
-      >
-        全部展开<van-icon name="arrow-down" />
-      </div>
-      <div
-        class="Loadmore"
-        @click="onactivity(2)"
-        v-if="(activity.length > 3) & (activity_list.length > 3)"
-      >
-        收起<van-icon name="arrow-up" />
-      </div>
-    </div>
+
     <!--产品评测-->
     <div
       class="product-evaluating"
-      v-if="evaluation.length > 0"
+      v-if="evaluation.length > 0 && !pkid"
       id="evaluating"
     >
       <div class="product-evaluating-title"><h5>产品评测</h5></div>
@@ -418,7 +405,7 @@
       </div>
     </div>
     <!--    售后服务-->
-    <div class="product-service" v-if="service" id="service">
+    <div class="product-service" v-if="service && pkid" id="service">
       <div class="product-service-title"><h5>售后服务</h5></div>
       <div class="product-service-content">
         <div class="product-service-content-img">
@@ -442,7 +429,7 @@
       </div>
     </div>
     <!--    常见问题-->
-    <div class="product-problem" v-if="problem.length > 0" id="problem">
+    <div class="product-problem" v-if="problem.length > 0 && pkid" id="problem">
       <div class="product-problem-title"><h5>常见问题</h5></div>
       <div class="product-problem-content">
         <div
@@ -509,11 +496,48 @@
         收起<van-icon name="arrow-up" />
       </div>
     </div>
-    <!--    常见问题-->
+    <!--    活动集锦-->
+    <div
+      class="product-activity"
+      v-if="activity.length > 0 && !pkid"
+      id="activity"
+    >
+      <div class="product-activity-title"><h5>活动集锦</h5></div>
+      <div class="product-activity-content">
+        <div
+          class="product-activity-list"
+          v-for="(item, index) in activity_list"
+          :key="index"
+        >
+          <a :href="item.jump_url" target="_blank">
+            <img :src="item.image" alt="" />
+            <div class="product-activity-list-content">
+              <h6>{{ item.title }}</h6>
+              <van-icon name="arrow" />
+            </div>
+          </a>
+        </div>
+      </div>
+      <div
+        class="Loadmore"
+        @click="onactivity(1)"
+        v-if="(activity.length > 3) & (activity_list.length < 4)"
+      >
+        全部展开<van-icon name="arrow-down" />
+      </div>
+      <div
+        class="Loadmore"
+        @click="onactivity(2)"
+        v-if="(activity.length > 3) & (activity_list.length > 3)"
+      >
+        收起<van-icon name="arrow-up" />
+      </div>
+    </div>
+    <!--    圈子-->
     <div
       class="product-problem"
       v-if="detailImgs.circle_list.length > 0"
-      id="problem"
+      id="circle"
     >
       <div class="product-problem-title"><h5>圈子</h5></div>
       <div class="product-problem-content">
@@ -533,6 +557,9 @@
           </a>
         </div>
       </div>
+    </div>
+    <div v-if="pkid" class="bottomPush" @click="go">
+      跳转至宣传码<van-icon style="vertical-align: middle" name="arrow" />
     </div>
     <!--    底部菜单图片-->
     <div class="product-foot-img">

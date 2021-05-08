@@ -35,6 +35,7 @@ const routes = [
       keepAlive: false,
     },
   },
+
   {
     // 词条详情
     path: '/entrylist',
@@ -70,6 +71,16 @@ const routes = [
     path: '/product',
     name: 'Product',
     component: () => import('@/views/page/product/index.vue'),
+    meta: {
+      // title: '寻声扫码',
+      keepAlive: false,
+    },
+  },
+  {
+    // 产品图片详情
+    path: '/productList',
+    name: 'productList',
+    component: () => import('@/views/page/productList/productList.vue'),
     meta: {
       // title: '寻声扫码',
       keepAlive: false,
