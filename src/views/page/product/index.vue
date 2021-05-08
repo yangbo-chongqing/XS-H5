@@ -13,7 +13,7 @@
           </div>
         </div>
       </div>
-      <div class="product-info">
+      <div :class="{ 'product-info': true, 'have-Pic': !dataInfo.image }">
         <div class="product-name" v-if="dataInfo.name">{{ dataInfo.name }}</div>
         <!--       <div class="product-tip" v-if="dataInfo.unique"><label>产品编号：</label><span>{{dataInfo.unique}}</span></div>-->
         <!--       <div class="product-tip" v-if="dataInfo.factory"><label>生产厂家：</label><span>{{dataInfo.factory}}</span></div>-->
@@ -141,22 +141,7 @@
             <h6><span></span></h6>
           </a>
         </div>
-        <div
-          class="product-title-list"
-          v-if="service && pkid"
-          :class="{
-            'title-set':
-              examplevideo.length <= 0 &&
-              activity.length <= 0 &&
-              evaluation.length <= 0 &&
-              service,
-          }"
-        >
-          <a onclick="document.getElementById('service').scrollIntoView()">
-            <h5>售后</h5>
-            <h6><span></span></h6>
-          </a>
-        </div>
+
         <div
           class="product-title-list"
           v-if="problem.length > 0 && pkid"
@@ -189,6 +174,22 @@
         >
           <a onclick="document.getElementById('shopping').scrollIntoView()">
             <h5>商城</h5>
+            <h6><span></span></h6>
+          </a>
+        </div>
+        <div
+          class="product-title-list"
+          v-if="service && pkid"
+          :class="{
+            'title-set':
+              examplevideo.length <= 0 &&
+              activity.length <= 0 &&
+              evaluation.length <= 0 &&
+              service,
+          }"
+        >
+          <a onclick="document.getElementById('service').scrollIntoView()">
+            <h5>售后</h5>
             <h6><span></span></h6>
           </a>
         </div>
@@ -404,30 +405,7 @@
         收起<van-icon name="arrow-up" />
       </div>
     </div>
-    <!--    售后服务-->
-    <div class="product-service" v-if="service && pkid" id="service">
-      <div class="product-service-title"><h5>售后服务</h5></div>
-      <div class="product-service-content">
-        <div class="product-service-content-img">
-          <img :src="service.image" alt="" />
-          <p>识别二维码联系客服</p>
-        </div>
-        <div class="product-service-content-right">
-          <h6>{{ service.text }}</h6>
-          <p>
-            <a :href="'tel:' + service.phone[1]"
-              ><img src="@/assets/images/telephone.png" alt="" />
-              <span>{{ service.phone[1] }}</span></a
-            >
-          </p>
-          <p>
-            <a :href="'tel:' + service.phone[0]"
-              ><van-icon name="phone" /><span>{{ service.phone[0] }}</span></a
-            >
-          </p>
-        </div>
-      </div>
-    </div>
+
     <!--    常见问题-->
     <div class="product-problem" v-if="problem.length > 0 && pkid" id="problem">
       <div class="product-problem-title"><h5>常见问题</h5></div>
@@ -463,7 +441,7 @@
     </div>
     <!--    网络商城-->
     <div class="product-shopping" v-if="shopping.length > 0" id="shopping">
-      <div class="product-shopping-title"><h5>网络商城</h5></div>
+      <div class="product-shopping-title" v-if="!pkid"><h5>网络商城</h5></div>
       <div class="product-shopping-content">
         <div
           class="product-shopping-content-list"
@@ -494,6 +472,30 @@
         v-if="(shopping.length > 3) & (shopping_list.length > 3)"
       >
         收起<van-icon name="arrow-up" />
+      </div>
+    </div>
+    <!--    售后服务-->
+    <div class="product-service" v-if="service && pkid" id="service">
+      <div class="product-service-title"><h5>售后服务</h5></div>
+      <div class="product-service-content">
+        <div class="product-service-content-img">
+          <img :src="service.image" alt="" />
+          <p>识别二维码联系客服</p>
+        </div>
+        <div class="product-service-content-right">
+          <h6>{{ service.text }}</h6>
+          <p>
+            <a :href="'tel:' + service.phone[1]"
+              ><img src="@/assets/images/telephone.png" alt="" />
+              <span>{{ service.phone[1] }}</span></a
+            >
+          </p>
+          <p>
+            <a :href="'tel:' + service.phone[0]"
+              ><van-icon name="phone" /><span>{{ service.phone[0] }}</span></a
+            >
+          </p>
+        </div>
       </div>
     </div>
     <!--    活动集锦-->
