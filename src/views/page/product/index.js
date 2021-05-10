@@ -257,6 +257,9 @@ export default {
         this.examplevideo_list = arr;
       }
     },
+    goImgs() {
+      this.$router.push({ path: '/productPics', query: { imgs: this.detailImgs.image } })
+    },
     onevaluation(index) {
       if (index == 1) {
         this.evaluation_list = this.evaluation;

@@ -235,30 +235,15 @@
         <!--        <h5>详情范例</h5>-->
       </div>
       <div class="imgDiv">
-        <div v-for="(item, index) in detailImgs.image_list" :key="index">
+        <div>
           <div class="detailImg">
-            <img :src="item" alt="" />
+            <img :src="detailImgs.image_list[0]" alt="" />
           </div>
         </div>
       </div>
 
-      <div
-        class="Loadmore"
-        @click="openDetail(1)"
-        v-if="
-          (detailImgs.image.length > 3) & (detailImgs.image_list.length < 4)
-        "
-      >
-        全部展开<van-icon name="arrow-down" />
-      </div>
-      <div
-        class="Loadmore"
-        @click="openDetail(2)"
-        v-if="
-          (detailImgs.image.length > 3) & (detailImgs.image_list.length > 3)
-        "
-      >
-        收起<van-icon name="arrow-up" />
+      <div class="Loadmore" @click="goImgs" v-if="detailImgs.image.length > 1">
+        查看所有<van-icon name="arrow-down" />
       </div>
     </div>
     <!-- 参数 -->

@@ -196,6 +196,16 @@ const routes = [
     },
   },
   {
+    // 工单系统问题显示
+    path: '/productPics',
+    name: 'productPics',
+    component: () => import('@/views/page/productPics/productPics.vue'),
+    meta: {
+      title: '详情图片',
+      keepAlive: false,
+    },
+  },
+  {
     // 工单系统
     path: '/workOrder',
     name: 'workOrder',
