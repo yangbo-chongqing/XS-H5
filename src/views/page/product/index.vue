@@ -4,16 +4,19 @@
     <div class="headPosition">
       <div class="product-head" v-if="dataInfo.image" @click="expandatlas">
         <img :src="dataInfo.image" alt="" />
-        <div class="product-head-atlas" v-if="dataInfo.picture_count">
-          <div class="product-head-atlas-img">
-            <img src="@/assets/images/lm77lsYIucG5n.png" alt="" />
-          </div>
-          <div class="product-head-atlas-title">
-            实拍{{ dataInfo.picture_count }}张 <van-icon name="arrow" />
-          </div>
-        </div>
       </div>
       <div :class="{ 'product-info': true, 'have-Pic': !dataInfo.image }">
+        <div class="product-head-head">
+          <div class="product-head-atlas" v-if="dataInfo.picture_count">
+            <div class="product-head-atlas-img">
+              <img src="@/assets/images/lm77lsYIucG5n.png" alt="" />
+            </div>
+            <div class="product-head-atlas-title">
+              实拍{{ dataInfo.picture_count }}张 <van-icon name="arrow" />
+            </div>
+          </div>
+        </div>
+
         <div class="product-name" v-if="dataInfo.name">{{ dataInfo.name }}</div>
         <!--       <div class="product-tip" v-if="dataInfo.unique"><label>产品编号：</label><span>{{dataInfo.unique}}</span></div>-->
         <!--       <div class="product-tip" v-if="dataInfo.factory"><label>生产厂家：</label><span>{{dataInfo.factory}}</span></div>-->
@@ -70,7 +73,7 @@
           </div>
         </div>
 
-        <div class="product-tit">
+        <!-- <div class="product-tit">
           <span
             class="product-tit-content"
             v-if="dataInfo.manual_id != 0"
@@ -78,9 +81,9 @@
               jumpRoute('/instructions', { manual_id: dataInfo.manual_id })
             "
           >
-            <span>使用说明书</span><van-icon name="arrow" />
+            <span>指引及问题</span><van-icon name="arrow" />
           </span>
-        </div>
+        </div> -->
       </div>
     </div>
     <div class="product-a"></div>
@@ -202,6 +205,23 @@
         >
           <a onclick="document.getElementById('activity').scrollIntoView()">
             <h5>活动</h5>
+            <h6><span></span></h6>
+          </a>
+        </div>
+        <div
+          v-if="dataInfo.manual_id != 0 && pkid"
+          class="product-title-list"
+          :class="{
+            'title-set':
+              examplevideo.length <= 0 &&
+              activity.length <= 0 &&
+              evaluation.length <= 0 &&
+              service == null &&
+              problem.length <= 0,
+          }"
+        >
+          <a onclick="document.getElementById('question').scrollIntoView()">
+            <h5>指引</h5>
             <h6><span></span></h6>
           </a>
         </div>
@@ -520,6 +540,29 @@
         收起<van-icon name="arrow-up" />
       </div>
     </div>
+    <!-- 指引及问题 -->
+    <div
+      class="product-activity"
+      id="question"
+      v-if="dataInfo.manual_id != 0 && pkid"
+    >
+      <div class="product-activity-title"><h5>指引及问题</h5></div>
+      <div class="product-activity-content">
+        <div class="product-activity-list">
+          <a
+            href="javascript:void(0);"
+            @click="
+              jumpRoute('/instructions', { manual_id: dataInfo.manual_id })
+            "
+          >
+            <img
+              src="http://voice.xunsheng.org.cn/sydt/muse_12/1620634438351.png"
+              alt=""
+            />
+          </a>
+        </div>
+      </div>
+    </div>
     <!--    圈子-->
     <div
       class="product-problem"
@@ -546,7 +589,7 @@
       </div>
     </div>
     <div v-if="pkid" class="bottomPush" @click="go">
-      跳转至宣传码<van-icon style="vertical-align: middle" name="arrow" />
+      点击了解更多<van-icon style="vertical-align: middle" name="arrow" />
     </div>
     <!--    底部菜单图片-->
     <div class="product-foot-img">

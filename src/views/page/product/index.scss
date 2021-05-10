@@ -12,42 +12,11 @@
       height: 100%;
       object-fit: cover;
     }
-    .product-head-atlas{
-      position: absolute;
-      left: 50%;
-      top: 200px;
-      font-size: 12px;
-      background-color: rgba(0,0,0,0.5);
-      padding: 4px 6px;
-      transform: translate(-50%, -50%);
-      color: #ffffff;
-      box-sizing: border-box;
-      display: flex;
-      border-radius: 25px;
-      align-items: center;
-      .product-head-atlas-img{
-        width: 12px;
-        height: 12px;
-        margin-right: 6px;
-        margin-left: 4px;
-        img{
-          width: 100%;
-          height: 100%;
-        }
-      }
-      .product-head-atlas-title{
-        display: flex;
-        //justify-content: center;
-        align-items: center;
-        span{
-          display: flex;
-          align-items: center;
-        }
-      }
-    }
+
    }
   .product-info{
        width: 100%;
+
      padding: 20px;
      //border-radius: 10px 10px 0 0;
      background-color: #fff;
@@ -570,4 +539,40 @@ margin-top:.7rem;
 }
 .have-Pic{
   position:static !important;
+}
+.product-head-head{
+  position: relative;
+  .product-head-atlas{
+    position: absolute;
+    left: 50%;
+    top: -40px;
+    font-size: 12px;
+    background-color: rgba(0,0,0,0.5);
+    padding: 4px 6px;
+    transform: translate(-50%, -50%);
+    color: #ffffff;
+    box-sizing: border-box;
+    display: flex;
+    border-radius: 25px;
+    align-items: center;
+    .product-head-atlas-img{
+      width: 12px;
+      height: 12px;
+      margin-right: 6px;
+      margin-left: 4px;
+      img{
+        width: 100%;
+        height: 100%;
+      }
+    }
+    .product-head-atlas-title{
+      display: flex;
+      //justify-content: center;
+      align-items: center;
+      span{
+        display: flex;
+        align-items: center;
+      }
+    }
+  }
 }
