@@ -27,6 +27,9 @@
         <div class="product-tip" v-if="water_info.certificate_id">
           <label>合格证：</label><span>{{ water_info.certificate_id }}</span>
         </div>
+        <div class="product-tip" v-if="water_info.engine">
+          <label>发动机号：</label><span>{{ water_info.engine }}</span>
+        </div>
         <div class="product-extend" v-if="productExtend">
           <div class="extend-content" v-show="extendshow">
             <div
@@ -621,29 +624,6 @@
         </span>
       </div>
     </div>
-
-    <!--     <div class="product-in-list">-->
-    <!--       <div class="product-in-item" v-if="expand_manual>7"  @click="jumpRoute('/productDetails',{muse_id:muse_id,pkid:pkid,currentsum_id:1})">-->
-    <!--         <span><van-icon name="orders-o" color="#739efe" /></span>-->
-    <!--         <p>原厂说明书</p>-->
-    <!--         <span class="right"><van-icon name="arrow" /></span>-->
-    <!--       </div>-->
-    <!--       <div class="product-in-item" v-if="expand_details>7" @click="jumpRoute('/productDetails',{muse_id:muse_id,pkid:pkid,currentsum_id:2})">-->
-    <!--         <span><van-icon name="records" color="#739efe" /></span>-->
-    <!--         <p>产品详情</p>-->
-    <!--         <span class="right"><van-icon name="arrow" /></span>-->
-    <!--       </div>-->
-    <!--&lt;!&ndash;       <div class="product-in-item" @click="jumpRoute('/productDetails',{muse_id:muse_id,pkid:pkid,currentsum_id:3})">&ndash;&gt;-->
-    <!--         <span><van-icon name="todo-list-o" color="#739efe" /></span>-->
-    <!--&lt;!&ndash;         <p>预约服务</p>&ndash;&gt;-->
-    <!--&lt;!&ndash;         <span class="right"><van-icon name="arrow" /></span>&ndash;&gt;-->
-    <!--&lt;!&ndash;       </div>&ndash;&gt;-->
-    <!--       <div v-if="dataInfo.video.length>0" class="product-in-item" @click="jumpRoute('/video',{muse_id:muse_id,pkid:pkid})">-->
-    <!--         <span><van-icon name="video-o" color="#739efe" /></span>-->
-    <!--         <p>相关视频</p>-->
-    <!--         <span class="right"><van-icon name="arrow" /></span>-->
-    <!--       </div>-->
-    <!--     </div>-->
     <div class="product-attention" v-if="attention">
       <div><img :src="attention" alt="" /></div>
       <p style="color: #9a9a9a; margin-bottom: 20px">
