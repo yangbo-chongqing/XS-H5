@@ -30,6 +30,9 @@
         <div class="product-tip" v-if="water_info.engine">
           <label>发动机号：</label><span>{{ water_info.engine }}</span>
         </div>
+        <div class="product-tip" v-if="water_info.ckdate">
+          <label>出库时间：</label><span>{{ water_info.ckdate }}</span>
+        </div>
         <div class="product-extend" v-if="productExtend">
           <div class="extend-content" v-show="extendshow">
             <div

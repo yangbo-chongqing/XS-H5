@@ -2,10 +2,10 @@ import api from '@/request/xsdt';
 import axios from 'axios';
 import BigImg from './BigImg/bigImg.vue';
 import global from '@/global';
-import { Icon, Col, Row, Swipe, SwipeItem, NavBar, List, Uploader, Button , ImagePreview , Overlay } from 'vant';
+import { Icon, Col, Row, Swipe, SwipeItem, NavBar, List, Uploader, Button, ImagePreview, Overlay } from 'vant';
 import { showLoading, hideLoading } from '@/request/loading';
 import Viewer from "viewerjs";
-import {parseQuery} from "@/utils/utils";
+import { parseQuery } from "@/utils/utils";
 import Exif from 'exif-js'
 
 export default {
@@ -21,7 +21,7 @@ export default {
     VanUploader: Uploader,
     VanButton: Button,
     VanOverlay: Overlay,
-    ImagePreview:ImagePreview,
+    ImagePreview: ImagePreview,
     // Loading:Loading,
     'big-img': BigImg
   },
@@ -59,10 +59,10 @@ export default {
       headerImage: '',
       picValue: '',
       upImgUrl: '',
-      list_arr:[],
-      commentList_index:'',
-      wrapper_show:false,   //订阅显示与隐藏
-      subscribe:'',     //订阅二维码
+      list_arr: [],
+      commentList_index: '',
+      wrapper_show: false,   //订阅显示与隐藏
+      subscribe: '',     //订阅二维码
     }
   },
   computed: {
@@ -268,7 +268,7 @@ export default {
 
     },
     //获取广告弹窗数据
-    getadvertising(){
+    getadvertising() {
       let data = {
         muse_id: this.relicsDataInfo.muse_id,
         position: 1,
@@ -277,20 +277,20 @@ export default {
         console.log(res)
         if (res.status == 200) {
           this.imgSrc = res.data.info
-          if(res.data.info){
-            if(this.imgSrc.method==1){
+          if (res.data.info) {
+            if (this.imgSrc.method == 1) {
               this.showImg = true;
-            }else if(this.imgSrc.method==2){
-              let time=  window.localStorage.getItem('time')
-              if(time<this.dealWithTime(new Date())){
-              }else {
+            } else if (this.imgSrc.method == 2) {
+              let time = window.localStorage.getItem('time')
+              if (time < this.dealWithTime(new Date())) {
+              } else {
                 let day3 = new Date();
-                day3.setTime(day3.getTime()+24*60*60*1000);
-                let s3 = day3.getFullYear()+"-" + (day3.getMonth()+1) + "-" + day3.getDate()+ "-" + day3.getHours()+ ':' + day3.getMinutes() + ':' + day3.getSeconds();
-                window.localStorage.setItem('time',JSON.stringify(s3))
+                day3.setTime(day3.getTime() + 24 * 60 * 60 * 1000);
+                let s3 = day3.getFullYear() + "-" + (day3.getMonth() + 1) + "-" + day3.getDate() + "-" + day3.getHours() + ':' + day3.getMinutes() + ':' + day3.getSeconds();
+                window.localStorage.setItem('time', JSON.stringify(s3))
                 this.showImg = true;
               }
-            }else {
+            } else {
 
             }
           }
@@ -341,28 +341,30 @@ export default {
     },
     // 自定义事件
     clickImg(e) {
-      // console.log(e)
-      if(e.target.getAttribute('data-id')){
+      // console.log(e.target)
+      // return
+      if (e.target.getAttribute('data-id') && e.target.getAttribute('data-type')) {
         let data_id = (e.target.getAttribute('data-id'))
-
+        console.log(data_id)
         let data = {
-          id:data_id,
+          id: data_id,
           // page_size: this.page_size,
           // relics_id: this.id,
           // reply_id: '',
         }
         api.getdetails(this.qs.stringify(data)).then((res) => {
           // console.log(res)
+          console.log(23232)
           if (res.status == 200) {
             ImagePreview({
-              images:res.data.info.images ,
+              images: res.data.info.images,
               'max-zoom': 5,
               'min-zoom': 10,
               background: '#0000000'
             });
           }
         });
-      }else {
+      } else {
         if (e.target.nodeName == 'IMG') {
           if (e.target.parentElement.parentElement.tagName !== 'A' && e.target.parentElement.tagName !== 'A') {
             if (e.target.className == 'a-href-icon') {
@@ -371,6 +373,7 @@ export default {
             // this.showImg = true;
             // 获取当前图片地址
             // this.imgSrc = e.target.src;
+            console.log(3232)
             ImagePreview({
               images: [
                 e.target.src
@@ -531,64 +534,64 @@ export default {
       let _this = this;
       if (this.limit !== undefined) this.limit--;
       if (this.limit !== undefined && this.limit < 0) return;
-      lrz(el, {quality: 0.3})
-          .then(function (rst) {
-            //成功时执行
-            // console.log(rst)
-            const fd = rst.formData;
-            axios.post('/api/UploadFile', fd, {
-              headers: {
-                "Content-Type": "multipart/form-data"
+      lrz(el, { quality: 0.3 })
+        .then(function (rst) {
+          //成功时执行
+          // console.log(rst)
+          const fd = rst.formData;
+          axios.post('/api/UploadFile', fd, {
+            headers: {
+              "Content-Type": "multipart/form-data"
+            }
+          }).then((res) => {
+            // console.log(res.data.message === '上传成功');
+            if (res.data.message === '上传成功') {
+              let imgs = res.data.data.file_path;
+              let data = {
+                relics_id: _this.id,
+                reply_id: _this.setData.reply_id,
+                comment: _this.commentContent,
+                image: imgs,
+                voice: '',
               }
-            }).then((res) => {
-              // console.log(res.data.message === '上传成功');
-              if (res.data.message === '上传成功') {
-                let imgs = res.data.data.file_path;
-                let data = {
-                  relics_id: _this.id,
-                  reply_id: _this.setData.reply_id,
-                  comment: _this.commentContent,
-                  image: imgs,
-                  voice: '',
-                }
-                // this.$toast.success(res.data.message);
-                api.CommentEntry(_this.qs.stringify(data)).then((res) => {
-                  // console.log(res)
-                  if (res.status == 200) {
-                    this.$toast.clear();
-                    this.$toast.success(res.message);
-                    if (_this.setData.reply_id === '' || _this.setData.reply_id == null) {
-                      _this.commentList.unshift(res.data.info)
-                    } else {
-                      console.log(222)
-                      _this.setData.reply_id = '';
-                      _this.commentList[_this.commentList_index].list.push(res.data.info)
-                    }
-                    _this.setData.reply_id = '';
-                    _this.commentContent = '';
-                    _this.placeholder = '请输入评论';
-                  } else if (res.status == 401) {
-                    _this.$router.push({
-                      path: '/toke',
-                    });
-                  }
-                }).then((err) => {
+              // this.$toast.success(res.data.message);
+              api.CommentEntry(_this.qs.stringify(data)).then((res) => {
+                // console.log(res)
+                if (res.status == 200) {
                   this.$toast.clear();
-                  console.log(err)
-                });
-              }
-            }).then((err) => {
-              // file.status="failed";
-              // file.message="上传失败";
-              this.$toast.clear();
-              // this.$toast.fail('上传失败');
-            });
-          }).catch(function (error) {
-        //失败时执行
-        // this.$toast.fail('上传失败');
-      }).always(function () {
-        this.$toast.clear();
-      })
+                  this.$toast.success(res.message);
+                  if (_this.setData.reply_id === '' || _this.setData.reply_id == null) {
+                    _this.commentList.unshift(res.data.info)
+                  } else {
+                    console.log(222)
+                    _this.setData.reply_id = '';
+                    _this.commentList[_this.commentList_index].list.push(res.data.info)
+                  }
+                  _this.setData.reply_id = '';
+                  _this.commentContent = '';
+                  _this.placeholder = '请输入评论';
+                } else if (res.status == 401) {
+                  _this.$router.push({
+                    path: '/toke',
+                  });
+                }
+              }).then((err) => {
+                this.$toast.clear();
+                console.log(err)
+              });
+            }
+          }).then((err) => {
+            // file.status="failed";
+            // file.message="上传失败";
+            this.$toast.clear();
+            // this.$toast.fail('上传失败');
+          });
+        }).catch(function (error) {
+          //失败时执行
+          // this.$toast.fail('上传失败');
+        }).always(function () {
+          this.$toast.clear();
+        })
     },
 
 
@@ -748,9 +751,9 @@ export default {
     //将base64转换为文件
     dataURLtoFile(dataurl) {
       var arr = dataurl.split(','),
-          bstr = atob(arr[1]),
-          n = bstr.length,
-          u8arr = new Uint8Array(n)
+        bstr = atob(arr[1]),
+        n = bstr.length,
+        u8arr = new Uint8Array(n)
       while (n--) {
         u8arr[n] = bstr.charCodeAt(n)
       }
@@ -812,7 +815,7 @@ export default {
         // 要执行的方法
         this.relicsInfo();
         this.getsubscribe();
-        this.wrapper_show =false;
+        this.wrapper_show = false;
       }
     }
   }
